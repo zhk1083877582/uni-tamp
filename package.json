@@ -1,0 +1,23 @@
+{
+  "name": "tc-xcx",
+  "version": "1.0.0",
+  "description": "前言：uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、H5、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@172.16.1.65:TospurHouse/WXProgram.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cos-wx-sdk-v5": "^0.7.10",
+    "crypto-js": "^4.0.0",
+    "moment": "^2.27.0",
+    "tim-wx-sdk": "^2.7.7",
+    "uview-ui": "^1.6.7"
+  }
+}

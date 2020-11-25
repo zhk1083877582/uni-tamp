@@ -1,0 +1,57 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
+		{
+			"path": "pages/reportDetail/index",
+			"style": {
+				"navigationBarTitleText": "专属置业报告",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				}
+		
+			}
+		},
+		{
+			"path": "pages/book/index",
+			"style": {
+				"navigationBarTitleText": "专属置业小蓝书",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				}
+		
+			}
+		},
+		{
+			"path": "pages/idealHome/index",
+			"style": {
+				"navigationBarTitleText": "我的理想家",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				}
+			}
+		},
+		{
+			// "path": "pages/index/index",
+			"path": "pagesHouse/house/house1",
+			"style": {
+				"navigationBarTitleText": "同策好房",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none"
+				}
+			}
+		}		
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "同策好房",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#FFDEA9"
+	}
+	
+}
