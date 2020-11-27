@@ -1,9 +1,7 @@
 <!-- 方案推荐 -->
 <template>
 	<view class='recommend'>
-		<view class="title"><i class="iconfont icon370wanfuwuyonghu"></i><text class="span">方案推荐</text> <i class="iconfont icon370wanfuwuyonghu"></i> </view>
-		<view class="content">
-			<view class="top_bg_img"></view>
+		<card title="方案推荐">
 			<view class="list_item" @click="toDetail(building.buildingId)">
 				<view class="list_item_warp">
 					<view class="img_warp">
@@ -23,14 +21,76 @@
 					</view>
 				</view>
 			</view>
-		</view>
+			<u-tabs 
+				name='cate_name' 
+				:list="tablist" 
+				:is-scroll="true" 
+				:current="current" 
+				@change="change" 
+				active-color="#ECCE9E" 
+				inactive-color="#928B94" 
+				font-size="30"
+				bar-width='40'
+				bar-height='6'
+				bg-color='transparent'
+				>
+				</u-tabs>
+			<view class="change_box">
+				<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
+				<view class="rows">
+					<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">A户型</text>
+				</view>
+				<view class="rows">
+					<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
+				</view>
+				<view class="rows">
+					<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
+				</view> 
+				<view class="rows">
+					<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
+				</view> 
+				<view class="rows">
+					<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FF5835;">A户型</text>
+				</view>
+				<view class="rows">
+					<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">A户型</text>
+				</view>
+				<view class="rows">
+					<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000元，每月递减30元</text>
+					<view class="tool_tip_warp">
+						<i class="iconfont iconwenhao question" @click="showTooltip()"></i>
+						<view class="tool_tip" v-show="isShowTooltip">
+							<i class="sanJ"></i>
+							<view>
+								首付35% 贷款30年
+							</view>
+							<view>
+								年贷款利率4.9% 等额本息
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<view class="reason">
+				<view class="sanJ"></view>
+				<view class="reason_title">
+					<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
+				</view>
+				<view class="reason_content">
+					三室两厅适合一家三口居住，户型正气南北通透。主卧畅享奢适空间，自成一方私密天地全明户型设计室内清新怡人，总价790元符合预算。
+				</view>
+			</view>
+		</card>	
 	</view>
 </template>
 
 <script>
-
+import card from '@/components/card/card.vue'
 export default {
-	components: {},
+	components: {
+		card
+	},
 	data() {
 		return {
 			building:{
@@ -62,11 +122,31 @@ export default {
 				"streetName": "黄浦滨江",
 				"updateTime": "2020-11-12 10:08:27"
 			},
+			tablist:[{
+					cate_name: '方案一'
+				}, {
+					cate_name: '方案二'
+				}, {
+					cate_name: '方案三'
+				}, {
+					cate_name: '方案四'
+				}, {
+					cate_name: '方案五'
+				}, {
+					cate_name: '方案六',
+                    cate_count: 5
+				}],
+				current: 0,
+				isShowTooltip:false
 		};
 	},
 	computed: {},
 	watch: {},
 	methods: {
+		//气泡显示
+		showTooltip(){
+			this.isShowTooltip = !this.isShowTooltip
+		},
 		toDetail(){
 		
 		},
@@ -79,6 +159,10 @@ export default {
 			}
 			return this.$formatter.switchName('propertyType',newKey)
 		},
+		change(index) {
+			this.current = index;
+			console.log(this.current)
+		}
 	},
 	created() {
 
@@ -90,61 +174,9 @@ export default {
 </script>
 <style lang='scss' scoped>
 .recommend{
-	margin: 0 40rpx;
-	margin-bottom: 80rpx;
-	.content{
-		background: #ffffff;
-		border-radius: 20rpx;
-		padding: 50rpx 24rpx;
-		padding-top: 70rpx;
-		position: relative;
-		overflow: hidden;
-		.top_bg_img{
-			height: 20rpx;
-			width: 100%;
-			background-color: #e6bb78;
-			top: 0;
-			left: 0;
-			position: absolute;
-		}
-	}
-	.title {
-		font-size: 40rpx;
-		line-height: 40rpx;
-		font-weight: bold;
-		text-align: center;
-		color: #fff9ea;
-		margin-top: 70rpx;
-		margin-bottom: 30rpx;
-		.span{
-			background: linear-gradient(315deg,#e6bb78, #fdedd7 53%, #ebc382);
-			-webkit-background-clip: text;
-			color: transparent;
-			padding: 0 20rpx;
-		}
-		.iconfont {
-			width: 30rpx;
-			height: 30rpx;
-		}
-	}
-
 	.list_item{
 		padding: 30rpx 0;
-		padding-left: 16rpx;
 		position: relative;
-		&:not(:last-child)::after{
-			position: absolute;
-			box-sizing: border-box;
-			content: ' ';
-			pointer-events: none;
-			top: -50%;
-			right: -50%;
-			bottom: -50%;
-			left: -50%;
-			border-bottom: 2rpx solid #ebedf0;
-			-webkit-transform: scale(0.5);
-			transform: scale(0.5);
-		}
 		.list_item_warp{
 			display:flex;
 			overflow: hidden;
@@ -243,6 +275,118 @@ export default {
 					}
 				}    
 			}
+		}
+	}
+	
+	.change_box{
+		/* overflow: hidden; */
+		border: 2rpx solid #f6f4f9;
+		.change_image{
+			width: 622rpx;
+			height: 342rpx;
+		}
+		/deep/uni-image{
+			display: block;
+		}
+		.rows{
+			padding: 28rpx;
+			padding-left: 25rpx;
+			border-top: 2rpx solid #f6f4f9;
+			display: flex;
+			.iconfont{
+				width: 28rpx;
+				height: 28rpx;
+				margin-right: 15rpx;
+			}
+			.lable{
+				font-size: 28rpx;
+				color: #ae9d8a;
+				line-height: 30rpx;
+			}
+			.text{
+				font-size: 28rpx;
+				font-weight: 400;
+				color: #2b2014;
+				line-height: 30rpx;
+				margin-left: 55rpx;
+			}
+			.question{
+				margin-left: 10rpx;
+				width: 32rpx;
+				height: 32rpx;
+			}
+			.tool_tip_warp{
+				position: relative;
+				.tool_tip{
+					z-index:100;
+					width: 331rpx;
+					position: absolute;
+					opacity: 0.9;
+					background: #251b11;
+					padding: 18rpx 24rpx;
+					font-size: 24rpx;
+					color: #b2a18f;
+					line-height: 36rpx;
+					top: 60rpx;
+					left: -250rpx;
+					.sanJ{
+						content: "";
+						position: absolute;
+						top: -38rpx;
+						left: 255rpx;
+						border-width: 20rpx;
+						border-style: solid;
+						border-color: transparent transparent #251b11 transparent;
+					}
+				}
+			}
+		}
+	}
+	.reason{
+		border: 1px solid #f6f4f9;
+		border-radius: 0px 2px 4px 2px;
+		padding: 54rpx 24rpx 17rpx 24rpx;
+		margin-top: 34rpx;
+		position: relative;
+		.reason_title{
+			display: flex;
+			margin-bottom: 23rpx;
+			.text{
+				font-size: 28rpx;
+				text-align: left;
+				color: #ae9d8a;
+				line-height: 28rpx;
+				margin-left: 13rpx;
+			}
+			.icontuijianliyou{
+				color: #FFC97E
+			}
+		}
+		.reason_content{
+			font-size: 28rpx;
+			font-weight: 400;
+			text-align: justify;
+			color: #2b2014;
+			line-height: 52rpx;
+			text-indent: 50rpx;
+		}
+		.sanJ:after{
+			content: "";
+			position: absolute;
+			top: -43rpx;
+			left: 116rpx;
+			border-width: 25rpx;
+			border-style: solid;
+			border-color: transparent transparent #FFFFFF transparent;
+		}
+		.sanJ:before{
+			content: "";
+			position: absolute;
+			top: -45rpx;
+			left: 118rpx;
+			border-width: 24rpx;
+			border-style: solid;
+			border-color: transparent transparent #f6f4f9 transparent;
 		}
 	}
 }

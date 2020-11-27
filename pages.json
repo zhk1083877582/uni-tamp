@@ -4,54 +4,143 @@
 	},
 	"pages": [
 		{
-			"path": "pages/reportDetail/index",
+			"path": "pages/journey/index",
 			"style": {
-				"navigationBarTitleText": "专属置业报告",
-				"app-plus": {
-					"titleNView": false,
-					"bounce": "none"
-				}
-		
-			}
-		},
-		{
-			"path": "pages/book/index",
-			"style": {
-				"navigationBarTitleText": "专属置业小蓝书",
-				"app-plus": {
-					"titleNView": false,
-					"bounce": "none"
-				}
-		
-			}
-		},
-		{
-			"path": "pages/idealHome/index",
-			"style": {
-				"navigationBarTitleText": "我的理想家",
+				"navigationBarTitleText": "置业旅程",
 				"app-plus": {
 					"titleNView": false,
 					"bounce": "none"
 				}
 			}
-		},
-		{
-			// "path": "pages/index/index",
-			"path": "pagesHouse/house/house1",
-			"style": {
-				"navigationBarTitleText": "同策好房",
-				"app-plus": {
-					"titleNView": false,
-					"bounce": "none"
-				}
-			}
-		}		
+		}
 	],
+	"subPackages": [
+		{
+			"root": "pagesReport",
+			"pages":[
+				{
+					"path": "reportDetail/index",
+					"style": {
+						"navigationBarTitleText": "专属置业报告",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+				
+					}
+				},
+				{
+					"path": "book/index",
+					"style": {
+						"navigationBarTitleText": "专属置业小蓝书",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+				
+					}
+				},
+				{
+					"path": "idealHome/index",
+					"style": {
+						"navigationBarTitleText": "我的理想家",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				}
+			]
+		},
+		{
+		"root": "pagesHouse",
+		"pages": [{
+					"path": "house/house",
+					"style": {
+						"navigationBarTitleText": "楼盘详情",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "moreBuildDetail/index",
+					"style": {
+						"navigationBarTitleText": "楼盘详情",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "unitBuilding/index",
+					"style": {
+						"navigationBarTitleText": "楼栋",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "majordomoList/index",
+					"style": {
+						"navigationBarTitleText": "优秀管家",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "propertyDynamic/index",
+					"style": {
+						"navigationBarTitleText": "楼盘动态",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "VR/index",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "webView/webView",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "houseTypeList/houseTypeList",
+					"style": {
+						"navigationBarTitleText": "户型列表",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				},{
+					"path": "houseTypeDetails/houseTypeDetails",
+					"style": {
+						"navigationBarTitleText": "户型详情",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
+				}]
+	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "同策好房",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#FFDEA9"
+		"navigationBarBackgroundColor": "#251B11",
+		"backgroundColor": "#F8F8F8"
 	}
-	
 }

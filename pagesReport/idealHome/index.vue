@@ -116,13 +116,20 @@ export default {
 </script>
 <style lang='scss' scoped>
 	.ideal_home{
+		position: absolute;
+		top: 40rpx;
 		width: 670rpx;
-		margin: 40rpx auto;
+		left: 50%;
+		transform: translate(-50%);
 		background-color: #FFFFFF;
 		border-radius: 20rpx;
 		.top_title{
 			display: flex;
 			justify-content: center;
+			padding: 0rpx 0 20rpx 0;
+			background: url(../../static/report-img/yuanhu.png) no-repeat;
+			background-position: top center;
+			background-size: 100% 85rpx;
 			.avatarTou{
 				margin: 39rpx 0 21rpx 0;
 			}
@@ -139,7 +146,7 @@ export default {
 		
 		.main{
 			padding: 0 40rpx;
-			padding-bottom: 14rpx;
+			/* padding-bottom: 14rpx; */
 			.main_content{
 				display: flex;
 				justify-content: space-between;
@@ -161,7 +168,7 @@ export default {
 						flex-direction: column;
 						flex: 1;
 						.item_view{
-							margin-bottom: 33rpx;
+							margin-bottom: 28rpx;
 							color: #928b94;
 							display: flex;
 							.color_red{

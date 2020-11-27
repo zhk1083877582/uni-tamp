@@ -1,0 +1,89 @@
+<!-- 置业小贴士 -->
+<template>
+	<view class='tips'>
+		<card title="置业小贴士">
+			<view class="tips_warp">
+				<u-avatar class="avatarTou" :src="headPortrait" size='88' mode="circle"></u-avatar>
+				<view class="list">
+					<view class="list_item" v-for="(item,index) in list" :key="index">
+						<text class="yuan"></text> <text class="text">{{item.text}}</text>
+					</view>
+				</view>
+			</view>
+		</card>
+	</view>
+</template>
+
+<script>
+import card from '@/components/card/card.vue'
+export default {
+	components: {
+		card
+	},
+	data() {
+		return {
+			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+			list:[
+				{
+					text:'建议您先了解房源在做决策，多看看房子，多听一些购房建议，有利无害。'
+				},
+				{
+					text:'建议您按照您的需求的优先级来选择楼盘；总房款>项目品质>配套设施>个人喜好 '
+				},
+				{
+					text:'建议您可以选择性的带一些资金，以防您遇见您喜欢的项目可以做小定。'
+				},
+				{
+					text:'建议您如果出来看房，可以带上家人一起看房共同决策。 '
+				},
+				{
+					text:'建议您不要在一个售楼处提及另外一个项目，这样销售会花大量的时间来黑另一个楼盘，浪费咱们的时间，您放心，同策咨询师会为您讲清楚每一个项目的优势与劣势'
+				},
+				{
+					text:'最后，祝您选到合适的项目。'
+				}
+			],
+			
+		};
+	},
+	computed: {},
+	watch: {},
+	methods: {
+
+	},
+	created() {
+
+	},
+	mounted() {
+
+	},
+}
+</script>
+<style lang='scss' scoped>
+.tips_warp{
+	display: flex;
+	margin-bottom: 100rpx;
+	.list{
+		.list_item{
+			display: flex;
+			margin-bottom: 20rpx;
+			.yuan{
+				display: block;
+				background-color: #C1AF9B;
+				width: 12rpx;
+				height: 12rpx;
+				border-radius: 50%;
+				vertical-align: baseline;
+				margin: 0 20rpx;
+				margin-top: 12rpx;
+			}
+			.text{
+				font-size: 24rpx;
+				color: #877765;
+				line-height: 36rpx;
+				flex: 1;
+			}
+		}
+	}
+}
+</style>

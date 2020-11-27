@@ -18,12 +18,19 @@
 				<view class="card">
 					置业计划书
 				</view>
-				<view class="qundai"></view>
+				<view class="qundai">
+					<view class="HDJ">
+						
+					</view>
+				</view>
 			</view>
 		</view>
-		<view class="btn">
-			敬呈<text class="user_name">杨先生</text>亲启
+		<view class="btn" @click="clickHandle" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+			
 		</view>
+		<u-button hover-class='none' class="btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+			敬呈<text class="user_name">杨先生</text>亲启
+		</u-button>
 		<view class="bottom_text">
 			温馨提示：授权查看您的置业计划书，获得完整服务
 		</view>
@@ -42,7 +49,50 @@ export default {
 	computed: {},
 	watch: {},
 	methods: {
-
+		onGetPhoneNumber(e) {
+			console.log(e, 1);
+			// if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+			// 	//用户决绝授权
+			// 	//拒绝授权后弹出一些提示
+			// } else {
+			// 	//允许授权
+			// 	let params = {
+			// 		iv: e.detail.iv,
+			// 		encryData: e.detail.encryptedData,
+			// 		sessionKey: this.session_key,
+			// 		openId: this.openid,
+			// 		loginType: 0,
+			// 		registerCity:this.$cache.getCache('storageCity')||''
+			// 	};
+			// 	// #ifdef MP-BAIDU
+			// 	let api =  '/tospurWeb/baiduapp/baiduLogin'
+			// 	// #endif
+			// 	// #ifdef MP-WEIXIN
+			// 	let api = '/tospurWeb/wxapp/wxLogin'
+			// 	// #endif
+			// 	// #ifdef MP-TOUTIAO
+			// 	let api = '/tospurWeb/toutiaoApp/toutiaoLogin'
+			// 	// #endif
+			// 	getData(api, params)
+			// 		.then(res => {
+			// 			this.$cache.setCache('M-Token', res['X-Token']);
+			// 			this.$cache.setCache('Login-Data', res);
+			// 			this.$cache.setCache('loginFlag', true);
+			// 			this.$cache.setCache('loginFlag1', true);			
+			// 			if(this.$cache.getCache('LoginTopath')){
+			// 				uni.reLaunch({
+			// 					url:'/'+this.$cache.getCache('LoginTopath')
+			// 				});
+			// 			}else{
+			// 				uni.navigateBack()
+			// 			}
+						
+			// 		})
+			// 		.catch(err => {
+			// 			console.log('请求结果报错', err);
+			// 		});
+			// }
+		}
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
@@ -59,15 +109,19 @@ export default {
 <style lang='scss' scoped>
 .book_blue{
 	.btn{
-		margin: 0 auto;
-		width: 398rpx;
-		height: 80rpx;
-		background: linear-gradient(360deg,#E6BB78, #FDE2BD 99%);
-		margin-top: 72rpx;
-		color: #593B1C;
-		text-align: center;
-		line-height: 80rpx;
-		font-size: 32rpx;
+		
+		/deep/.u-btn{
+			margin: 0 auto;
+			width: 398rpx;
+			height: 80rpx;
+			background: url(../../static/report-img/book-button.png) no-repeat;
+			background-size: 100% 100%;
+			margin-top: 72rpx;
+			color: #593B1C;
+			text-align: center;
+			line-height: 80rpx;
+			font-size: 32rpx;
+		}
 		.user_name{
 			font-weight: 600;
 			color: #593b1c;
@@ -128,17 +182,27 @@ export default {
 			width: 610rpx;
 			height: 21rpx;
 			background: linear-gradient(180deg,#f7e5bc, #edc687);
+			position: relative;
+			.HDJ{
+				width: 104rpx;
+				height: 93rpx;
+				background: url(../../static/report-img/book-X.png) no-repeat;
+				background-size: 100% 100%;
+				position: absolute;
+				top: -19rpx;
+				right: 72rpx;
+			}
 		}
 		.warp_border{
 			margin: 0 auto;
 			width: 570rpx;
 			height: 718rpx;
-			border: 1px solid;
-			border-image: linear-gradient(180deg, #edc687, #3e2a16 68%, #19130b) 1 1;
 			position: absolute;
 			top: 20rpx;
 			left: 20rpx;
 			z-index: 1;
+			background: url(../../static/report-img/book-border.png) no-repeat;
+			background-size: 100% 100%;
 			/* .color_yel{
 				
 				background: transparent;
