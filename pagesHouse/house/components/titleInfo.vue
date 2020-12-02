@@ -8,13 +8,13 @@
 			</view>
 			<view class="more-tip" v-if="tipList">
 				<view v-for="item in tipList" :key="item.text"  class="tip-item">
-					<image class="icon-check" src="../../static/icon-check2x.png" mode=""></image>
+					<!-- <image class="icon-check" src="../../static/icon-check2x.png" mode=""></image> -->
 					<text>{{item.text}}</text>
 				</view>
 			</view>
 		</view>
 		<!-- 右侧更多按钮 -->
-		<view class="bn-text" v-if="btnRightInfo.text" @click.stop="toOtherPage">
+		<view class="btn-text" v-if="btnRightInfo.text" @click.stop="toOtherPage">
 			<text>{{btnRightInfo.text}}</text>
 			<u-icon name="arrow-right" size="28" color="#999999"></u-icon>
 		</view>
@@ -82,11 +82,11 @@
 			display: inline-block;
 			width:6rpx;
 			height:32rpx;
-			background-color:  #00A4FF;
+			background-color:  #827870;
 		}
 		.text{
 			margin-left: 10rpx;
-			color: #333333;
+			color: #827870;
 			font-size: 32rpx;
 			font-weight: 700;
 		}
@@ -106,6 +106,10 @@
 				height: 20rpx;
 				margin-right: 10rpx;
 			}
+		}
+		
+		.btn-text{
+			color: #827870;
 		}
 		   
 	}

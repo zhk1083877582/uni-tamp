@@ -14,9 +14,9 @@
 			  <view>
 				<text class="houseStyleMess_style">{{item.houseType}}</text>
 				<!-- (1:待售 2:在售 3:售罄) -->
-				<text class="houseStyleMess_spans bg-color-green2" v-if="item.salesStatus=='1'">待售</text>
-				<text class="houseStyleMess_spans bg-color-red2" v-else-if="item.salesStatus=='2'">在售</text>
-				<text class="houseStyleMess_spans bg-color-gray2" v-else-if="item.salesStatus=='3'">售罄</text>
+				<text class="houseStyleMess_spans " v-if="item.salesStatus=='1'">待售</text>
+				<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='2'">在售</text>
+				<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='3'">售罄</text>
 			  </view>
 			  <view class="houseStyleMess_area">
 				<text>建面约{{item.constructionArea}}㎡</text>
@@ -91,7 +91,7 @@
 			//咨询首付和贷款
 			toOtherPage(item){
 				item.buildingId = this.buildingId;
-				this.$emit("chatMess",item)
+				// this.$emit("chatMess",item)
 			},
 			//户型-tabs
 			initBuildingTypeCount(buildingId){
@@ -193,8 +193,8 @@
 	.house-style{
 		width: 100%;
 		// height:300px;
-		border-top: 20rpx solid #f4f8f8;
-		padding: 40rpx 30rpx;
+		border-top: 20rpx solid #0B0704;
+		padding: 20rpx 30rpx;
 		padding-bottom: 20rpx;
 		.tabs{
 			margin-top: 50rpx;
@@ -203,11 +203,11 @@
 		}
 		.tab-item {
 		    font-size: 32rpx;
-		    color: #A9A8AE;
+		    color: #827870;
 		    margin-right: 28rpx;
 		}
 		.active{
-			color: #00A4FF !important;
+			color: #E5E3E1 !important;
 		}
 		
 		.btn{
@@ -260,13 +260,13 @@
 		}
 		.houseStyleMess_style {
 		    font-size: 30rpx;
-		    color: #1B1833;
+		    color: #827870;
 		    font-weight: 700;
 		}
 		.houseStyleMess_spans {
 		    color: white;
 		    border-radius: 4rpx;
-		    // background-color: #FF824B;
+		    background-color: #9F7747;
 		    display: inline-block;
 		    text-align: center;
 		    margin-left: 10rpx;
@@ -284,15 +284,15 @@
 		}
 		.houseStyleMess_area {
 		    margin: 16rpx 0 20rpx 0;
-		    color: #706F81;
+		    color: #827870;
 		    font-size: 26rpx;
 		}
 		.houseStyleMess_area_span{
 			margin-left: 10rpx;
 		}
 		.houseStyleMess_price {
-			height: 20px;
-		    color: #F12224;
+			height: 40rpx;
+		    color: #9F7747;
 		    font-size: 30rpx;
 		    font-weight: 700;
 			margin-bottom: 30rpx;
@@ -301,8 +301,8 @@
 		    height: 68rpx;
 		    line-height: 68rpx;
 		    font-size:28rpx;
-		    color: #00A4FF;
-		    background: #F1F9FF;
+		    color: #9F7747;
+		    background: #211C16;
 		    display: block;
 		    text-align: center;
 		   

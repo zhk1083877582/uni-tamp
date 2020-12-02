@@ -1,14 +1,14 @@
 <!-- 楼盘详情:户型 -->
 <template>
 	<view class="house-dynamic">
-		<title-info text="楼盘动态" :btnRightInfo="btnRightInfo"></title-info>
+		<title-info text="楼盘动态" ></title-info>
 		<view class="time-list houseShare_dynamic_active">
 			<view class="time-item" v-for="(item,index) in dateBaseInfoList" :key="index">
 				<view class="dynamic_actives" v-if="item.evidenceDate" >
 					<view class="dynamic_actives_divs"> 
-						<text class="dynamic_actives_line "></text> 
+						<text class="dynamic_actives_line"></text> 
 						<text class="dynamic_actives_img"> 
-							<text class="iconfont iconicon_preSale"></text> 
+							<text class="iconfont iconyushouzheng"></text> 
 						</text>
 					</view> 
 					<view class="dynamic_actives_title">预售证</view>
@@ -18,7 +18,7 @@
 					<view class="dynamic_actives_divs"> 
 						<text class="dynamic_actives_line "></text> 
 						<text class="dynamic_actives_img"> 
-							<text class="iconfont iconicon_pledge"></text>
+							<text class="iconfont iconjiage"></text>
 						</text>
 					</view> 
 					<view class="dynamic_actives_title">认筹</view>
@@ -28,7 +28,7 @@
 					<view class="dynamic_actives_divs"> 
 						<text class="dynamic_actives_line" v-if="index!=(dateBaseInfoList.length-1)"></text> 
 						<text class="dynamic_actives_img"> 
-							<text class="iconfont iconicon_opening"></text>
+							<text class="iconfont iconkaipan"></text>
 						</text>
 					</view> 
 					<view class="dynamic_actives_title">开盘</view>
@@ -39,24 +39,16 @@
 		
 		<view class="content-list">
 			<view  class="houseShare_dynamic_timeing" v-for="(item,index) in dynamicBaseInfoList" :key="index">
-				<view class="clearfloat"> 
-					<view class="leftTimes"> 
-						<text class="leftTimes_title"></text> 
-						<text class="leftTimes_line"></text> 
-					</view>
-					<view class="rightTimes">  
-						 <view class="right_time">{{item.createTime}}</view>
-						 <view class="right_title">{{item.title}}</view> 
-						 <view class="right_message">{{item.content}}</view> 
-					</view> 
-				 </view>
-			 </view>
+				<view class="right-time">
+					<text class="time-circle"></text>
+					<text >{{item.createTime}}</text>
+				</view>
+				<view class="right-title">{{item.title}}</view> 
+				<view class="right-message">{{item.content}}</view>
+			</view>
 		</view>
-		<u-modal v-model="isShow" ref="uModal" :show-title="true" title="楼盘关注成功" confirm-text="知道了"  :content="modalMsg" 
-			 @confirm="confirm" >
-		</u-modal>
-		<view  :class="!isCollection?'btn':'btn btn-gray' " @click.stop="changeCollection" >
-			新动态提醒
+		<view  class="btn" @click.stop="toMoreDynamic" >
+			更多动态
 		</view>
 	</view>
 </template>
@@ -92,9 +84,6 @@
 						name: '开盘'
 					}, 
 				],
-				isCollection:false,
-				isShow:false,
-				modalMsg:'',
 				dateBaseInfoList:[],//时间内容
 				dynamicBaseInfoList:[],//动态消息内容
 			}
@@ -113,102 +102,16 @@
 			setTimeout(()=>{
 				self.dateBaseInfoList = self.dongtaiInfo.dateBaseInfoList;
 				self.dynamicBaseInfoList = self.dongtaiInfo.dynamicBaseInfoList;
-				self.isCollection = self.dongtaiInfo.isCollection;
-				btnRightInfo.url= '../propertyDynamic/index?buildingId='+self.dongtaiInfo.buildingId;
 			},1500)
 			
 		},
-		watch:{
-			// buildingId(newVal){
-			// 	if(newVal){this.initBuildingDynamicAndDate(this.buildingId)}
-				
-			// },
-		},
 		methods: {
 			//更多
-			// toMoreDynamic(){
-			// 	uni.navigateTo({
-			// 	   url: '../propertyDynamic/index?buildingId='+this.buildingId
-			// 	});
-			// },
-			//新动态提醒-收藏功能
-			changeCollection() {
-				if(this.isCollection){
-					return 
-				}
-				// this.isShow =true;
-				// this.modalMsg = '楼盘开盘、变价等相关动态信息将通过消息推送给您。';
-				// return 
-				let self=this;
-				getData("/tospurWeb/pclogin/checkLogin", {
-						// token: this.$tool.getToken()
-						token: this.$cache.getCache("M-Token")
-					})
-					.then(res => {
-						let url = '/building/api/pc/building/buildingCollection';
-						let params = {
-							buildingId:self.dongtaiInfo.buildingId,
-							statue:0
-						};
-						getData(url, params).then(res => {
-							this.isShow =true;
-							this.modalMsg = '楼盘开盘、变价等相关动态信息将通过消息推送给您。';
-						})
-					})
-					.catch(err => {
-						console.log("未登录或登录过期", err);
-						console.log(err.code);
-						if (err.code == 1) {
-							uni.navigateTo({
-								url: '/pagesUser/login/login?topath=pagesHouse/house/house&buildingId='+self.dongtaiInfo.buildingId
-							});
-						}
-					});
-			},
-			confirm(){
-				console.log('收藏成功')
-				this.isCollection=true;
-				this.$emit('changeCollectionStatus',{isCollectionFlag:true,from:'houseDynamic'});
-			},
-			//动态
-			// initBuildingDynamicAndDate(){
-			// 	let params={
-			// 		buildingId:this.buildingId
-			// 	};
-			// 	let self=this;
-			// 	getBuildingDynamicAndDate('',params)
-			// 		.then(res=>{
-			// 			console.log('楼盘动态',res)
-			// 			let dateBaseInfoList = res.dateBaseInfoList;
-			// 			dateBaseInfoList.forEach(item=>{
-			// 				item.evidenceDate = item.evidenceDate?self.formatDate(item.evidenceDate):'';
-			// 				item.identifyChipsDate = item.identifyChipsDate?self.formatDate(item.identifyChipsDate):'';
-			// 				item.openTime = item.openTime?self.formatDate(item.openTime):'';
-			// 			});
-			// 			self.dateBaseInfoList = dateBaseInfoList;
-			// 			self.dynamicBaseInfoList = (res.dynamicBaseInfoList||[]).slice(0,2);
-			// 		})
-			// 		.catch(err=>{
-			// 			console.log('动态-err',err)
-			// 		})
-			// },
-			/*
-			*格式化日期字符串
-			*/
-			// formatDate(time) {
-			//    let date = new Date(time*1)
-			//    let myyear = date.getFullYear();
-			//    let mymonth = date.getMonth() + 1;
-			//    let myweekday = date.getDate();
-			//    if (mymonth < 10) {
-			// 	   mymonth = "0" + mymonth;
-			//    }
-			//    if (myweekday < 10) {
-			// 	   myweekday = "0" + myweekday;
-			//    }
-			//    return (myyear + "-" + mymonth + "-" + myweekday);
-			// },
-			
+			toMoreDynamic(){
+				uni.navigateTo({
+				   url: '../propertyDynamic/index?buildingId='+this.buildingId
+				});
+			},				
 		}
 	}
 </script>
@@ -217,8 +120,8 @@
 	.house-dynamic{
 		width: 100%;
 		// height:300px;
-		border-top: 10px solid #f4f8f8;
-		padding: 40rpx 30rpx;
+		border-top: 10px solid #0B0704;
+		padding: 0rpx 30rpx;
 		padding-bottom:20rpx;
 		.tabs{
 			margin-top: 50rpx;
@@ -241,19 +144,11 @@
 			  width:100%;
 			  height:68rpx;
 			  line-height: 68rpx;
-			  text-align: center;
 			  margin:30rpx 0;
-			  background-color: #F1F9FF;
-			  color: #00A4FF;
-			  font-size: 28rpx;
-			  // font-weight: 600;
-		}
-		/deep/.btn:after {
-		    border: 0;
-		}
-		.btn-gray{
-			font-weight: 400;
-			color: #999999;
+			  text-align: center;
+			  background: #211c16;
+			  color: #9f7747;
+			  font-weight: 500;
 		}
 		
 		//时间list
@@ -289,78 +184,64 @@
 		    position: absolute;
 		    left: 0;
 		    top: 22rpx;
-		    border-top: 2px solid #00A4FF;
+		    border-top: 2px solid #9F7747;
 		}
 		.dynamic_actives_img {
 		    width: 42rpx;
 		    height:42rpx;
 		    position: absolute;
 		    border-radius: 50%;
-		    background-color: #00A4FF;
+		    background-color: #9F7747;
 		    color: white;
 		    text-align: center;
 		    line-height: 38rpx;
 		}
 		.dynamic_actives_title {
 		    margin: 12rpx 0 10rpx;
-		    color: #000000;
-		    font-size: 12px;
+		    color: #827870;
+		    font-size: 24rpx;
 		}
 		.dynamic_actives_name {
-		    color: #686868;
+		    color: #827870;
 		    font-size: 24rpx;
 		}
 		
 		//list
 
-		.clearfloat{
-			display: flex;
-			
-        .leftTimes {
-		
-		  width: 5%;
-		    position: relative;
-		    height:220rpx;
-			.leftTimes_title {
-		    width: 18rpx;
-		    height: 18rpx;
-		    border-radius: 16rpx;
-		    position: absolute;
-		    background-color: #D8D8D8;
-		}
-		.leftTimes_line {
-		    position: absolute;
-		    height: 100%;
-		    left: 8rpx;
-		    border-left: 1px solid #D8D8D8;
-		}
-		}
-		.rightTimes{
-			 width: 95%;
-			 .right_time {
-		    color: #CBCBCB;
-		    font-size: 24rpx;
-		}
-		.right_title {
-		    font-size: 32rpx;
-		    color: #282828;
-		    margin: 30rpx 0 20rpx;
-		    font-weight: 700;
-		}
-		.right_message {
-		    color: #6A6F70;
-		    font-size: 28rpx;
-		    display: -webkit-box;
-		    -webkit-line-clamp: 2;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-		    -webkit-box-orient: vertical;
-		}
-		} 
-		}
-		
-		
-		
-		
+		.houseShare_dynamic_timeing{
+			.right-time {
+				// width: 210rpx;
+				height: 24rpx;
+				font-size: 24rpx;
+				font-weight: 400;
+				color: #827870;
+				display: flex;
+				align-items: center;
+			}
+			.time-circle{
+				width: 16rpx;
+				height: 16rpx;
+				margin-right: 18rpx;
+				border-radius: 50% 50%;
+				background: #3e3731;
+			}
+			.right-title {
+				font-size: 30rpx;
+				color: #827870;
+				margin: 30rpx 0 20rpx 18rpx;
+				font-weight: 700;
+			}
+			.right-message {
+				color: #827870;
+				font-size: 26rpx;
+				margin-left: 18rpx;
+				margin-bottom: 20rpx;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				-webkit-box-orient: vertical;
+			}
+		}		
 	}
 </style>

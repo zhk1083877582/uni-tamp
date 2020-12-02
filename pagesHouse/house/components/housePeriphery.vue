@@ -10,7 +10,10 @@
 	  			<view class="map-text-img"></view>
 	  </view>
 	</view>
-    <u-tabs :list="styleList" :is-scroll="true" :current="current" @change="change" :show-bar="false"></u-tabs>
+    <u-tabs :list="styleList" :is-scroll="true"
+	 :current="current" @change="change" :show-bar="false"
+	 bg-color="#150F09" active-color="#9F7747" inactive-color="#827870">
+	</u-tabs>
     <view v-for="(item, index) in styleList[current].currentMess" :key="index">
       <view class="tab-facility">
         <view class="text-left">
@@ -19,8 +22,8 @@
           <text class="address">({{ item.address }})</text>
         </view>
         <view class="text-right">
-          <text class="iconfont iconhouse_address"></text>
-          <text>{{Math.round(distance(baseInfo.lat, baseInfo.lng, item.latitude, item.longitude))  }}米</text>
+          <text class="iconfont iconpoint_s1"></text>
+          <text class="text-right_text">{{Math.round(distance(baseInfo.lat, baseInfo.lng, item.latitude, item.longitude))  }}米</text>
         </view>
       </view>
     </view>
@@ -51,7 +54,7 @@ export default {
   },
   data () {
     return {
-	 mapPicUrl:'',
+	  mapPicUrl:'',
 	  isAndroid:false,
       markers: [],
       latitude: '',
@@ -252,9 +255,9 @@ export default {
 
 <style lang="scss" scoped>
 .house-periphery {
-  border-top: 10px solid #f4f8f8;
+  border-top: 10px solid #0B0704;
   width: 100%;
-  padding: 20px 15px;
+  padding: 40rpx 30rpx;
   .map_container {
     height: 400rpx;
     margin-top: 30px;
@@ -277,7 +280,7 @@ export default {
     width: 60rpx;
     height: 60rpx;
     border-radius: 50%;
-    background-image: url(../../static/Surrounding@2x.png);
+    // background-image: url(../../static/Surrounding@2x.png);
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -298,14 +301,14 @@ export default {
   .text-left {
     width: 80%;
     text-align: left;
-    color: #c0c3ca;
+    color: #827870;
 
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 
     .title {
-      color: #323232;
+      color: #E5E3E1;
     }
   }
   .text-right {
@@ -319,6 +322,9 @@ export default {
       vertical-align: middle;
       padding-right: 8rpx;
     }
+	.text-right_text{
+		color: #827870;
+	}
   }
 }
 .btn-chat {
@@ -326,8 +332,8 @@ export default {
   line-height: 68rpx;
   text-align: center;
   margin-top: 30rpx;
-  background-color: #f1f9ff;
-  color: #00a4ff;
+  background-color: #211C16;
+  color: #9F7747;
   font-size: 28rpx;
   // font-weight: 600;
 }

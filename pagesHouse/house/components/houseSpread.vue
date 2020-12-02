@@ -15,25 +15,31 @@
 		
 		<view class="desList spread_main_divs" v-if="itemInfo&&itemInfo.unitName">
 			<view class="desList-item">
-				<view>楼栋</view>
-				<text class="divsSpan">{{itemInfo.unitName}}栋</text>
-				<!-- 销售状态  '1在售 2.待售 3.售罄 -->
-				<text class="houseStyleMess_spans"  >{{itemInfo.saleStatus==1?'在售':itemInfo.saleStatus==2?'待售':itemInfo.saleStatus==3?'售罄':''}}</text> 
+				<view class="desList-item_title">楼栋</view>
+				<text class="divsSpan">
+					<text>{{itemInfo.unitName}}栋</text>
+					<!-- 销售状态  '1在售 2.待售 3.售罄 -->
+					<text class="houseStyleMess_spans"  >{{itemInfo.saleStatus==1?'在售':itemInfo.saleStatus==2?'待售':itemInfo.saleStatus==3?'售罄':''}}</text> 
+				</text>
+				
+				
 			</view>
 			<view class="tac f2 unit desList-item">
-				<view>单元数</view>
+				<view class="desList-item_title">单元数</view>
 				<text class="divsSpan">{{itemInfo.unit}}个单元</text>
 			</view>
 			<view class="tac f2 ce desList-item">
-				<view>层数</view>
+				<view class="desList-item_title">层数</view>
 				<text class="divsSpan">{{itemInfo.layers}}层</text>
 			</view>
 			<view class="tar r14 hu desList-item">
-				<view>户数</view>
+				<view class="desList-item_title">户数</view>
 				<text class="divsSpan">{{itemInfo.householdNum}}户</text> 
 			</view>
 		</view>
-		<view v-if="itemInfo&&itemInfo.unitName" class="spread-btn" @click="toSpreadDetail">查看楼栋详情</view>
+		<view v-if="itemInfo&&itemInfo.unitName" class="spread-btn" @click="toSpreadDetail">
+			查看楼栋详情
+		</view>
 	</view>
 </template>
 
@@ -131,8 +137,8 @@
 <style lang="scss" scoped>
 	.house-spread{
 		width: 100%;
-		padding: 20px 15px;
-		border-top: 10px solid #f4f8f8;
+		padding: 40rpx 40rpx;
+		border-top: 10px solid #0B0704;
 		.movable_warp{
 			margin-top: 20px;
 			overflow: hidden;
@@ -144,7 +150,7 @@
 			}
 			.top_img_warp{
 				position: relative;
-				width: 100%;
+				width: 670rpx;
 				height: 100%;
 				.top_img{
 					width: 100%;
@@ -156,9 +162,9 @@
 					min-width: 64rpx;
 					font-size: 20rpx;
 					text-align: center;
-					color: #1b1833;
+					color: #FFFFFF;
 					line-height: 30rpx;
-					background: url(/static/bubble__Details_pro.png) no-repeat;
+					background: url(/static/house/bubble__Details_pro.png) no-repeat;
 					background-size: 100% 100%;
 					z-index: 10;
 				}
@@ -170,7 +176,7 @@
 					text-align: center;
 					color: #1b1833;
 					line-height: 30rpx;
-					background: url(/static/bubble-white.png) no-repeat;
+					background: url(/static/house/bubble-white.png) no-repeat;
 					background-size: 100% 100%;
 				}
 			}
@@ -187,15 +193,27 @@
 		}
 		.desList-item{
 			flex:1;
+			padding-left: 40rpx;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.desList-item_title{
+			font-size: 30rpx;
+			font-weight: 500;
+			color: #827870;
+			// text-align: center;
 		}
 		.divsSpan {
-		    color: #6D6D6D;
-		    font-size: 13px;
+			margin-top:10rpx;
+		    color: #9F7747;
+		    font-size: 26rpx;
+			// text-align: center;
 		}
 		.houseStyleMess_spans {
 		    color: white;
 		    border-radius: 2px;
-		    background-color: #FF824B;
+		    background-color: #9F7747;
 		    display: inline-block;
 		    text-align: center;
 		    margin-left: 5px;
@@ -217,8 +235,8 @@
 			line-height: 68rpx;
 			font-size:28rpx;
 			// font-weight: 700;
-			color: #00A4FF;
-			background: #F1F9FF;
+			color: #9F7747;
+			background: #211C16;
 			display: block;
 			text-align: center;
 			margin-top: 30rpx;

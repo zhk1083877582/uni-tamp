@@ -18,9 +18,9 @@ export default {
 	baseURL: {
 		// target: 'http://172.16.9.58:9501', // 开发版接口
 		// target: 'https://tcwgwdev.tospur.com', // 开发版本接口
-		// target: 'https://tcwgwtest.tospur.com', // 测试版接口  
+		target: 'https://tcwgwtest.tospur.com', // 测试版接口  
 		  // target: 'https://tcwgwstag.tospur.com', // 预发布接口
 		// target: 'https://tcstag.tospur.com',
-		target: 'https://tcwgwprod.tospurhf.com', // 正式环境接口
+		// target: 'https://tcwgwprod.tospurhf.com', // 正式环境接口
 	}
 }

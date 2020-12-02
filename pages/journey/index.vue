@@ -352,6 +352,12 @@ export default {
 			]
 		};
 	},
+	onLoad(){
+		// uni.navigateTo({
+		//    url: '/pagesHouse/house/house'
+		// });
+
+	},
 	computed: {},
 	watch: {},
 	methods: {

@@ -2,7 +2,6 @@
 <template>
 	<view class="house-disclaimer">
 		<view class="title">
-			<!-- <image class="img" src="../../static/icon-disclaimer@2x.png" mode=""></image> -->
 			<text class="iconfont iconmianzeshengming"></text>
 			<text>免责声明</text>
 		</view>
@@ -34,9 +33,10 @@
 		height:184rpx;
 		padding: 17rpx 0 17rpx 30rpx;
 		// border: 1px solid red;
-		font-size: 10px;
-		border-top: 10px solid #f4f8f8;
-		background-color: #F1F9FF;
+		font-size: 20rpx;
+		border-top: 10px solid #0B0704;
+		color: #56514D;
+		background-color: #0B0704;
 		.title{
 			display: flex;
 			align-items: center;
