@@ -14,13 +14,13 @@
 		<!-- 轮播区域-底部文字 -->
 		<view class="luobo-text_bottom">
 		  <text class="luobo-text_span  mp4" v-if="mp4Num>0" :class="{spanColor: activeNo<VRStart}" @click="changeSwiperImg(mp4Start)">
-		    视频
-		  </text>
-		  <text class="luobo-text_span VR" v-if="VRNum>0" :class="{spanColor:activeNo>=VRStart&&activeNo<ImgStart}" @click="changeSwiperImg(VRStart)">
 		    VR
 		  </text>
+		  <text class="luobo-text_span VR" v-if="VRNum>0" :class="{spanColor:activeNo>=VRStart&&activeNo<ImgStart}" @click="changeSwiperImg(VRStart)">
+		    户型图
+		  </text>
 		  <text class="luobo-text_span img" v-if="ImgNum>0" :class="{spanColor: activeNo>=ImgStart }" @click="changeSwiperImg(ImgStart)">
-		    图片
+		    样板间
 		  </text>
 		  <text class=" lunbo_img_num" v-if=" ImgNum>0&&activeNo>=ImgStart">
 		    共<text class="img_num_c">{{activeNo+1-VRNum-mp4Num}}</text>
@@ -312,14 +312,14 @@ export default {
       width: 100%;
       text-align: center;
       position: absolute;
-      bottom: 162rpx;
+      bottom: 24rpx;
     }
   
     .luobo-text_span {
       width: 88rpx;
       height: 100%;
       margin-right: 16rpx;
-      background-color: white;
+      background: #ffffff;;
 	  color: #333333;
       border-radius: 10px;
       display: inline-block;
@@ -451,7 +451,7 @@ export default {
 		text-align: left;
 		color: #827870;
 		// background: #ffffff;
-		opacity: 0.5;
+		// opacity: 0.5;
 		display: flex;
 		align-items: center;
 		.iconfont{

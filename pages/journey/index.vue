@@ -353,9 +353,9 @@ export default {
 		};
 	},
 	onLoad(){
-		// uni.navigateTo({
-		//    url: '/pagesHouse/house/house'
-		// });
+		uni.navigateTo({
+		   url: '/pagesHouse/house/house'
+		});
 
 	},
 	computed: {},

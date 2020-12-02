@@ -267,11 +267,11 @@
 			.serve{
 				margin-left: 8rpx;
 			}
-			.year-num{
+			.year-num,.serve-num{
 				font-size: 16rpx;
 				height: 22rpx;
 				padding:0 10px;
-				margin-right: 5px;
+				margin-left: 10rpx;
 				color: #645048;
 				background: #f3d6ab;
 				// 	background-image: url('https://media.tongcehaofang.com/image/default/FFC96882569F4FB585D622A5E241A8D2-6-2.jpg');
