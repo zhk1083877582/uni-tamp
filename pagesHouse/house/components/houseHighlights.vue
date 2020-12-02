@@ -2,8 +2,6 @@
 <template>
 	<view class="house-highlights">
 		<title-info text="楼盘亮点" ></title-info>
-		
-		
 		<view class="img-container" v-if="highlightsInfo.type==1">
 			<view class="img-item">
 				<image class="img" v-for="(item,index) in highlightsInfo.list" :key="index" :src="item.annexPath" mode=""></image>
@@ -61,7 +59,7 @@
 	.house-highlights{
 		width: 100%;
 		padding: 40rpx 30rpx;
-		border-top: 10px solid #f4f8f8;
+		border-top: 10px solid #0B0704;
 		.img-container{
 			margin-top: 30rpx;
 			.img-item{

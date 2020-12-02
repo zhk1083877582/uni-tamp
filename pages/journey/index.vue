@@ -14,6 +14,12 @@ export default {
 
 		};
 	},
+	onLoad(){
+		// uni.navigateTo({
+		//    url: '/pagesHouse/house/house'
+		// });
+
+	},
 	computed: {},
 	watch: {},
 	methods: {
@@ -29,6 +35,6 @@ export default {
 </script>
 <style lang='scss' scoped>
 .journey_ownership{
-	
+	color:#FFFFFF
 }
 </style>

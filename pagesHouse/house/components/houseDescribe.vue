@@ -27,6 +27,7 @@
 		data(){
 			return{
 				shadowStyle: {
+					color:"#9F7747",
 					backgroundImage: "none",
 					paddingTop: "0",
 					justifyContent:"left"
@@ -42,10 +43,10 @@
 <style lang="scss" scoped>
 	.house-describe{
 		width: 100%;
-		padding: 40rpx 30rpx;
-		border-top: 10px solid #f4f8f8;
+		padding: 20rpx 30rpx;
+		border-top: 10px solid #0B0704;
 		.img-container{
-			margin-top: 40rpx;
+			margin-top: 60rpx;
 			text-align: center;
 			.img{
 				width:240rpx;
@@ -53,8 +54,9 @@
 			}
 		}
 		.des{
-			margin-top: 30rpx;
-			font-size: 12px;
+			
+			margin-top: 28rpx;
+			
 		}
 		/deep/.u-icon__icon {
 		    display: none;
@@ -62,11 +64,16 @@
 		/deep/.u-content__showmore-wrap {
 		    justify-content: left;
 		}
+		/deep/.u-content__showmore-wrap__readmore-btn {
+			color: #9F7747!important;
+		}
 
 		
 	}
 	/deep/.u-content{
-		line-height: 1.9;
+		color: #827870;
+		font-size: 20rpx;
+		line-height: 1.95;
 	}
 		
 </style>
