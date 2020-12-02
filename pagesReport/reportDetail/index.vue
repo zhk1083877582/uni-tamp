@@ -181,7 +181,7 @@ export default {
 			position: relative;
 			.title_content{
 				padding: 23rpx 23rpx 30rpx 40rpx;
-				background: url(../../static/report-img/KT-bg.png) no-repeat;
+				background: url(https://media.tongcehaofang.com/image/default/168ACFDD6E5448798BF2E0CB821B1C5F-6-2.jpg) no-repeat;
 				background-size: 144rpx 100%;
 				background-position: top right;
 				.lable{

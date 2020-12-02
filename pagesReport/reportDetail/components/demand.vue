@@ -86,7 +86,7 @@ export default {
 		display: flex;
 		justify-content: center;
 		padding: 40rpx 0 20rpx 0;
-		background: url(../../../static/report-img/yuanhu.png) no-repeat;
+		background: url(https://media.tongcehaofang.com/image/default/64AF86C0446F40AFB7F07635306C60D7-6-2.jpg) no-repeat;
 		background-position: top center;
 		background-size: 100% 85rpx;
 		.avatarTou{

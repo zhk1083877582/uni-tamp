@@ -67,7 +67,7 @@ export default {
 		overflow: hidden;
 		.top_bg_img{
 			width: 100%;
-			background: url(../../static/report-img/header-bg.png) no-repeat;
+			background: url(https://media.tongcehaofang.com/image/default/656DD81E512F4774A1C2D4C5B01A101A-6-2.jpg) no-repeat;
 			background-size: 100% 20rpx;
 			top: 0;
 			left: 0;

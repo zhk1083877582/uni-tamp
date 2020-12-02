@@ -25,10 +25,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="btn" @click="clickHandle" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
-			
-		</view>
-		<u-button hover-class='none' class="btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+		<u-button type="default" hover-class='none' class="btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
 			敬呈<text class="user_name">杨先生</text>亲启
 		</u-button>
 		<view class="bottom_text">
@@ -114,7 +111,7 @@ export default {
 			margin: 0 auto;
 			width: 398rpx;
 			height: 80rpx;
-			background: url(../../static/report-img/book-button.png) no-repeat;
+			background: url(https://media.tongcehaofang.com/image/default/995B4F94B3A6481C93FD7F695FE1F64A-6-2.jpg) no-repeat;
 			background-size: 100% 100%;
 			margin-top: 72rpx;
 			color: #593B1C;
@@ -186,7 +183,7 @@ export default {
 			.HDJ{
 				width: 104rpx;
 				height: 93rpx;
-				background: url(../../static/report-img/book-X.png) no-repeat;
+				background: url(https://media.tongcehaofang.com/image/default/9BA538EEA7424F2AB7BA242D1AFF2F0C-6-2.jpg) no-repeat;
 				background-size: 100% 100%;
 				position: absolute;
 				top: -19rpx;
@@ -201,7 +198,7 @@ export default {
 			top: 20rpx;
 			left: 20rpx;
 			z-index: 1;
-			background: url(../../static/report-img/book-border.png) no-repeat;
+			background: url(https://media.tongcehaofang.com/image/default/D7995969D6FE42C991B70F903502FC49-6-2.jpg) no-repeat;
 			background-size: 100% 100%;
 			/* .color_yel{
 				
@@ -240,6 +237,9 @@ export default {
 				bottom: 0;
 			} */
 		}
+	}
+	/deep/.u-hairline-border:after{
+		border: 0;
 	}
 }
 	
