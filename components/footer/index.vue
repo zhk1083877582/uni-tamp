@@ -52,6 +52,9 @@ export default {
 		},
 		tochathouseKeeper(){
 			console.log('跳转名片')
+			uni.navigateTo({
+				url: '/pagesHouse/adviserCard/index?buildingId=' + 1155//+ this.buildingId
+			});
 		}
 	},
 	created() {
