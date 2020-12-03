@@ -353,9 +353,9 @@ export default {
 		};
 	},
 	onLoad(){
-		// uni.navigateTo({
-		//    url: '/pagesHouse/house/house'
-		// });
+		uni.navigateTo({
+		   url: '/pagesHouse/house/house'
+		});
 
 	},
 	computed: {},
@@ -434,7 +434,7 @@ export default {
 		});
 	},
 	onLoad(option){
-		this.getUserInfo();
+		// this.getUserInfo();
 		console.log(123123)
 	},
 	onReady(){

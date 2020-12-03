@@ -135,7 +135,15 @@
 							"bounce": "none"
 						}
 					}
-				}]
+				},{
+                    "path" : "adviserCard/index",
+                    "style" :                                                                                    
+						{
+							"navigationBarTitleText": "顾问卡片",
+							"enablePullDownRefresh": false
+						}
+                }
+            ]
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

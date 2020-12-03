@@ -47,6 +47,9 @@
 		</house-highlights>
 		<!-- 免责声明 -->
 		<house-disclaimer></house-disclaimer>
+		<view class="pageHouse-bottom">
+			<footBottom></footBottom>
+		</view>
 	</view>
 </template>
 
@@ -74,6 +77,7 @@
 	import housePeriphery from './components/housePeriphery.vue'; //周边配套
 	import houseHighlights from './components/houseHighlights.vue'; //楼盘亮点
 	import houseDisclaimer from './components/houseDisclaimer.vue'; //免责声明
+	import footBottom from '@/components/footer/index.vue'
 	export default {
 		components:{
 			buildingInfo,
@@ -84,6 +88,7 @@
 			housePeriphery,
 			houseHighlights,
 			houseDisclaimer,
+			footBottom
 		},
 		data() {
 			return {
@@ -411,6 +416,7 @@
 .pageHouse-buildingInfo{
 	background-color: #150f09;
 	color: #FFFFFF;
+	padding-bottom: 140rpx;
 	.scroll-tabs {
 		width: 100%;
 		height: 44px;
@@ -433,6 +439,15 @@
 		.active {
 			color: #9F7747;
 		}
+	}
+	
+	.pageHouse-bottom{
+		width:100%;
+		height: 140rpx;
+		background: #1e150c;
+		position: fixed;
+		bottom:0;
+		left:0;
 	}
 }
 </style>
