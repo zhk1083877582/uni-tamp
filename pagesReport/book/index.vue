@@ -35,12 +35,14 @@
 </template>
 
 <script>
-
+import { getData } from '@/request/api.js'
 export default {
 	components: {},
 	data() {
 		return {
-
+			jsCode:'',
+			openid:'',
+			session_key:'',
 		};
 	},
 	computed: {},
@@ -48,52 +50,95 @@ export default {
 	methods: {
 		onGetPhoneNumber(e) {
 			console.log(e, 1);
-			// if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-			// 	//用户决绝授权
-			// 	//拒绝授权后弹出一些提示
-			// } else {
-			// 	//允许授权
-			// 	let params = {
-			// 		iv: e.detail.iv,
-			// 		encryData: e.detail.encryptedData,
-			// 		sessionKey: this.session_key,
-			// 		openId: this.openid,
-			// 		loginType: 0,
-			// 		registerCity:this.$cache.getCache('storageCity')||''
-			// 	};
-			// 	// #ifdef MP-BAIDU
-			// 	let api =  '/tospurWeb/baiduapp/baiduLogin'
-			// 	// #endif
-			// 	// #ifdef MP-WEIXIN
-			// 	let api = '/tospurWeb/wxapp/wxLogin'
-			// 	// #endif
-			// 	// #ifdef MP-TOUTIAO
-			// 	let api = '/tospurWeb/toutiaoApp/toutiaoLogin'
-			// 	// #endif
-			// 	getData(api, params)
-			// 		.then(res => {
-			// 			this.$cache.setCache('M-Token', res['X-Token']);
-			// 			this.$cache.setCache('Login-Data', res);
-			// 			this.$cache.setCache('loginFlag', true);
-			// 			this.$cache.setCache('loginFlag1', true);			
-			// 			if(this.$cache.getCache('LoginTopath')){
-			// 				uni.reLaunch({
-			// 					url:'/'+this.$cache.getCache('LoginTopath')
-			// 				});
-			// 			}else{
-			// 				uni.navigateBack()
-			// 			}
+			if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+				//用户决绝授权
+				//拒绝授权后弹出一些提示
+			} else {
+				//允许授权
+				let params = {
+					iv: e.detail.iv,
+					encryData: e.detail.encryptedData,
+					sessionKey: this.session_key,
+					openId: this.openid,
+					loginType: 0,
+					registerCity:this.$cache.getCache('storageCity')||''
+				};
+				// #ifdef MP-BAIDU
+				let api =  '/tospurWeb/baiduapp/baiduLogin'
+				// #endif
+				// #ifdef MP-WEIXIN
+				let api = '/tospurWeb/wxapp/wxLogin'
+				// #endif
+				// #ifdef MP-TOUTIAO
+				let api = '/tospurWeb/toutiaoApp/toutiaoLogin'
+				// #endif
+				getData(api, params)
+					.then(res => {
+						console.log(res)
+						this.$cache.setCache('M-Token', res['X-Token']);
+						this.$cache.setCache('Login-Data', res);
+						this.$cache.setCache('loginFlag', true);
+						this.$cache.setCache('loginFlag1', true);
+						uni.reLaunch({
+							url:'../reportDetail/index'
+						});
+						// if(this.$cache.getCache('LoginTopath')){
+						// 	uni.reLaunch({
+						// 		url:'/'+this.$cache.getCache('LoginTopath')
+						// 	});
+						// }else{
+						// 	uni.navigateBack()
+						// }
 						
-			// 		})
-			// 		.catch(err => {
-			// 			console.log('请求结果报错', err);
-			// 		});
-			// }
+					})
+					.catch(err => {
+						console.log('请求结果报错', err);
+					});
+			}
+		},
+		getPhone() {
+			console.log(11111111)
+			const self = this;
+			uni.login({
+				success: res => {
+					console.log(res, 123);
+					if (res.code) {
+						//微信登录成功 已拿到code
+						self.jsCode = res.code; //保存获取到的code
+						console.log(self.jsCode, 456);
+						let params = {
+							jsCode: res.code,
+						};
+						// #ifdef MP-WEIXIN
+						let api = '/tospurWeb/wxapp/wxAuth' 
+						// #endif
+						// #ifdef MP-BAIDU
+						let api =  '/tospurWeb/baiduapp/baiduAuth'
+						 params.type =1
+						// #endif
+						// #ifdef MP-TOUTIAO
+						let api = '/tospurWeb/toutiaoApp/toutiaoAuth'
+						// #endif
+						getData(api, params)
+							.then(res => {
+								console.log(res, 111111);
+								self.openid = res.openid; //openid 用户唯一标识
+								self.session_key =res.session_key; //session_key  会话密钥
+								console.log(self.openid, 12);
+							})
+							.catch(err => {
+								console.log('请求结果报错', err);
+							});
+					} else {
+						console.log('登录失败！' + res.errMsg);
+					}
+				}
+			});
 		}
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
-		
+		this.getPhone();
 	},
 	created() {
 
