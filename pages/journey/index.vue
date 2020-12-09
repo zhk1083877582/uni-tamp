@@ -370,7 +370,9 @@ export default {
 			this.isShowTooltip = !this.isShowTooltip
 		},
 		toDetail(){
-		
+			uni.navigateTo({
+			   url: '/pagesHouse/house/house'
+			});
 		},
 		handlePropertyType(key){
 			let newKey = ''
