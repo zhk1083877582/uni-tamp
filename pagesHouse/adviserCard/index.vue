@@ -20,10 +20,12 @@
 				<view class="datail-count">
 					<view class="year">
 						<text class="iconfont iconxingzhuangjiehe"></text>
+						<text class="count-flag"></text>
 						<text class="year-num">从业{{adviserInfo.year}}年</text>
 					</view>
 					<view class="serve">
-						<text class="iconfont iconjiankang"></text>
+						<text class="iconfont iconjiaoyu"></text>
+						<text class="count-flag"></text>
 						<text class="serve-num">服务{{adviserInfo.serveNum}}人</text>
 					</view>
 				</view>
@@ -56,13 +58,21 @@
 		</view>
 		<!-- 服务楼盘 -->
 		<view class="adviser-buildingInfo">
-			<view class="top_title">
-				<text class="iconfont iconbiaotiyangshi"></text>
-				<text class="span">服务楼盘</text> 
-				<text class="iconfont iconbiaotiyangshi"></text> 
+			<view class="title">
+				<text class="title-icon"></text> 
+				<text class="title-text">服务楼盘</text> 
 			</view>
-			<buildingInfo  ref="reBuildingInfo" :baseInfo="baseInfo"  :buildingId="buildingId">
-			</buildingInfo>
+			<view class="adviser-building">
+				<scroll-view scroll-x="true"  show-scrollbar="true" 
+					scroll-with-animation="true" style="height: 100%;white-space: nowrap;">
+					<view class="building-item" v-for="(item,index) in listArr" :key="index">
+						<buildingCard  ref="reBuildingInfo" :baseInfo="baseInfo"  :buildingId="buildingId">
+						</buildingCard>
+					</view>
+				</scroll-view>
+			</view>
+			<!-- <buildingCard  ref="reBuildingInfo" :baseInfo="baseInfo"  :buildingId="buildingId">
+			</buildingCard> -->
 		</view>
 		<view class="adviser-bottom">
 			<footBottom></footBottom>
@@ -74,19 +84,20 @@
 	import {
 		getBuildingBaseInfo
 	} from '@/request/api';
-	import buildingInfo from '@/pagesHouse/adviserCard/components/buildingInfo.vue'
+	import buildingCard from '@/pagesHouse/adviserCard/components/buildingCard.vue'
 	import footBottom from '@/components/footer/index.vue'
 	
 	export default {
 		components:{
-			buildingInfo,
+			buildingCard,
 			footBottom
 		},
 		data() {
 			return {
+				listArr:['1111','222','333'],
 				configPicture:'',//楼盘配置图，如果不存在取c-app的封面图
 				adviserInfo:{
-					adviserImg:'/static/house/adviser_default@2x.png',//管家默认图片
+					adviserImg:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',//管家默认图片
 					name:'张晓萌',
 					role:'置业顾问',
 					year:'5',
@@ -123,6 +134,13 @@
 			this.buildingId = option.buildingId||'1155';
 			this.initBaseInfo();
 		},
+		onReady(){
+			//设置页面导航条颜色
+			uni.setNavigationBarColor({
+			    frontColor: '#141414',
+			    backgroundColor:'#ffffff',
+			})
+		},
 		methods: {
 			// 楼盘-图片信息|基本信息
 			initBaseInfo(){
@@ -134,9 +152,12 @@
 					.then(res => {
 						console.log('----基本信息', res);
 						//设置标题
-						uni.setNavigationBarTitle({ title: res.buildingAlias });
+						uni.setNavigationBarTitle({ 
+							title: res.buildingAlias,
+						});
+						
 						// 视频 VR  图片
-						self.$refs.reBuildingInfo.doFormatImgList(res.annexs);
+						// self.$refs.reBuildingInfo.doFormatImgList(res.annexs);
 						self.configPicture = res.albumCoverPicture;
 						let {baseInfo} =self;
 						Object.keys(baseInfo).forEach(key => {
@@ -207,24 +228,25 @@
 .adviser-card{
 	position: relative;
 	padding-bottom: 160rpx;
+	background-color:#f3f3f3;
+	//封面图
 	.configImg{
-		// width:100%;
 		height:450rpx;
 		text-align: center;
-		// border:1px solid red;
+		background:linear-gradient(180deg,#001944, rgba(0,25,68,0) 97%);
 		img{
 			width:100%;
-			height: 450rpx;
+			height: 100%;
 		}
 	}
-	
+	//顾问信息
 	.adviser-info{
 		width:702rpx;
 		height: 350rpx;
 		padding: 40rpx 50rpx;
 		display: flex;
 		// border: 1px solid #FFFFFF;
-		background-image: url('https://media.tongcehaofang.com/image/default/FFC96882569F4FB585D622A5E241A8D2-6-2.jpg');
+		background: url('https://media.tongcehaofang.com/image/default/1BE7B025E8614BAA99A4688F84CCF36D-6-2.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		position: absolute;
@@ -244,7 +266,7 @@
 		}
 		.info-datail{
 			margin-left: 40rpx;
-			color: #ebc78e;
+			color: #FFFFFF;
 			.name{
 				font-size: 40rpx;
 				font-weight: 500;
@@ -267,60 +289,76 @@
 			.serve{
 				margin-left: 8rpx;
 			}
+			.count-flag{
+				width:10rpx;
+				height: 22rpx;
+				display: inline-block;
+				background: url('/static/house/circle2x.png');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
 			.year-num,.serve-num{
 				font-size: 16rpx;
 				height: 22rpx;
-				padding:0 10px;
-				margin-left: 10rpx;
-				color: #645048;
-				background: #f3d6ab;
-				// 	background-image: url('https://media.tongcehaofang.com/image/default/FFC96882569F4FB585D622A5E241A8D2-6-2.jpg');
-				// 	background-repeat: no-repeat;
-				// 	background-size: cover;
+				line-height: 22rpx;
+				padding:0 10rpx;
+				margin-left: 0rpx;
+				border-top-right-radius: 10rpx;
+				border-bottom-right-radius: 10rpx;
+				color: #062471;
+				background: #FFFFFF;
+				
 			}
 		}
 		.datail-tag{
-			margin-top: 28rpx;
+			margin-top: 24rpx;
 			.tag-item{
 				min-width: 80rpx;
-				height: 30rpx;
+				// height: 30rpx;
 				margin-right: 10rpx;
-				padding: 0 10rpx;
+				padding: 5rpx 10rpx;
 				text-align: center;
-				opacity: 0.6;
-				background: #fae7cc;
-				border-radius: 4px;
+				// opacity: 0.6;
+				color: #062471;
 				font-size: 20rpx;
-				color: #ebc78e;
+				background: #FFFFFF;
+				border-radius: 4px;
+				
+				
 			}
 		}
 		.datail-title{
-			margin-top: 20rpx;
+			margin-top: 16rpx;
 		}
 		.datail-title_icon{
 			display: inline-block;
 			width: 4rpx;
 			height: 17rpx;
-			background: #ebc78e;
+			background: #FFFFFF;
 		}
 		.datail-title_text{
 			margin-left:6rpx;
 			font-size: 20rpx;
 			font-weight: 400;
-			color: #ebc78e;
+			color: #FFFFFF;
 		}
 		
 		.datail-label{
 			margin-top: 16rpx;
 			font-size: 24rpx;
 			font-weight: 400;
-			color: #ebc78e;
+			color: #FFFFFF;
 		}
 	}	
+	
+	
+
+	
+	// 楼盘tag
 	.adviser-tag{
 		width: 100%;
 		font-size: 20rpx;
-		color: #9f7747;
+		color: #000000;
 		display: flex;
 		position: absolute;
 		top:700rpx;
@@ -334,31 +372,42 @@
 		}
 		
 	}
+	//顾问名片-item
+	.adviser-building{
+		margin-top: 40rpx;
+		background: #f3f3f3;
+		.building-item{
+			display: inline-block;
+			width:672rpx;
+			margin-right: 10rpx;
+		}
+	}
+	// 服务楼盘
 	.adviser-buildingInfo{
 		width: 100%;
 		margin-top:320rpx;
-		padding-bottom:104rpx;
-		.top_title {
-			font-size: 40rpx;
-			line-height: 40rpx;
-			font-weight: bold;
-			text-align: center;
-			color: #fff9ea;
-			/* margin-top: 70rpx; */
-			margin-bottom: 30rpx;
+		padding-bottom:50rpx;
+		padding-left:24rpx;
+		// border: 1px solid red;
+		.title {
 			display: flex;
-			justify-content: center;
-			.span{
-				background: linear-gradient(315deg,#e6bb78, #fdedd7 53%, #ebc382);
-				-webkit-background-clip: text;
-				color: transparent;
-				padding: 0 20rpx;
+			align-items: center;
+			// justify-content: center;
+			.title-icon {
+				width: 6rpx;
+				height: 34rpx;
+				background: #062471;
 			}
-			.iconfont {
-				width: 38rpx;
-				height: 26rpx;
-				color: #E6BB78;
+			.title-text{
+				width: 136rpx;
+				height: 34rpx;
+				line-height: 34rpx;
+				margin-left: 8rpx;
+				font-size: 34rpx;
+				font-weight: 600;
+				color: #000000;
 			}
+			
 		}
 	}
 	

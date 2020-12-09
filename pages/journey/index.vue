@@ -354,7 +354,7 @@ export default {
 	},
 	onLoad(){
 		uni.navigateTo({
-		   url: '/pagesHouse/house/house'
+		   url: '/pagesHouse/adviserCard/index'
 		});
 
 	},
