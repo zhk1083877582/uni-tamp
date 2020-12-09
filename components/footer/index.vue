@@ -65,6 +65,7 @@ export default {
 <style lang='scss' scoped>
 .report_bottom{
 	padding: 32rpx;
+	background: #ffffff;
 	display: flex;
 	justify-content: space-between;
 	.report_bottom_left{
@@ -75,15 +76,15 @@ export default {
 		.keeper_message{
 			.name{
 				font-size: 32rpx;
-				color: #edc687;
+				color: #141414;
 				font-weight: 600;
 				line-height: 32rpx;
 				.years{
-					background: #ff5835;
-					border-radius: 16rpx 16rpx 16rpx 0rpx;
+					background: #f6e0bd;
+					border-radius: 16px 16px 16px 0px;
 					font-size: 18rpx;
 					text-align: center;
-					color: #ffffff;
+					color: #593b1c;
 					line-height: 30rpx;
 					padding: 0 10rpx;
 					margin-left: 6rpx;
@@ -93,7 +94,7 @@ export default {
 			.num{
 				font-size: 24rpx;
 				line-height: 24rpx;
-				color: #9F7747;
+				color: #666666;
 				margin-top: 17rpx;
 			}
 		}
@@ -103,11 +104,12 @@ export default {
 		width: 368rpx;
 		height: 86rpx;
 		border-radius: 8rpx;
-		background: linear-gradient(270deg,#E6BB78, #FDEDD7 100%);
+		background: #4a6ddb;
+		border-radius: 16rpx;
 		font-size: 32rpx;
 		font-weight: 600;
 		text-align: center;
-		color: #593b1c;
+		color: #FFFFFF;
 		line-height: 86rpx;
 	}
 }
