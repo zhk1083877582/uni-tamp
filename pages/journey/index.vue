@@ -354,7 +354,7 @@ export default {
 	},
 	onLoad(){
 		uni.navigateTo({
-		   url: '/pagesHouse/house/house'
+		   url: '/pagesHouse/adviserCard/index'
 		});
 
 	},
@@ -370,7 +370,9 @@ export default {
 			this.isShowTooltip = !this.isShowTooltip
 		},
 		toDetail(){
-		
+			uni.navigateTo({
+			   url: '/pagesHouse/adviserCard/index'
+			});
 		},
 		handlePropertyType(key){
 			let newKey = ''
