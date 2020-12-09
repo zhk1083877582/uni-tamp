@@ -102,8 +102,8 @@ export default {
 				font-weight: 600;
 				line-height: 28rpx;
 				.years{
-					background: #ff5835;
-					border-radius: 16rpx 16rpx 16rpx 0rpx;
+					background: #f6e0bd;
+					border-radius: 16px 16px 16px 0px;
 					font-size: 18rpx;
 					text-align: center;
 					color: #ffffff;
