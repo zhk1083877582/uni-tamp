@@ -59,16 +59,17 @@
 	.house-highlights{
 		width: 100%;
 		padding: 40rpx 30rpx;
-		border-top: 10px solid #0B0704;
+		border-top: 10rpx solid #999999;
 		.img-container{
 			margin-top: 30rpx;
 			.img-item{
 				width:100%;
 				text-align: center;
 			}
-			// .img{
-			// 	display: block;
-			// }
+			.img{
+				// display: block;
+				margin-bottom:-8rpx;
+			}
 		}
 		.des{
 			margin-top: 20rpx;

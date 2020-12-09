@@ -138,7 +138,7 @@
 	.house-spread{
 		width: 100%;
 		padding: 40rpx 40rpx;
-		border-top: 10px solid #0B0704;
+		border-top: 10rpx solid #999999;
 		.movable_warp{
 			margin-top: 20px;
 			overflow: hidden;
@@ -201,19 +201,19 @@
 		.desList-item_title{
 			font-size: 30rpx;
 			font-weight: 500;
-			color: #827870;
+			color: #141414;
 			// text-align: center;
 		}
 		.divsSpan {
 			margin-top:10rpx;
-		    color: #9F7747;
+		    color: #666666;
 		    font-size: 26rpx;
 			// text-align: center;
 		}
 		.houseStyleMess_spans {
 		    color: white;
 		    border-radius: 2px;
-		    background-color: #9F7747;
+		    background-color: #FF4E32;
 		    display: inline-block;
 		    text-align: center;
 		    margin-left: 5px;
@@ -235,8 +235,8 @@
 			line-height: 68rpx;
 			font-size:28rpx;
 			// font-weight: 700;
-			color: #9F7747;
-			background: #211C16;
+			background-color:#f1f5fd;
+			color: #4a6ddb;
 			display: block;
 			text-align: center;
 			margin-top: 30rpx;

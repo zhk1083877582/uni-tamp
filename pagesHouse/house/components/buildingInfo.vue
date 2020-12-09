@@ -293,6 +293,7 @@ export default {
 <style lang="scss" scoped>
 .building-info {
   width: 100%; 
+  // background-color: #999999;
    //轮播
   
     .luobo {
@@ -536,8 +537,8 @@ export default {
 		padding: 0 30rpx;
 		text-align: center;
 		margin: 30rpx auto;
-		background: #211c16;
-		color: #9f7747;
+		background-color:#f1f5fd;
+		color: #4a6ddb;
 		font-size: 28rpx;
 		font-weight: 500;
 		
@@ -578,7 +579,9 @@ export default {
 	//立即约车
 	.baseInfo-req{
 		width:100%;
-		height: 120rpx;
+		height: 130rpx;
+		background-color: #999999;
+		padding-top:10rpx;
 		.img {
 		  width: 100%;
 		  height: 120rpx;

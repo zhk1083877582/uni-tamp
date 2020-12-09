@@ -193,8 +193,8 @@
 	.house-style{
 		width: 100%;
 		// height:300px;
-		border-top: 20rpx solid #0B0704;
-		padding: 20rpx 30rpx;
+		border-top: 10rpx solid #999999;
+		padding: 40rpx 30rpx;
 		padding-bottom: 20rpx;
 		.tabs{
 			margin-top: 50rpx;
@@ -203,11 +203,11 @@
 		}
 		.tab-item {
 		    font-size: 32rpx;
-		    color: #827870;
+		    color: #999999;
 		    margin-right: 28rpx;
 		}
 		.active{
-			color: #E5E3E1 !important;
+			color: #4a6ddb !important;
 		}
 		
 		.btn{
@@ -260,13 +260,13 @@
 		}
 		.houseStyleMess_style {
 		    font-size: 30rpx;
-		    color: #827870;
+		    color: #141414;
 		    font-weight: 700;
 		}
 		.houseStyleMess_spans {
 		    color: white;
 		    border-radius: 4rpx;
-		    background-color: #9F7747;
+		    background-color: #ff8242;
 		    display: inline-block;
 		    text-align: center;
 		    margin-left: 10rpx;
@@ -274,7 +274,7 @@
 		    font-size:20rpx;
 		}
 		.bg-color-red2{
-			background-color: #FF824B;
+			background-color: #ff8242;
 		}
 		.bg-color-green2{
 			background-color: #00A4FF;
@@ -292,7 +292,7 @@
 		}
 		.houseStyleMess_price {
 			height: 40rpx;
-		    color: #9F7747;
+		    color: #ff4e32;
 		    font-size: 30rpx;
 		    font-weight: 700;
 			margin-bottom: 30rpx;
@@ -301,8 +301,8 @@
 		    height: 68rpx;
 		    line-height: 68rpx;
 		    font-size:28rpx;
-		    color: #9F7747;
-		    background: #211C16;
+		    background-color:#f1f5fd;
+		    color: #4a6ddb;
 		    display: block;
 		    text-align: center;
 		   

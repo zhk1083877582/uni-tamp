@@ -6,7 +6,7 @@
 		<view class="home_banner" v-if="!HasToken">
 			<u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit' border-radius='24'></u-swiper>
 			<view class="login_btn">
-				<u-button shape="circle">开启购房旅程</u-button>
+				<u-button shape="circle" @click="doPageHouse">开启购房旅程</u-button>
 			</view>
 		</view>
 		
@@ -420,6 +420,13 @@ export default {
 	computed: {},
 	watch: {},
 	methods: {
+		//去楼盘
+		doPageHouse(){
+			uni.navigateTo({
+			   // url: '/pagesHouse/adviserCard/index'
+			   url: '/pagesHouse/house/house'
+			});
+		},
 		// 退出登录
 		GetOutClick(){
 			console.log('退出')

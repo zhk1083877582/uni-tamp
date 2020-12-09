@@ -43,8 +43,9 @@
 <style lang="scss" scoped>
 	.house-describe{
 		width: 100%;
-		padding: 20rpx 30rpx;
-		border-top: 10px solid #0B0704;
+		color: #141414;
+		padding: 40rpx 30rpx;
+		border-top: 10rpx solid #999999;
 		.img-container{
 			margin-top: 60rpx;
 			text-align: center;
@@ -59,21 +60,16 @@
 			
 		}
 		/deep/.u-icon__icon {
-		    display: none;
+				display: none;
 		}
 		/deep/.u-content__showmore-wrap {
-		    justify-content: left;
-		}
-		/deep/.u-content__showmore-wrap__readmore-btn {
-			color: #9F7747!important;
+			justify-content: left;
 		}
 
 		
 	}
 	/deep/.u-content{
-		color: #827870;
-		font-size: 20rpx;
-		line-height: 1.95;
+		line-height: 1.9;
 	}
 		
 </style>

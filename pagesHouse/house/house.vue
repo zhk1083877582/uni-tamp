@@ -414,9 +414,9 @@
 
 <style lang="scss" scoped>
 .pageHouse-buildingInfo{
-	background-color: #150f09;
-	color: #FFFFFF;
-	padding-bottom: 140rpx;
+	background-color: #FFFFFF;
+	// color: #FFFFFF;
+	padding-bottom: 114rpx;
 	.scroll-tabs {
 		width: 100%;
 		height: 44px;
@@ -443,8 +443,8 @@
 	
 	.pageHouse-bottom{
 		width:100%;
-		height: 140rpx;
-		background: #1e150c;
+		// background: #1e150c;
+		border-top:1px solid #e2e2e2;
 		position: fixed;
 		bottom:0;
 		left:0;
