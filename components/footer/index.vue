@@ -2,9 +2,9 @@
 <template>
 	<view class="report_bottom_warp">
 		<view class="report_bottom">
-			<view class="report_bottom_left" @click="tochathouseKeeper()">
+			<view class="report_bottom_left" @click="tohouseKeeper()">
 				<view class="keeper_avatar">
-					<u-avatar class="avatarTou" :src="keeperUserInfo.headPortrait" size='80' mode="circle"></u-avatar>
+					<u-avatar class="avatarTou" :src="keeperUserInfo.headPortrait" size='76' mode="circle"></u-avatar>
 				</view>
 				<view class="keeper_message">
 					<view class="name">
@@ -42,16 +42,34 @@ export default {
 					num:'897'
 				}
 			}
+		},
+		istoDetail:{
+			type:Boolean,
+			default:true
 		}
 	},
 	computed: {},
 	watch: {},
 	methods: {
 		tellPhone(){
-			console.log('拨打电话')
+			console.log('拨打电话');
+			uni.makePhoneCall({
+				// 手机号
+				phoneNumber: '114',
+				// 成功回调
+				success: (res) => {
+					console.log('调用成功!') 
+					// potentialCustomersInfo('',saveParams)
+				},
+				// 失败回调
+				fail: (res) => {
+					console.log('调用失败!')
+				}
+			});
 		},
-		tochathouseKeeper(){
+		tohouseKeeper(){
 			console.log('跳转名片')
+			if (!this.istoDetail) return
 			uni.navigateTo({
 				url: '/pagesHouse/adviserCard/index?buildingId=' + 1155//+ this.buildingId
 			});
@@ -67,51 +85,57 @@ export default {
 </script>
 <style lang='scss' scoped>
 .report_bottom{
-	padding: 32rpx;
+	background-color: #FFFFFF;
+	padding: 10rpx 24rpx;
 	display: flex;
 	justify-content: space-between;
 	.report_bottom_left{
 		display: flex;
 		.keeper_avatar{
-			margin-right: 16rpx;
+			margin-right: 12rpx;
 		}
 		.keeper_message{
+			margin: 8rpx 0;
 			.name{
-				font-size: 32rpx;
-				color: #edc687;
+				font-size: 28rpx;
+				color: #141414;
 				font-weight: 600;
-				line-height: 32rpx;
+				line-height: 28rpx;
 				.years{
 					background: #ff5835;
 					border-radius: 16rpx 16rpx 16rpx 0rpx;
 					font-size: 18rpx;
 					text-align: center;
 					color: #ffffff;
-					line-height: 30rpx;
-					padding: 0 10rpx;
+					line-height: 18rpx;
+					padding: 2rpx 10rpx;
 					margin-left: 6rpx;
 					font-weight: 400;
+					vertical-align: middle;
 				}
 			}
 			.num{
 				font-size: 24rpx;
 				line-height: 24rpx;
 				color: #9F7747;
-				margin-top: 17rpx;
+				margin-top: 8rpx;
 			}
 		}
 	}
 	
 	.report_bottom_right{
+		display: flex;
+		flex-direction: column;
+		align-self: center;
 		width: 368rpx;
-		height: 86rpx;
+		height: 76rpx;
 		border-radius: 8rpx;
-		background: linear-gradient(270deg,#E6BB78, #FDEDD7 100%);
+		background: #062471;
 		font-size: 32rpx;
 		font-weight: 600;
 		text-align: center;
-		color: #593b1c;
-		line-height: 86rpx;
+		color: #FFFFFF;
+		line-height: 76rpx;
 	}
 }
 </style>

@@ -2,6 +2,11 @@
 <template>
 	<view class='question'>
 		<card title="置业问答" :isShowlittil="true">
+			<view class="littil_title">
+				<view class="text">
+					<i class="iconfont iconyinhao-qian"></i>针对本次沟通，详细总结了您的疑问，并给予详细解答，具体如下<i class="iconfont iconyinhao-hou"></i>
+				</view>
+			</view>
 			<view v-for="(item,index) in questionArr" :key="index">
 				<view v-show="index<2||isShowAllQue">
 					<view class="question_item">
@@ -71,23 +76,44 @@ export default {
 </script>
 <style lang='scss' scoped>
 .question{
+	.littil_title{
+		padding-bottom: 40rpx;
+		.text{
+			padding: 16rpx 24rpx;
+			border: 4rpx solid #f2f4f8;
+			border-radius: 4rpx;
+			font-size: 24rpx;
+			color: #999999;
+			line-height: 36rpx;
+			.iconfont{
+				font-size: 24rpx;
+				display: inline-block;
+			}
+			.iconyinhao-qian{
+				margin-right: 10rpx;
+			}
+			.iconyinhao-hou{
+				margin-left: 10rpx;
+			}
+		}
+	}
 	.question_item{
 		display: flex;
 		.icon_wen{
-			width: 34rpx;
-			height: 34rpx;
-			background: linear-gradient(270deg,#DB9E3E, #FFC97E 100%);
+			width: 30rpx;
+			height: 30rpx;
+			background: #062471;
 			border-radius: 4rpx;
-			font-size: 26rpx;
-			line-height: 34rpx;
+			font-size: 20rpx;
+			line-height: 30rpx;
 			color: #FFFFFF;
 			text-align: center;
 			margin-right: 10rpx;
 		}
 		.question_text{
-			font-size: 28rpx;
+			font-size: 26rpx;
 			font-weight: 600;
-			color: #2b2014;
+			color: #131313;
 			line-height: 34rpx;
 			flex: 1;
 			word-break:break-all;
@@ -96,10 +122,10 @@ export default {
 	.answer_item{
 		padding: 32rpx;
 		margin-top: 20rpx;
-		background-color: #fcf7ee;
+		background-color: #F8F9FB;
 		border-radius: 8rpx;
 		font-size: 28rpx;
-		color: #796650;
+		color: #666666;
 		line-height: 46rpx;
 		position: relative;
 		margin-bottom: 43rpx;
@@ -111,14 +137,14 @@ export default {
 			left: 60rpx;
 			border-width: 15rpx;
 			border-style: solid;
-			border-color: transparent transparent #fcf7ee transparent;
+			border-color: transparent transparent #F8F9FB transparent;
 		}
 	}
 	.upDown {
 			display: flex;
 			font-size: 24rpx;
 			font-weight: 400;
-			color: #a0a1a9;
+			color: #062471;
 			line-height: 24rpx;
 			justify-content: center;
 			padding: 15rpx 0;
@@ -131,7 +157,7 @@ export default {
 		.upDown .i {
 		    transition: all 0.5s;
 		    font-size:20rpx;
-		    color:#8e785e;
+		    color:#062471;
 		    display: block;
 		    transform: rotate(180deg);
 		    -webkit-transform: rotate(180deg);

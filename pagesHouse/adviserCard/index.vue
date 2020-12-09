@@ -65,7 +65,7 @@
 			</buildingInfo>
 		</view>
 		<view class="adviser-bottom">
-			<footBottom></footBottom>
+			<footBottom :istoDetail='false'></footBottom>
 		</view>
 	</view>
 </template>

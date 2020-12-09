@@ -10,8 +10,8 @@
 					<view class="item_details">
 						<view class="details_title">
 							{{building.buildingAlias}}
-							<view class="label cl_B" v-if="!!building.propertyType">{{handlePropertyType(building.propertyType)}}</view>
-							<view class="label cl_Y">{{building.salesStatus == 1?'待售':building.salesStatus == 2?'在售':building.salesStatus == 3?'售罄':building.salesStatus == 4?'在租':''}}</view>
+							<view class="label cl_B">{{building.salesStatus == 1?'待售':building.salesStatus == 2?'在售':building.salesStatus == 3?'售罄':building.salesStatus == 4?'在租':''}}</view>
+							<view class="label cl_Y" v-if="!!building.propertyType">{{handlePropertyType(building.propertyType)}}</view>
 						</view>
 						<view class="price_details">{{$formatter.AveragePrice(building.referenceAveragePriceType,building.referenceAveragePrice,building.referenceAveragePriceMax)}}</view>
 						<view class="address_details">{{$formatter.formatArea(building.referenceBuildAreaMin, building.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{building.areaName}}<text v-if="building.streetName">-</text>{{building.streetName}}</text></view>
@@ -27,8 +27,8 @@
 				:is-scroll="true" 
 				:current="current" 
 				@change="change" 
-				active-color="#ECCE9E" 
-				inactive-color="#928B94" 
+				active-color="#062471" 
+				inactive-color="#999999" 
 				font-size="30"
 				bar-width='40'
 				bar-height='6'
@@ -50,7 +50,7 @@
 					<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
 				</view> 
 				<view class="rows">
-					<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FF5835;">A户型</text>
+					<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
 				</view>
 				<view class="rows">
 					<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">A户型</text>
@@ -176,6 +176,7 @@ export default {
 .recommend{
 	.list_item{
 		padding: 30rpx 0;
+		padding-top: 0;
 		position: relative;
 		.list_item_warp{
 			display:flex;
@@ -202,7 +203,7 @@ export default {
 					font-weight: 700;
 					display: flex;
 					.label{
-						border-radius:4rpx;
+						border-radius:5rpx;
 						font-size: 22rpx;
 						color: #ffffff;
 						padding: 5rpx 9rpx;
@@ -218,18 +219,18 @@ export default {
 					.cl_B{
 						margin-right: 8rpx;
 						margin-left: 10rpx;
-						background-color: #9F7747;
+						background-color: #2951B8;
+						border: 1px solid #2951B8;
 					}
 					.cl_Y{
-						border: 1px solid #9f7747;
-						border-radius: 5px;
-						color: #9f7747;
+						border: 1px solid #2951B8;
+						color: #2951B8;
 					}
 				}
 
 				.price_details{
 					font-size: 32rpx;
-					color: #F95424;
+					color: #FE3A07;
 					line-height: 30rpx;
 					padding:16rpx 0 14rpx 0;
 					font-weight: 600;
@@ -242,7 +243,7 @@ export default {
 
 				.address_details{
 					font-size: 24rpx;
-					color: #C4C0C5;
+					color: #999999;
 					line-height: 24rpx;
 					padding-bottom: 16rpx;
 					.mg_Lf_5{
@@ -252,7 +253,6 @@ export default {
 
 				.classify{
 					font-size: 20rpx;
-					color: #999999;
 					overflow-y: hidden;
 					overflow-x: scroll;
 					height: 30rpx;
@@ -269,7 +269,8 @@ export default {
 						height: 30rpx;
 						line-height: 30rpx;
 						padding: 0 6rpx;
-						background-color: #F1F9FF;
+						color: #999999;
+						background-color: rgba(6,36,113,0.05);
 						border-radius:4rpx;
 						white-space: nowrap;
 					}
@@ -280,9 +281,9 @@ export default {
 	
 	.change_box{
 		/* overflow: hidden; */
-		border: 2rpx solid #f6f4f9;
+		border: 2rpx solid #EBEEF4;
 		.change_image{
-			width: 622rpx;
+			width: 100%;
 			height: 342rpx;
 		}
 		/deep/uni-image{
@@ -291,27 +292,29 @@ export default {
 		.rows{
 			padding: 28rpx;
 			padding-left: 25rpx;
-			border-top: 2rpx solid #f6f4f9;
+			border-top: 2rpx solid #EBEEF4;
 			display: flex;
 			.iconfont{
 				width: 28rpx;
 				height: 28rpx;
 				margin-right: 15rpx;
+				color: #999999;
 			}
 			.lable{
 				font-size: 28rpx;
-				color: #ae9d8a;
+				color: #999999;
 				line-height: 30rpx;
 			}
 			.text{
 				font-size: 28rpx;
 				font-weight: 400;
-				color: #2b2014;
+				color: #141414;
 				line-height: 30rpx;
 				margin-left: 55rpx;
 			}
 			.question{
 				margin-left: 10rpx;
+				color: #141414;
 				width: 32rpx;
 				height: 32rpx;
 			}
@@ -322,31 +325,33 @@ export default {
 					width: 331rpx;
 					position: absolute;
 					opacity: 0.9;
-					background: #251b11;
+					background: #0B2056;
 					padding: 18rpx 24rpx;
 					font-size: 24rpx;
-					color: #b2a18f;
+					color: #FFFFFF;
 					line-height: 36rpx;
-					top: 60rpx;
+					top: 50rpx;
 					left: -250rpx;
 					.sanJ{
 						content: "";
 						position: absolute;
-						top: -38rpx;
-						left: 255rpx;
+						top: -30rpx;
+						left: 257rpx;
 						border-width: 20rpx;
 						border-style: solid;
-						border-color: transparent transparent #251b11 transparent;
+						border-color: transparent transparent #0B2056 transparent;
 					}
 				}
 			}
 		}
 	}
 	.reason{
-		border: 1px solid #f6f4f9;
+		background: #ffffff;
+		box-shadow: 0px 0px 8px 0px rgba(6,36,113,0.1);
+		border: 1px solid #EBEEF4;
 		border-radius: 0px 2px 4px 2px;
-		padding: 54rpx 24rpx 17rpx 24rpx;
-		margin-top: 34rpx;
+		padding: 32rpx 32rpx 32rpx 32rpx;
+		margin-top: 32rpx;
 		position: relative;
 		.reason_title{
 			display: flex;
@@ -354,12 +359,12 @@ export default {
 			.text{
 				font-size: 28rpx;
 				text-align: left;
-				color: #ae9d8a;
+				color: #999999;
 				line-height: 28rpx;
 				margin-left: 13rpx;
 			}
 			.icontuijianliyou{
-				color: #FFC97E
+				color: #999999
 			}
 		}
 		.reason_content{
@@ -375,7 +380,7 @@ export default {
 			position: absolute;
 			top: -43rpx;
 			left: 116rpx;
-			border-width: 25rpx;
+			border-width: 24rpx;
 			border-style: solid;
 			border-color: transparent transparent #FFFFFF transparent;
 		}
@@ -384,9 +389,9 @@ export default {
 			position: absolute;
 			top: -45rpx;
 			left: 118rpx;
-			border-width: 24rpx;
+			border-width: 22rpx;
 			border-style: solid;
-			border-color: transparent transparent #f6f4f9 transparent;
+			border-color: transparent transparent #EBEEF4 transparent;
 		}
 	}
 }

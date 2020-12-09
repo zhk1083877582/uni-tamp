@@ -1,8 +1,8 @@
 <!-- 置业小贴士 -->
 <template>
-	<view class='tips'>
+	<view class='tips_warp'>
 		<card title="置业小贴士">
-			<view class="tips_warp">
+			<view class="tips">
 				<u-avatar class="avatarTou" :src="headPortrait" size='88' mode="circle"></u-avatar>
 				<view class="list">
 					<view class="list_item" v-for="(item,index) in list" :key="index">
@@ -61,27 +61,29 @@ export default {
 </script>
 <style lang='scss' scoped>
 .tips_warp{
-	display: flex;
-	margin-bottom: 100rpx;
-	.list{
-		.list_item{
-			display: flex;
-			margin-bottom: 20rpx;
-			.yuan{
-				display: block;
-				background-color: #C1AF9B;
-				width: 12rpx;
-				height: 12rpx;
-				border-radius: 50%;
-				vertical-align: baseline;
-				margin: 0 20rpx;
-				margin-top: 12rpx;
-			}
-			.text{
-				font-size: 24rpx;
-				color: #877765;
-				line-height: 36rpx;
-				flex: 1;
+	margin-bottom: 40rpx;
+	.tips{
+		display: flex;
+		.list{
+			.list_item{
+				display: flex;
+				margin: 20rpx 0;
+				.yuan{
+					display: block;
+					background-color: #999999;
+					width: 12rpx;
+					height: 12rpx;
+					border-radius: 50%;
+					vertical-align: baseline;
+					margin: 0 20rpx;
+					margin-top: 12rpx;
+				}
+				.text{
+					font-size: 24rpx;
+					color: #999999;
+					line-height: 36rpx;
+					flex: 1;
+				}
 			}
 		}
 	}

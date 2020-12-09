@@ -2,7 +2,7 @@
 <template>
 	<view class='report_detail'>
 		<view class="title_warp">
-			<u-avatar class="avatarTou" :src="headPortrait" size='76' mode="circle"></u-avatar>
+			<u-avatar class="avatarTou" :src="headPortrait" size='96' mode="circle"></u-avatar>
 			<view class="title_content_warp">
 				<view class="title_content">
 					<view class="sanJ"></view>
@@ -18,7 +18,7 @@
 		
 		<!-- 锚点 -->
 			<view class="scroll-tabs">
-				<u-sticky bg-color='#251B11' offset-top=0 h5-nav-height='0'>
+				<u-sticky bg-color='#0A2056' offset-top=0 h5-nav-height='0'>
 				<scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;">
 					<view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(index)">
 						{{ item.label }}
@@ -167,28 +167,26 @@ export default {
 </script>
 <style lang='scss' scoped>
 .report_detail{
+	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	.title_warp{
-		padding: 80rpx 40rpx 40rpx 45rpx;
+		padding: 40rpx 32rpx 32rpx 32rpx;
 		display: flex;
 		.title_content_warp{
-			margin-left: 30rpx;
+			margin-left: 20rpx;
 			background: #ffe6c4;
 			border-radius: 16rpx;
 			box-shadow: 0px 0px 8rpx 0px rgba(0,0,0,0.05); 
-			background: linear-gradient(270deg,#FDEDD7, #FFD799 100%);
+			background: #FFFFFF;
 			font-weight: 400;
 			color: #815c30;
 			position: relative;
 			.title_content{
 				padding: 23rpx 23rpx 30rpx 40rpx;
-				background: url(https://media.tongcehaofang.com/image/default/168ACFDD6E5448798BF2E0CB821B1C5F-6-2.jpg) no-repeat;
-				background-size: 144rpx 100%;
-				background-position: top right;
 				.lable{
 					font-size: 28rpx;
 					font-weight: 600;
 					text-align: left;
-					color: #815c30;
+					color: #141414;
 					line-height: 32rpx;
 					margin-bottom: 16rpx;
 				}
@@ -196,15 +194,16 @@ export default {
 					font-size: 24rpx;
 					text-indent: 40rpx;
 					line-height: 40rpx;
+					color: #999999;
 				}
 				.sanJ:after{
 					content: "";
 					position: absolute;
-					top: 24rpx;
-					left: -32rpx;
-					border-width: 16rpx;
+					top: 35rpx;
+					left: -24rpx;
+					border-width: 12rpx;
 					border-style: solid;
-					border-color: transparent #FFD799 transparent transparent;
+					border-color: transparent #FFFFFF transparent transparent;
 				}
 			}
 		}
@@ -216,8 +215,9 @@ export default {
 		line-height: 44px;
 		white-space: nowrap;
 		box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-		color: #9F7747;
-		background-color: #251B11;
+		color: rgba(255,255,255,0.5);
+		background: linear-gradient(181deg,#0A2056, #0D255F,#0A2056 100%);
+		margin-bottom: 39rpx;
 		/* z-index: 999; */
 		.tab-item {
 			display: inline-block;
@@ -226,7 +226,7 @@ export default {
 			font-weight: 600;
 			text-align: center;
 			padding: 0 30rpx;
-			background-color: #251B11;
+			background: linear-gradient(181deg,#0A2056, #0D255F,#0A2056 100%);
 			position: relative;
 			.under_line{
 				position: absolute;
@@ -238,20 +238,20 @@ export default {
 				display: block;
 				border-radius: 4rpx;
 				margin: 0 auto;
-				background: #251B11;
+				background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 			}
 			.under_line_active{
-				background: #ecce9e !important;
+				background: #FFFFFF !important;
 			}
 		}
 		.active {
-			color: #EDC687;
+			color: #FFFFFF;
 		}
 		.active::after{
 			width: 16rpx;
 			transform: translate(16px, -100%);
 			transition-duration: 0.5s;
-			background-color: #EDC687;
+			background-color: #FFFFFF;
 			height: 4rpx;
 			border-radius: 4rpx;
 		}
@@ -262,7 +262,7 @@ export default {
 		top: 0;
 		left: 0;
 		z-index: 9999;
-		background-color: #251B11;
+		background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	}
 	.No_fixed{
 		position: sticky;

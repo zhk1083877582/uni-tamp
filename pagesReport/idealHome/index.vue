@@ -1,12 +1,8 @@
 <!-- 我的理想家 -->
 <template>
+<view class="ideal_home_warp">
 	<view class='ideal_home'>
-		<view class="top_title">
-			<u-avatar class="avatarTou" :src="headPortrait" size='71' mode="circle"></u-avatar>
-		</view>
-		<view class="text_title">
-			<text>我的理想家</text>
-		</view>
+		<view class="top_title"><i class="shu"></i><text class="span">我的理想家</text></view>
 		<view class="main">
 			<view class="main_content">
 				<view class="box">
@@ -90,6 +86,7 @@
 			</view>
 		</view>
 	</view>
+</view>
 </template>
 
 <script>
@@ -115,23 +112,41 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+.ideal_home_warp{
+	background-color: #062471;
+	position: relative;
+	width: 100%;
+	height: 100%;
 	.ideal_home{
 		position: absolute;
-		top: 40rpx;
-		width: 670rpx;
+		top: 60rpx;
+		width: 686rpx;
 		left: 50%;
 		transform: translate(-50%);
 		background-color: #FFFFFF;
 		border-radius: 20rpx;
-		.top_title{
+		.top_title {
+			font-weight: bold;
+			text-align: left;
+			color: #062471;
+			padding: 48rpx 0 0 32rpx;
+			/* margin-top: 70rpx; */
+			margin-bottom: 64rpx;
 			display: flex;
-			justify-content: center;
-			padding: 0rpx 0 20rpx 0;
-			background: url(https://media.tongcehaofang.com/image/default/64AF86C0446F40AFB7F07635306C60D7-6-2.jpg) no-repeat;
-			background-position: top center;
-			background-size: 100% 85rpx;
-			.avatarTou{
-				margin: 39rpx 0 21rpx 0;
+			justify-content: start;
+			.span{
+				color: #062471;
+				-webkit-background-clip: text;
+				display: block;
+				font-size: 34rpx;
+				line-height: 28rpx;
+			}
+			.shu{
+				width: 6rpx;
+				margin-right: 8rpx;
+				background-color: #062471;
+				display: inline-block;
+				height: 34rpx;
 			}
 		}
 		.text_title{
@@ -145,7 +160,7 @@ export default {
 		
 		
 		.main{
-			padding: 0 40rpx;
+			padding: 0 52rpx;
 			/* padding-bottom: 14rpx; */
 			.main_content{
 				display: flex;
@@ -155,12 +170,12 @@ export default {
 					display: flex;
 					.lable{
 						font-size: 28rpx;
-						color: #928b94;
+						color: #999999;
 						line-height: 28rpx;
 					}
 					.content{
 						font-size: 28rpx;
-						color: #2b2014;
+						color: #141414;
 						line-height: 28rpx;
 					}
 					.column{
@@ -168,14 +183,14 @@ export default {
 						flex-direction: column;
 						flex: 1;
 						.item_view{
-							margin-bottom: 28rpx;
+							margin-bottom: 32rpx;
 							color: #928b94;
 							display: flex;
 							.color_red{
 								margin-left: 24rpx;
 								font-size: 28rpx;
 								font-weight: 400;
-								color: #f95424;
+								color: #FE3A07;
 								line-height: 28rpx;
 							}
 							.second_label{
@@ -185,7 +200,7 @@ export default {
 								margin-left: 24rpx;
 								font-size: 28rpx;
 								font-weight: 400;
-								line-height: 28rpx;
+								line-height: 32rpx;
 								color: #2b2014;
 							}
 						}
@@ -195,4 +210,5 @@ export default {
 		}
 		
 	}
+}
 </style>

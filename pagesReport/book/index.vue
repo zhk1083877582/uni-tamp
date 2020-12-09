@@ -2,34 +2,34 @@
 <template>
 	<view class='book_blue'>
 		<view class="box">
-			<view class="warp_border">
-				<!-- <text class="top_left color_yel"></text>
-				<text class="top_right color_yel"></text>
-				<text class="bottom_left color_black"></text>
-				<text class="bottom_right color_black"></text> -->
-			</view>
 			<view class="index_high">
-				<view class="title">
-					您的置业建议书
+				<view class="warp_border">
 				</view>
-				<view class="building_name">
-					万科天空之城
+				<view class="title">
+					张小萌女士：
+				</view>
+				<view class="text">
+					请查收您的
 				</view>
 				<view class="card">
 					置业计划书
 				</view>
-				<view class="qundai">
-					<view class="HDJ">
-						
+				<view class="building_name">
+					万科天空之城
+				</view>
+				
+			</view>
+			
+			<view class="qundai">
+				<view class="HDJ">
+					<u-button type="default" hover-class='none' class="btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+						尊享开启
+					</u-button>
+					<view class="bottom_text">
+						温馨提示：授权查看您的置业计划书，获得完整服务
 					</view>
 				</view>
 			</view>
-		</view>
-		<u-button type="default" hover-class='none' class="btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
-			敬呈<text class="user_name">杨先生</text>亲启
-		</u-button>
-		<view class="bottom_text">
-			温馨提示：授权查看您的置业计划书，获得完整服务
 		</view>
 	</view>
 </template>
@@ -150,19 +150,22 @@ export default {
 </script>
 <style lang='scss' scoped>
 .book_blue{
+	background: #062471;
+	height: 100%;
+	width: 100%;
+	padding-top: 16%;
 	.btn{
 		
 		/deep/.u-btn{
-			margin: 0 auto;
-			width: 398rpx;
-			height: 80rpx;
-			background: url(https://media.tongcehaofang.com/image/default/995B4F94B3A6481C93FD7F695FE1F64A-6-2.jpg) no-repeat;
-			background-size: 100% 100%;
-			margin-top: 72rpx;
-			color: #593B1C;
+			background: linear-gradient(180deg,#ffeda8, #ffce89);
+			border-radius: 49rpx;
+			width: 443rpx;
+			height: 98rpx;
+			font-size: 36rpx;
+			line-height: 98rpx;
 			text-align: center;
-			line-height: 80rpx;
-			font-size: 32rpx;
+			font-weight: 600;
+			color: #062471;
 		}
 		.user_name{
 			font-weight: 600;
@@ -174,118 +177,90 @@ export default {
 		font-size: 20rpx;
 		font-weight: 400;
 		text-align: center;
-		color: #edc687;
+		color: #B2935A;
 		line-height: 20rpx;
 		margin-top: 38rpx;
 	}
 	.box{
-		width: 610rpx;
-		height: 758rpx;
-		background: linear-gradient(180deg,#604729, #3b2815 99%);
+		padding: 0 30rpx;
+		height: 717rpx;
 		border-radius: 4rpx;
 		box-shadow: 0px 4rpx 20rpx 0px rgba(0,0,0,0.5); 
-		margin: 0 auto;
-		margin-top: 105rpx;
 		position: relative;
 		.index_high{
+			width: 690rpx;
+			margin: 0 auto;
 			z-index: 10;
-			position: absolute;
-			top: 0;
-			left: 0;
+			background: #FEF7E4;
+			height: 100%;
+			position: relative;
 		}
 		.title{
-			font-size: 34rpx;
+			font-size: 28rpx;
+			font-weight: 600;
 			text-align: left;
-			color: #edc687;
+			color: #062471;
 			line-height: 48rpx;
-			padding: 59rpx 0 0 67rpx;
+			padding: 64rpx 0 0 64rpx;
+		}
+		.text{
+			font-size: 28rpx;
+			text-align: center;
+			color: #b89960;
+			line-height: 28px;
+			margin-top:95rpx;
 		}
 		.building_name{
-			padding: 46rpx 0 0 68rpx;
-			font-size: 60rpx;
-			font-weight: 500;
-			color: #ebc78e;
-			line-height: 60rpx;
+			margin-top: 32rpx;
+			font-size: 32rpx;
+			font-weight: 600;
+			text-align: center;
+			color: #062471;
+			line-height: 32rpx;
 		}
 		.card{
-			margin: 34rpx 0 0 71rpx;
-			width: 231rpx;
-			height: 54rpx;
-			background: #EDC687;
-			border-radius: 2rpx;
-			font-weight: 400;
+			margin-top: 48rpx;
+			font-weight: 700;
 			text-align: center;
 			color: #322314;
-			line-height: 54rpx;
-			letter-spacing: 4rpx;
-		}
-		.qundai{
-			margin-top: 196rpx;
-			width: 610rpx;
-			height: 21rpx;
-			background: linear-gradient(180deg,#f7e5bc, #edc687);
-			position: relative;
-			.HDJ{
-				width: 104rpx;
-				height: 93rpx;
-				background: url(https://media.tongcehaofang.com/image/default/9BA538EEA7424F2AB7BA242D1AFF2F0C-6-2.jpg) no-repeat;
-				background-size: 100% 100%;
-				position: absolute;
-				top: -19rpx;
-				right: 72rpx;
-			}
+			font-size: 80rpx;
+			line-height: 80rpx;
+			color: #062471;
 		}
 		.warp_border{
 			margin: 0 auto;
-			width: 570rpx;
-			height: 718rpx;
+			width: 650rpx;
+			height: 687rpx;
 			position: absolute;
 			top: 20rpx;
 			left: 20rpx;
 			z-index: 1;
-			background: url(https://media.tongcehaofang.com/image/default/D7995969D6FE42C991B70F903502FC49-6-2.jpg) no-repeat;
+			background: url(https://media.tongcehaofang.com/image/default/EAB52B7623624AF3B225B49024D161EF-6-2.jpg) no-repeat;
 			background-size: 100% 100%;
-			/* .color_yel{
-				
-				background: transparent;
-				width: 30rpx;
-				height: 30rpx;
-				border-radius: 50%;
+		}
+		.qundai{
+			width: 100%;
+			height: 560rpx;
+			background: url(https://media.tongcehaofang.com/image/default/6D95DE18F74A4D6986E1D7A37EE300B1-6-2.jpg) no-repeat;
+			background-size: 100% 100%;
+			position: absolute;
+			left: 0;
+			top: 75%;
+			z-index: 10;
+			.HDJ{
+				width: 100%;
+				height: 100%;
+				background: url(https://media.tongcehaofang.com/image/default/A068A1C25FC74588869BB73405F9EF6F-6-2.jpg) no-repeat;
+				background-size: 100% 100%;
+				padding-top: 30%;
+				margin-top: 10%;
 			}
-			.color_black{
-				border: 2rpx solid #19130b;
-				background: transparent;
-				width: 20rpx;
-				height: 20rpx;
-				border-radius: 50%;
-			}
-			.top_left{
-				border-bottom: 2rpx solid #edc687;
-				border-right: 2rpx solid #edc687;
-				position: absolute;
-				left: -15rpx;
-				top: -15rpx;
-			}
-			.top_right{
-				position: absolute;
-				right: 0;
-				top: 0;
-			}
-			.bottom_left{
-				position: absolute;
-				left: 0;
-				bottom: 0;
-			}
-			.bottom_right{
-				position: absolute;
-				right: 0;
-				bottom: 0;
-			} */
 		}
 	}
 	/deep/.u-hairline-border:after{
 		border: 0;
 	}
+	
 }
 	
 </style>
