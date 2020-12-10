@@ -23,6 +23,11 @@
 					</view>
 				</view>
 			</view>
+			<view class="littil_title">
+				<view class="text">
+					<i class="iconfont iconyinhao-qian"></i>以上回答是否让您对该楼盘全面了解？如仍有疑 问，可点击下方电话联系我<i class="iconfont iconyinhao-hou"></i>
+				</view>
+			</view>
 			<view class="upDown" @click.stop="showMore()"><text class="text">{{isShowAllQue?'收起':'展开'}}</text><text class="i iconfont iconbtn_arrow_top" :class="{up:isShowAllQue}"></text></view>
 			
 		</card>
@@ -100,12 +105,12 @@ export default {
 	.question_item{
 		display: flex;
 		.icon_wen{
-			width: 30rpx;
-			height: 30rpx;
+			width: 32rpx;
+			height: 32rpx;
 			background: #062471;
 			border-radius: 4rpx;
 			font-size: 20rpx;
-			line-height: 30rpx;
+			line-height: 32rpx;
 			color: #FFFFFF;
 			text-align: center;
 			margin-right: 10rpx;
@@ -114,7 +119,7 @@ export default {
 			font-size: 26rpx;
 			font-weight: 600;
 			color: #131313;
-			line-height: 34rpx;
+			line-height: 32rpx;
 			flex: 1;
 			word-break:break-all;
 		}

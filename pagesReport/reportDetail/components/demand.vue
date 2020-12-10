@@ -93,18 +93,18 @@ export default {
 		margin-bottom: 30rpx;
 	}
 	.rows{
-		border-top: 2rpx solid #EBEEF4;
+		border-top: 1rpx solid #EBEEF4;
 		display: flex;
 		text-align: center;
 		justify-content: space-between;
 		/* margin: 0 24rpx; */
-		border: 1px solid #EBEEF4;
+		border: 1rpx solid #EBEEF4;
 		border-bottom:0;
 		/* background: #FCF7EE; */
-		.col_L{ border-left: 2rpx solid #EBEEF4;}
+		.col_L{ border-left: 1rpx solid #EBEEF4;}
 		/* .col_R{flex: 1.5 !important;} */
 		.col_bottom{
-			border-bottom: 2rpx solid #EBEEF4;
+			border-bottom: 1rpx solid #EBEEF4;
 		}
 		.col{
 			flex: 1;

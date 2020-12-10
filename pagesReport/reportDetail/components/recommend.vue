@@ -281,6 +281,7 @@ export default {
 	
 	.change_box{
 		/* overflow: hidden; */
+		margin-top: 16rpx;
 		border: 2rpx solid #EBEEF4;
 		.change_image{
 			width: 100%;
@@ -348,7 +349,7 @@ export default {
 	.reason{
 		background: #ffffff;
 		box-shadow: 0px 0px 8px 0px rgba(6,36,113,0.1);
-		border: 1px solid #EBEEF4;
+		border: 1rpx solid #EBEEF4;
 		border-radius: 0px 2px 4px 2px;
 		padding: 32rpx 32rpx 32rpx 32rpx;
 		margin-top: 32rpx;
@@ -389,7 +390,7 @@ export default {
 			position: absolute;
 			top: -45rpx;
 			left: 118rpx;
-			border-width: 22rpx;
+			border-width: 23rpx;
 			border-style: solid;
 			border-color: transparent transparent #EBEEF4 transparent;
 		}

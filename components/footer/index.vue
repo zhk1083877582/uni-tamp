@@ -117,7 +117,7 @@ export default {
 			.num{
 				font-size: 24rpx;
 				line-height: 24rpx;
-				color: #666666;
+				color: #999999;
 				margin-top: 8rpx;
 			}
 		}

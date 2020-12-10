@@ -119,8 +119,8 @@ export default {
 	height: 100%;
 	.ideal_home{
 		position: absolute;
-		top: 60rpx;
-		width: 686rpx;
+		top: 6%;
+		width: 91%;
 		left: 50%;
 		transform: translate(-50%);
 		background-color: #FFFFFF;
