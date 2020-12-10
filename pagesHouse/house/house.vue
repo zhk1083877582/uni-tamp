@@ -423,7 +423,7 @@
 		line-height: 44px;
 		white-space: nowrap;
 		box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
-		background-color: #000000;
+		background-color: #FFFFFF;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -433,11 +433,11 @@
 			min-width: 120rpx;
 			font-size: 32rpx;
 			font-weight: 500;
-			color: #827870;
+			color: #666666;
 			text-align: center;
 		}
 		.active {
-			color: #9F7747;
+			color: #4a6ddb;;
 		}
 	}
 	
