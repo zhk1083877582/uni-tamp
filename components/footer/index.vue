@@ -102,8 +102,8 @@ export default {
 				font-weight: 600;
 				line-height: 28rpx;
 				.years{
-					background: #ff5835;
-					border-radius: 16rpx 16rpx 16rpx 0rpx;
+					background: #f6e0bd;
+					border-radius: 16px 16px 16px 0px;
 					font-size: 18rpx;
 					text-align: center;
 					color: #ffffff;
@@ -128,14 +128,15 @@ export default {
 		flex-direction: column;
 		align-self: center;
 		width: 368rpx;
-		height: 76rpx;
+		height: 80rpx;
+		line-height: 80rpx;
 		border-radius: 8rpx;
-		background: #062471;
+		background: #4a6ddb;
 		font-size: 32rpx;
 		font-weight: 600;
 		text-align: center;
 		color: #FFFFFF;
-		line-height: 76rpx;
+		
 	}
 }
 </style>

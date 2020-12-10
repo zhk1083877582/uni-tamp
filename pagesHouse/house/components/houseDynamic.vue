@@ -120,8 +120,8 @@
 	.house-dynamic{
 		width: 100%;
 		// height:300px;
-		border-top: 10px solid #0B0704;
-		padding: 0rpx 30rpx;
+		border-top: 10rpx solid #999999;
+		padding: 40rpx 30rpx;
 		padding-bottom:20rpx;
 		.tabs{
 			margin-top: 50rpx;
@@ -146,8 +146,8 @@
 			  line-height: 68rpx;
 			  margin:30rpx 0;
 			  text-align: center;
-			  background: #211c16;
-			  color: #9f7747;
+			  background-color:#f1f5fd;
+			  color: #4a6ddb;
 			  font-weight: 500;
 		}
 		
@@ -184,25 +184,25 @@
 		    position: absolute;
 		    left: 0;
 		    top: 22rpx;
-		    border-top: 2px solid #9F7747;
+		    border-top: 2px solid #4a6ddb;
 		}
 		.dynamic_actives_img {
 		    width: 42rpx;
 		    height:42rpx;
 		    position: absolute;
 		    border-radius: 50%;
-		    background-color: #9F7747;
+		    background-color: #4A6DDB;
 		    color: white;
 		    text-align: center;
 		    line-height: 38rpx;
 		}
 		.dynamic_actives_title {
 		    margin: 12rpx 0 10rpx;
-		    color: #827870;
+			color: #141414;
 		    font-size: 24rpx;
 		}
 		.dynamic_actives_name {
-		    color: #827870;
+		    color: #666666;
 		    font-size: 24rpx;
 		}
 		
@@ -223,16 +223,16 @@
 				height: 16rpx;
 				margin-right: 18rpx;
 				border-radius: 50% 50%;
-				background: #3e3731;
+				background: #d8d8d8;
 			}
 			.right-title {
 				font-size: 30rpx;
-				color: #827870;
+				color: #141414;
 				margin: 30rpx 0 20rpx 18rpx;
 				font-weight: 700;
 			}
 			.right-message {
-				color: #827870;
+				color: #666666;
 				font-size: 26rpx;
 				margin-left: 18rpx;
 				margin-bottom: 20rpx;

@@ -31,20 +31,15 @@
 <style lang="scss" scoped>
 	.house-disclaimer{
 		height:184rpx;
-		padding: 17rpx 0 17rpx 30rpx;
+		padding: 17rpx 0 0rpx 30rpx;
 		// border: 1px solid red;
 		font-size: 20rpx;
-		border-top: 10px solid #0B0704;
-		color: #56514D;
-		background-color: #0B0704;
+		// border-top: 10px solid #0B0704;
+		color: #999999;
+		background: #f6f6f8;
 		.title{
 			display: flex;
 			align-items: center;
-			// .img{
-			// 	width:26rpx;
-			// 	height:26rpx;
-			// 	margin-right: 10rpx;
-			// }
 			.iconmianzeshengming{
 				margin-right: 10rpx;
 				font-size: 12px;

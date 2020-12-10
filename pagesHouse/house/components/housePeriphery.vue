@@ -12,7 +12,7 @@
 	</view>
     <u-tabs :list="styleList" :is-scroll="true"
 	 :current="current" @change="change" :show-bar="false"
-	 bg-color="#150F09" active-color="#9F7747" inactive-color="#827870">
+	 active-color="#4a6ddb" inactive-color="#141414">
 	</u-tabs>
     <view v-for="(item, index) in styleList[current].currentMess" :key="index">
       <view class="tab-facility">
@@ -255,7 +255,7 @@ export default {
 
 <style lang="scss" scoped>
 .house-periphery {
-  border-top: 10px solid #0B0704;
+  border-top: 10rpx solid #999999;
   width: 100%;
   padding: 40rpx 30rpx;
   .map_container {
@@ -301,19 +301,18 @@ export default {
   .text-left {
     width: 80%;
     text-align: left;
-    color: #827870;
-
+	color: #666666;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 
     .title {
-      color: #E5E3E1;
+      color: #141414;
     }
   }
   .text-right {
     width: 20%;
-    color: #a9a8ae;
+    color: #666666;
     font-size: 22rpx;
     text-align: right;
 
@@ -323,7 +322,7 @@ export default {
       padding-right: 8rpx;
     }
 	.text-right_text{
-		color: #827870;
+		color: #666666;
 	}
   }
 }
@@ -332,8 +331,8 @@ export default {
   line-height: 68rpx;
   text-align: center;
   margin-top: 30rpx;
-  background-color: #211C16;
-  color: #9F7747;
+  background-color:#f1f5fd;
+  color: #4a6ddb;
   font-size: 28rpx;
   // font-weight: 600;
 }

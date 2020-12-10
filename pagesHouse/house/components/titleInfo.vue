@@ -82,11 +82,11 @@
 			display: inline-block;
 			width:6rpx;
 			height:32rpx;
-			background-color:  #827870;
+			background-color:  #4A6DDB;
 		}
 		.text{
 			margin-left: 10rpx;
-			color: #827870;
+			color: #141414;
 			font-size: 32rpx;
 			font-weight: 700;
 		}
