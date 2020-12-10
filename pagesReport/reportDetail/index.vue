@@ -112,7 +112,7 @@ export default {
 							//最外层盒子节点
 							uni.pageScrollTo({
 								duration: 0, //过渡时间必须为0，uniapp bug，否则运行到手机会报错
-								scrollTop: data.top - res.top - 60 //滚动到实际距离是元素距离顶部的距离减去最外层盒子的滚动距离
+								scrollTop: data.top - res.top - 50 //滚动到实际距离是元素距离顶部的距离减去最外层盒子的滚动距离
 							});
 						})
 						.exec();

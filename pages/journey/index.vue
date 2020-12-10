@@ -11,7 +11,7 @@
 		</view>
 		
 	<!-- 置业旅程主体 -->
-		<view class='journey_ownership' v-else :style="ishowbuilding ? 'paddingBottom: 57rpx;' : ''">
+		<view class='journey_ownership' v-else :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''">
 			<view v-if="ishowbuilding">
 				<view class="user_msg">
 					<!-- <u-avatar class="" :src="headPortrait" size='100' mode="circle"></u-avatar> -->
@@ -32,12 +32,12 @@
 						退出登录
 					</view>
 				</view>
-				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" circular='true' @change="changeSwipe">
+				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" circular='true' @change="changeSwipe" :effect3d="true">
 					<swiper-item v-for="(item,index) in buildingArr" :key="index">
 						<view class="swiper-item uni-bg-red">
 							<view class="swiper_item_H">
-								<view class="list_item" @click="toDetail(item.buildingId)">
-									<view class="list_item_warp">
+								<view class="list_item">
+									<view class="list_item_warp" @click="toDetail(item.buildingId)">
 										<view class="img_warp">
 											<image class="tospur-image" :src="item.albumCoverPicture ? item.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
 										</view>
@@ -116,7 +116,7 @@
 												bg-color='transparent'
 												>
 												</u-tabs>
-											<view class="change_box">
+											<view class="change_box" @click="toDetail(item.buildingId)">
 												<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
 												<view class="rows">
 													<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">A户型</text>
@@ -139,7 +139,7 @@
 												<view class="rows">
 													<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000元，每月递减30元</text>
 													<view class="tool_tip_warp">
-														<i class="iconfont iconwenhao question" @click="showTooltip()"></i>
+														<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 														<view class="tool_tip" v-show="isShowTooltip">
 															<i class="sanJ"></i>
 															<view>
@@ -246,7 +246,7 @@ export default {
 	},
 	data() {
 		return {
-			HasToken:false,//搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
+			HasToken:true,//搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
 			isShowPlan:true,
 			ishowbuilding:true,
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
@@ -424,6 +424,10 @@ export default {
 		GetOutClick(){
 			console.log('退出')
 		},
+		// 跳转楼盘详情
+		toDetail(){
+			console.log('跳转楼盘详情')
+		},
 		changeSwipe(val){
 			console.log(val)
 		},
@@ -535,6 +539,7 @@ export default {
 		}
 	}
 	.journey_ownership{
+		background: linear-gradient(181deg, #0A2056, #0D255F, #062471 99%);
 		.user_msg{
 			display: flex;
 			justify-content: space-between; 

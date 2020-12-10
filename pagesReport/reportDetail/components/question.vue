@@ -100,12 +100,12 @@ export default {
 	.question_item{
 		display: flex;
 		.icon_wen{
-			width: 30rpx;
-			height: 30rpx;
+			width: 32rpx;
+			height: 32rpx;
 			background: #062471;
 			border-radius: 4rpx;
 			font-size: 20rpx;
-			line-height: 30rpx;
+			line-height: 32rpx;
 			color: #FFFFFF;
 			text-align: center;
 			margin-right: 10rpx;
@@ -114,7 +114,7 @@ export default {
 			font-size: 26rpx;
 			font-weight: 600;
 			color: #131313;
-			line-height: 34rpx;
+			line-height: 32rpx;
 			flex: 1;
 			word-break:break-all;
 		}

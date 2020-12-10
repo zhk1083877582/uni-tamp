@@ -281,6 +281,7 @@ export default {
 	
 	.change_box{
 		/* overflow: hidden; */
+		margin-top: 16rpx;
 		border: 2rpx solid #EBEEF4;
 		.change_image{
 			width: 100%;
