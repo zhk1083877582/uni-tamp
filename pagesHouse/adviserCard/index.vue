@@ -63,15 +63,26 @@
 				<text class="title-text">服务楼盘</text> 
 			</view>
 			<view class="adviser-building">
-				<scroll-view scroll-x="true"  show-scrollbar="true" 
+				<swiper class="swiper" :style="{height:swiperInfo.itemHeight}" 
+					:next-margin="swiperInfo.swiperMargin" :previous-margin="swiperInfo.swiperMargin"  
+					:current="swiperInfo.current" :indicator-dots="swiperInfo.indicatorDots" :autoplay="swiperInfo.autoplay"
+					:effect3d="true"  circular='true' @change="doChangeSwipe">
+					<swiper-item v-for="(item,index) in listArr" :key="index" >
+						<view class="building-item uni-bg-red" :class="index!=swiperInfo.current?'scale_swiper':''">
+							<buildingCard   :baseInfo="baseInfo"  :buildingId="buildingId">
+							</buildingCard>
+						</view>
+					</swiper-item>
+				</swiper>
+				<!-- <scroll-view scroll-x="true"  show-scrollbar="true" 
 					scroll-with-animation="true" style="height: 100%;white-space: nowrap;">
 					<view class="building-item" v-for="(item,index) in listArr" :key="index">
-						<buildingCard  ref="reBuildingInfo" :baseInfo="baseInfo"  :buildingId="buildingId">
+						<buildingCard   :baseInfo="baseInfo"  :buildingId="buildingId">
 						</buildingCard>
 					</view>
-				</scroll-view>
+				</scroll-view> -->
 			</view>
-			<!-- <buildingCard  ref="reBuildingInfo" :baseInfo="baseInfo"  :buildingId="buildingId">
+			<!-- <buildingCard   :baseInfo="baseInfo"  :buildingId="buildingId">
 			</buildingCard> -->
 		</view>
 		<view class="adviser-bottom">
@@ -104,6 +115,14 @@
 					serveNum:'99',
 					tags:['气质佳','颜值高','了解投资'],
 					flag:'市场分析、热情专业、金融地产'
+				},
+				//滑动信息
+				swiperInfo:{
+					itemHeight:'850rpx',
+					swiperMargin:'12rpx',
+					current:'0',
+					indicatorDots:false,
+					autoplay:false
 				},
 				baseInfo:{
 					favourTitle: '', //图片顶部广告
@@ -142,6 +161,11 @@
 			})
 		},
 		methods: {
+			doChangeSwipe(val){
+				console.log('----swiper',val)
+				this.swiperInfo.current = val.detail.current;
+				this.currentPlan = 0;
+			},
 			// 楼盘-图片信息|基本信息
 			initBaseInfo(){
 				let params = {
@@ -156,8 +180,6 @@
 							title: res.buildingAlias,
 						});
 						
-						// 视频 VR  图片
-						// self.$refs.reBuildingInfo.doFormatImgList(res.annexs);
 						self.configPicture = res.albumCoverPicture;
 						let {baseInfo} =self;
 						Object.keys(baseInfo).forEach(key => {
@@ -227,7 +249,7 @@
 <style lang="scss" scoped>
 .adviser-card{
 	position: relative;
-	padding-bottom: 160rpx;
+	padding-bottom: 140rpx;
 	background-color:#f3f3f3;
 	//封面图
 	.configImg{
@@ -372,26 +394,16 @@
 		}
 		
 	}
-	//顾问名片-item
-	.adviser-building{
-		margin-top: 40rpx;
-		background: #f3f3f3;
-		.building-item{
-			display: inline-block;
-			width:672rpx;
-			margin-right: 10rpx;
-		}
-	}
+	
 	// 服务楼盘
 	.adviser-buildingInfo{
 		width: 100%;
 		margin-top:320rpx;
-		padding-bottom:50rpx;
-		padding-left:24rpx;
-		// border: 1px solid red;
+		// padding-bottom:50rpx;
 		.title {
 			display: flex;
 			align-items: center;
+			padding-left:24rpx;
 			// justify-content: center;
 			.title-icon {
 				width: 6rpx;
@@ -409,12 +421,31 @@
 			}
 			
 		}
+		.adviser-building{
+			// border:1px solid red;
+		}
+		//顾问名片-item
+		.adviser-building{
+			margin-top: 40rpx;
+			background: #f3f3f3;
+			.building-item{
+				display: inline-block;
+				width:702rpx;
+				// border:1px solid pink;
+				margin: 0 10rpx;
+			}
+		}
+		.scale_swiper{
+			transform:scaleY(0.92);
+			opacity: 0.5;
+		}
 	}
 	
 	.adviser-bottom{
 		width:100%;
-		height: 140rpx;
-		background: #1e150c;
+		height: 114rpx;
+		box-sizing: border-box;
+		background: #FFFFFF;
 		position: fixed;
 		bottom:0;
 		left:0;

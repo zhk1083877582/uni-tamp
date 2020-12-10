@@ -3,7 +3,9 @@
 <view class="building-card" @click.stop="doToBulidingInfo">
 	<!-- 图片 -->
 	<view class="img-container">
-		<image class="img" :src="baseInfo.img?baseInfo.img:defaultImg" mode=""></image>
+		<!-- <image class="img" :src="baseInfo.img?baseInfo.img:defaultImg" mode=""></image> -->
+		<view class="img" :style="{'background-image':`url(${baseInfo.img||defaultImg})`}">
+		</view>
 		<view class="play-flag">
 			<view class="triangle"></view>
 		</view>
@@ -37,7 +39,7 @@
 	<view class="building-price">
 	    <text class="price-title">参考均价</text>
 	    <view class="price-content">
-			{{$formatter.formatTotalPrice1(baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}}
+			{{doFormatAveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice)}}
 	    </view>
 	</view>
 	<!-- 楼盘亮点 -->
@@ -99,6 +101,17 @@ export default {
 		   url: '/pagesHouse/house/house'
 		});
 	},
+	doFormatAveragePrice(type,averagePrice){ //均价格式化
+	  if(!averagePrice){
+	    return '待定'
+	  }else{
+	      if(type==1){
+	          return `${averagePrice}元/㎡`
+	      }else {
+	          return `${averagePrice}元/㎡起`
+	      }
+	  }
+	}
 	
   }
   
@@ -107,22 +120,25 @@ export default {
 
 <style lang="scss" scoped>
 .building-card {
-	width:670rpx;
-	box-sizing: border-box;
-	// border:1px solid pink;
+	width:702rpx;
+	height:842rpx ;
+	border-radius:10rpx 10rpx;
+	// box-sizing: border-box;
+	
 	background-color: #FFFFFF;
    //图片
 	.img-container{
-		width:670rpx;
+		width:100%;
 		height: 426rpx;
-		box-sizing: border-box;
-		// padding: 0 0;
-		// border: 1px solid red;
+		box-sizing: border-box;		
 		overflow: hidden;
 		position: relative;
 		.img{
 			width:100%;
-			height: 426rpx;
+			height:100%;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			// border: 1px solid red;
 		}
 		//播放标识
 		.play-flag{
@@ -130,6 +146,7 @@ export default {
 			height: 120rpx;
 			border-radius: 50% 50%;
 			background-color: #1B1B1B;
+			opacity: 0.6;
 			position: absolute;
 			top:50%;
 			left:50%;
@@ -175,7 +192,7 @@ export default {
 	  
 	//楼盘名称  标签
 	.base-info{
-		margin-top:30rpx;
+		margin-top:20rpx;
 	}
 	
 	.flag1-alias,.flag1-propertytypeAndstatus{
@@ -227,7 +244,7 @@ export default {
 	  width: 100%;
 	  padding: 0 24rpx;
 	  padding-left: 30rpx;
-	  margin-top:26rpx;
+	  margin-top:15rpx;
 	  display: flex;
 	  align-items: center;
 	  .price-title{
@@ -236,7 +253,7 @@ export default {
 	  }
 	  .price-content{
 		  margin-left: 10rpx;
-		  font-size: 48rpx;
+		  font-size: 42rpx;
 		  font-weight: 500;
 		  color: #f95424;
 	  }
@@ -248,7 +265,7 @@ export default {
 		width:100%;
 		// height: 48rpx;
 		padding-left: 30rpx;
-		margin-top:26rpx;
+		margin-top:15rpx;
 		font-size: 24rpx;
 		font-weight: 400;
 		text-align: left;
@@ -271,9 +288,10 @@ export default {
 	
 	//参考总价 建筑面积 户型 开盘时间
 	.baseInfo-other{
+		width:642rpx;
 		margin: 0 auto;
-		margin-top:30rpx;
-		padding-left: 30rpx;
+		margin-top:20rpx;
+		// padding-left: 30rpx;
 		padding-bottom: 50rpx;
 		font-size: 26rpx;
 		font-weight: 400;
