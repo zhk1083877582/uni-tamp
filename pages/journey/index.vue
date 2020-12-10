@@ -388,7 +388,7 @@ export default {
 			showGetOut:false,
 			GetOutcontent:'退出登录后将无法查看订单，重新登录即可查看',
 			GetOutTitleStyle:{
-				fontWeight:'600',
+				fontWeight:'700',
 				color:'#141414',
 			},
 			GetOutContentStyle:{

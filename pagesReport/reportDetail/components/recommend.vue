@@ -390,7 +390,7 @@ export default {
 			position: absolute;
 			top: -45rpx;
 			left: 118rpx;
-			border-width: 23rpx;
+			border-width: 22rpx;
 			border-style: solid;
 			border-color: transparent transparent #EBEEF4 transparent;
 		}
