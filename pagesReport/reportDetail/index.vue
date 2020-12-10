@@ -200,7 +200,7 @@ export default {
 					content: "";
 					position: absolute;
 					top: 35rpx;
-					left: -24rpx;
+					left: -23rpx;
 					border-width: 12rpx;
 					border-style: solid;
 					border-color: transparent #FFFFFF transparent transparent;

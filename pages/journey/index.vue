@@ -34,7 +34,7 @@
 				</view>
 				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" circular='true' @change="changeSwipe" :effect3d="true">
 					<swiper-item v-for="(item,index) in buildingArr" :key="index">
-						<view class="swiper-item uni-bg-red">
+						<view class="swiper-item uni-bg-red" :class="index!=curr?'scale_swiper':''">
 							<view class="swiper_item_H">
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.buildingId)">
@@ -430,7 +430,8 @@ export default {
 		},
 		changeSwipe(val){
 			console.log(val)
-			this.currentPlan = 0
+			this.curr = val.detail.current;
+			this.currentPlan = 0;
 		},
 		//气泡显示
 		showTooltip(){
@@ -589,6 +590,10 @@ export default {
 		.swiper{
 			/* padding-top: 20rpx; */
 			height: 232rpx;
+			.scale_swiper{
+				transform:scaleY(0.98);
+				opacity: 0.5;
+			}
 			.list_item{
 				padding: 30rpx 32rpx;
 				position: relative;
@@ -732,18 +737,18 @@ export default {
 					margin-bottom: 30rpx;
 				}
 				.rows{
-					border-top: 2rpx solid #EBEEF4;
+					border-top: 1rpx solid #EBEEF4;
 					display: flex;
 					text-align: center;
 					justify-content: space-between;
 					/* margin: 0 24rpx; */
-					border: 1px solid #EBEEF4;
+					border: 1rpx solid #EBEEF4;
 					border-bottom:0;
 					/* background: #FCF7EE; */
-					.col_L{ border-left: 2rpx solid #EBEEF4;}
+					.col_L{ border-left: 1rpx solid #EBEEF4;}
 					/* .col_R{flex: 1.5 !important;} */
 					.col_bottom{
-						border-bottom: 2rpx solid #EBEEF4;
+						border-bottom: 1rpx solid #EBEEF4;
 					}
 					.col{
 						flex: 1;
@@ -926,7 +931,7 @@ export default {
 					content: "";
 					position: absolute;
 					display: block;
-					width: 2px;
+					width: 1px;
 					background: #EBEEF4;
 					top: 40rpx;
 					left: 7rpx;
