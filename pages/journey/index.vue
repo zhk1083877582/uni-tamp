@@ -430,6 +430,7 @@ export default {
 		},
 		changeSwipe(val){
 			console.log(val)
+			this.currentPlan = 0
 		},
 		//气泡显示
 		showTooltip(){
