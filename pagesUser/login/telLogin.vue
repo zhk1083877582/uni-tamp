@@ -4,7 +4,14 @@
 		<view class="login_warp">
 			<!-- <m-head title="登录"></m-head> -->
 			<view class="log_main">
-				<view class="log_top_text">手机号登录</view>
+				<view class="tel-info">
+					<view class="tel-text1">
+						您好，
+					</view>
+					<view class="tel-text2">
+						欢迎来到德勤置业报告
+					</view>
+				</view>
 				<view class="log_form">
 					<view class="from_warp phone_warp">
 						<u-input 
@@ -38,9 +45,14 @@
 							@input='validatorCode'/>
 					</view>
 					<view class="login_agreement">
-						登录既同意<text class="agreement" @click="toAgreement">同策好房使用协议</text>
+						登录既同意
+						<text class="agreement" @click="toAgreement">
+							德勤置业报告使用协议
+						</text>
 					</view>
-					<u-button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary" @click='onSubmit'><text :style="{'color':submitColor}">登录</text></u-button>
+					<u-button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary" @click='onSubmit'>
+						<text :style="{'color':submitColor}">登录</text>
+					</u-button>
 				</view>
 			</view>
 		</view>
@@ -81,18 +93,9 @@ export default {
 				code:this.VerificationCode,
 				registerCity:this.$cache.getCache('storageCity')||''
 			}
-			// #ifdef MP-BAIDU
-			let api =  '/tospurWeb/baiduapp/baiduLogin'
-			// #endif
-			// #ifdef MP-WEIXIN
 			let api = '/tospurWeb/wxapp/wxLogin'
-			// #endif
-			// #ifdef MP-TOUTIAO
-			let api  = '/tospurWeb/toutiaoApp/toutiaoLogin'
-			// #endif
 			getData(api,params).then((res)=>{
-				console.log(res)
-				console.log(this.propsData,'propsData')
+				console.log('---telLogin',res)
 				this.$cache.setCache('M-Token', res['X-Token']);
 				this.$cache.setCache('Login-Data', res);
 				this.$cache.setCache('loginFlag', true);
@@ -184,7 +187,7 @@ export default {
 		},
 		toAgreement(){
 			uni.navigateTo({
-			    url: './agreement' 
+			    url: '/pagesUser/login/agreement' 
 			});
 		}
 	},
@@ -208,6 +211,21 @@ export default {
 		            font-weight: 500;
 		            padding-top: 96rpx;
 		        }
+				.tel-info{
+					margin-top:128rpx;
+					.tel-text1{
+						display: inline-block;
+						font-size: 56rpx;
+						font-weight: 600;
+						color: #141414;
+					}
+					.tel-text2{
+						margin-top:20rpx;
+						font-size: 36rpx;
+						font-weight: 400;
+						color: #141414;
+					}
+				}
 		
 		        .log_form{
 		            margin-top: 45px;

@@ -6,7 +6,7 @@
 		<view class="home_banner" v-if="!HasToken">
 			<u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit' border-radius='24'></u-swiper>
 			<view class="login_btn">
-				<u-button shape="circle" @click="doPageHouse">开启购房旅程</u-button>
+				<u-button shape="circle" @click="doGoLoginPage">开启购房旅程</u-button>
 			</view>
 		</view>
 		
@@ -241,12 +241,13 @@
 </template>
 
 <script>
+import { getData } from '@/request/api';
 export default {
 	components: {
 	},
 	data() {
 		return {
-			HasToken:true,//搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
+			HasToken:false,//搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
 			isShowPlan:true,
 			ishowbuilding:true,
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
@@ -420,16 +421,28 @@ export default {
 	computed: {},
 	watch: {},
 	methods: {
-		//去楼盘
-		doPageHouse(){
+		//登录
+		doGoLoginPage(){
 			uni.navigateTo({
 			   // url: '/pagesHouse/adviserCard/index'
-			   url: '/pagesHouse/house/house'
+			   url: '/pagesUser/login/login?topath=pages/journey/index'
 			});
 		},
 		// 退出登录
 		GetOutClick(){
-			console.log('退出')
+			
+			getData('/tospurWeb/login/logout').then((res)=>{
+				this.$cache.removeCache('M-Token');
+				this.HasToken =false;
+				// uni.reLaunch({
+				// 	url:'pages/journey/index'
+				// });
+				
+			}).catch(error=>{					
+				this.$refs.uToast.show({
+					title: `${error.msg}`,
+				})
+			})
 		},
 		// 跳转楼盘详情
 		toDetail(){
@@ -507,6 +520,7 @@ export default {
 		});
 	},
 	onLoad(option){
+		console.log('-----首页',this.$cache.getCache('M-Token'))
 		// this.getUserInfo();
 		let loginData = this.$cache.getCache('Login-Data').customerInfo
 		this.userPhone = loginData.phone;
