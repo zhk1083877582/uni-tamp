@@ -31,15 +31,6 @@
 		<view v-if="mp4Num>0&&activeNo<VRStart" class="luobo-type-flag luobo-type-mp4" @click="toMp4OrImg"></view>
 		<view v-if="VRNum>0&&activeNo>=VRStart&&activeNo<ImgStart" class="luobo-type-flag luobo-type-VR" @click="toMp4OrImg"></view>
 		<div class="luobo-text_top" v-if="baseInfo.favourTitle">{{baseInfo.favourTitle}}</div>
-		<!-- 楼盘价格 -->
-		<view :class="['building-price',baseInfo.favourTitle?'building-price-active':'building-price-unactive']">
-		  <view class="building_price_text">
-		    <text class="building_price_mess">参考均价</text>
-		    <view class="ml3">
-		      <text class="building_price_num"> {{$formatter.formatTotalPrice1(baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}} </text>
-		    </view>
-		  </view>
-		</view>
 	</view>
 	
 	<view class="base-info">
@@ -60,19 +51,34 @@
 			</text>
 		</view>
 	</view>
-	<view class="baseInfo-bright">
-		<text class="iconfont iconicon_experience"></text>
-	    <text class="bright-text">{{baseInfo.buildingBrightSpot}}</text>
+	<view class="baseInfo-characteristic">
+		<view class="characteristic-item characteristic-price">
+			<view class="characteristic-text">
+				参考均价
+			</view>
+			<view class="characteristic-value price-value">
+				{{doFormatAveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice)}}
+			</view>
+		</view>
+		<view class="characteristic-item characteristic-area">
+			<view class="characteristic-text">
+				建筑面积
+			</view>
+			<view class="characteristic-value">
+				{{doFormatArea(baseInfo.referenceBuildAreaMin,baseInfo.referenceBuildAreaMax)}}
+			</view>
+		</view>
+		<view class="characteristic-item characteristic-totalPrice">
+			<view class="characteristic-text">
+				参考总价
+			</view>
+			<view class="characteristic-value">
+				{{doFormatTotalPrice(baseInfo.referenceTotalPriceMin,baseInfo.referenceTotalPriceMax)}}
+			</view>
+		</view>
 	</view>
 	<view class="baseInfo-other">
-		<view class="other-area">
-			<text class="other-item">
-				参考总价:{{$formatter.formatTotalPrice1(baseInfo.referenceTotalPriceMin,baseInfo.referenceTotalPriceMax)}}
-			</text>
-			<text class="other-item">
-				建筑面积:{{$formatter.formatArea1(baseInfo.referenceBuildAreaMin,baseInfo.referenceBuildAreaMax)}}
-			</text>
-		</view>
+		
 		<view class="other-houseType">
 			<text class="other-item">
 				在售户型:{{baseInfo.houseType?baseInfo.houseType+'室':'待定'}}
@@ -82,19 +88,19 @@
 			</text>
 		</view>
 	</view>
-	<view class="baseInfo-detail_btn" @click="goBuildingDetailMore">
-	  查看详情
-	</view>
 	<view class="baseInfo-address">
 	  <text class="baseInfo-address_text">地址:{{baseInfo.detailAddress}}</text>
 	  <text class="iconfont iconpoint_s1" @click="toMap"></text>
 	</view>
+	<view class="baseInfo-detail_btn" @click="goBuildingDetailMore">
+	  查看详情
+	</view>
 	<view class="baseInfo-update">
 	  本楼盘消息更新于{{baseInfo.updateTime}}
 	</view>
-	<view class="baseInfo-req">
+	<!-- <view class="baseInfo-req">
 	  <image class="img" src="/static/house/info-req.png" mode=""></image>
-	</view>
+	</view> -->
 </view>
 </template>
 
@@ -284,7 +290,46 @@ export default {
 	  uni.navigateTo({
 	    url: '../moreBuildDetail/index?buildingId=' + this.buildingId
 	  });
-	},    
+	},  
+	  
+	//参考总价
+	doFormatTotalPrice(min,max){ //总价格式化
+	  if(min==null && max==null){
+	    return '待定'
+	  }else{
+	      if(min==null){
+	          return `${max}万元`
+	      }else if(max==null){
+	          return `${min}万元`
+	      }else{
+	          return `${min}-${max}万元`
+	      }
+	  }
+	},
+	doFormatArea(min,max){ //建面格式化
+	  if(min==null && max==null){
+	    return '待定'
+	  }else{
+	      if(min==null){
+	          return `约${max}㎡`
+	      }else if(max==null){
+	          return `约${min}㎡`
+	      }else{
+	          return `${min}-${max}㎡`
+	      }
+	  }
+	},
+	doFormatAveragePrice(type,averagePrice){ //均价格式化
+	  if(!averagePrice){
+	    return '待定'
+	  }else{
+	      if(type==1){
+	          return `${averagePrice}元/㎡`
+	      }else {
+	          return `${averagePrice}元/㎡起`
+	      }
+	  }
+	}
   }
   
 }
@@ -295,23 +340,23 @@ export default {
   width: 100%; 
   // background-color: #999999;
    //轮播
-  
     .luobo {
-      height: 750rpx;
+      height: 690rpx;
       position: relative;
     }
     .luobo-container {
       box-sizing: border-box;
       width: 100%;
       height: 686rpx;
+	  // border:1px solid red;
       // z-index:99;
       position: relative;
     }
     //轮播图加边框
-    .luobo-border {
-      border: 6px solid transparent;
-      background: #150F09;
-    }
+    // .luobo-border {
+    //   border: 6px solid transparent;
+    //   background: #150F09;
+    // }
     .luobo-imglist {
       width: 100%;
       height: 686rpx;
@@ -324,9 +369,9 @@ export default {
       width: 338rpx;
       height: 68rpx;
 	  padding-left: 12rpx;
-	  color:#D29C50;
-      background: #121212;
-      border-radius: 0px 0px 30px 0px;
+	  color: #FFFFFF;
+	  background: #ff4e32;
+	  border-radius: 0px 0px 30rpx 0px;
 	  font-size: 30rpx;
 	  font-weight: 500;
 	  line-height: 68rpx;
@@ -340,7 +385,7 @@ export default {
       width: 100%;
       text-align: center;
       position: absolute;
-      bottom: 162rpx;
+      bottom: 60rpx;
     }
   
     .luobo-text_span {
@@ -355,7 +400,7 @@ export default {
       line-height: 44rpx;
     }
     .spanColor {
-      background-color: #9F7747;
+      background-color: #4A6DDB;
       color: white;
     }
     .lunbo_img_num {
@@ -394,53 +439,10 @@ export default {
     }
     .luobo-type-VR {
       background-position: 0 0;
-    }
-	
-	// 楼盘价格
-	  //楼盘价格
-	  .building-price {
-	    height: 114rpx;
-	    width: 100%;
-	    position: absolute;
-	    bottom: 0;
-	  }
-	  .building-price-active {
-	    background-image: url(/static/house/basePriceActive.png);
-	    background-repeat: no-repeat;
-	    background-size: cover;
-	  }
-	  .building-price-unactive {
-	    background-image: url(/static/house/basePrice@2x.png);
-	    background-repeat: no-repeat;
-	    background-size: cover;
-	  }
-	  .building_price_img {
-	    width: 100%;
-	    height: 100%;
-	  }
-	  .building_price_text {
-	    position: absolute;
-	    width: 100%;
-	    height: 100%;
-	    left: 0;
-	    top: 0;
-	  }
-	  .building_price_mess {
-	    display: inline-block;
-	    color: #6B645E;
-	    font-size: 24rpx;
-	    margin: 20rpx 0 0 30rpx;
-	  }
-	  .building_price_num {
-	    font-size: 48rpx;
-	    font-weight: 600;
-	    color: #9F7747;
-	    margin-left: 30rpx;
-	  }
-	  
+    }	  
 	//楼盘名称  标签
 	.base-info{
-		margin-top:15rpx;
+		margin-top:40rpx;
 	}
 	
 	// .baseInfo-flag1{
@@ -454,9 +456,9 @@ export default {
 		min-width: 210rpx;
 		height: 40px;
 		padding-left: 30rpx;
-		font-weight: 500;
+		font-weight: 600;
 		text-align: left;
-		color: #e5e3e1;
+		color: #222222;
 	}
 	.flag1-item{
 		min-width: 62rpx;
@@ -464,15 +466,15 @@ export default {
 		padding:0 8rpx;
 		margin-right: 8rpx;
 		font-size:22rpx;
-		background: #9f7747;
+		background: #ff8242;
 		border-radius: 5rpx;
 		text-align: center;
 	}
 	.flag1-propertytype{
-		color:#9f7747;
-		background-color:#150f09;
-		border: 1px solid #9f7747;
-		border-radius: 5px;
+		color:#FFFFFF;
+		background: #4a6ddb;
+		// border: 1px solid #9f7747;
+		border-radius: 5rpx;
 	}
 	.baseInfo-flag2{
 		// border:1px solid red;
@@ -481,12 +483,12 @@ export default {
 	.flag2-tag{
 		min-width: 84rpx;
 		height: 32rpx;
-		padding: 0 10rpx;
+		padding: 5rpx 10rpx;
 		margin-right:20rpx;
 		font-size: 20rpx;
 		font-weight: 400;
-		color: #827870;
-		background: #ffffff;
+		color: #141414;
+		background: #f2f2f2;
 		opacity: 0.5;
 		border-radius: 4rpx;
 	}
@@ -515,12 +517,41 @@ export default {
 		width:30rpx;
 		height: 28rpx;
 	}
-	//参考总价 建筑面积 户型 开盘时间
+	//参考总价 建筑面积
+	.baseInfo-characteristic{
+		// border:1px solid #ededed;
+		margin:32rpx 0;
+		padding: 0 32rpx;
+		display: flex;
+		.characteristic-item{
+			flex:1;
+		}
+		.characteristic-text{
+			font-size: 24rpx;
+			font-weight: 400;
+			color: #666666;
+		}
+		.characteristic-value{
+			margin-top:10rpx;
+			font-size: 32rpx;
+			font-weight: 600;
+			color: #141414;
+		}
+		.price-value{
+			color: #ff714b;
+		}
+		
+	}
+	// 户型 开盘时间
 	.baseInfo-other{
-		padding-left: 30rpx;
+		// padding-left: 30rpx;
+		width:690rpx;
+		margin:0 auto;
+		padding-top: 5rpx;
 		font-size: 26rpx;
 		font-weight: 400;
 		color: #827870;
+		border-top:1px solid #ededed;
 		.other-area,.other-houseType{
 			margin-top: 20rpx;
 			display: flex;
@@ -529,34 +560,23 @@ export default {
 			width: 50%;
 		}
 	}
-	//查看详情
-	.baseInfo-detail_btn{
-		width: 690rpx;
-		height: 68rpx;
-		line-height: 68rpx;
-		padding: 0 30rpx;
-		text-align: center;
-		margin: 30rpx auto;
-		background-color:#f1f5fd;
-		color: #4a6ddb;
-		font-size: 28rpx;
-		font-weight: 500;
-		
-	}
+	
 	
 	//地址
 	.baseInfo-address{
 		padding-left: 30rpx;
+		margin-bottom: 40rpx;
+		margin-top: 20rpx;
 		font-size: 26rpx;
 		font-weight: 400;
 		text-align: left;
 		color: #827870;
 		position: relative;
 		.iconfont{
-			width:63rpx;
-			height: 41rpx;
+			font-size: 32rpx;
+			color: #4A6DDB;
 			position: absolute;
-			right:0;
+			right:32rpx;
 			top:5rpx;
 		}
 	}
@@ -565,15 +585,30 @@ export default {
 		display: flex;
 		flex-wrap: wrap;
 	}
+	//查看详情
+	.baseInfo-detail_btn{
+		width: 690rpx;
+		height: 68rpx;
+		line-height: 68rpx;
+		// border: 1px solid red;
+		text-align: center;
+		margin: 10rpx auto;
+		background-color:#f1f5fd;
+		color: #4a6ddb;
+		font-size: 28rpx;
+		font-weight: 500;
+		
+	}
 	//更新时间
 	.baseInfo-update{
-		height:50rpx;
-		line-height: 60rpx;
-		margin:10rpx 0;
-		font-size: 26rpx;
+		height:70rpx;
+		line-height: 70rpx;
+		padding-left: 32rpx;
+		// padding-bottom: 30rpx;
+		font-size: 22rpx;
 		font-weight: 400;
-		text-align: center;
-		color: #827870;
+		text-align: left;
+		color: #999999;
 	}
 	
 	//立即约车
