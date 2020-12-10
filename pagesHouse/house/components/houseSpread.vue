@@ -137,7 +137,7 @@
 <style lang="scss" scoped>
 	.house-spread{
 		width: 100%;
-		padding: 40rpx 40rpx;
+		padding: 40rpx 32rpx;
 		border-top: 10rpx solid #999999;
 		.movable_warp{
 			margin-top: 20px;
