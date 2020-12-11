@@ -119,8 +119,8 @@
 				//滑动信息
 				swiperInfo:{
 					itemHeight:'850rpx',
-					swiperMargin:'12rpx',
-					current:'0',
+					swiperMargin:'17rpx',
+					current:'1',
 					indicatorDots:false,
 					autoplay:false
 				},
@@ -336,11 +336,9 @@
 			margin-top: 24rpx;
 			.tag-item{
 				min-width: 80rpx;
-				// height: 30rpx;
 				margin-right: 10rpx;
 				padding: 5rpx 10rpx;
 				text-align: center;
-				// opacity: 0.6;
 				color: #062471;
 				font-size: 20rpx;
 				background: #FFFFFF;
@@ -399,7 +397,7 @@
 	.adviser-buildingInfo{
 		width: 100%;
 		margin-top:320rpx;
-		// padding-bottom:50rpx;
+		//头部信息
 		.title {
 			display: flex;
 			align-items: center;
@@ -431,13 +429,15 @@
 			.building-item{
 				display: inline-block;
 				width:702rpx;
+				border-radius:10rpx 10rpx;
+				overflow: hidden;
 				// border:1px solid pink;
-				margin: 0 10rpx;
+				margin: 0 7rpx;
 			}
 		}
 		.scale_swiper{
-			transform:scaleY(0.92);
-			opacity: 0.5;
+			transform:scaleY(0.85);
+			// opacity: 0.5;
 		}
 	}
 	

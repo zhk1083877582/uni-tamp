@@ -4,7 +4,7 @@
 	<!-- 图片 -->
 	<view class="img-container">
 		<!-- <image class="img" :src="baseInfo.img?baseInfo.img:defaultImg" mode=""></image> -->
-		<view class="img" :style="{'background-image':`url(${baseInfo.img||defaultImg})`}">
+		<view class="img" :style="{'background-image':`url(${'https://media.tongcehaofang.com/image/default/1BE7B025E8614BAA99A4688F84CCF36D-6-2.jpg'||baseInfo.img||defaultImg})`}">
 		</view>
 		<view class="play-flag">
 			<view class="triangle"></view>
@@ -120,12 +120,12 @@ export default {
 
 <style lang="scss" scoped>
 .building-card {
-	width:702rpx;
+	width:100%;
+	// width:702rpx;
 	height:842rpx ;
 	border-radius:10rpx 10rpx;
-	// box-sizing: border-box;
-	
 	background-color: #FFFFFF;
+	// background-color: green;
    //图片
 	.img-container{
 		width:100%;
