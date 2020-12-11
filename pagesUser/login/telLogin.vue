@@ -93,7 +93,8 @@ export default {
 				code:this.VerificationCode,
 				registerCity:this.$cache.getCache('storageCity')||''
 			}
-			let api = '/tospurWeb/wxapp/wxLogin'
+			console.log('----telParams',params)
+			let api = '/userAuthServer/wx/wxLogin'
 			getData(api,params).then((res)=>{
 				console.log('---telLogin',res)
 				this.$cache.setCache('M-Token', res['X-Token']);
@@ -177,8 +178,8 @@ export default {
 			let params={
 				phone:this.phoneNum
 			}
-			getData('/tospurWeb/login/appLogin/sendMessage',params).then((res)=>{
-				console.log(res)
+			getData('/userAuthServer/wx/sendMessage',params).then((res)=>{
+				console.log('----tel',res)
 			}).catch(error=>{
 				this.$refs.uToast.show({
 					title: `${error.msg}`,

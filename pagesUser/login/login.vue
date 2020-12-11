@@ -54,7 +54,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/tospurWeb/wxapp/wxAuth' 
+						let api = '/userAuthServer/wx/wxLogin' 
 						getData(api, params)
 							.then(res => {
 								console.log('----openid||session_key', res);
