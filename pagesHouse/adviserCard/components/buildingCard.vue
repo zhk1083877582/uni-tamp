@@ -123,7 +123,6 @@ export default {
 	width:100%;
 	// width:702rpx;
 	height:842rpx ;
-	border-radius:10rpx 10rpx;
 	background-color: #FFFFFF;
 	// background-color: green;
    //图片
