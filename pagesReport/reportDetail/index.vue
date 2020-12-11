@@ -48,7 +48,8 @@ import recommend from './components/recommend.vue';
 import publicPage from './components/publicPage.vue';
 import question from './components/question.vue';
 import tipsPage from "./components/tipsPage.vue";
-import footBottom from "@/components/footer/index.vue"
+import footBottom from "@/components/footer/index.vue";
+import { getData } from '@/request/api';
 export default {
 	components: {
 		demand,//置业需求
@@ -119,6 +120,19 @@ export default {
 				})
 				.exec();
 		},
+		getReportData(reportId){
+			let params = {
+				reportId
+			}
+			getData('/business/report/reportDetail',params).then((res)=>{
+				console.log('置业报告详情数据',res)
+			}).catch((err)=>{
+				console.log(err)
+			})
+		},
+		init(){
+			this.getReportData()
+		}
 	},
 	created() {
 
@@ -131,6 +145,7 @@ export default {
 		uni.setNavigationBarTitle({
 			title: `XX专属的置业报告`
 		});
+		this.init(option.reportId)
 	},
 	onPageScroll(e) {
 		// console.log(77,e)

@@ -11,7 +11,7 @@
 		</view>
 		
 	<!-- 置业旅程主体 -->
-		<view class='journey_ownership' v-else :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''">
+		<view class='journey_ownership' v-else :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''" @click.stop="handleBodyClick">
 			<view v-if="ishowbuilding">
 				<view class="user_msg">
 					<!-- <u-avatar class="" :src="headPortrait" size='100' mode="circle"></u-avatar> -->
@@ -138,15 +138,12 @@
 												</view>
 												<view class="rows">
 													<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000元，每月递减30元</text>
-													<view class="tool_tip_warp">
-														<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
+													<view class="tool_tip_warp" @click.stop="showTooltip()">
+														<i class="iconfont iconwenhao question"></i>
 														<view class="tool_tip" v-show="isShowTooltip">
 															<i class="sanJ"></i>
 															<view>
-																首付35% 贷款30年
-															</view>
-															<view>
-																年贷款利率4.9% 等额本息
+																根据首付35%，4.65%LPR，30年期限等额本息计算所得。
 															</view>
 														</view>
 													</view>
@@ -237,6 +234,7 @@
 				@confirm="GetOutClick">
 			</u-modal>
 		</view>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -430,19 +428,8 @@ export default {
 		},
 		// 退出登录
 		GetOutClick(){
-			
-			getData('/tospurWeb/login/logout').then((res)=>{
-				this.$cache.removeCache('M-Token');
-				this.HasToken =false;
-				// uni.reLaunch({
-				// 	url:'pages/journey/index'
-				// });
-				
-			}).catch(error=>{					
-				this.$refs.uToast.show({
-					title: `${error.msg}`,
-				})
-			})
+			this.$cache.removeCache('M-Token');
+			this.HasToken =false;
 		},
 		// 跳转楼盘详情
 		toDetail(){
@@ -452,10 +439,15 @@ export default {
 			console.log(val)
 			this.curr = val.detail.current;
 			this.currentPlan = 0;
+			this.isShowTooltip = false;//月供切换隐藏
 		},
 		//气泡显示
 		showTooltip(){
 			this.isShowTooltip = !this.isShowTooltip
+		},
+		//点击body
+		handleBodyClick(){
+			this.isShowTooltip = false;
 		},
 		// 去管家名片
 		tohouseKeeper(){
@@ -539,17 +531,18 @@ export default {
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	height: 100%;
 	.home_banner{
-		height: 813rpx;
+		/* height: 813rpx; */
 		width: 610rpx;
 		margin: 0 auto;
-		background-color: #FFFFFF;
 		position: absolute;
-		top: 90rpx;
-		left: 70rpx;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
 		.login_btn{
 			display: flex;
 			justify-content: center;
 			padding-top: 72rpx;
+			background: transparen;
 			/deep/.u-btn{
 				background: linear-gradient(180deg,#ffeda8, #ffce89);
 				padding: 31rpx 113rpx;
@@ -861,7 +854,7 @@ export default {
 						}
 						.question{
 							margin-left: 10rpx;
-							width: 32rpx;
+							width: 50rpx;
 							height: 32rpx;
 							color: #333333;
 						}
@@ -869,11 +862,11 @@ export default {
 							position: relative;
 							.tool_tip{
 								z-index:100;
-								width: 331rpx;
+								width: 355rpx;
 								position: absolute;
 								opacity: 0.9;
 								background: #0B2056;
-								padding: 18rpx 24rpx;
+								padding: 18rpx;
 								font-size: 24rpx;
 								color: #FFFFFF;
 								line-height: 36rpx;
@@ -1003,12 +996,14 @@ export default {
 								line-height: 33rpx;
 								padding-top: 4rpx;
 								.keeper_name_text{
-									padding: 0 15rpx;
+									padding-left: 15rpx;
 								}
 								.iconfont{
 									font-size: 24rpx;
 									color: #062471;
 									display: inline-block;
+									width: 50rpx;
+									text-align: right;
 								}
 							}
 						}
