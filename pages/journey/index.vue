@@ -58,7 +58,7 @@
 									<!-- 方案 -->
 									<view class='demand' v-if="isShowPlan">
 										<view class="LX_home">
-											<view class="top_title"><i class="shu"></i><text class="span">我的理想家</text></view>
+											<view class="top_title"><i class="shu"></i><text class="span">置业需求</text></view>
 												<view class="rows">
 													<view class="col">
 														<view class="title">置业目的</view>
@@ -515,7 +515,7 @@ export default {
 		console.log('-----首页',this.$cache.getCache('M-Token'))
 		// this.getUserInfo();
 		let loginData = this.$cache.getCache('Login-Data').customerInfo
-		this.userPhone = loginData.phone;
+		this.userPhone = loginData.hidePhone;
 		this.HasToken = this.$cache.getCache('M-Token')?true:false;
 	},
 	onReady(){
