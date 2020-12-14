@@ -10,7 +10,7 @@
 						置业目的：
 					</view>
 					<view class="content">
-						自住
+						{{resData.intentionPurpose}}
 					</view>
 				</view>
 			</view>
@@ -21,7 +21,7 @@
 						购房资质：
 					</view>
 					<view class="content">
-						0套
+						{{resData.housePurchaseCondition==1?'有':'无'}}
 					</view>
 				</view>
 				<view class="box">
@@ -29,7 +29,7 @@
 						贷款资质：
 					</view>
 					<view class="content">
-						1次
+						{{resData.loanCondition==1?'首套':'二套'}}
 					</view>
 				</view>
 			</view>
@@ -41,13 +41,13 @@
 					</view>
 					<view class="content column">
 						<view class="item_view">
-							<text>总价预算</text><text class="color_red">800万元</text>
+							<text>总价预算</text><text class="color_red">{{resData.totalBudgetMin}}~{{resData.totalBudgetMax}}万</text>
 						</view>
 						<view class="item_view">
-							<text>单价预算</text><text class="color_red">50000/㎡</text>
+							<text>单价预算</text><text class="color_red">{{resData.unitPriceBudgetMin}}~{{resData.unitPriceBudgetMax}}/㎡</text>
 						</view>
 						<view class="item_view">
-							<text>首付区间</text><text class="color_red">300～500万元</text>
+							<text>首付区间</text><text class="color_red">{{resData.downPaymentBudgetMin}}~{{resData.downPaymentBudgetMax}}万元</text>
 						</view>
 					</view>
 				</view>
@@ -61,25 +61,25 @@
 					<view class="content column">
 						<view class="item_view">
 							<view class="second_label">区域</view>
-							<view class="right_text"><text>嘉定区</text><text>嘉定区</text><text>嘉定区</text><text>嘉定区</text><text>嘉定区</text></view>
+							<view class="right_text">{{resData.intentionCityRegion}}</view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">环线</view><view class="right_text"><text>50000/㎡</text></view>
+							<view class="second_label">环线</view><view class="right_text"><text>{{resData.intentionLoopLine}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">地铁</view><view class="right_text"><text>300～500万元</text></view>
+							<view class="second_label">地铁</view><view class="right_text"><text>{{resData.intentionSubway}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">学区</view><view class="right_text"><text>300～500万元</text></view>
+							<view class="second_label">学区</view><view class="right_text"><text>{{resData.intentionSchoolDistrict}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">配套</view><view class="right_text"><text>300～500万元</text></view>
+							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">面积</view><view class="right_text"><text>300～500万元</text></view>
+							<view class="second_label">面积</view><view class="right_text"><text>{{resData.intentionLoopLine}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">户型</view><view class="right_text"><text>300～500万元</text></view>
+							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType}}</text></view>
 						</view>
 					</view>
 				</view>
@@ -95,7 +95,8 @@ export default {
 	components: {},
 	data() {
 		return {
-			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'
+			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+			resData:null
 		};
 	},
 	computed: {},
@@ -109,6 +110,10 @@ export default {
 	mounted() {
 
 	},
+	onLoad(option){
+		console.log(option);
+		this.resData = JSON.parse(option.resData)
+	}
 }
 </script>
 <style lang='scss' scoped>

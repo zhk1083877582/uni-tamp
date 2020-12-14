@@ -159,7 +159,7 @@ export default {
 			height: 45rpx;
 			background-image: url(../../../static/house/triangle.png);
 			background-repeat: no-repeat;
-			background-size: cover;
+			background-size: 100% 100%;
 		}
 		//图片类型
 		.img-flag{

@@ -2,21 +2,21 @@
 <template>
 	<view class='recommend'>
 		<card title="方案推荐">
-			<view class="list_item" @click="toDetail(building.buildingId)">
+			<view class="list_item" @click="toDetail(baseInfo.buildingId)">
 				<view class="list_item_warp">
 					<view class="img_warp">
-						<image class="tospur-image" :src="building.albumCoverPicture ? building.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
+						<image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
 					</view>
 					<view class="item_details">
 						<view class="details_title">
-							{{building.buildingAlias}}
-							<view class="label cl_B">{{building.salesStatus == 1?'待售':building.salesStatus == 2?'在售':building.salesStatus == 3?'售罄':building.salesStatus == 4?'在租':''}}</view>
-							<view class="label cl_Y" v-if="!!building.propertyType">{{handlePropertyType(building.propertyType)}}</view>
+							{{baseInfo.buildingAlias}}
+							<view class="label cl_B">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</view>
+							<view class="label cl_Y" v-if="!!baseInfo.propertyType">{{handlePropertyType(baseInfo.propertyType)}}</view>
 						</view>
-						<view class="price_details">{{$formatter.AveragePrice(building.referenceAveragePriceType,building.referenceAveragePrice,building.referenceAveragePriceMax)}}</view>
-						<view class="address_details">{{$formatter.formatArea(building.referenceBuildAreaMin, building.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{building.areaName}}<text v-if="building.streetName">-</text>{{building.streetName}}</text></view>
+						<view class="price_details">{{$formatter.AveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}}</view>
+						<view class="address_details">{{$formatter.formatArea(baseInfo.referenceBuildAreaMin, baseInfo.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{baseInfo.areaName}}<text v-if="baseInfo.streetName">-</text>{{baseInfo.streetName}}</text></view>
 						<view class="classify">
-							<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in building.buildingTagArr" :key="indexT">{{itemT}}</view></view>
+							<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in baseInfo.buildingTagArr" :key="indexT">{{itemT}}</view></view>
 						</view>
 					</view>
 				</view>
@@ -35,50 +35,49 @@
 				bg-color='transparent'
 				>
 				</u-tabs>
-			<view class="change_box">
-				<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
-				<view class="rows">
-					<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">A户型</text>
-				</view>
-				<view class="rows">
-					<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
-				</view>
-				<view class="rows">
-					<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
-				</view> 
-				<view class="rows">
-					<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
-				</view> 
-				<view class="rows">
-					<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
-				</view>
-				<view class="rows">
-					<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">A户型</text>
-				</view>
-				<view class="rows">
-					<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000元，每月递减30元</text>
-					<view class="tool_tip_warp">
-						<i class="iconfont iconwenhao question" @click="showTooltip()"></i>
-						<view class="tool_tip" v-show="isShowTooltip">
-							<i class="sanJ"></i>
-							<view>
-								首付35% 贷款30年
-							</view>
-							<view>
-								年贷款利率4.9% 等额本息
+			<view v-for="(item,index) in resData" :key="index">
+				<view class="change_box">
+					<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
+					<view class="rows">
+						<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeId}}</text>
+					</view>
+					<view class="rows">
+						<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
+					</view>
+					<view class="rows">
+						<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
+					</view> 
+					<view class="rows">
+						<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
+					</view> 
+					<view class="rows">
+						<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
+					</view>
+					<view class="rows">
+						<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay}}</text>
+					</view>
+					<view class="rows">
+						<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay}}</text>
+						<view class="tool_tip_warp">
+							<i class="iconfont iconwenhao question" @click="showTooltip()"></i>
+							<view class="tool_tip" v-show="isShowTooltip">
+								<i class="sanJ"></i>
+								<view>
+									根据首付35%，4.65%LPR，30年期限等额本息计算所得。
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			
-			<view class="reason">
-				<view class="sanJ"></view>
-				<view class="reason_title">
-					<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
-				</view>
-				<view class="reason_content">
-					三室两厅适合一家三口居住，户型正气南北通透。主卧畅享奢适空间，自成一方私密天地全明户型设计室内清新怡人，总价790元符合预算。
+				
+				<view class="reason">
+					<view class="sanJ"></view>
+					<view class="reason_title">
+						<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
+					</view>
+					<view class="reason_content">
+						{{item.content}}
+					</view>
 				</view>
 			</view>
 		</card>	
@@ -93,35 +92,6 @@ export default {
 	},
 	data() {
 		return {
-			building:{
-				"albumCoverPicture": "https://media.tongcehaofang.com/image/default/F51121C84D59490CA78132AEA616FCE7-6-2.jpg",
-				"area": "310101000",
-				"areaName": "黄浦区",
-				"buildingAlias": "雅丽家院",
-				"buildingBrightSpot": "阿斯蒂芬楼盘亮点",
-				"buildingId": "1155",
-				"buildingName": "雅丽家院",
-				"buildingTagArr": ['位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间'],
-				"createTime": "2020-08-29 14:37:48",
-				"detailAddress": "上海市黄浦区中山东二路367号阿斯蒂芬",
-				"favourTitle": "阿斯蒂芬楼盘优惠",
-				"haveCollection": "false",
-				"houseTypeInfos": [],
-				"lat": "31.235995",
-				"lng": "121.501587",
-				"mainPush": "1",
-				"propertyType": "1,10,2",
-				"referenceAveragePrice": "12000",
-				"referenceAveragePriceMax": null,
-				"referenceAveragePriceType": "1",
-				"referenceBuildAreaMax": "200",
-				"referenceBuildAreaMin": "100",
-				"referenceTotalPriceMax": "200",
-				"referenceTotalPriceMin": "100",
-				"salesStatus": "1",
-				"streetName": "黄浦滨江",
-				"updateTime": "2020-11-12 10:08:27"
-			},
 			tablist:[{
 					cate_name: '方案一'
 				}, {
@@ -139,6 +109,20 @@ export default {
 				current: 0,
 				isShowTooltip:false
 		};
+	},
+	props:{
+		resData:{
+			type:Array,
+			default:()=>{
+				return []
+			}
+		},
+		baseInfo: {
+			type: Object,
+			default: () => {
+				return {}
+			 }
+		},
 	},
 	computed: {},
 	watch: {},
@@ -165,10 +149,9 @@ export default {
 		}
 	},
 	created() {
-
 	},
 	mounted() {
-
+		
 	},
 }
 </script>
@@ -323,7 +306,7 @@ export default {
 				position: relative;
 				.tool_tip{
 					z-index:100;
-					width: 331rpx;
+					width: 360rpx;
 					position: absolute;
 					opacity: 0.9;
 					background: #0B2056;

@@ -7,13 +7,13 @@
 					<view class="col">
 						<view class="title">置业目的</view>
 						<view class="content_text">
-							自住
+							{{resData.intentionPurpose}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">总价预算</view>
 						<view class="content_text">
-							800万
+							{{resData.totalBudgetMin}}~{{resData.totalBudgetMax}}万
 						</view>
 					</view>
 				</view>
@@ -21,13 +21,13 @@
 					<view class="col">
 						<view class="title">意向区域</view>
 						<view class="content_text">
-							嘉定区、青浦区、青浦区、青浦区
+							{{resData.intentionCityRegion}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">意向户型</view>
 						<view class="content_text">
-							800万
+							{{resData.intentionHouseType}}
 						</view>
 					</view>
 				</view>
@@ -35,7 +35,7 @@
 					<view class="col col_bottom">
 						<view class="title">考虑因素</view>
 						<view class="content_text">
-							学区、周边配套、现房、车位充足
+							{{resData.considerFactor}}
 						</view>
 					</view>
 				</view>
@@ -62,20 +62,25 @@ export default {
 		title:{
 			type:String,
 			default:''
+		},
+		resData:{
+			type:Object,
+			default:()=>{
+				return {}
+			}
 		}
 	},
 	computed: {},
 	watch: {},
 	methods: {
 		toIdealHome(){
-			console.log(123123)
 			uni.navigateTo({
-				url: '../idealHome/index?buildingId=' + 123//+ this.buildingId
+				url: '../idealHome/index?resData=' + JSON.stringify(this.resData)
 			  });
 		}
 	},
 	created() {
-
+		
 	},
 	mounted() {
 

@@ -7,19 +7,19 @@
 					<i class="iconfont iconyinhao-qian"></i>针对本次沟通，详细总结了您的疑问，并给予详细解答，具体如下<i class="iconfont iconyinhao-hou"></i>
 				</view>
 			</view>
-			<view v-for="(item,index) in questionArr" :key="index">
+			<view v-for="(item,index) in resData" :key="index">
 				<view v-show="index<2||isShowAllQue">
 					<view class="question_item">
 						<view class="icon_wen">
 							问
 						</view>
 						<view class="question_text">
-							{{item.question}}
+							{{item.questionDesc}}
 						</view>
 					</view>
 					<view class="answer_item">
 						<i class="sanJ"></i>
-						{{item.answer}}
+						{{item.answerDesc}}
 					</view>
 				</view>
 			</view>
@@ -43,25 +43,16 @@ export default {
 	data() {
 		return {
 			isShowAllQue:false,
-			questionArr:[
-				{
-					question:'当前的这个楼盘有建设综合性超市计划吗？',
-					answer:'您好！当前楼盘万科天空之城没有建设综 合性超市，不过项目周边商业配套比较成熟，欢迎来电咨询！'
-				},
-				{
-					question:'你好，我想问下万科天空之城的房子还有多少 套，带装修吗？',
-					answer:'您好，很高兴为您解答，项目目前在售住宅房源，现已加推二期！在售户型见面约73-118平，欢迎来电咨询！'
-				},
-				{
-					question:'11111111111111111111111111111111111111',
-					answer:'22222222222222222222222222222222222222'
-				},
-				{
-					question:'3333333333333333333333333333333',
-					answer:'4444444444444444444444444444444'
-				}
-			]
+			questionArr:[]
 		};
+	},
+	props:{
+		resData:{
+			type:Array,
+			default:()=>{
+				return []
+			}
+		}
 	},
 	computed: {},
 	watch: {},

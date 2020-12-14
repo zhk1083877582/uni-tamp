@@ -91,18 +91,14 @@ export default {
 				phone:this.phoneNum,
 				loginType:1,
 				code:this.VerificationCode,
-				registerCity:this.$cache.getCache('storageCity')||''
 			}
 			console.log('----telParams',params)
 			let api = '/userAuthServer/wx/wxLogin'
 			getData(api,params).then((res)=>{
 				console.log('---telLogin',res)
-				this.$cache.setCache('M-Token', res['X-Token']);
+				this.$cache.setCache('M-Token', res['token']);
 				this.$cache.setCache('Login-Data', res);
-				this.$cache.setCache('loginFlag', true);
-				this.$cache.setCache('loginFlagDetail', true);
 				console.log(this.$cache.getCache('LoginTopath'),'电话登录')
-				
 				if(this.$cache.getCache('LoginTopath')){
 					uni.reLaunch({
 					    url:'/'+this.$cache.getCache('LoginTopath')

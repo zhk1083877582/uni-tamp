@@ -19,7 +19,7 @@
 		<!-- 锚点 -->
 			<view class="scroll-tabs">
 				<u-sticky bg-color='#0A2056' offset-top=0 h5-nav-height='0'>
-				<scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;">
+				<scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;" class="scroll_view">
 					<view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(index)">
 						{{ item.label }}
 						<text class="under_line" :class="{ under_line_active: index === scrollActiveIndex }"></text>
@@ -28,13 +28,13 @@
 				</u-sticky>
 			</view>
 		<!-- 置业需求 -->
-		<demand title="置业需求" class="part1"></demand>
+		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention'></demand>
 		<!-- 方案推荐 -->
-		<recommend class="part2"></recommend>
+		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo'></recommend>
 		<!-- 公共组件 -->
-		<public-page title="区域分析" class="part3"></public-page>
+		<public-page title="区域分析" class="part3" :resData='customerIntention'></public-page>
 		<!-- 置业问答 -->
-		<question class="part4"></question>
+		<question class="part4" v-if="questionList!=null" :resData='questionList' ></question>
 		<!-- 置业小贴士 -->
 		<tips-page class="part5"></tips-page>
 		<!-- 管家信息 -->
@@ -66,23 +66,18 @@ export default {
 			isShowScrollTabs: false,
 			scrollActiveIndex: 0,
 			scrollTabs: {
-				coupon: { label: '置业需求', cl: 'part1', isShow: true },
-				introduce: { label: '方案推荐', cl: 'part2', isShow: true },
-				dynamic: { label: '区域介绍', cl: 'part3', isShow: true },
-				style: { label: '置业问答', cl: 'part4', isShow: true },
-				spread: { label: '购房小贴士', cl: 'part5', isShow: true },
-				periphery: { label: '项目亮点', cl: 'part6', isShow: false },
-				highlights: { label: '功能配套', cl: 'part7', isShow: false },
-				// manager: { label: '置业问答', cl: 'part8', isShow: true },
-				// recommend: { label: '景观建筑', cl: 'part9', isShow: true },
-				// recommend: { label: '地铁交通', cl: 'part9', isShow: true },
-				// recommend: { label: '周边环境', cl: 'part9', isShow: true },
-				// recommend: { label: '周边配套', cl: 'part9', isShow: true },
-				// recommend: { label: '升值潜力', cl: 'part9', isShow: true },
-				// recommend: { label: '客户答疑', cl: 'part9', isShow: true },
-				// recommend: { label: '购房小贴士', cl: 'part9', isShow: true },
+				demand: { label: '置业需求', cl: 'part1', isShow: false },
+				recommend: { label: '方案推荐', cl: 'part2', isShow: false },
+				dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
+				question: { label: '置业问答', cl: 'part4', isShow: false },
+				tips: { label: '购房小贴士', cl: 'part5', isShow: true },
 			},
-			isfixed:false
+			isfixed:false,
+			customerIntention:null,//置业需求
+			articleList:null,//公共样式列表
+			questionList:null,//问答列表
+			recommendation:null, //推荐方案
+			buildingInfo:null,
 		};
 	},
 	computed: {
@@ -126,12 +121,25 @@ export default {
 			}
 			getData('/business/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
+				//置业需求
+				this.customerIntention = res.customerIntention;
+				this.scrollTabs.demand.isShow = res.customerIntention != null?'true':'false';
+				
+				//公共样式列表
+				this.articleList = res.articleList;
+				
+				//问答列表
+				this.questionList = res.questionList;
+				this.scrollTabs.question.isShow = res.questionList.length > 0?'true':'false';
+				
+				//推荐方案
+				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
+				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo.list[0]:null;
+				this.scrollTabs.recommend.isShow = res.recommendation == null&&res.buildingInfo==null?'false':'true';
+				
 			}).catch((err)=>{
 				console.log(err)
 			})
-		},
-		init(){
-			this.getReportData()
 		}
 	},
 	created() {
@@ -145,7 +153,7 @@ export default {
 		uni.setNavigationBarTitle({
 			title: `XX专属的置业报告`
 		});
-		this.init(option.reportId)
+		this.getReportData(option.reportId);
 	},
 	onPageScroll(e) {
 		// console.log(77,e)
@@ -215,7 +223,7 @@ export default {
 					content: "";
 					position: absolute;
 					top: 35rpx;
-					left: -23rpx;
+					left: -20rpx;
 					border-width: 12rpx;
 					border-style: solid;
 					border-color: transparent #FFFFFF transparent transparent;
@@ -234,6 +242,9 @@ export default {
 		background: linear-gradient(181deg,#0A2056, #0D255F,#0A2056 100%);
 		margin-bottom: 39rpx;
 		/* z-index: 999; */
+		.scroll_view{
+			background: linear-gradient(181deg,#0A2056, #0D255F,#0A2056 100%);
+		}
 		.tab-item {
 			display: inline-block;
 			min-width: 60px;

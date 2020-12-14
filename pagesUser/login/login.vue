@@ -54,7 +54,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/wx/wxLogin' 
+						let api = '/userAuthServer/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log('----openid||session_key', res);
@@ -101,13 +101,11 @@ export default {
 					loginType: 0,
 					registerCity:this.$cache.getCache('storageCity')||''
 				};
-				let api = '/tospurWeb/wxapp/wxLogin';
+				let api = '/userAuthServer/wx/wxLogin';
 				getData(api, params)
 					.then(res => {
-						this.$cache.setCache('M-Token', res['X-Token']);
+						this.$cache.setCache('M-Token', res['token']);
 						this.$cache.setCache('Login-Data', res);
-						this.$cache.setCache('loginFlag', true);
-						this.$cache.setCache('loginFlag1', true);
 						if(this.$cache.getCache('LoginTopath')){
 							uni.reLaunch({
 							    url:'/'+this.$cache.getCache('LoginTopath')

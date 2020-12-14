@@ -151,7 +151,8 @@
 		onLoad(option){
 			console.log('-------进入builddingInfo')
 			this.buildingId = option.buildingId||'1155';
-			this.initBaseInfo();
+			this.initUserInfo();//管家信息
+			this.initBaseInfo();//楼盘信息
 		},
 		onReady(){
 			//设置页面导航条颜色
@@ -166,13 +167,28 @@
 				this.swiperInfo.current = val.detail.current;
 				this.currentPlan = 0;
 			},
+			initUserInfo(){
+				let params = {
+					userId: this.buildingId
+				};
+				let self =this;
+				getBuildingBaseInfo('/business/user/getUserCardDetail', params)
+					.then(res => {
+						console.log('管家信息',res)
+						self.adviserInfo = res
+						
+					})
+					.catch(err => {
+						console.log('管家信息', err);
+					});
+			},
 			// 楼盘-图片信息|基本信息
 			initBaseInfo(){
 				let params = {
-					buildingId: this.buildingId
+					buildingIds: this.buildingId
 				};
 				let self =this;
-				getBuildingBaseInfo('', params)
+				getBuildingBaseInfo('/business/building/getBuildingInfoList', params)
 					.then(res => {
 						console.log('----基本信息', res);
 						//设置标题

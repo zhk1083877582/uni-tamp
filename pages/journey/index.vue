@@ -24,7 +24,7 @@
 								<open-data type="userNickName"></open-data>
 							</view>
 							<view class="phone" :class="{'authorize_Y':authorize!=true}">
-								{{userPhone}}
+								{{phoneFormat}}
 							</view>
 						</view>
 					</view>
@@ -416,7 +416,13 @@ export default {
 			],
 		};
 	},
-	computed: {},
+	computed: {
+		phoneFormat(){
+			var reg = /^(\d{3})\d{4}(\d{4})$/;
+			let tel = this.userPhone.replace(reg, "$1****$2");
+			return tel
+		}
+	},
 	watch: {},
 	methods: {
 		//登录
@@ -428,8 +434,16 @@ export default {
 		},
 		// 退出登录
 		GetOutClick(){
-			this.$cache.removeCache('M-Token');
-			this.HasToken =false;
+			let api = '/userAuthServer/bapp/logout'
+			getData(api)
+				.then(res => {
+					this.$cache.removeCache('M-Token');
+					this.$cache.removeCache('Login-Data');
+					this.HasToken =false;
+				})
+				.catch(err => {
+					console.log('请求结果报错', err);
+				});
 		},
 		// 跳转楼盘详情
 		toDetail(){
@@ -485,7 +499,7 @@ export default {
 		},
 		toReportDetail(){
 			uni.navigateTo({
-				url: '../../pagesReport/reportDetail/index?buildingId=' + 123//+ this.buildingId
+				url: '../../pagesReport/reportDetail/index?reportId=' + 3//+ this.buildingId
 			});
 		},
 		toIdealHome(){
@@ -515,7 +529,7 @@ export default {
 		console.log('-----首页',this.$cache.getCache('M-Token'))
 		// this.getUserInfo();
 		let loginData = this.$cache.getCache('Login-Data').customerInfo
-		this.userPhone = loginData.hidePhone;
+		this.userPhone = loginData.phone;
 		this.HasToken = this.$cache.getCache('M-Token')?true:false;
 	},
 	onReady(){

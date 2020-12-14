@@ -23,7 +23,7 @@ import encryptList from "@/request/encrypt.js"
 
         // Tip: 2
         if (tool.getToken()) {
-            config.headers['X-Token'] = tool.getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+            config.headers['token'] = tool.getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
 			console.log(tool.getToken(),'token  token')
         } else {
             // 重定向到登录页面
@@ -83,12 +83,12 @@ import encryptList from "@/request/encrypt.js"
           data = response.request?typeof(response.request)=='string'?JSON.parse(response.request):response.request:''
         }
         // 根据返回的code值来做不同的处理（和后端约定）
-        if(data.status.code == 0){
+        if(data.code == 200){
           data = !instance.prototype.ifEncrypt?encryptList.Decrypt(data.data): data.data;
           if(data && !instance.prototype.ifEncrypt)data = JSON.parse(data)
           return data
         }else{
-          return Promise.reject(data.status,data) 
+          return Promise.reject(data) 
         }
         // 若不是正确的返回code，且已经登录，就抛出错误
         // const err = new Error(data.description)
@@ -181,8 +181,8 @@ import encryptList from "@/request/encrypt.js"
         }
     )
 const commonParams = {
-  appName: 'xcx',
-  appVersion: '1.0.0'
+  // appName: 'xcx',
+  // appVersion: '1.0.0'
 };
 let apiRequest =function(instance){
   this.instance = instance;
