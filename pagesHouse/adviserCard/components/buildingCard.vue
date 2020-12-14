@@ -4,7 +4,7 @@
 	<!-- 图片 -->
 	<view class="img-container">
 		<!-- <image class="img" :src="baseInfo.img?baseInfo.img:defaultImg" mode=""></image> -->
-		<view class="img" :style="{'background-image':`url(${'https://media.tongcehaofang.com/image/default/1BE7B025E8614BAA99A4688F84CCF36D-6-2.jpg'||baseInfo.img||defaultImg})`}">
+		<view class="img" :style="{'background-image':`url(${'https://media.tongcehaofang.com/image/default/F8EF2B9B78C44DEF9A0C1185C12EF525-6-2.jpg'||baseInfo.img||defaultImg})`}">
 		</view>
 		<view class="play-flag">
 			<view class="triangle"></view>
@@ -96,9 +96,9 @@ export default {
   
   methods:{
 	//跳转楼盘详情
-	doToBulidingInfo () {
+	doToBulidingInfo (buildingId) {
 		uni.navigateTo({
-		   url: '/pagesHouse/house/house'
+		   url: '/pagesHouse/house/house?buildingId='+ buildingId
 		});
 	},
 	doFormatAveragePrice(type,averagePrice){ //均价格式化

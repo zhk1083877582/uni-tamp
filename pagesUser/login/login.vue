@@ -119,6 +119,14 @@ export default {
 						console.log('请求结果报错', err);
 					});
 			}
+		},
+		getWXAudit(){
+			console.log(123)
+			getData('/business/home/WXAudit').then(res=>{
+				console.log(res)
+			}).catch(err=>{
+				console.log(err)
+			})
 		}
 	},
     onLoad(option) {
@@ -141,7 +149,7 @@ export default {
 			this.$cache.setCache('LoginTopath', this.pinWx);
 			console.log('LoginTopath',this.pinWx)
 		},400)
-		
+		this.getWXAudit();
 	},
 };
 </script>

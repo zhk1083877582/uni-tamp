@@ -130,7 +130,7 @@ export default {
 				
 				//问答列表
 				this.questionList = res.questionList;
-				this.scrollTabs.question.isShow = res.questionList.length > 0?'true':'false';
+				this.scrollTabs.question.isShow = res.questionList!=null&&res.questionList.length > 0?'true':'false';
 				
 				//推荐方案
 				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
@@ -151,7 +151,7 @@ export default {
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
 		uni.setNavigationBarTitle({
-			title: `XX专属的置业报告`
+			title: `王先生的专属置业报告`
 		});
 		this.getReportData(option.reportId);
 	},

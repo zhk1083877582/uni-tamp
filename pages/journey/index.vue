@@ -11,10 +11,9 @@
 		</view>
 		
 	<!-- 置业旅程主体 -->
-		<view class='journey_ownership' v-else :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''" @click.stop="handleBodyClick">
+		<view class='journey_ownership' v-else  @click.stop="handleBodyClick"><!-- :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''" -->
 			<view v-if="ishowbuilding">
 				<view class="user_msg">
-					<!-- <u-avatar class="" :src="headPortrait" size='100' mode="circle"></u-avatar> -->
 					<view class="user_msg_left">
 						<view class="avatarTou">
 							<open-data type="userAvatarUrl"></open-data>
@@ -33,22 +32,22 @@
 					</view>
 				</view>
 				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" circular='true' @change="changeSwipe" :effect3d="true">
-					<swiper-item v-for="(item,index) in buildingArr" :key="index">
+					<swiper-item v-for="(item,index) in journeyArr" :key="index" class="swiper_item_class">
 						<view class="swiper-item uni-bg-red" :class="index!=curr?'scale_swiper':''">
 							<view class="swiper_item_H">
 								<view class="list_item">
-									<view class="list_item_warp" @click="toDetail(item.buildingId)">
+									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId)">
 										<view class="img_warp">
-											<image class="tospur-image" :src="item.albumCoverPicture ? item.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
+											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
 										</view>
 										<view class="item_details">
 											<view class="details_title">
-												{{item.buildingAlias}}
-												<view class="label cl_B">{{item.salesStatus == 1?'待售':item.salesStatus == 2?'在售':item.salesStatus == 3?'售罄':item.salesStatus == 4?'在租':''}}</view>
+												{{item.reportBuildingIntro.buildingAlias}}
+												<view class="label cl_B">{{item.reportBuildingIntro.salesStatus == 1?'待售':item.reportBuildingIntro.salesStatus == 2?'在售':item.reportBuildingIntro.salesStatus == 3?'售罄':item.reportBuildingIntro.salesStatus == 4?'在租':''}}</view>
 												<view class="label cl_Y" v-if="!!item.propertyType">{{handlePropertyType(item.propertyType)}}</view>
 											</view>
-											<view class="price_details">{{$formatter.AveragePrice(item.referenceAveragePriceType,item.referenceAveragePrice,item.referenceAveragePriceMax)}}</view>
-											<view class="address_details">{{$formatter.formatArea(item.referenceBuildAreaMin, item.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{item.areaName}}<text v-if="item.streetName">-</text>{{item.streetName}}</text></view>
+											<view class="price_details">{{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}</view>
+											<view class="address_details">{{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{item.reportBuildingIntro.areaName}}<text v-if="item.reportBuildingIntro.streetName">-</text>{{item.reportBuildingIntro.streetName}}</text></view>
 											<view class="classify">
 												<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in item.buildingTagArr" :key="indexT">{{itemT}}</view></view>
 											</view>
@@ -63,13 +62,13 @@
 													<view class="col">
 														<view class="title">置业目的</view>
 														<view class="content_text">
-															自住
+															{{item.customerIntention.intentionPurpose}}
 														</view>
 													</view>
 													<view class="col col_L">
 														<view class="title">总价预算</view>
 														<view class="content_text">
-															800万
+															{{item.customerIntention.totalBudgetMin}}~{{item.customerIntention.totalBudgetMax}}万
 														</view>
 													</view>
 												</view>
@@ -77,13 +76,13 @@
 													<view class="col">
 														<view class="title">意向区域</view>
 														<view class="content_text">
-															嘉定区、青浦区、青浦区、青浦区
+															{{item.customerIntention.intentionCityRegion}}
 														</view>
 													</view>
 													<view class="col col_L">
 														<view class="title">意向户型</view>
 														<view class="content_text">
-															800万
+															{{item.customerIntention.intentionHouseType}}
 														</view>
 													</view>
 												</view>
@@ -91,23 +90,23 @@
 													<view class="col col_bottom">
 														<view class="title">考虑因素</view>
 														<view class="content_text">
-															学区、周边配套、现房、车位充足
+															{{item.customerIntention.considerFactor}}
 														</view>
 													</view>
 												</view>
 												<view>
-													<view class="check_all" @click="toIdealHome()">查看完整理想家 >></view>
+													<view class="check_all" @click="toIdealHome(item.customerIntention)">查看完整理想家 >></view>
 												</view>
 										</view>
 										<!-- 方案 -->
 										<view class="recommend_warp">
 											<view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
 											<u-tabs
-												name='cate_name' 
-												:list="tablist" 
+												name='recommendationNum' 
+												:list="item.recommendation" 
 												:is-scroll="true" 
 												:current="currentPlan" 
-												@change="change" 
+												@change="changePlanTab" 
 												active-color="#062471" 
 												inactive-color="#999999" 
 												font-size="30"
@@ -116,76 +115,84 @@
 												bg-color='transparent'
 												>
 												</u-tabs>
-											<view class="change_box" @click="toDetail(item.buildingId)">
-												<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
-												<view class="rows">
-													<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">A户型</text>
-												</view>
-												<view class="rows">
-													<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
-												</view>
-												<view class="rows">
-													<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
-												</view> 
-												<view class="rows">
-													<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
-												</view> 
-												<view class="rows">
-													<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
-												</view>
-												<view class="rows">
-													<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">A户型</text>
-												</view>
-												<view class="rows">
-													<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000元，每月递减30元</text>
-													<view class="tool_tip_warp" @click.stop="showTooltip()">
-														<i class="iconfont iconwenhao question"></i>
-														<view class="tool_tip" v-show="isShowTooltip">
-															<i class="sanJ"></i>
-															<view>
-																根据首付35%，4.65%LPR，30年期限等额本息计算所得。
+												
+										<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
+											<swiper-item v-for="(itemR,index) in item.recommendation" :key="index">			
+												<view class="change_box_warp">
+													<view class="change_box" @click="toDetail(item.buildingId)">
+														<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
+														<view class="rows">
+															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">A户型</text>
+														</view>
+														<view class="rows">
+															<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
+														</view>
+														<view class="rows">
+															<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
+														</view> 
+														<view class="rows">
+															<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
+														</view> 
+														<view class="rows">
+															<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
+														</view>
+														<view class="rows">
+															<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">A户型</text>
+														</view>
+														<view class="rows">
+															<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000</text>
+															<view class="tool_tip_warp" @click.stop="showTooltip()">
+																<i class="iconfont iconwenhao question"></i>
+																<view class="tool_tip" v-show="isShowTooltip">
+																	<i class="sanJ"></i>
+																	<view>
+																		根据首付35%，4.65%LPR，30年期限等额本息计算所得。
+																	</view>
+																</view>
 															</view>
 														</view>
 													</view>
+													
+													<view class="reason">
+														<view class="sanJ"></view>
+														<view class="reason_title">
+															<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
+														</view>
+														<view class="reason_content">
+															{{itemR.content}}
+														</view>
+													</view>
 												</view>
-											</view>
-											
-											<view class="reason">
-												<view class="sanJ"></view>
-												<view class="reason_title">
-													<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
-												</view>
-												<view class="reason_content">
-													三室两厅适合一家三口居住，户型正气南北通透。主卧畅享奢适空间，自成一方私密天地全明户型设计室内清新怡人，总价790元符合预算。
-												</view>
-											</view>
+											</swiper-item>
+										</swiper>
+										
 										</view>
 										
 										<!-- 置业报告列表 -->
 										<view class="report_list">
 											<view class="mian">
-												<view class="timeline-item" v-for="(itemL, index) in dynamicList" :key="index">
+												<view class="timeline-item" v-for="(itemL, index) in item.reportData" :key="index">
 													<view class="time">
 														<text class="georama"></text>
 														<view class="list_top_title">
 															<view class="time_text">
-																看房时间：{{itemL.time}}
+																看房时间：{{$tool.dateFtt('yyyy-MM-dd', itemL.createTime) }}
 															</view>
 															<view class="keeper_msg" @click="tohouseKeeper">
 																<view class="keeper_portrait">
-																	<image class="img" :src="itemL.avatarTou" mode="circle"></image>
+																	<image class="img" :src="itemL.avatarTou?itemL.avatarTou:defaultHead" mode="circle"></image>
 																</view>
 																<view class="keeper_name">
-																	<text class="keeper_name_text">{{itemL.workName}}</text> <i class="iconfont icondianhua" @click.stop="tellPhone"></i>
+																	<text class="keeper_name_text">{{itemL.createrId?itemL.createrId:'--'}}</text> <i class="iconfont icondianhua" @click.stop="tellPhone"></i>
 																</view>
 															</view>
 														</view>
 														
 													</view>
-													<view class="status u-line-2">{{itemL.status}}</view>
+													<view class="status u-line-2">{{itemL.stage==2?'复看':'首看'}}</view>
 													<view class="content" @click="toReportDetail">
 														<view class="report_title">
-															<i class="iconfont iconzhiyebaogao"></i>{{itemL.reportTitle}}<i class="iconfont iconjiantou"></i>
+															<i class="iconfont iconzhiyebaogao"></i>{{itemL.reportName}}<i class="iconfont iconjiantou"></i>
 														</view>
 													</view>
 												</view>
@@ -239,6 +246,7 @@
 </template>
 
 <script>
+import {mockData} from './mock.js';
 import { getData } from '@/request/api';
 export default {
 	components: {
@@ -249,138 +257,21 @@ export default {
 			isShowPlan:true,
 			ishowbuilding:true,
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+			defaultHead:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			swiperMargin:'30rpx',
 			swiperHeight: '1000px',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,
 			authorize:true,
-			buildingArr:[
-				{
-					"albumCoverPicture": "https://media.tongcehaofang.com/image/default/F51121C84D59490CA78132AEA616FCE7-6-2.jpg",
-					"area": "310101000",
-					"areaName": "黄浦区",
-					"buildingAlias": "雅丽家院",
-					"buildingBrightSpot": "阿斯蒂芬楼盘亮点",
-					"buildingId": "1155",
-					"buildingName": "雅丽家院",
-					"buildingTagArr": ['位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间'],
-					"createTime": "2020-08-29 14:37:48",
-					"detailAddress": "上海市黄浦区中山东二路367号阿斯蒂芬",
-					"favourTitle": "阿斯蒂芬楼盘优惠",
-					"haveCollection": "false",
-					"houseTypeInfos": [],
-					"lat": "31.235995",
-					"lng": "121.501587",
-					"mainPush": "1",
-					"propertyType": "1,10,2",
-					"referenceAveragePrice": "12000",
-					"referenceAveragePriceMax": null,
-					"referenceAveragePriceType": "1",
-					"referenceBuildAreaMax": "200",
-					"referenceBuildAreaMin": "100",
-					"referenceTotalPriceMax": "200",
-					"referenceTotalPriceMin": "100",
-					"salesStatus": "1",
-					"streetName": "黄浦滨江",
-					"updateTime": "2020-11-12 10:08:27"
-				},
-				{
-					"albumCoverPicture": "https://media.tongcehaofang.com/image/default/F51121C84D59490CA78132AEA616FCE7-6-2.jpg",
-					"area": "310101000",
-					"areaName": "黄浦区",
-					"buildingAlias": "雅丽家院2",
-					"buildingBrightSpot": "阿斯蒂芬楼盘亮点",
-					"buildingId": "1155",
-					"buildingName": "雅丽家院",
-					"buildingTagArr": ['位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间'],
-					"createTime": "2020-08-29 14:37:48",
-					"detailAddress": "上海市黄浦区中山东二路367号阿斯蒂芬",
-					"favourTitle": "阿斯蒂芬楼盘优惠",
-					"haveCollection": "false",
-					"houseTypeInfos": [],
-					"lat": "31.235995",
-					"lng": "121.501587",
-					"mainPush": "1",
-					"propertyType": "1,10,2",
-					"referenceAveragePrice": "12000",
-					"referenceAveragePriceMax": null,
-					"referenceAveragePriceType": "1",
-					"referenceBuildAreaMax": "200",
-					"referenceBuildAreaMin": "100",
-					"referenceTotalPriceMax": "200",
-					"referenceTotalPriceMin": "100",
-					"salesStatus": "1",
-					"streetName": "黄浦滨江",
-					"updateTime": "2020-11-12 10:08:27"
-				},
-				{
-					"albumCoverPicture": "https://media.tongcehaofang.com/image/default/F51121C84D59490CA78132AEA616FCE7-6-2.jpg",
-					"area": "310101000",
-					"areaName": "黄浦区",
-					"buildingAlias": "雅丽家院3",
-					"buildingBrightSpot": "阿斯蒂芬楼盘亮点",
-					"buildingId": "1155",
-					"buildingName": "雅丽家院",
-					"buildingTagArr": ['位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间','位置','阳光','庭院','挑高','衣帽间'],
-					"createTime": "2020-08-29 14:37:48",
-					"detailAddress": "上海市黄浦区中山东二路367号阿斯蒂芬",
-					"favourTitle": "阿斯蒂芬楼盘优惠",
-					"haveCollection": "false",
-					"houseTypeInfos": [],
-					"lat": "31.235995",
-					"lng": "121.501587",
-					"mainPush": "1",
-					"propertyType": "1,10,2",
-					"referenceAveragePrice": "12000",
-					"referenceAveragePriceMax": null,
-					"referenceAveragePriceType": "1",
-					"referenceBuildAreaMax": "200",
-					"referenceBuildAreaMin": "100",
-					"referenceTotalPriceMax": "200",
-					"referenceTotalPriceMin": "100",
-					"salesStatus": "1",
-					"streetName": "黄浦滨江",
-					"updateTime": "2020-11-12 10:08:27"
-				}
-			],
+			journeyArr:mockData,
 		
 			// 方案
-			tablist:[
-				{
-					cate_name: '方案一'
-				}, {
-					cate_name: '方案二'
-				}, {
-					cate_name: '方案三'
-				}, {
-					cate_name: '方案四'
-				}, {
-					cate_name: '方案五'
-				}, {
-					cate_name: '方案六',
-					cate_count: 5
-				},
-			],
 			currentPlan: 0,
 			isShowTooltip:false,
+			swiperHeightPlan:'700px',
+			currPlan:0,
 			
-			dynamicList:[
-				{
-					time: '2020.11.08',
-					status:'复看',
-					reportTitle:'王先生的置业报告201030',
-					workName:'张学友11',
-					avatarTou:'https://media.tongcehaofang.com/image/default/DD4DE4B73E4442DEB124D19C702105C0-6-2.jpg?x-oss-process=image/resize,h_120,w_120'
-				},
-				{
-					time: '2020.12.09',
-					status:'首次带看',
-					reportTitle:'王先生的置业报告201020',
-					workName:'张学友',
-					avatarTou:'https://media.tongcehaofang.com/image/default/DD4DE4B73E4442DEB124D19C702105C0-6-2.jpg?x-oss-process=image/resize,h_120,w_120'
-				}
-			],
 			userPhone:'',
 			
 			//退出登录参数
@@ -455,6 +346,17 @@ export default {
 			this.currentPlan = 0;
 			this.isShowTooltip = false;//月供切换隐藏
 		},
+		//方案swiper
+		changePlanTab(index) {
+			console.log(index,11111)
+			this.currentPlan = index;
+			this.currPlan = index;
+		},
+		changeSwipePlan(index){
+			console.log(index)
+			this.currentPlan = index.detail.current;
+			this.currPlan = index.detail.current;
+		},
 		//气泡显示
 		showTooltip(){
 			this.isShowTooltip = !this.isShowTooltip
@@ -494,19 +396,36 @@ export default {
 			}
 			return this.$formatter.switchName('propertyType',newKey)
 		},
-		change(index) {
-			this.currentPlan = index;
-		},
 		toReportDetail(){
 			uni.navigateTo({
 				url: '../../pagesReport/reportDetail/index?reportId=' + 3//+ this.buildingId
 			});
 		},
-		toIdealHome(){
+		toIdealHome(data){
 			uni.navigateTo({
-				url: '../../pagesReport/idealHome/index?buildingId=' + 123//+ this.buildingId
+				url: '../../pagesReport/idealHome/index?resData=' + JSON.stringify(data),//+ this.buildingId
 			  });
-		}
+		},
+		getinitData(){
+			let params = {
+				customerId:1
+			}
+			getData("/business/home/cAppHome",params).then((res)=>{
+				console.log(res);
+			}).catch(err=>{
+				console.log(err)
+			})
+		},
+		getDescBox() {
+		  uni.createSelectorQuery().in(this).select('.change_box_warp').boundingClientRect(result => { 
+		   if (result) { 
+		     console.log('==========',result) 
+			 this.swiperHeightPlan = result.height + 20 +'px'
+		   }else { 
+		     this.getDescBox(); 
+		 } 
+		  }).exec(); 
+		},
 	},
 	created() {
 	
@@ -517,13 +436,14 @@ export default {
 		　　success: function(res) { // res - 各种参数
 		// 　　   console.log(res,res.windowHeight); // 屏幕的高度 
 				
-		　　    let info = uni.createSelectorQuery().select(".swiper_item_H");
+		　　    let info = uni.createSelectorQuery().select(".swiper-item");
 		　　　  　info.boundingClientRect(function(data) { //data - 各种参数
-		// 　　　  　console.log(data,data.height)  // 获取元素高度
+		　　　  　console.log(data,data.height,111222222)  // 获取元素高度
 					self.swiperHeight = data.height +'px'
 		　　    }).exec()
 		       }
 		});
+		this.getDescBox();
 	},
 	onLoad(option){
 		console.log('-----首页',this.$cache.getCache('M-Token'))
@@ -531,6 +451,7 @@ export default {
 		let loginData = this.$cache.getCache('Login-Data').customerInfo
 		this.userPhone = loginData.phone;
 		this.HasToken = this.$cache.getCache('M-Token')?true:false;
+		this.getinitData(loginData.customerId);
 	},
 	onReady(){
 		
@@ -618,6 +539,10 @@ export default {
 		.swiper{
 			/* padding-top: 20rpx; */
 			height: 232rpx;
+			.swiper_item_class{
+				border-radius: 20rpx;
+				overflow: hidden;
+			}
 			.scale_swiper{
 				transform:scaleY(0.98);
 				opacity: 0.5;
@@ -865,6 +790,10 @@ export default {
 							color: #141414;
 							line-height: 30rpx;
 							margin-left: 55rpx;
+							width: 60%;
+							overflow:hidden;
+							text-overflow:ellipsis;
+							white-space:nowrap
 						}
 						.question{
 							margin-left: 10rpx;
@@ -873,7 +802,8 @@ export default {
 							color: #333333;
 						}
 						.tool_tip_warp{
-							position: relative;
+							position: absolute;
+							right: 44rpx;
 							.tool_tip{
 								z-index:100;
 								width: 355rpx;
@@ -953,8 +883,16 @@ export default {
 		}
 		
 		.report_list {
-				position: relative;
+				margin-top: 20rpx;
 				padding-bottom: 31rpx;
+				height: 600rpx;
+				overflow: hidden;
+				overflow-y: scroll;
+		
+			.mian {
+				padding-bottom: 78rpx;
+				/* margin-bottom: 98rpx; */
+				position: relative;
 				&:before {
 					content: "";
 					position: absolute;
@@ -963,13 +901,10 @@ export default {
 					background: #EBEEF4;
 					top: 40rpx;
 					left: 7rpx;
-					height: 84%;
+					height: 90%;
 				}
-		
-			.mian {
-				padding-bottom: 78rpx;
-				margin-bottom: 98rpx;
 			}
+			
 		
 			.timeline-item {
 				padding: 32rpx 0rpx 20rpx 0rpx;

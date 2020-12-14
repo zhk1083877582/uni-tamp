@@ -1,6 +1,6 @@
 <!-- 方案推荐 -->
 <template>
-	<view class='recommend'>
+	<view class='recommend' @click.stop="handleBodyClick">
 		<card title="方案推荐">
 			<view class="list_item" @click="toDetail(baseInfo.buildingId)">
 				<view class="list_item_warp">
@@ -35,51 +35,55 @@
 				bg-color='transparent'
 				>
 				</u-tabs>
-			<view v-for="(item,index) in resData" :key="index">
-				<view class="change_box">
-					<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
-					<view class="rows">
-						<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeId}}</text>
-					</view>
-					<view class="rows">
-						<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
-					</view>
-					<view class="rows">
-						<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
-					</view> 
-					<view class="rows">
-						<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
-					</view> 
-					<view class="rows">
-						<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
-					</view>
-					<view class="rows">
-						<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay}}</text>
-					</view>
-					<view class="rows">
-						<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay}}</text>
-						<view class="tool_tip_warp">
-							<i class="iconfont iconwenhao question" @click="showTooltip()"></i>
-							<view class="tool_tip" v-show="isShowTooltip">
-								<i class="sanJ"></i>
-								<view>
-									根据首付35%，4.65%LPR，30年期限等额本息计算所得。
+			<swiper :style="{'min-height':swiperHeight}" class="swiper" :current='curr'  :indicator-dots="indicatorDots" :autoplay="autoplay" :circular='autoplay' @change="changeSwipe">
+				<swiper-item v-for="(item,index) in resData" :key="index">	
+					<view class="change_box_warp">
+						<view class="change_box">
+							<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
+							<view class="rows">
+								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeId}}</text>
+							</view>
+							<view class="rows">
+								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
+							</view>
+							<view class="rows">
+								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
+							</view> 
+							<view class="rows">
+								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
+							</view> 
+							<view class="rows">
+								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
+							</view>
+							<view class="rows">
+								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay}}</text>
+							</view>
+							<view class="rows">
+								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay}}</text>
+								<view class="tool_tip_warp">
+									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
+									<view class="tool_tip" v-show="isShowTooltip">
+										<i class="sanJ"></i>
+										<view>
+											根据首付35%，4.65%LPR，30年期限等额本息计算所得。
+										</view>
+									</view>
 								</view>
 							</view>
 						</view>
-					</view>
-				</view>
-				
-				<view class="reason">
-					<view class="sanJ"></view>
-					<view class="reason_title">
-						<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
-					</view>
-					<view class="reason_content">
-						{{item.content}}
-					</view>
-				</view>
-			</view>
+						
+						<view class="reason">
+							<view class="sanJ"></view>
+							<view class="reason_title">
+								<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
+							</view>
+							<view class="reason_content">
+								{{item.content}}
+							</view>
+						</view>
+					</view>	
+				</swiper-item>
+			</swiper>
 		</card>	
 	</view>
 </template>
@@ -107,7 +111,11 @@ export default {
                     cate_count: 5
 				}],
 				current: 0,
-				isShowTooltip:false
+				isShowTooltip:false,
+				swiperHeight: null,
+				indicatorDots: false,
+				autoplay: false,
+				curr:0,
 		};
 	},
 	props:{
@@ -127,9 +135,26 @@ export default {
 	computed: {},
 	watch: {},
 	methods: {
+		changeSwipe(val){
+			console.log(val);
+			this.curr = val.detail.current;
+			this.current = val.detail.current;
+			this.getDescBox();
+			this.isShowTooltip = false;
+		},
+		change(index) {
+			this.current = index;
+			this.curr = index;
+			console.log(this.current)
+			this.isShowTooltip = false;
+		},
 		//气泡显示
 		showTooltip(){
 			this.isShowTooltip = !this.isShowTooltip
+		},
+		//点击body
+		handleBodyClick(){
+			this.isShowTooltip = false;
 		},
 		toDetail(){
 		
@@ -143,15 +168,21 @@ export default {
 			}
 			return this.$formatter.switchName('propertyType',newKey)
 		},
-		change(index) {
-			this.current = index;
-			console.log(this.current)
-		}
+		getDescBox() { 
+		  uni.createSelectorQuery().in(this).select('.change_box_warp').boundingClientRect(result => { 
+		   if (result) { 
+		     console.log('==========',result) 
+			 this.swiperHeight = result.height + 20 +'px'
+		   }else { 
+		     this.getDescBox(); 
+		 } 
+		  }).exec(); 
+		},
 	},
 	created() {
 	},
 	mounted() {
-		
+		this.getDescBox()
 	},
 }
 </script>
@@ -295,6 +326,10 @@ export default {
 				color: #141414;
 				line-height: 30rpx;
 				margin-left: 55rpx;
+				width: 60%;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				white-space:nowrap
 			}
 			.question{
 				margin-left: 10rpx;
@@ -303,7 +338,8 @@ export default {
 				height: 32rpx;
 			}
 			.tool_tip_warp{
-				position: relative;
+				right: 44rpx;
+				position: absolute;
 				.tool_tip{
 					z-index:100;
 					width: 360rpx;

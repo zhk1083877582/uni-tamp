@@ -269,10 +269,12 @@
 	background-color:#f3f3f3;
 	//封面图
 	.configImg{
-		height:450rpx;
+		height:453rpx;
 		text-align: center;
 		background:linear-gradient(180deg,#001944, rgba(0,25,68,0) 97%);
-		img{
+		overflow: hidden;
+		border-radius: 0 0 25% 25%;
+		.img{
 			width:100%;
 			height: 100%;
 		}
@@ -284,11 +286,11 @@
 		padding: 40rpx 50rpx;
 		display: flex;
 		// border: 1px solid #FFFFFF;
-		background: url('https://media.tongcehaofang.com/image/default/1BE7B025E8614BAA99A4688F84CCF36D-6-2.jpg');
+		background: url('https://media.tongcehaofang.com/image/default/F8EF2B9B78C44DEF9A0C1185C12EF525-6-2.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		position: absolute;
-		top:330rpx;
+		top:284rpx;
 		left:24rpx;
 		.info-img{
 			width:180rpx;
@@ -397,7 +399,7 @@
 		color: #000000;
 		display: flex;
 		position: absolute;
-		top:700rpx;
+		top:660rpx;
 		left:24rpx;
 		.adviser-tag_item{
 			flex:1;
@@ -412,7 +414,7 @@
 	// 服务楼盘
 	.adviser-buildingInfo{
 		width: 100%;
-		margin-top:320rpx;
+		margin-top:270rpx;
 		//头部信息
 		.title {
 			display: flex;
