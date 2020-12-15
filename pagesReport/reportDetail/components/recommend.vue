@@ -5,7 +5,8 @@
 			<view class="list_item" @click="toDetail(baseInfo.buildingId)">
 				<view class="list_item_warp">
 					<view class="img_warp">
-						<image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
+						<image class="tospur-image" src="/static/pic_default_small@2x.png"></image>
+						<!-- <image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image> -->
 					</view>
 					<view class="item_details">
 						<view class="details_title">
@@ -14,7 +15,8 @@
 							<view class="label cl_Y" v-if="!!baseInfo.propertyType">{{handlePropertyType(baseInfo.propertyType)}}</view>
 						</view>
 						<view class="price_details">{{$formatter.AveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}}</view>
-						<view class="address_details">{{$formatter.formatArea(baseInfo.referenceBuildAreaMin, baseInfo.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{baseInfo.areaName}}<text v-if="baseInfo.streetName">-</text>{{baseInfo.streetName}}</text></view>
+						<view class="address_details">{{$formatter.formatArea(baseInfo.referenceBuildAreaMin, baseInfo.referenceBuildAreaMax)}}</view>
+						<view class="address_details"><text>{{baseInfo.areaName}}<text v-if="baseInfo.streetName">-</text>{{baseInfo.streetName}}</text></view>
 						<view class="classify">
 							<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in baseInfo.baseTagsName" :key="indexT">{{itemT}}</view></view>
 						</view>
@@ -41,25 +43,25 @@
 						<view class="change_box">
 							<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
 							<view class="rows">
-								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeId}}</text>
+								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeDetail.houseTypeName||'-'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
+								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail.houseType||'-'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber}}</text>
+								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
 							</view> 
 							<view class="rows">
-								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea}}</text>
+								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.constructionArea||'-'}}<text>㎡</text></text>
 							</view> 
 							<view class="rows">
-								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
+								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay}}</text>
+								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay||'-'}}万元</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay}}</text>
+								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
 								<view class="tool_tip_warp">
 									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 									<view class="tool_tip" v-show="isShowTooltip">
@@ -198,7 +200,7 @@ export default {
 			overflow: hidden;
 			.img_warp{
 				width: 210rpx;
-				height: 170rpx;
+				height: 210rpx;
 				border-radius: 10rpx;
 				overflow: hidden;
 				position: relative;
@@ -394,6 +396,9 @@ export default {
 			color: #2b2014;
 			line-height: 52rpx;
 			text-indent: 50rpx;
+			height: 160rpx;
+			overflow: hidden;
+			overflow-y: scroll;
 		}
 		.sanJ:after{
 			content: "";

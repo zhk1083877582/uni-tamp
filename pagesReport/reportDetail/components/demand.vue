@@ -7,13 +7,13 @@
 					<view class="col">
 						<view class="title">置业目的</view>
 						<view class="content_text">
-							{{resData.intentionPurpose}}
+							{{resData.intentionPurpose||'-'}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">总价预算</view>
 						<view class="content_text">
-							{{resData.totalBudgetMin}}~{{resData.totalBudgetMax}}万
+							{{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text>
 						</view>
 					</view>
 				</view>
@@ -21,13 +21,13 @@
 					<view class="col">
 						<view class="title">意向区域</view>
 						<view class="content_text">
-							{{resData.intentionCityRegion}}
+							{{resData.intentionCityRegion||'-'}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">意向户型</view>
 						<view class="content_text">
-							{{resData.intentionHouseType}}
+							{{resData.intentionHouseType||'-'}}
 						</view>
 					</view>
 				</view>
@@ -35,7 +35,7 @@
 					<view class="col col_bottom">
 						<view class="title">考虑因素</view>
 						<view class="content_text">
-							{{resData.considerFactor}}
+							{{resData.considerFactor||'-'}}
 						</view>
 					</view>
 				</view>

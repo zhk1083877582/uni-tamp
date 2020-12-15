@@ -38,7 +38,7 @@
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId)">
 										<view class="img_warp">
-											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image>
+											<image class="tospur-image" src="/static/pic_default_small@2x.png"></image>
 										</view>
 										<view class="item_details">
 											<view class="details_title">
@@ -47,9 +47,10 @@
 												<view class="label cl_Y" v-if="!!item.reportBuildingIntro.propertyType">{{handlePropertyType(item.reportBuildingIntro.propertyType)}}</view>
 											</view>
 											<view class="price_details">{{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}</view>
-											<view class="address_details">{{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{item.reportBuildingIntro.areaName}}<text v-if="item.reportBuildingIntro.streetName">-</text>{{item.reportBuildingIntro.streetName}}</text></view>
+											<view class="address_details">{{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}</view>
+											<view class="address_details"><text>{{item.reportBuildingIntro.areaName}}<text v-if="item.reportBuildingIntro.streetName">-</text>{{item.reportBuildingIntro.streetName}}</text></view>
 											<view class="classify">
-												<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in item.reportBuildingIntro.buildingTagArr" :key="indexT">{{itemT}}</view></view>
+												<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in item.reportBuildingIntro.baseTagsName" :key="indexT">{{itemT}}</view></view>
 											</view>
 										</view>
 									</view>
@@ -68,7 +69,7 @@
 													<view class="col col_L">
 														<view class="title">总价预算</view>
 														<view class="content_text">
-															{{item.customerIntention.totalBudgetMin}}~{{item.customerIntention.totalBudgetMax}}万
+															{{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text>
 														</view>
 													</view>
 												</view>
@@ -103,7 +104,7 @@
 											<view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
 											<u-tabs
 												name='recommendationNum' 
-												:list="item.recommendation" 
+												:list="item.recommendation.list" 
 												:is-scroll="true" 
 												:current="currentPlan" 
 												@change="changePlanTab" 
@@ -117,30 +118,30 @@
 												</u-tabs>
 												
 										<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
-											<swiper-item v-for="(itemR,index) in item.recommendation" :key="index">			
+											<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
 												<view class="change_box_warp">
-													<view class="change_box" @click="toDetail(item.buildingId)">
+													<view class="change_box" @click="toDetail(itemR.buildingId)">
 														<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
 														<view class="rows">
-															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">A户型</text>
+															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail.houseTypeName||'-'}}</text>
 														</view>
 														<view class="rows">
-															<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
+															<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail.houseType||'-'}}</text>
 														</view>
 														<view class="rows">
-															<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
+															<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
 														</view> 
 														<view class="rows">
-															<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
+															<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.constructionArea||'-'}}<text>㎡</text></text>
 														</view> 
 														<view class="rows">
-															<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
+															<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
 														</view>
 														<view class="rows">
-															<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">A户型</text>
+															<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay||'-'}}万元</text>
 														</view>
 														<view class="rows">
-															<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">29000</text>
+															<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
 															<view class="tool_tip_warp" @click.stop="showTooltip()">
 																<i class="iconfont iconwenhao question"></i>
 																<view class="tool_tip" v-show="isShowTooltip">
@@ -246,7 +247,7 @@
 </template>
 
 <script>
-import {mockData} from './mock.js';
+// import {mockData} from './mock.js';
 import { getData } from '@/request/api';
 export default {
 	components: {
@@ -259,12 +260,12 @@ export default {
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			defaultHead:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			swiperMargin:'30rpx',
-			swiperHeight: '1000px',
+			swiperHeight: '2850rpx',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,
 			authorize:true,
-			journeyArr:mockData,
+			journeyArr:[],
 		
 			// 方案
 			currentPlan: 0,
@@ -412,6 +413,7 @@ export default {
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
 				console.log(res);
+				
 				res.reportBuildingIntro && res.reportBuildingIntro.forEach((itemT, indexT) => {
 					let buildingTagArr = []
 					itemT.baseTagsName && itemT.baseTagsName.split(",").forEach((item, index) => {
@@ -419,6 +421,7 @@ export default {
 					})
 					itemT.buildingTagArr = buildingTagArr
 				})
+				this.journeyArr = res;
 			}).catch(err=>{
 				console.log(err)
 			})
@@ -438,18 +441,18 @@ export default {
 	
 	},
 	mounted() {
-		let self = this;
-		uni.getSystemInfo({
-		　　success: function(res) { // res - 各种参数
-		// 　　   console.log(res,res.windowHeight); // 屏幕的高度 
+		// let self = this;
+		// uni.getSystemInfo({
+		// 　　success: function(res) { // res - 各种参数
+		// // 　　   console.log(res,res.windowHeight); // 屏幕的高度 
 				
-		　　    let info = uni.createSelectorQuery().select(".swiper-item");
-		　　　  　info.boundingClientRect(function(data) { //data - 各种参数
-		　　　  　console.log(data,data.height,111222222)  // 获取元素高度
-					self.swiperHeight = data.height +'px'
-		　　    }).exec()
-		       }
-		});
+		// 　　    let info = uni.createSelectorQuery().select(".swiper-item");
+		// 　　　  　info.boundingClientRect(function(data) { //data - 各种参数
+		// 　　　  　console.log(data,data.height,111222222)  // 获取元素高度
+		// 			self.swiperHeight = data.height +'px'
+		// 　　    }).exec()
+		//        }
+		// });
 		this.getDescBox();
 	},
 	onLoad(option){
@@ -498,6 +501,7 @@ export default {
 	}
 	.journey_ownership{
 		background: linear-gradient(181deg, #0A2056, #0D255F, #062471 99%);
+		padding-bottom: 97rpx;
 		.user_msg{
 			display: flex;
 			justify-content: space-between; 
@@ -560,12 +564,14 @@ export default {
 				background-color: #FFFFFF;
 				margin: 0 10rpx;
 				border-radius: 20rpx;
+				height: 2850rpx;
+				overflow: hidden;
 				.list_item_warp{
 					display:flex;
 					overflow: hidden;
 					.img_warp{
 						width: 210rpx;
-						height: 170rpx;
+						height: 210rpx;
 						border-radius: 10rpx;
 						overflow: hidden;
 						position: relative;
@@ -864,6 +870,9 @@ export default {
 						color: #2b2014;
 						line-height: 52rpx;
 						text-indent: 50rpx;
+						height: 160rpx;
+						overflow: hidden;
+						overflow-y: scroll;
 					}
 					.sanJ:after{
 						content: "";
@@ -907,7 +916,7 @@ export default {
 					background: #EBEEF4;
 					top: 40rpx;
 					left: 7rpx;
-					height: 90%;
+					height: 97%;
 				}
 			}
 			
