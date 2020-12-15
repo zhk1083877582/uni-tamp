@@ -16,14 +16,14 @@
 						<view class="price_details">{{$formatter.AveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}}</view>
 						<view class="address_details">{{$formatter.formatArea(baseInfo.referenceBuildAreaMin, baseInfo.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{baseInfo.areaName}}<text v-if="baseInfo.streetName">-</text>{{baseInfo.streetName}}</text></view>
 						<view class="classify">
-							<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in baseInfo.buildingTagArr" :key="indexT">{{itemT}}</view></view>
+							<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in baseInfo.baseTagsName" :key="indexT">{{itemT}}</view></view>
 						</view>
 					</view>
 				</view>
 			</view>
 			<u-tabs 
-				name='cate_name' 
-				:list="tablist" 
+				name='recommendationNum' 
+				:list="resData" 
 				:is-scroll="true" 
 				:current="current" 
 				@change="change" 
@@ -47,10 +47,10 @@
 								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">A户型</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">A户型</text>
+								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber}}</text>
 							</view> 
 							<view class="rows">
-								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">A户型</text>
+								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea}}</text>
 							</view> 
 							<view class="rows">
 								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">A户型</text>
@@ -182,7 +182,8 @@ export default {
 	created() {
 	},
 	mounted() {
-		this.getDescBox()
+		this.getDescBox();
+		console.log('resData',this.resData)
 	},
 }
 </script>
@@ -226,7 +227,6 @@ export default {
 						line-height: 22rpx;
 						margin-left: 6rpx;
 						vertical-align: text-top;
-						margin-top: 4rpx;
 						display: flex;
 						align-self: center;
 					}

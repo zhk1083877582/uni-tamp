@@ -44,12 +44,12 @@
 											<view class="details_title">
 												{{item.reportBuildingIntro.buildingAlias}}
 												<view class="label cl_B">{{item.reportBuildingIntro.salesStatus == 1?'待售':item.reportBuildingIntro.salesStatus == 2?'在售':item.reportBuildingIntro.salesStatus == 3?'售罄':item.reportBuildingIntro.salesStatus == 4?'在租':''}}</view>
-												<view class="label cl_Y" v-if="!!item.propertyType">{{handlePropertyType(item.propertyType)}}</view>
+												<view class="label cl_Y" v-if="!!item.reportBuildingIntro.propertyType">{{handlePropertyType(item.reportBuildingIntro.propertyType)}}</view>
 											</view>
 											<view class="price_details">{{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}</view>
 											<view class="address_details">{{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}<text class="mg_Lf_5">{{item.reportBuildingIntro.areaName}}<text v-if="item.reportBuildingIntro.streetName">-</text>{{item.reportBuildingIntro.streetName}}</text></view>
 											<view class="classify">
-												<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in item.buildingTagArr" :key="indexT">{{itemT}}</view></view>
+												<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in item.reportBuildingIntro.buildingTagArr" :key="indexT">{{itemT}}</view></view>
 											</view>
 										</view>
 									</view>
@@ -316,6 +316,15 @@ export default {
 	},
 	watch: {},
 	methods: {
+		handlePropertyType(key){
+			let newKey = ''
+			if(key.length>1){
+				newKey = key.substring(0,1)
+			}else{
+				newKey = key
+			}
+			return this.$formatter.switchName('propertyType',newKey)
+		},
 		//登录
 		doGoLoginPage(){
 			uni.navigateTo({
@@ -387,15 +396,6 @@ export default {
 				}
 			});
 		},
-		handlePropertyType(key){
-			let newKey = ''
-			if(key.length>1){
-				newKey = key.substring(0,1)
-			}else{
-				newKey = key
-			}
-			return this.$formatter.switchName('propertyType',newKey)
-		},
 		toReportDetail(){
 			uni.navigateTo({
 				url: '../../pagesReport/reportDetail/index?reportId=' + 3//+ this.buildingId
@@ -412,6 +412,13 @@ export default {
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
 				console.log(res);
+				res.reportBuildingIntro && res.reportBuildingIntro.forEach((itemT, indexT) => {
+					let buildingTagArr = []
+					itemT.baseTagsName && itemT.baseTagsName.split(",").forEach((item, index) => {
+						buildingTagArr.push(item)
+					})
+					itemT.buildingTagArr = buildingTagArr
+				})
 			}).catch(err=>{
 				console.log(err)
 			})
@@ -587,7 +594,6 @@ export default {
 								line-height: 22rpx;
 								margin-left: 6rpx;
 								vertical-align: text-top;
-								margin-top: 4rpx;
 								display: flex;
 								align-self: center;
 							}

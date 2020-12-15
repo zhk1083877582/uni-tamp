@@ -21,8 +21,10 @@
 				<u-sticky bg-color='#0A2056' offset-top=0 h5-nav-height='0'>
 				<scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;" class="scroll_view">
 					<view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(index)">
-						{{ item.label }}
-						<text class="under_line" :class="{ under_line_active: index === scrollActiveIndex }"></text>
+						<view v-if="item.isShow">
+							{{ item.label }}
+							<text class="under_line" :class="{ under_line_active: index === scrollActiveIndex }"></text>
+						</view>
 					</view>
 				</scroll-view>
 				</u-sticky>
@@ -123,20 +125,20 @@ export default {
 				console.log('置业报告详情数据',res)
 				//置业需求
 				this.customerIntention = res.customerIntention;
-				this.scrollTabs.demand.isShow = res.customerIntention != null?'true':'false';
+				this.scrollTabs.demand.isShow = res.customerIntention != null?true:false;
+				
+				//推荐方案
+				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
+				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo:null;
+				this.scrollTabs.recommend.isShow = res.recommendation == null&&res.buildingInfo==null?false:true;
 				
 				//公共样式列表
 				this.articleList = res.articleList;
 				
 				//问答列表
 				this.questionList = res.questionList;
-				this.scrollTabs.question.isShow = res.questionList!=null&&res.questionList.length > 0?'true':'false';
-				
-				//推荐方案
-				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
-				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo.list[0]:null;
-				this.scrollTabs.recommend.isShow = res.recommendation == null&&res.buildingInfo==null?'false':'true';
-				
+				this.scrollTabs.question.isShow = res.questionList==null?false:true;
+				console.log(this.scrollRealTabs,1111)
 			}).catch((err)=>{
 				console.log(err)
 			})
