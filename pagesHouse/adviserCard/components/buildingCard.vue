@@ -19,7 +19,7 @@
 	<view class="base-info">
 		<view class="baseInfo-flag1">
 			<view class="flag1-alias">
-				{{baseInfo.buildingName}}
+				{{baseInfo.buildingAlias||baseInfo.buildingName}}
 			</view>
 			<view class="flag1-propertytypeAndstatus">
 				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</text>
