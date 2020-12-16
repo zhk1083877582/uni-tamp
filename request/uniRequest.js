@@ -75,7 +75,6 @@ import encryptList from "@/request/encrypt.js"
     // response 拦截器
     instance.interceptors.response.use(
       response => {
-       console.log('----------response',response)
 		 let data = response.request;
 		 data = data.response?(typeof data.response==='string'?JSON.parse(data.response):data.response):data;
 		 // // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
@@ -84,7 +83,6 @@ import encryptList from "@/request/encrypt.js"
 		 // } else {
 		 //   data = response.request?typeof(response.request)=='string'?JSON.parse(response.request):response.request:''
 		 // }
-		 console.log('----------real-data',data)
 		 // 根据返回的code值来做不同的处理（和后端约定）
 		 if(data.code == 200){
 		   data = !instance.prototype.ifEncrypt?encryptList.Decrypt(data.data): data.data;

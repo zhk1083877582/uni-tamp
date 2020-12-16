@@ -9,35 +9,35 @@
 		<!-- 管家名片 -->
 		<view class="adviser-info">
 			<view class="info-img">
-				<view class="img" :style="{backgroundImage:`url(${adviserInfo.adviserImg})`}">
+				<view class="img" :style="{backgroundImage:`url(${adviserInfo.avatarUrl?adviserInfo.avatarUrl:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'})`}">
 				</view>
 			</view>
 			<view class="info-datail">
 				<view class="datail-name">
-					<text class="name">{{adviserInfo.name}}</text>
-					<text class="role">{{adviserInfo.role}}</text>
+					<text class="name">{{adviserInfo.userName||'-'}}</text>
+					<text class="role">{{adviserInfo.roleName||'-'}}</text>
 				</view>
 				<view class="datail-count">
 					<view class="year">
 						<text class="iconfont iconxingzhuangjiehe"></text>
 						<text class="count-flag"></text>
-						<text class="year-num">从业{{adviserInfo.year}}年</text>
+						<text class="year-num">从业{{adviserInfo.workExperience||'-'}}年</text>
 					</view>
 					<view class="serve">
 						<text class="iconfont iconjiaoyu"></text>
 						<text class="count-flag"></text>
-						<text class="serve-num">服务{{adviserInfo.serveNum}}人</text>
+						<text class="serve-num">服务{{adviserInfo.servedPeopleNum||'-'}}人</text>
 					</view>
 				</view>
 				<view class="datail-tag">
-					<text class="tag-item" v-for="(item,index) in adviserInfo.tags" :key="index">{{item}}</text>
+					<text class="tag-item" v-for="(item,index) in adviserInfo.personalityTags" :key="index">{{item}}</text>
 				</view>
 				<view class="datail-title">
 					<text class="datail-title_icon"></text>
 					<text class="datail-title_text">擅长领域</text>
 				</view>
 				<view class="datail-label">
-					<text>{{adviserInfo.flag}}</text>
+					<text  v-for="(item,index) in adviserInfo.expertiseFields" :key="index">{{item}}</text>
 				</view>
 			</view>
 		</view>
@@ -67,23 +67,14 @@
 					:next-margin="swiperInfo.swiperMargin" :previous-margin="swiperInfo.swiperMargin"  
 					:current="swiperInfo.current" :indicator-dots="swiperInfo.indicatorDots" :autoplay="swiperInfo.autoplay"
 					:effect3d="true"  circular='true' @change="doChangeSwipe">
-					<swiper-item v-for="(item,index) in listArr" :key="index" >
+					<swiper-item v-for="(item,index) in baseInfo" :key="index" >
 						<view class="building-item uni-bg-red" :class="index!=swiperInfo.current?'scale_swiper':''">
-							<buildingCard   :baseInfo="baseInfo"  :buildingId="buildingId">
+							<buildingCard :baseInfo="item">
 							</buildingCard>
 						</view>
 					</swiper-item>
 				</swiper>
-				<!-- <scroll-view scroll-x="true"  show-scrollbar="true" 
-					scroll-with-animation="true" style="height: 100%;white-space: nowrap;">
-					<view class="building-item" v-for="(item,index) in listArr" :key="index">
-						<buildingCard   :baseInfo="baseInfo"  :buildingId="buildingId">
-						</buildingCard>
-					</view>
-				</scroll-view> -->
 			</view>
-			<!-- <buildingCard   :baseInfo="baseInfo"  :buildingId="buildingId">
-			</buildingCard> -->
 		</view>
 		<view class="adviser-bottom">
 			<footBottom :istoDetail='false'></footBottom>
@@ -105,17 +96,10 @@
 		},
 		data() {
 			return {
+				userId:'',
 				listArr:['1111','222','333'],
 				configPicture:'',//楼盘配置图，如果不存在取c-app的封面图
-				adviserInfo:{
-					adviserImg:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',//管家默认图片
-					name:'张晓萌',
-					role:'置业顾问',
-					year:'5',
-					serveNum:'99',
-					tags:['气质佳','颜值高','了解投资'],
-					flag:'市场分析、热情专业、金融地产'
-				},
+				adviserInfo:{},
 				//滑动信息
 				swiperInfo:{
 					itemHeight:'850rpx',
@@ -124,33 +108,12 @@
 					indicatorDots:false,
 					autoplay:false
 				},
-				baseInfo:{
-					favourTitle: '', //图片顶部广告
-					referenceAveragePriceType:'',//楼盘价格
-					referenceAveragePrice:'',//楼盘价格
-					referenceAveragePriceMax:'',//楼盘价格
-					buildingAlias:'',//名称
-					salesStatusItem:'',//销售状态
-					propertyTypeList:[],
-					buildingTags:[],
-					buildingBrightSpot: '',//介绍
-					referenceTotalPriceMin:'',//参考价格
-					referenceTotalPriceMax:'',//参考价格
-					referenceBuildAreaMin:'',//建筑面积
-					referenceBuildAreaMax:'',//建筑面积
-					houseType:'',//户型
-					openTime:'',//开盘时间
-					detailAddress:'',//地址
-					updateTime:'',//更新时间
-					lat:'',
-					lng:'',
-					
-				},
+				baseInfo:[],
 			}
 		},
 		onLoad(option){
 			console.log('-------进入builddingInfo')
-			this.buildingId = option.buildingId||'1155';
+			this.userId = option.userId||'1';
 			this.initUserInfo();//管家信息
 			this.initBaseInfo();//楼盘信息
 		},
@@ -169,7 +132,7 @@
 			},
 			initUserInfo(){
 				let params = {
-					userId: this.buildingId
+					userId: this.userId
 				};
 				let self =this;
 				getBuildingBaseInfo('/business/user/getUserCardDetail', params)
@@ -185,79 +148,25 @@
 			// 楼盘-图片信息|基本信息
 			initBaseInfo(){
 				let params = {
-					buildingIds: this.buildingId
+					userId: this.userId
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/building/getBuildingInfoList', params)
+				getBuildingBaseInfo('/business/home/userServedBuilding', params)
 					.then(res => {
-						console.log('----基本信息', res);
+						console.log('----楼盘信息', res);
 						//设置标题
 						uni.setNavigationBarTitle({ 
 							title: res.buildingAlias,
 						});
-						
-						self.configPicture = res.albumCoverPicture;
-						let {baseInfo} =self;
-						Object.keys(baseInfo).forEach(key => {
-							baseInfo[key] = res[key];
-						});
-						baseInfo['salesStatusItem'] = self.getSalesStatus(res.salesStatus);
-						baseInfo['propertyTypeList']=[];
-						(res.propertyType||'').split(',').forEach(key=>{
-							baseInfo['propertyTypeList'].push( self.getPropertyType(key))
-						})
-						baseInfo['buildingTags']=(res['buildingTag'] ||'').split(',');
+						self.baseInfo = res
+						self.configPicture = res[0].albumCoverPicture;
 						
 					})
 					.catch(err => {
 						console.log('基本信息-err', err);
 					});
 			},
-			// 销售状态
-			getSalesStatus (salesStatus) {
-			  // salesStatus:销售状态(1:待售 2:在售 3:售罄  4:在租)
-			  let item = {
-				  lebel:'',
-				  color:''
-			  };
-			  switch (salesStatus) {
-			    case '1':
-			      // label = '待售';
-				  item={
-					  label:'待售',
-					  color:'#ffffff'
-				  }
-			      break;
-			    case '2':
-			      // label = '在售';
-				  item={
-					  label:'在售',
-					  color:'#ffffff'
-				  }
-			      break;
-			    case '3':
-			      // label = '售罄';
-				  item={
-					  label:'售罄',
-					  color:'#ffffff'
-				  }
-			      break;
-			    case '4':
-			      // label = '在租';
-				  item={
-					  label:'在租',
-					  color:'#ffffff'
-				  }
-			      break;
-			  }
-			  return item
-			},
 			
-			// 物业类型
-			getPropertyType(type){
-				type = type*1-1;
-				return this.$formatter.cache.propertyType[type].value;
-			},
 		}
 	}
 </script>

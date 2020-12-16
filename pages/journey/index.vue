@@ -38,7 +38,7 @@
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId)">
 										<view class="img_warp">
-											<image class="tospur-image" src="/static/pic_default_small@2x.png"></image>
+											<image class="tospur-image" src="/static/pic_default_small@2x.png"  mode="aspectFill"></image>
 										</view>
 										<view class="item_details">
 											<view class="details_title">
@@ -123,10 +123,10 @@
 													<view class="change_box" @click="toDetail(itemR.buildingId)">
 														<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
 														<view class="rows">
-															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail.houseTypeName||'-'}}</text>
+															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail?itemR.houseTypeDetail.houseTypeName:'-'}}</text>
 														</view>
 														<view class="rows">
-															<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail.houseType||'-'}}</text>
+															<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail?itemR.houseTypeDetail.houseType:'-'}}</text>
 														</view>
 														<view class="rows">
 															<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
@@ -260,7 +260,7 @@ export default {
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			defaultHead:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			swiperMargin:'30rpx',
-			swiperHeight: '2850rpx',
+			swiperHeight: '2852rpx',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,
@@ -413,7 +413,6 @@ export default {
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
 				console.log(res);
-				
 				res.reportBuildingIntro && res.reportBuildingIntro.forEach((itemT, indexT) => {
 					let buildingTagArr = []
 					itemT.baseTagsName && itemT.baseTagsName.split(",").forEach((item, index) => {
@@ -900,7 +899,7 @@ export default {
 		.report_list {
 				margin-top: 20rpx;
 				padding-bottom: 31rpx;
-				height: 600rpx;
+				height: 410rpx;
 				overflow: hidden;
 				overflow-y: scroll;
 		

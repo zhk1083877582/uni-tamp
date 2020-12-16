@@ -5,8 +5,8 @@
 			<view class="list_item" @click="toDetail(baseInfo.buildingId)">
 				<view class="list_item_warp">
 					<view class="img_warp">
-						<image class="tospur-image" src="/static/pic_default_small@2x.png"></image>
-						<!-- <image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"></image> -->
+						<!-- <image class="tospur-image" src="/static/pic_default_small@2x.png"></image> -->
+						<image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"  mode="aspectFill"></image>
 					</view>
 					<view class="item_details">
 						<view class="details_title">
@@ -43,10 +43,10 @@
 						<view class="change_box">
 							<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
 							<view class="rows">
-								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeDetail.houseTypeName||'-'}}</text>
+								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeDetail?item.houseTypeDetail.houseTypeName:'-'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail.houseType||'-'}}</text>
+								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail?item.houseTypeDetail.houseType:'-'}}</text>
 							</view>
 							<view class="rows">
 								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
@@ -138,16 +138,13 @@ export default {
 	watch: {},
 	methods: {
 		changeSwipe(val){
-			console.log(val);
 			this.curr = val.detail.current;
 			this.current = val.detail.current;
-			this.getDescBox();
 			this.isShowTooltip = false;
 		},
 		change(index) {
 			this.current = index;
 			this.curr = index;
-			console.log(this.current)
 			this.isShowTooltip = false;
 		},
 		//气泡显示

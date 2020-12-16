@@ -19,12 +19,12 @@
 	<view class="base-info">
 		<view class="baseInfo-flag1">
 			<view class="flag1-alias">
-				{{baseInfo.buildingAlias}}
+				{{baseInfo.buildingName}}
 			</view>
 			<view class="flag1-propertytypeAndstatus">
-				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}">{{baseInfo.salesStatusItem.label}}</text>
-				<text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypeList" :key="index">
-					{{item}}
+				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</text>
+				<text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypes" :key="index">
+					{{getPropertyType(item)}}
 				</text>
 			</view>
 		</view>
@@ -111,7 +111,52 @@ export default {
 	          return `${averagePrice}元/㎡起`
 	      }
 	  }
-	}
+	},
+	// 销售状态
+	getSalesStatus (salesStatus) {
+	  // salesStatus:销售状态(1:待售 2:在售 3:售罄  4:在租)
+	  let item = {
+		  lebel:'',
+		  color:''
+	  };
+	  switch (salesStatus) {
+	    case '1':
+	      // label = '待售';
+		  item={
+			  label:'待售',
+			  color:'#ffffff'
+		  }
+	      break;
+	    case '2':
+	      // label = '在售';
+		  item={
+			  label:'在售',
+			  color:'#ffffff'
+		  }
+	      break;
+	    case '3':
+	      // label = '售罄';
+		  item={
+			  label:'售罄',
+			  color:'#ffffff'
+		  }
+	      break;
+	    case '4':
+	      // label = '在租';
+		  item={
+			  label:'在租',
+			  color:'#ffffff'
+		  }
+	      break;
+	  }
+	  return item
+	},
+	
+	// 物业类型
+	getPropertyType(type){
+		type = type*1-1;
+		return this.$formatter.cache.propertyType[type].value;
+	},
 	
   }
   
