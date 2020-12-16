@@ -4,7 +4,7 @@ export default{
         return {
                        //设置默认的分享参数
             share:{
-                title:'同策好房',
+                title:'海鸥飞翔',
                 path:'',
                 imageUrl:'',
             }

@@ -7,7 +7,7 @@
 				<view class="title_content">
 					<view class="sanJ"></view>
 					<view class="lable">
-						亲爱的王先生： 
+						亲爱的{{windowTitle}}： 
 					</view>
 					<view class="text">
 						 您好！感谢你来访【{{buildingInfo.buildingAlias||'-'}}】销售中心，我是您的置业顾问【{{userName||'-'}}】
@@ -93,6 +93,7 @@ export default {
 			
 			userName:'',
 			userId:'',//顾问ID
+			windowTitle:'',//客户姓名  客户性别
 		};
 	},
 	computed: {
@@ -170,6 +171,13 @@ export default {
 				console.log(this.scrollRealTabs,1111)
 				
 				this.userId = res.businessReport?res.businessReport.userId:''
+				
+				let customerGender=res.businessReport?res.businessReport.customerGender:''
+			    let subscriberName = res.businessReport?res.businessReport.customerName:''
+				this.windowTitle = subscriberName + customerGender=='1'?'先生':'女士'
+				uni.setNavigationBarTitle({
+					title: `${this.windowTitle}的专属置业报告`
+				});
 			}).catch((err)=>{
 				console.log(err)
 			})
@@ -188,9 +196,6 @@ export default {
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
-		uni.setNavigationBarTitle({
-			title: `王先生的专属置业报告`
-		});
 		this.getReportData(option.reportId);
 	},
 	onPageScroll(e) {
@@ -227,6 +232,9 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+/deep/page{
+	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
+}
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	/* height: 100%; */
