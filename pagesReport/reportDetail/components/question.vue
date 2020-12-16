@@ -28,7 +28,7 @@
 					<i class="iconfont iconyinhao-qian"></i>以上回答是否让您对该楼盘全面了解？如仍有疑 问，可点击下方电话联系我<i class="iconfont iconyinhao-hou"></i>
 				</view>
 			</view>
-			<view class="upDown" @click.stop="showMore()"><text class="text">{{isShowAllQue?'收起':'展开'}}</text><text class="i iconfont iconbtn_arrow_top" :class="{up:isShowAllQue}"></text></view>
+			<view v-if="resData.length>2" class="upDown" @click.stop="showMore()"><text class="text">{{isShowAllQue?'收起':'展开'}}</text><text class="i iconfont iconbtn_arrow_top" :class="{up:isShowAllQue}"></text></view>
 			
 		</card>
 	</view>

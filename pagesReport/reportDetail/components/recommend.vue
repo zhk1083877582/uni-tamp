@@ -41,7 +41,7 @@
 				<swiper-item v-for="(item,index) in resData" :key="index">	
 					<view class="change_box_warp">
 						<view class="change_box">
-							<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
+							<image class="change_image" :src="item.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'-'" mode=""></image>
 							<view class="rows">
 								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeDetail?item.houseTypeDetail.houseTypeName:'-'}}</text>
 							</view>

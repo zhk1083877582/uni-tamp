@@ -38,7 +38,7 @@
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId)">
 										<view class="img_warp">
-											<image class="tospur-image" src="/static/pic_default_small@2x.png"  mode="aspectFill"></image>
+											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"  mode="aspectFill"></image>
 										</view>
 										<view class="item_details">
 											<view class="details_title">
@@ -121,7 +121,7 @@
 											<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
 												<view class="change_box_warp">
 													<view class="change_box" @click="toDetail(itemR.buildingId)">
-														<image class="change_image" src="https://media.tongcehaofang.com/image/default/49349F25A6A64438887A037521A164E9-6-2.jpg" mode=""></image>
+														<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'-'" mode=""></image>
 														<view class="rows">
 															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail?itemR.houseTypeDetail.houseTypeName:'-'}}</text>
 														</view>
@@ -179,12 +179,12 @@
 															<view class="time_text">
 																看房时间：{{$tool.dateFtt('yyyy-MM-dd', itemL.createTime) }}
 															</view>
-															<view class="keeper_msg" @click="tohouseKeeper">
+															<view class="keeper_msg" :id="itemL.userId" @click="e=>tohouseKeeper(e,itemL)">
 																<view class="keeper_portrait">
 																	<image class="img" :src="itemL.avatarTou?itemL.avatarTou:defaultHead" mode="circle"></image>
 																</view>
 																<view class="keeper_name">
-																	<text class="keeper_name_text">{{itemL.createrId?itemL.createrId:'--'}}</text> <i class="iconfont icondianhua" @click.stop="tellPhone"></i>
+																	<text class="keeper_name_text">{{itemL.userName?itemL.userName:'--'}}</text> <i class="iconfont icondianhua" @click.stop="tellPhone"></i>
 																</view>
 															</view>
 														</view>
@@ -376,9 +376,10 @@ export default {
 			this.isShowTooltip = false;
 		},
 		// 去管家名片
-		tohouseKeeper(){
+		tohouseKeeper(e,item){
+			console.log(e,item)
 			uni.navigateTo({
-				url: '/pagesHouse/adviserCard/index?buildingId=' + 1155//+ this.buildingId
+				url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id
 			});
 		},
 		// 拨打电话

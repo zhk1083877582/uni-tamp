@@ -15,7 +15,7 @@
 					置业计划书
 				</view>
 				<view class="building_name">
-					万科天空之城
+					{{buildingName||''}}
 				</view>
 				
 			</view>
@@ -43,6 +43,9 @@ export default {
 			jsCode:'',
 			openid:'',
 			session_key:'',
+			
+			buildingName:'',
+			userName:''
 		};
 	},
 	computed: {},
@@ -134,11 +137,40 @@ export default {
 					}
 				}
 			});
-		}
+		},
+		//获取顾问userId
+		getReportData(reportId){
+			let params = {
+				reportId
+			}
+			getData('/business/report/reportDetail',params).then((res)=>{
+				console.log('置业报告详情数据',res)
+				// this.getUserInfo(res.businessReport.userId);
+				this.buildingName = res.buildingInfo.buildingAlias
+			}).catch((err)=>{
+				console.log(err)
+			})
+		},
+		//获取顾问名字
+		// getUserInfo(){
+		// 	let params = {
+		// 		userId: this.userId
+		// 	};
+		// 	let self =this;
+		// 	getData('/business/user/getUserCardDetail', params)
+		// 		.then(res => {
+		// 			console.log('管家信息',res)
+		// 			this.userName = res.userName
+		// 		})
+		// 		.catch(err => {
+		// 			console.log('管家信息', err);
+		// 		});
+		// }
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
 		this.getPhone();
+		this.getReportData(option.reportId)
 	},
 	created() {
 

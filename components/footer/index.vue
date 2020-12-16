@@ -4,14 +4,14 @@
 		<view class="report_bottom">
 			<view class="report_bottom_left" @click="tohouseKeeper()">
 				<view class="keeper_avatar">
-					<u-avatar class="avatarTou" :src="keeperUserInfo.headPortrait" size='76' mode="circle"></u-avatar>
+					<u-avatar class="avatarTou" :src="userInfo.avatarUrl" size='76' mode="circle"></u-avatar>
 				</view>
 				<view class="keeper_message">
 					<view class="name">
-						<text>{{keeperUserInfo.name}}</text><text class="years">{{keeperUserInfo.year}}年</text>
+						<text>{{userInfo.userName||'-'}}</text><text class="years">{{userInfo.workExperience||'-'}}年</text>
 					</view>
 					<view class="num">
-						<text>服务人数：</text><text>{{keeperUserInfo.num}}人</text>
+						<text>服务人数：</text><text>{{userInfo.servedPeopleNum||'-'}}人</text>
 					</view>
 				</view>
 			</view>
@@ -23,29 +23,22 @@
 </template>
 
 <script>
-
+import { getData } from '@/request/api';
 export default {
 	components: {},
 	data() {
 		return {
-			
+			userInfo:{}
 		};
 	},
 	props:{
-		keeperUserInfo:{
-			type:Object,
-			default:()=>{
-				return {
-					headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
-					name:'赵杨',
-					year:'10',
-					num:'897'
-				}
-			}
-		},
 		istoDetail:{
 			type:Boolean,
 			default:true
+		},
+		userId:{
+			type:String,
+			default:''
 		}
 	},
 	computed: {},
@@ -71,15 +64,30 @@ export default {
 			console.log('跳转名片')
 			if (!this.istoDetail) return
 			uni.navigateTo({
-				url: '/pagesHouse/adviserCard/index?buildingId=' + 1155//+ this.buildingId
+				url: '/pagesHouse/adviserCard/index?userId=' + this.userInfo.userId
 			});
+		},
+		getUserInfo(){
+			let params = {
+				userId: this.userId
+			};
+			let self =this;
+			getData('/business/user/getUserCardDetail', params)
+				.then(res => {
+					console.log('管家信息',res)
+					self.userInfo = res
+					this.$emit('handelUserName',res);
+				})
+				.catch(err => {
+					console.log('管家信息', err);
+				});
 		}
 	},
 	created() {
 
 	},
 	mounted() {
-
+		this.getUserInfo();
 	},
 }
 </script>

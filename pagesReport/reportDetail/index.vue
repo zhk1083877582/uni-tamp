@@ -2,7 +2,7 @@
 <template>
 	<view class='report_detail'>
 		<view class="title_warp">
-			<u-avatar class="avatarTou" :src="headPortrait" size='96' mode="circle"></u-avatar>
+			<u-avatar class="avatarTou" :src="headPortrait?headPortrait:defaultheadPortrait" size='96' mode="circle"></u-avatar>
 			<view class="title_content_warp">
 				<view class="title_content">
 					<view class="sanJ"></view>
@@ -10,7 +10,7 @@
 						亲爱的王先生： 
 					</view>
 					<view class="text">
-						 您好！感谢你来访【万科天空之城】销售中心，我是您的置业顾问【赵阳】
+						 您好！感谢你来访【{{buildingInfo.buildingAlias||'-'}}】销售中心，我是您的置业顾问【{{userName||'-'}}】
 					</view>
 				</view>
 			</view>
@@ -20,7 +20,7 @@
 			<view class="scroll-tabs">
 				<u-sticky bg-color='#0A2056' offset-top=0 h5-nav-height='0'>
 				<scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;" class="scroll_view">
-					<view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(index)">
+					<view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(item,index)">
 						<view v-if="item.isShow">
 							{{ item.label }}
 							<text class="under_line" :class="{ under_line_active: index === scrollActiveIndex }"></text>
@@ -34,13 +34,15 @@
 		<!-- 方案推荐 -->
 		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo'></recommend>
 		<!-- 公共组件 -->
-		<public-page title="区域分析" class="part3" :resData='customerIntention'></public-page>
+		<view v-for="(item,index) in articleList" :key="index">
+			<public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
+		</view>
 		<!-- 置业问答 -->
-		<question class="part4" v-if="questionList!=null" :resData='questionList' ></question>
+		<question class="part99" v-if="questionList!=null" :resData='questionList'></question>
 		<!-- 置业小贴士 -->
-		<tips-page class="part5"></tips-page>
+		<tips-page class="part100"></tips-page>
 		<!-- 管家信息 -->
-		<foot-bottom></foot-bottom>
+		<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId"></foot-bottom>
 	</view>
 </template>
 
@@ -63,23 +65,34 @@ export default {
 	},
 	data() {
 		return {
-			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+			defaultheadPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+			headPortrait:'',
 			//锚点
 			isShowScrollTabs: false,
 			scrollActiveIndex: 0,
-			scrollTabs: {
-				demand: { label: '置业需求', cl: 'part1', isShow: false },
-				recommend: { label: '方案推荐', cl: 'part2', isShow: false },
-				dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
-				question: { label: '置业问答', cl: 'part4', isShow: false },
-				tips: { label: '购房小贴士', cl: 'part5', isShow: true },
-			},
+			scrollTabs: [
+				{ label: '置业需求', cl: 'part1', isShow: false,id:'demand' },
+				{ label: '方案推荐', cl: 'part2', isShow: false,id:'recommend' },
+				// dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
+				{ label: '置业问答', cl: 'part99', isShow: false,id:'question' },
+				{ label: '购房小贴士', cl: 'part100', isShow: true,id:'tips' },
+			],
+			// scrollTabs:{
+			// 	demand: { label: '置业需求', cl: 'part1', isShow: false },
+			// 	recommend: { label: '方案推荐', cl: 'part2', isShow: false },
+			// 	// dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
+			// 	question: { label: '置业问答', cl: 'part99', isShow: false },
+			// 	tips: { label: '购房小贴士', cl: 'part100', isShow: true },
+			// }
 			isfixed:false,
 			customerIntention:null,//置业需求
-			articleList:null,//公共样式列表
+			articleList:[],//公共样式列表
 			questionList:null,//问答列表
 			recommendation:null, //推荐方案
 			buildingInfo:null,
+			
+			userName:'',
+			userId:'',//顾问ID
 		};
 	},
 	computed: {
@@ -94,13 +107,20 @@ export default {
 	},
 	watch: {},
 	methods: {
+		changeScrollTabsShow(id,isShowStatus){
+			this.scrollTabs.forEach((item)=>{
+				if(item.id == id){
+					item.isShow = isShowStatus
+				}
+			})
+		},
 		// tabs切换
-		changeScrollTabs(index) {
+		changeScrollTabs(currentItem,index) {
 			this.isfixed = true
 			this.scrollActiveIndex = index;
-			let item = this.scrollRealTabs[index];
+			// let item = this.scrollRealTabs[index];
 			uni.createSelectorQuery()
-				.select(`.${item.cl}`)
+				.select(`.${currentItem.cl}`)
 				.boundingClientRect(data => {
 					//目标节点
 					uni.createSelectorQuery()
@@ -123,25 +143,41 @@ export default {
 			}
 			getData('/business/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
+				let self = this
 				//置业需求
 				this.customerIntention = res.customerIntention;
-				this.scrollTabs.demand.isShow = res.customerIntention != null?true:false;
+				let isShowDemand = res.customerIntention != null?true:false;
+				this.changeScrollTabsShow('demand',isShowDemand)
 				
 				//推荐方案
 				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
 				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo:null;
-				this.scrollTabs.recommend.isShow = res.recommendation == null&&res.buildingInfo==null?false:true;
+				let isShowRecommend = res.recommendation == null&&res.buildingInfo==null?false:true;
+				this.changeScrollTabsShow('recommend',isShowRecommend)
 				
 				//公共样式列表
 				this.articleList = res.articleList;
+				res.articleList&&res.articleList.map((item,index)=>{
+					console.log(item)
+					self.scrollTabs.splice(2+index,0,{ label: item.ztLabelType, cl: 'part'+(3+index), isShow: true})
+				})
+				console.log('scrollTabs',this.scrollTabs)
 				
 				//问答列表
 				this.questionList = res.questionList;
-				this.scrollTabs.question.isShow = res.questionList==null?false:true;
+				let isShowQuestion = res.questionList==null?false:true;
+				this.changeScrollTabsShow('question',isShowQuestion)
 				console.log(this.scrollRealTabs,1111)
+				
+				this.userId = res.businessReport?res.businessReport.userId:''
 			}).catch((err)=>{
 				console.log(err)
 			})
+		},
+		getUserName(userInfo){
+			console.log('1===',userInfo)
+			this.userName = userInfo.userName
+			this.headPortrait = userInfo.avatarUrl
 		}
 	},
 	created() {
@@ -193,6 +229,7 @@ export default {
 <style lang='scss' scoped>
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
+	/* height: 100%; */
 	.title_warp{
 		padding: 40rpx 32rpx 32rpx 32rpx;
 		display: flex;
