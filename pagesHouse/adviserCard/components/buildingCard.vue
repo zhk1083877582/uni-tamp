@@ -4,15 +4,15 @@
 	<!-- 图片 -->
 	<view class="img-container">
 		<!-- <image class="img" :src="baseInfo.img?baseInfo.img:defaultImg" mode=""></image> -->
-		<view class="img" :style="{'background-image':`url(${'https://media.tongcehaofang.com/image/default/F8EF2B9B78C44DEF9A0C1185C12EF525-6-2.jpg'||baseInfo.img||defaultImg})`}">
+		<view class="img" :style="{'background-image':`url(${baseInfo.realImgPath||'https://media.tongcehaofang.com/image/default/F8EF2B9B78C44DEF9A0C1185C12EF525-6-2.jpg'})`}">
 		</view>
 		<view class="play-flag">
 			<view class="triangle"></view>
 		</view>
 		<view class="img-flag">
-			<text class="flag-item flag-item-active">VR</text>
-			<text class="flag-item ">视频</text>
-			<text class="flag-item ">图片</text>
+			<text class="flag-item flag-item-active" v-if="baseInfo.mp4Picture == baseInfo.realImgPath">VR</text>
+			<text class="flag-item " v-if="baseInfo.vrPicture==baseInfo.realImgPath">视频</text>
+			<text class="flag-item " v-if="baseInfo.imgPicture== baseInfo.realImgPath">图片</text>
 		</view>
 	</view>
 	<!-- 名称 特色 -->
@@ -252,15 +252,17 @@ export default {
 		color: #2b2014;
 	}
 	.flag1-item{
+		display: inline-block;
 		min-width: 62rpx;
 		height: 32rpx;
-		padding:0 8rpx;
+		padding:0 4rpx;
 		margin-right: 8rpx;
 		font-size:22rpx;
 		border-radius: 5rpx;
 		text-align: center;
 	}
 	.flag1-status{
+		color: #FFFFFF;
 		background: #2951b8;
 	}
 	.flag1-propertytype{

@@ -9,24 +9,24 @@
 		<!-- 管家名片 -->
 		<view class="adviser-info">
 			<view class="info-img">
-				<view class="img" :style="{backgroundImage:`url(${adviserInfo.avatarUrl?adviserInfo.avatarUrl:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'})`}">
+				<view class="img" :style="{backgroundImage:`url(${adviserInfo.avatarUrl?adviserInfo.avatarUrl+'?x-oss-process=image/resize,h_60,w_60':'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'})`}">
 				</view>
 			</view>
 			<view class="info-datail">
 				<view class="datail-name">
-					<text class="name">{{adviserInfo.userName||'-'}}</text>
-					<text class="role">{{adviserInfo.roleName||'-'}}</text>
+					<text class="name">{{adviserInfo.userName||'--'}}</text>
+					<text class="role">{{adviserInfo.roleName||'--'}}</text>
 				</view>
 				<view class="datail-count">
 					<view class="year">
 						<text class="iconfont iconxingzhuangjiehe"></text>
 						<text class="count-flag"></text>
-						<text class="year-num">从业{{adviserInfo.workExperience||'-'}}年</text>
+						<text class="year-num">从业{{adviserInfo.workExperience||'--'}}年</text>
 					</view>
 					<view class="serve">
-						<text class="iconfont iconjiaoyu"></text>
+						<text class="iconfont iconren"></text>
 						<text class="count-flag"></text>
-						<text class="serve-num">服务{{adviserInfo.servedPeopleNum||'-'}}人</text>
+						<text class="serve-num">服务{{adviserInfo.servedPeopleNum||'99'}}人</text>
 					</view>
 				</view>
 				<view class="datail-tag">
@@ -129,7 +129,16 @@
 				console.log('----swiper',val)
 				this.swiperInfo.current = val.detail.current;
 				this.currentPlan = 0;
+				let item = this.baseInfo[val];
+				//设置标题
+				uni.setNavigationBarTitle({ 
+					title: item.buildingAlias||item.buildingName,
+				});
+				//封面图
+				this.configPicture = item.albumCoverPicture;
 			},
+			
+			//获取顾问信息
 			initUserInfo(){
 				let params = {
 					userId: this.userId
@@ -137,7 +146,14 @@
 				let self =this;
 				getBuildingBaseInfo('/business/user/getUserCardDetail', params)
 					.then(res => {
-						console.log('管家信息',res)
+						console.log('管家信息',res);
+						let {expertiseFields=[]} = res;
+						for(let i=0,fieldsLen=expertiseFields.length;i<fieldsLen;i++){
+							if(i<(fieldsLen-1)){
+								expertiseFields[i] +='、';
+							}
+						}
+						res.expertiseFields= expertiseFields;
 						self.adviserInfo = res
 						
 					})
@@ -154,12 +170,41 @@
 				getBuildingBaseInfo('/business/home/userServedBuilding', params)
 					.then(res => {
 						console.log('----楼盘信息', res);
+						
+						let arr = (res||[]).map(item=>{
+							item.referenceAveragePrice = item.referenceAveragePrice?parseInt(item.referenceAveragePrice):item.referenceAveragePrice;
+							item.referenceTotalPriceMin = item.referenceTotalPriceMin?parseInt(item.referenceTotalPriceMin):item.referenceTotalPriceMin;
+							item.referenceTotalPriceMax = item.referenceTotalPriceMax?parseInt(item.referenceTotalPriceMax):item.referenceTotalPriceMax;
+							item.referenceBuildAreaMin = item.referenceBuildAreaMin?parseInt(item.referenceBuildAreaMin):item.referenceBuildAreaMin;
+							item.referenceBuildAreaMax = item.referenceBuildAreaMax?parseInt(item.referenceBuildAreaMax):item.referenceBuildAreaMax;
+						
+							let annexVOS = item.annexVOS||[];
+							// console.log('====annexVOS',annexVOS)
+							let mp4Arr = annexVOS.filter(item1=>{
+								return item1.annexType=='109'
+							})
+							// console.log('====mp4Arr',mp4Arr)
+							let vrArr = annexVOS.filter(item1=>{
+								return item1.annexType=='110'||item1.annexType=='302'
+							})
+							// console.log('====vrArr',vrArr)
+							let imgArr = [annexVOS[0]];
+							console.log('====imgArr',imgArr)
+							item.mp4Picture = mp4Arr[0]?mp4Arr[0].annexPath:'';
+							item.vrPicture =  vrArr[0]?vrArr[0].annexPath:'';
+							item.imgPicture = imgArr[0]?imgArr[0].annexPath:'';
+							item.realImgPath = item.mp4Picture|| item.vrPicture ||item.imgPicture;
+							return item
+						})
+						
+						self.baseInfo = arr;
+						console.log('----楼盘信息1',arr)
 						//设置标题
 						uni.setNavigationBarTitle({ 
-							title: res.buildingAlias,
+							title: arr[0].buildingAlias||arr[0].buildingName,
 						});
-						self.baseInfo = res
-						self.configPicture = res[0].albumCoverPicture;
+						//封面图
+						self.configPicture = arr[0].albumCoverPicture;
 						
 					})
 					.catch(err => {
