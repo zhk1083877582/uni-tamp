@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "18759752",
+      "name": "人",
+      "font_class": "ren",
+      "unicode": "e6b3",
+      "unicode_decimal": 59059
+    },
+    {
       "icon_id": "13888383",
       "name": "icon_bus",
       "font_class": "icon_bus",
