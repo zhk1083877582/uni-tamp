@@ -38,7 +38,7 @@
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId)">
 										<view class="img_warp">
-											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"  mode="aspectFill"></image>
+											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://media.tongcehaofang.com/image/default/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"  mode="aspectFill"></image>
 										</view>
 										<view class="item_details">
 											<view class="details_title">
@@ -121,7 +121,9 @@
 											<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
 												<view class="change_box_warp">
 													<view class="change_box" @click="toDetail(itemR.buildingId)">
-														<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'-'" mode=""></image>
+														<view class="change_image_warp">
+															<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
+														</view>
 														<view class="rows">
 															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail?itemR.houseTypeDetail.houseTypeName:'-'}}</text>
 														</view>
@@ -142,7 +144,7 @@
 														</view>
 														<view class="rows">
 															<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
-															<view class="tool_tip_warp" @click.stop="showTooltip()">
+															<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
 																<i class="iconfont iconwenhao question"></i>
 																<view class="tool_tip" v-show="isShowTooltip">
 																	<i class="sanJ"></i>
@@ -150,7 +152,7 @@
 																		根据首付35%，4.65%LPR，30年期限等额本息计算所得。
 																	</view>
 																</view>
-															</view>
+															</view> -->
 														</view>
 													</view>
 													
@@ -575,6 +577,7 @@ export default {
 						border-radius: 10rpx;
 						overflow: hidden;
 						position: relative;
+						background-color: #F7F7F7;
 						.tospur-image{
 							height: 100%;
 							width: 100%;
@@ -773,9 +776,14 @@ export default {
 					/* overflow: hidden; */
 					border: 2rpx solid #EBEEF4;
 					margin-top: 30rpx;
+					.change_image_warp{
+						height: 342rpx;
+						background-color: #F7F7F7;
+					}
 					.change_image{
 						width: 100%;
-						height: 342rpx;
+						height: 100%;
+						display: block;
 					}
 					/deep/uni-image{
 						display: block;

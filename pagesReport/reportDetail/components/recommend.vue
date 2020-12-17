@@ -6,7 +6,7 @@
 				<view class="list_item_warp">
 					<view class="img_warp">
 						<!-- <image class="tospur-image" src="/static/pic_default_small@2x.png"></image> -->
-						<image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : '/static/pic_default_small@2x.png'"  mode="aspectFill"></image>
+						<image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://media.tongcehaofang.com/image/default/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"  mode="aspectFill"></image>
 					</view>
 					<view class="item_details">
 						<view class="details_title">
@@ -41,7 +41,9 @@
 				<swiper-item v-for="(item,index) in resData" :key="index">	
 					<view class="change_box_warp">
 						<view class="change_box">
-							<image class="change_image" :src="item.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'-'" mode=""></image>
+							<view class="change_image_warp">
+								<image class="change_image" :src="item.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
+							</view>
 							<view class="rows">
 								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeDetail?item.houseTypeDetail.houseTypeName:'-'}}</text>
 							</view>
@@ -62,7 +64,7 @@
 							</view>
 							<view class="rows">
 								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
-								<view class="tool_tip_warp">
+								<!-- <view class="tool_tip_warp">
 									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 									<view class="tool_tip" v-show="isShowTooltip">
 										<i class="sanJ"></i>
@@ -70,7 +72,7 @@
 											根据首付35%，4.65%LPR，30年期限等额本息计算所得。
 										</view>
 									</view>
-								</view>
+								</view> -->
 							</view>
 						</view>
 						
@@ -98,26 +100,12 @@ export default {
 	},
 	data() {
 		return {
-			tablist:[{
-					cate_name: '方案一'
-				}, {
-					cate_name: '方案二'
-				}, {
-					cate_name: '方案三'
-				}, {
-					cate_name: '方案四'
-				}, {
-					cate_name: '方案五'
-				}, {
-					cate_name: '方案六',
-                    cate_count: 5
-				}],
-				current: 0,
-				isShowTooltip:false,
-				swiperHeight: null,
-				indicatorDots: false,
-				autoplay: false,
-				curr:0,
+			current: 0,
+			isShowTooltip:false,
+			swiperHeight: null,
+			indicatorDots: false,
+			autoplay: false,
+			curr:0,
 		};
 	},
 	props:{
@@ -201,6 +189,7 @@ export default {
 				border-radius: 10rpx;
 				overflow: hidden;
 				position: relative;
+				background-color: #F7F7F7;
 				.tospur-image{
 					height: 100%;
 					width: 100%;
@@ -296,9 +285,13 @@ export default {
 		/* overflow: hidden; */
 		margin-top: 16rpx;
 		border: 2rpx solid #EBEEF4;
+		.change_image_warp{
+			background-color: #F7F7F7;
+			height: 342rpx;
+		}
 		.change_image{
 			width: 100%;
-			height: 342rpx;
+			height: 100%;
 		}
 		/deep/uni-image{
 			display: block;
