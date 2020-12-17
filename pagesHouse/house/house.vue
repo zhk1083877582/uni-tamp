@@ -26,6 +26,7 @@
 		<!-- 户型 -->
 		<house-style :class="scrollTabs['style']['cl']"
 		  v-if="isShowHouseStyle"
+		  :totalHouseStyleList="totalHouseStyleList" :houseTabs="houseTabs"
 		  :buildingId="buildingId">
 		</house-style>
 		
@@ -33,7 +34,7 @@
 		<house-spread :class="scrollTabs['spread']['cl']"
 			v-if="spreadAnnexPath" 	:buildingId="buildingId"
 			:spreadAnnexPath="spreadAnnexPath"
-			:pcBuildingUnitBaseInfoList="pcBuildingUnitBaseInfoList">
+			:buildingUnitBaseInfoList="buildingUnitBaseInfoList">
 		</house-spread>
 		<!-- 周边配套 -->
 		<house-periphery :class="scrollTabs['periphery']['cl']" 
@@ -57,6 +58,7 @@
 	import {
 		getData,
 		getBuildingBaseInfo,
+		getBuildingAnnex,
 		getCarPhone,
 		getBuildingCouponInfo,
 		getBuildingDescription,
@@ -128,10 +130,12 @@
 					dynamicBaseInfoList: []
 				},
 				//户型
-				isShowHouseStyle: true,
+				isShowHouseStyle: false,
+				houseTabs:[],//户型tabs
+				totalHouseStyleList:[],//户型
 				// 楼栋分布
 				spreadAnnexPath: '',
-				pcBuildingUnitBaseInfoList: [],
+				buildingUnitBaseInfoList: [],
 				//楼盘亮点
 				isShowHighlights: false,
 				highlightsInfo: {
@@ -163,16 +167,16 @@
 		},
 		onLoad(option={}){
 			console.log('-------进入builddingInfo')
-			this.buildingId = option.buildingId||'1155';
+			this.buildingId = option.buildingId||'10178';
 			this.initBaseInfo();
-			this.initGetBuildingDescription();
-			this.initBuildingDynamicAndDate();
-			this.initBuildingTypeCount();
-			this.initBuildingUnitList();
-			this.initBuildingBrightSpotList();
+			this.initGetAnnex();
+			// this.initGetBuildingDescription();
+			// this.initBuildingDynamicAndDate();
+			// this.initBuildingTypeCount();
+			// this.initBuildingUnitList();
+			// this.initBuildingBrightSpotList();
 		},
 		onPageScroll(e) {
-			// console.log(77,e)
 			if (e.scrollTop > 600) {
 				this.isShowScrollTabs = true;
 			} else {
@@ -230,137 +234,183 @@
 					buildingId: this.buildingId
 				};
 				let self =this;
-				getBuildingBaseInfo('', params)
+				getBuildingBaseInfo('/business/building/info', params)
 					.then(res => {
-						// console.log('----基本信息', res);
-						// let {buildingAlias,annexs={}} = res;
+						console.log('----基本信息', res);
+						let {baseInfo,brightSpot={},buildingList={},dynamicList={},houseTypeAll={},introduction={},openTimeList={}} =res;
+						
 						//设置标题
-						uni.setNavigationBarTitle({ title: res.buildingAlias });
-						// 视频 VR  图片
-						self.$refs.reBuildingInfo.doFormatImgList(res.annexs);
-						// 其他的信息
-						let {baseInfo} =self;
-						Object.keys(baseInfo).forEach(key => {
-							baseInfo[key] = res[key];
-						});
-						baseInfo['salesStatusItem'] = self.getSalesStatus(res.salesStatus);
-						baseInfo['propertyTypeList']=[];
-						(res.propertyType||'').split(',').forEach(key=>{
-							baseInfo['propertyTypeList'].push( self.getPropertyType(key))
-						})
-						baseInfo['buildingTags']=(res['buildingTag'] ||'').split(',');
+						uni.setNavigationBarTitle({ title: baseInfo.buildingAlias });
+						
+						//baseInfo的信息
+						self.getBuildingInfo(baseInfo)
+						//楼盘介绍
+						self.annexPath = introduction.logoImage;
+						self.buildingDescription = introduction.description;
+						self.scrollTabs.introduce.isShow = introduction.buildingDescription ? true : false;
+						//楼盘动态
+						self.getDynamicAndDate(openTimeList,dynamicList);
+						//户型
+						self.getHouseTypeList(houseTypeAll)
+						// 楼栋分布
+						self.getBuildingUnitList(buildingList);   
+						 //周边配套
+						 self.scrollTabs.periphery.isShow = baseInfo.lat && baseInfo.lng ? true : false;						
+						//楼盘亮点
+						self.getBrightSpotList(brightSpot)
 					})
 					.catch(err => {
 						console.log('基本信息-err', err);
 					});
 			},
-			//楼盘介绍
-			initGetBuildingDescription() {
+			//获取楼盘详情相关的图片
+			initGetAnnex(){
 				let params = {
 					buildingId: this.buildingId
 				};
 				let self = this;
-				getBuildingDescription('', params)
+				getBuildingAnnex('/business/building/buildingAnnex',params)
 					.then(res => {
-						console.log('----楼盘介绍', res);
-						let { descriptionInfo } = self;
-						Object.keys(descriptionInfo).forEach(key => {
-							descriptionInfo[key] = res[key];
-						});
-						self.scrollTabs.introduce.isShow = self.descriptionInfo.buildingDescription ? true : false;
+						self.$refs.reBuildingInfo.doFormatImgList(res.list||[]);
 					})
 					.catch(err => {
 						console.log('err-Description', err);
 					});
 			},
-			// 楼盘动态
-			initBuildingDynamicAndDate() {
-				let params = {
-					buildingId: this.buildingId
-				};
-				let self = this;
-				getBuildingDynamicAndDate('', params)
-					.then(res => {
-						console.log('---楼盘动态', res);
-						let dateBaseInfoList = res.dateBaseInfoList;
-						dateBaseInfoList.forEach(item => {
-							item.evidenceDate = item.evidenceDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.evidenceDate * 1)) : '';
-							item.identifyChipsDate = item.identifyChipsDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.identifyChipsDate * 1)) : '';
-							item.openTime = item.openTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.openTime * 1)) : '';
-						});
-						self.dongtaiInfo.isShow = (res.dateBaseInfoList || []).length > 0 || (res.dynamicBaseInfoList || []).length > 0 ? true : false;
-						self.dongtaiInfo.dateBaseInfoList = dateBaseInfoList;
-						self.dongtaiInfo.dynamicBaseInfoList = (res.dynamicBaseInfoList || []).slice(0, 2);
-						self.dongtaiInfo.buildingId = self.buildingId;
-						self.scrollTabs.dynamic.isShow = self.dongtaiInfo.isShow;
-					})
-					.catch(err => {
-						console.log('动态-err', err);
-					});
+			//楼盘的基本信息
+			getBuildingInfo(baseInfo){
+				baseInfo.referenceAveragePrice = baseInfo.referenceAveragePrice?parseInt(baseInfo.referenceAveragePrice):'';
+				baseInfo.referenceBuildAreaMin = baseInfo.referenceBuildAreaMin?parseInt(baseInfo.referenceBuildAreaMin):'';
+				baseInfo.referenceBuildAreaMax = baseInfo.referenceBuildAreaMax?parseInt(baseInfo.referenceBuildAreaMax):'';
+				baseInfo.referenceTotalPriceMin = baseInfo.referenceTotalPriceMin?parseInt(baseInfo.referenceTotalPriceMin):'';
+				baseInfo.referenceTotalPriceMax = baseInfo.referenceTotalPriceMax?parseInt(baseInfo.referenceTotalPriceMax):'';
+				baseInfo.openTime = baseInfo.openTime?this.$tool.dateFtt('yyyy-MM-dd',new Date( baseInfo.openTime)) :'开盘待定'
+				baseInfo.salesStatusItem = this.getSalesStatus(baseInfo.salesStatus);
+				baseInfo.propertyTypeList=[];
+				(baseInfo.propertyTypes||[]).forEach(item=>{
+					baseInfo['propertyTypeList'].push( this.getPropertyType(item.propertyType))
+				})
+				baseInfo.buildingTags =[];
+				(baseInfo.tags||[]).forEach(item=>{
+					baseInfo['buildingTags'].push( item.tagName)
+				})
+				this.baseInfo =baseInfo;
 			},
-			//户型-tabs
-			initBuildingTypeCount() {
-				let params = {
-					buildingId: this.buildingId
-				};
-	
-				getBuildingTypeCount('', params)
-					.then(res => {
-						console.log(res, '户型');
-						let result = res.result || [];
-						this.isShowHouseStyle =result[0].count != 0?true:false 
-						this.scrollTabs.style.isShow = this.isShowHouseStyle;
-					})
-					.catch(err => {
-						console.log('户型-err', err);
+			// 楼盘动态
+			getDynamicAndDate(openTimeList,dynamicList) {
+				let self=this;
+				let dateBaseInfoList =(openTimeList.list||[]).map(item=>{
+					item.evidenceDate = item.evidenceDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.evidenceDate * 1)) : '';
+					item.identifyChipsDate = item.identifyChipsDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.identifyChipsDate * 1)) : '';
+					item.openTime = item.openTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.openTime * 1)) : '';
+					return item;
+				})
+				let dynamicBaseInfoList = (dynamicList.list||[]).map(item=>{
+					item.createTime = item.createTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.createTime * 1)) : '';
+					return item;
+				})
+				self.dongtaiInfo.isShow = ( dateBaseInfoList.length > 0 || dynamicBaseInfoList.length>0 ) ? true : false;
+				self.dongtaiInfo.dateBaseInfoList = dateBaseInfoList;
+				self.dongtaiInfo.dynamicBaseInfoList = dynamicBaseInfoList.slice(0, 2);
+				self.dongtaiInfo.buildingId = self.buildingId;
+				self.scrollTabs.dynamic.isShow = self.dongtaiInfo.isShow;
+			},
+			//户型
+			getHouseTypeList(houseTypeAll){
+				let self =this;
+				let {list=[]} = houseTypeAll;
+				if(list.length==0){
+					self.isShowHouseStyle =false;
+					self.scrollTabs.style.isShow = false;
+					return 
+				}
+				//获取顶部户型tabs
+				let houseTabs =[];
+				let roomArr =list.map((item) => {
+					return item.bedroom
+				});
+				let obj = {};//想要的数据是 1-10 室 出现了几次  {1:xx,2:xx,...,10:xx}
+				roomArr.forEach((v, k) => {
+				  if (obj[v]) {
+					obj[v]++;
+				  } else {
+					obj[v] = 1;
+				  }
+				});
+				for (let key in obj) {
+				  if (obj.hasOwnProperty(key)) {
+					houseTabs.push({
+					  bedroom: key,
+					  count: obj[key],
 					});
+				  }
+				}
+				houseTabs.unshift({
+				  bedroom: 0,
+				  count: list.length,
+				});	
+				self.houseTabs = houseTabs.map(item=>{
+					item.bedroomName = self.bedRoomFlag(item.bedroom)
+					return item;
+				});
+				self.isShowHouseStyle =true;
+				self.totalHouseStyleList = list;
+				self.scrollTabs.style.isShow = true;
+				   
+			},
+			bedRoomFlag(value) {
+			  let set = {
+			    0: "全部",
+			    1: "一室",
+			    2: "二室",
+			    3: "三室",
+			    4: "四室",
+			    5: "五室",
+			    6: "六室",
+			    7: "七室",
+			    8: "八室",
+			    9: "九室",
+			    10: "十室",
+			  };
+			  return set.hasOwnProperty(value) ? set[value] : value;
 			},
 			//楼栋分布
-			initBuildingUnitList() {
-				let params = {
-					buildingId: this.buildingId
-				};
-				let self = this;
-				getBuildingUnitList('', params).then(res => {
-					console.log('楼栋分布-res', res);
-					self.spreadAnnexPath = res.annexPath || '';
-					self.pcBuildingUnitBaseInfoList = res.cAppBuildingUnitBaseInfoList || [];
-					self.scrollTabs.spread.isShow = self.spreadAnnexPath ? true : false;
-				});
+			getBuildingUnitList(buildingList) {
+				let { list=[] } = buildingList;
+				this.spreadAnnexPath = list[0]&&list[0].buildingNumberPic;
+				this.buildingUnitBaseInfoList =list;
+				this.scrollTabs.spread.isShow = this.spreadAnnexPath ? true : false;
+				
 			},
+
+			
 			//楼盘亮点
-			initBuildingBrightSpotList() {
-				let params = {
-					buildingId: this.buildingId
-				};
-				let self = this;
-				self.isShowHighlights = false;
-				self.highlightsInfo.list = [];
-				self.highlightsInfo.type = '';
-				getBuildingBrightSpotListByBuildingId('', params)
-					.then(res => {
-						console.log('楼盘亮点', res);
-						let { brightSpotAnnexList = [], brightSpotTemplateList = [], brightSpotDefaultType } = res || {};
-						//楼盘亮点 APP展示选择 1 图片 2 模板 0不选择(即APP不展示楼盘亮点)'
-						if (brightSpotDefaultType == 0) {
-							self.isShowHighlights = false;
-							self.scrollTabs.highlights.isShow = self.isShowHighlights;
-							return;
-						}
-						brightSpotAnnexList.forEach(item => {
-							item.annexPath = item.annexPath;
-						});
-						brightSpotTemplateList.forEach(item => {
-							item.annexPath = item.annexPath;
-						});
-						self.isShowHighlights = true;
-						self.highlightsInfo.type = brightSpotDefaultType;
-						self.highlightsInfo.list = brightSpotDefaultType == 1 ? brightSpotAnnexList : brightSpotTemplateList;
-						self.scrollTabs.highlights.isShow = self.isShowHighlights;
-					})
-					.catch(err => {
-						console.log('楼盘亮点-err', err);
-					});
+			getBrightSpotList(brightSpot) {
+				let {list=[]} = brightSpot||{};
+				if(list.length==0){
+					this.scrollTabs.highlights.isShow = false;
+					return 
+				}
+				//type:1 图片 2 模板 0不选择(即APP不展示楼盘亮点)'
+				let brightSpotAnnexList = list.filter(item=>{
+					return  item.type ==1;
+				})
+				let brightSpotTemplateList = list.filter(item=>{
+					return  item.type ==2;
+				})
+				//图片模式
+				if(brightSpotAnnexList.length>0){
+					this.highlightsInfo.type =1;
+					this.highlightsInfo.list  = brightSpotAnnexList;
+				}
+				//模板模式
+				if(brightSpotTemplateList.length>0){
+					this.highlightsInfo.type =2;
+					this.highlightsInfo.list  = brightSpotTemplateList;
+				}
+				if(this.highlightsInfo.list.length){
+					this.scrollTabs.highlights.isShow = true;
+				}
 			},
 			// 销售状态
 			getSalesStatus (salesStatus) {

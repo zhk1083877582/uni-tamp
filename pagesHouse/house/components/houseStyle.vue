@@ -3,7 +3,7 @@
 	<view class="house-style" >
 		<title-info :text="titleText" :btnRightInfo="btnRightInfo"></title-info>
 		<view class="tabs" >
-			<text :class="{'tab-item':true,active:index==activeIndex}" v-for="(item,index) in tabList" :key="index" @click="doTabChange(item,index)"> {{item.cate_name}} </text> 
+			<text :class="{'tab-item':true,active:index==activeIndex}" v-for="(item,index) in houseTabs" :key="index" @click="doTabChange(item,index)"> {{`${item.bedroomName}(${item.count})`}} </text> 
 		</view>
 		<view class="list houseStyleMess">
 			<view  class="houseStyleMess_all"  v-for="(item,index) in styleList" :key="index" @click="toHouseStyleDetail(item)">
@@ -41,13 +41,24 @@
 			buildingId:{
 				type:String,
 				default:''
-			}
+			},
+			houseTabs:{
+				type:Array,
+				default:()=>{
+					return []
+				}
+			},
+			totalHouseStyleList:{
+				type:Array,
+				default:()=>{
+					return []
+				}
+			},
 		},
 		data() {
 			return {
 				titleText:'户型介绍',
 				btnType:'houseStyle',//户型
-				tabList:[],//户型tabs
 				activeIndex:0,
 				styleList:[],//平面图
 				//更多操作
@@ -62,24 +73,7 @@
 		},
 
 		mounted(option) {
-			//户型
-			// if(this.buildingId){
-			// 	this.initBuildingTypeCount(this.buildingId);
-			// 	this.changeBtnRightInfo(this.buildingId)
-			// }
-			let self =this;
-			setTimeout(()=>{
-					self.initBuildingTypeCount(self.buildingId);
-					self.changeBtnRightInfo();
-			},1000)
-		},
-		watch:{
-			// buildingId(newVal){
-			// 	if(newVal){
-			// 		this.initBuildingTypeCount(newVal);
-			// 		this.changeBtnRightInfo(newVal)
-			// 	}
-			// },
+			this.styleList = this.totalHouseStyleList.slice(0);
 		},
 		methods: {
 			//全部户型
@@ -93,65 +87,18 @@
 				item.buildingId = this.buildingId;
 				// this.$emit("chatMess",item)
 			},
-			//户型-tabs
-			initBuildingTypeCount(buildingId){
-				let params={
-					buildingId:buildingId
-				};
-				let self=this;
-				getBuildingTypeCount('',params)
-					.then(res => {
-						let result = res.result||[];
-						self.titleText ='户型介绍('+result[0].count+')';
-						if(result[0].count ==0){
-							return
-						}
-						let arr = result.slice(1);
-						let styleArr = ['','一室','二室','三室','四室','五室','六室','七室','八室','九室','十室'];
-						self.tabList = arr.map(item=>{
-							let cateName=item.bedroom>10?item.bedroom+'室':styleArr[item.bedroom];
-							cateName +='('+item.count+')';
-							return{
-								cate_name:cateName,
-								count: item.count,
-								bedroom: item.bedroom,
-							}
-						})
-						self.initBuildingTypeList(arr[0].bedroom)
-						
-					}).catch(err=>{
-						console.log('户型-err',err)
-					})
-			},
-			//户型-list
-			initBuildingTypeList(bedroom){
-				let params={
-					buildingId:this.buildingId,
-					bedroom:bedroom,
-					page:1,
-					row:20
-				};
-				// console.log(444444,params)
-				let self=this;
-				self.styleList=[];
-				// 朝向(1:正南 2:正北 3:正东 4:正西 5:东南 6:西南 7:东北 8:西北)
-				getBuildingTypeList('',params)
-					.then(res => {
-						let list = res.list||[];
-						list.forEach(item=>{
-							item.orientedLabel = self.orientedFlag(item.oriented);
-						})
-						self.styleList = list;
-						// console.log(333333333,list)
-					}).catch(err=>{
-						console.log('户型-err',err)
-					})
-			},
+			
 			//户型切换
 			doTabChange(item,index){
-				
+				if(index==0){
+					this.styleList = this.totalHouseStyleList.slice(0);
+					return
+				}
+				let bedroom = item.bedroom;
 				this.activeIndex =index;
-				this.initBuildingTypeList(item.bedroom)
+				this.styleList = this.totalHouseStyleList.filter(item1=>{
+					return item1.bedroom ==bedroom;
+				})
 			},
 			// 户型详情
 			toHouseStyleDetail(item){
@@ -160,20 +107,6 @@
 				uni.navigateTo({
 				   url: '../houseTypeDetails/houseTypeDetails?buildingId='+this.buildingId+'&houseTypeId='+item.id
 				});
-			},
-			  //朝向转换
-			orientedFlag(value) {
-			    let set = {
-			      1: "正南",
-			      2: "正北",
-			      3: "正东",
-			      4: "正西",
-			      5: "东南",
-			      6: "西南",
-			      7: "东北",
-			      8: "西北"
-			    };
-			    return set.hasOwnProperty(value) ? set[value] : value;
 			},
 			  //销售类型转换
 			salesStatusFlag(value) {
@@ -239,6 +172,7 @@
 		}
 		
 		.houseStyleMess_imgDiv {
+			// border:1rpx solid #ebebeb;
 			width:400rpx;
 		    position: relative;
 		}

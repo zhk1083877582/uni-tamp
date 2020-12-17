@@ -20,9 +20,16 @@ export const getDataGet = (url,params)=>{
 
 //楼盘详情
 export const getBuildingBaseInfo = (url,params)=>{
-	url=url||'/building/capp/building/buildingBaseInfo';
+	url=url||'/business/building/info';
     return apiRequestList.$post(url,params)
 };
+// 图片视频vr 附件
+export const getBuildingAnnex = (url,params)=>{
+	url=url||'/business/building/buildingAnnex';
+    return apiRequestList.$post(url,params)
+};
+
+
 //根据楼盘ID查询优惠券列表
 export const getBuildingCouponInfo = (url,params)=>{
 	url=url||'/base/preferential/act/index/getBuildingPreferentialActCouponDetailList';

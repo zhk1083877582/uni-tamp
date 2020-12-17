@@ -96,7 +96,7 @@
 	  查看详情
 	</view>
 	<view class="baseInfo-update">
-	  本楼盘消息更新于{{baseInfo.updateTime}}
+	  本楼盘消息更新于{{baseInfo.updateTime||''}}
 	</view>
 	<!-- <view class="baseInfo-req">
 	  <image class="img" src="/static/house/info-req.png" mode=""></image>
@@ -141,39 +141,38 @@ export default {
 	// 处理图片-得到MP4 VR 图片
 	doFormatImgList(annexs){
 		let {defaultImg} =this;
-		if(!annexs){
+		if(!annexs.length){
 			return
 		}
-		
 		let aliaOss = '?x-oss-process=image/resize,h_750,w_750';//限制图片大小
-		//1.mp4
-		let mp4Arr = [], arr109 = annexs['109'] || [];
-		arr109.forEach(item => {
-		  if (item.annexPath) {
-		    item.image1 = item.smallAnnexPath + aliaOss;
-		    mp4Arr.push(item);
-		  }
+		let mp4Arr = [],VRArr = [],imgArr=[];
+		annexs.forEach(item=>{
+			let {annexType,annexPath} = item;
+			if(annexPath&&annexType =='109'){
+				mp4Arr.push({
+					isShow:false,
+					image1:annexPath+aliaOss,
+					image:defaultImg
+				})
+			}else if(annexPath&&(annexType =='110'||annexType =='302')){
+				VRArr.push({
+					isShow:false,
+					image1:annexPath+aliaOss,
+					image:defaultImg
+				})
+			}else if(annexPath){
+				imgArr.push({
+					isShow:false,
+					image1:annexPath+aliaOss,
+					image:defaultImg
+				})
+			}
 		})
-		//只取1张mp4图片
+		
+		//只取1张mp4图片 和1张VR图片
 		if (mp4Arr.length > 1) {
 		  mp4Arr.splice(1, mp4Arr.length);
 		}
-		
-		//2.VR
-		let VRArr = [], arr110 = annexs['110'] || [], arr302 = annexs['302'] || [];
-		arr110.forEach(item => {
-		  if (item.annexPath) {
-		    item.image1 = item.smallAnnexPath + aliaOss;
-		    VRArr.push(item);
-		  }
-		});
-		arr302.forEach(item => {
-		  if (item.annexPath) {
-			item.image1 = item.annexPath + aliaOss;
-		    // item.annexPath += aliaOss;
-		    VRArr.push(item);
-		  }
-		});
 		if (VRArr.length > 1) {
 		  VRArr.splice(1, VRArr.length);
 		}
@@ -182,34 +181,13 @@ export default {
 		// #ifndef H5
 		   VRArr=[];
 		// #endif
-		
-		delete annexs['110'];
-		delete annexs['109'];
-		delete annexs['302'];
-		
-		// 3.图片
-		let imgArr = [];
-		for (let key in annexs) {
-		  let item = annexs[key];
-		  if (item.length) {
-		    item.forEach(item1 => {
-		      if (item1.annexPath) {
-		        item1.image1 = item1.annexPath ? item1.annexPath + aliaOss : defaultImg;
-		        imgArr.push(item1);
-		      }
-		    })
-		  }
-		}
 		// 先加载前三张图片，其余的稍后加载（由于图片数目较多）
 		let imgList = [...mp4Arr, ...VRArr, ...imgArr];
 		imgList.forEach((item, index) => {
-		  item.image = defaultImg;
-		  item.isShow =false;
 		  if (index < 3) {
 		    item.image = item.image1;
 			 item.isShow =true;
 		  }
-		
 		})
 		this.imgList = imgList;
 		//统计视频 VR 图片的数目和位置
