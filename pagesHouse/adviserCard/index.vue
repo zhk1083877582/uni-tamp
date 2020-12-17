@@ -77,7 +77,7 @@
 			</view>
 		</view>
 		<view class="adviser-bottom">
-			<footBottom :istoDetail='false'></footBottom>
+			<footBottom :istoDetail='false' :userId='userId' v-if="userId"></footBottom>
 		</view>
 	</view>
 </template>

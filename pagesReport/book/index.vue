@@ -6,7 +6,7 @@
 				<view class="warp_border">
 				</view>
 				<view class="title">
-					张小萌女士：
+					{{windowTitle}}：
 				</view>
 				<view class="text">
 					请查收您的
@@ -45,7 +45,8 @@ export default {
 			session_key:'',
 			
 			buildingName:'',
-			userName:''
+			userName:'',
+			windowTitle:'',//客户姓名
 		};
 	},
 	computed: {},
@@ -146,6 +147,11 @@ export default {
 			getData('/business/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
 				// this.getUserInfo(res.businessReport.userId);
+				let customerGender=res.businessReport?res.businessReport.customerGender:''
+				let subscriberName = res.businessReport?res.businessReport.customerName:''
+				console.log(subscriberName,customerGender)
+				this.windowTitle = `${subscriberName}${customerGender=='1'?'先生':'女士'}`
+				console.log(this.windowTitle)
 				this.buildingName = res.buildingInfo.buildingAlias
 			}).catch((err)=>{
 				console.log(err)

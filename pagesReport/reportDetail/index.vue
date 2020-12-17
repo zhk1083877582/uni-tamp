@@ -174,7 +174,7 @@ export default {
 				
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 			    let subscriberName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = subscriberName + customerGender=='1'?'先生':'女士'
+				this.windowTitle = `${subscriberName}${customerGender=='1'?'先生':'女士'}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
