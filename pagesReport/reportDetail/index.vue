@@ -94,6 +94,7 @@ export default {
 			userName:'',
 			userId:'',//顾问ID
 			windowTitle:'',//客户姓名  客户性别
+			
 		};
 	},
 	computed: {
@@ -183,6 +184,7 @@ export default {
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
+				this.share.title = this.buildingInfo.buildingAlias + '置业报告'
 			}).catch((err)=>{
 				console.log(err)
 			})

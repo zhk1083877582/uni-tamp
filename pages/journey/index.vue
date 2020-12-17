@@ -11,26 +11,26 @@
 		</view>
 		
 	<!-- 置业旅程主体 -->
-		<view class='journey_ownership' v-else  @click.stop="handleBodyClick"><!-- :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''" -->
-			<view v-if="ishowbuilding">
-				<view class="user_msg">
-					<view class="user_msg_left">
-						<view class="avatarTou">
-							<open-data type="userAvatarUrl"></open-data>
-						</view>
-						<view class="name_phone">
-							<view class="name" v-show="authorize">
-								<open-data type="userNickName"></open-data>
-							</view>
-							<view class="phone" :class="{'authorize_Y':authorize!=true}">
-								{{phoneFormat}}
-							</view>
-						</view>
+		<view class='journey_ownership' :style="ishowbuilding?'padding-bottom:97rpx':'background:transparent'" v-else  @click.stop="handleBodyClick"><!-- :style="ishowbuilding ? 'padding-bottom: 57rpx;' : ''" -->
+			<view class="user_msg">
+				<view class="user_msg_left">
+					<view class="avatarTou">
+						<open-data type="userAvatarUrl"></open-data>
 					</view>
-					<view class="get_out" @click="showGetOut = true">
-						退出登录
+					<view class="name_phone">
+						<view class="name" v-show="authorize">
+							<open-data type="userNickName"></open-data>
+						</view>
+						<view class="phone" :class="{'authorize_Y':authorize!=true}">
+							{{phoneFormat}}
+						</view>
 					</view>
 				</view>
+				<view class="get_out" @click="showGetOut = true">
+					退出登录
+				</view>
+			</view>
+			<view v-if="ishowbuilding">
 				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" circular='true' @change="changeSwipe" :effect3d="true">
 					<swiper-item v-for="(item,index) in journeyArr" :key="index" class="swiper_item_class">
 						<view class="swiper-item uni-bg-red" :class="index!=curr?'scale_swiper':''">
@@ -56,8 +56,9 @@
 									</view>
 								
 									<!-- 方案 -->
-									<view class='demand' v-if="isShowPlan">
-										<view class="LX_home">
+									<view class='demand' v-if="item.ishowPlanStatus">
+										<!-- 置业需求 -->
+										<view class="LX_home" v-if="JSON.stringify(item.customerIntention) != '{}'&& item.customerIntention != null">
 											<view class="top_title"><i class="shu"></i><text class="span">置业需求</text></view>
 												<view class="rows">
 													<view class="col">
@@ -99,8 +100,8 @@
 													<view class="check_all" @click="toIdealHome(item.customerIntention)">查看完整理想家 >></view>
 												</view>
 										</view>
-										<!-- 方案 -->
-										<view class="recommend_warp">
+										<!-- 方案推荐 -->
+										<view class="recommend_warp" v-if="JSON.stringify(item.recommendation) != '{}'&&item.recommendation!=null">
 											<view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
 											<u-tabs
 												name='tableTitle' 
@@ -117,62 +118,62 @@
 												>
 												</u-tabs>
 												
-										<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
-											<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
-												<view class="change_box_warp">
-													<view class="change_box" @click="toDetail(itemR.buildingId)">
-														<view class="change_image_warp">
-															<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
-														</view>
-														<view class="rows">
-															<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail?itemR.houseTypeDetail.houseTypeName:'-'}}</text>
-														</view>
-														<view class="rows">
-															<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail?itemR.houseTypeDetail.houseType:'-'}}</text>
-														</view>
-														<view class="rows">
-															<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
-														</view> 
-														<view class="rows">
-															<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.constructionArea||'-'}}<text>㎡</text></text>
-														</view> 
-														<view class="rows">
-															<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
-														</view>
-														<view class="rows">
-															<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay||'-'}}万元</text>
-														</view>
-														<view class="rows">
-															<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
-															<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
-																<i class="iconfont iconwenhao question"></i>
-																<view class="tool_tip" v-show="isShowTooltip">
-																	<i class="sanJ"></i>
-																	<view>
-																		根据首付35%，4.65%LPR，30年期限等额本息计算所得。
-																	</view>
+												<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
+													<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
+														<view class="change_box_warp">
+															<view class="change_box" @click="toDetail(itemR.buildingId)">
+																<view class="change_image_warp">
+																	<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
 																</view>
-															</view> -->
+																<view class="rows">
+																	<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail?itemR.houseTypeDetail.houseTypeName:'-'}}</text>
+																</view>
+																<view class="rows">
+																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail?itemR.houseTypeDetail.houseType:'-'}}</text>
+																</view>
+																<view class="rows">
+																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
+																</view> 
+																<view class="rows">
+																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.constructionArea||'-'}}<text>㎡</text></text>
+																</view> 
+																<view class="rows">
+																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
+																</view>
+																<view class="rows">
+																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay||'-'}}万元</text>
+																</view>
+																<view class="rows">
+																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
+																	<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
+																		<i class="iconfont iconwenhao question"></i>
+																		<view class="tool_tip" v-show="isShowTooltip">
+																			<i class="sanJ"></i>
+																			<view>
+																				根据首付35%，4.65%LPR，30年期限等额本息计算所得。
+																			</view>
+																		</view>
+																	</view> -->
+																</view>
+															</view>
+															
+															<view class="reason">
+																<view class="sanJ"></view>
+																<view class="reason_title">
+																	<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
+																</view>
+																<view class="reason_content">
+																	{{itemR.content}}
+																</view>
+															</view>
 														</view>
-													</view>
-													
-													<view class="reason">
-														<view class="sanJ"></view>
-														<view class="reason_title">
-															<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
-														</view>
-														<view class="reason_content">
-															{{itemR.content}}
-														</view>
-													</view>
-												</view>
-											</swiper-item>
-										</swiper>
+													</swiper-item>
+												</swiper>
 										
 										</view>
 										
 										<!-- 置业报告列表 -->
-										<view class="report_list">
+										<view class="report_list" v-if="item.reportData!=null&&JSON.stringify(item.reportData) != '[]'">
 											<view class="mian">
 												<view class="timeline-item" v-for="(itemL, index) in item.reportData" :key="index">
 													<view class="time">
@@ -183,7 +184,7 @@
 															</view>
 															<view class="keeper_msg" :id="itemL.userId" @click="e=>tohouseKeeper(e,itemL)">
 																<view class="keeper_portrait">
-																	<image class="img" :src="itemL.avatarTou?itemL.avatarTou:defaultHead" mode="circle"></image>
+																	<image class="img" :src="itemL.userHeadPhoto?itemL.userHeadPhoto:defaultHead" mode="circle"></image>
 																</view>
 																<view class="keeper_name">
 																	<text class="keeper_name_text">{{itemL.userName?itemL.userName:'--'}}</text> <i class="iconfont icondianhua" @click.stop="tellPhone"></i>
@@ -224,7 +225,7 @@
 				<view class="no-data-plan no-data-build">
 					<image class="img" src="https://media.tongcehaofang.com/image/default/A92894D89E954C9198EDDA3349607E4D-6-2.jpg" mode=""></image>
 					<view class="text">
-						您的置业报告正在定制中，
+						您尚未开启购房旅程
 					</view> 
 					<view class="text">
 						敬请期待~
@@ -257,8 +258,8 @@ export default {
 	data() {
 		return {
 			HasToken:false,//搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
-			isShowPlan:true,
 			ishowbuilding:true,
+			// ishowPlan:true,
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			defaultHead:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			swiperMargin:'30rpx',
@@ -415,6 +416,7 @@ export default {
 				customerId:1
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
+				console.log(res,'置业报告列表数据');
 				res.reportBuildingIntro && res.reportBuildingIntro.forEach((itemT, indexT) => {
 					let buildingTagArr = []
 					itemT.baseTagsName && itemT.baseTagsName.split(",").forEach((item, index) => {
@@ -423,12 +425,28 @@ export default {
 					itemT.buildingTagArr = buildingTagArr
 				})
 				res.forEach((itemR,index)=>{
-					itemR.recommendation && itemR.recommendation.list.forEach((itemY,indexY)=>{
+					itemR.recommendation.list && itemR.recommendation.list.forEach((itemY,indexY)=>{
 						itemY.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(indexY+1)
 					})
+					
+					//判断是否有方案推荐
+					if( (JSON.stringify(itemR.customerIntention) != '{}'&& itemR.customerIntention != null)&&
+						(JSON.stringify(itemR.recommendation) != '{}'&&itemR.recommendation!=null)&&
+						(itemR.reportData!=null&&JSON.stringify(itemR.reportData) != '[]')
+					  ){
+						  itemR.ishowPlanStatus = true
+					  }else{
+						  itemR.ishowPlanStatus = false
+					  }
+					 
+					//判断是否有楼盘
+					if(JSON.stringify(itemR.reportBuildingIntro) == '{}' && itemR.reportBuildingIntro == null){
+						this.ishowbuilding = false;
+					}
+					
 				})
 				this.journeyArr = res;
-				console.log(this.journeyArr,'置业报告列表数据');
+				console.log(this.journeyArr,'置业报告列表整合数据');
 			}).catch(err=>{
 				console.log(err)
 			})
@@ -448,19 +466,8 @@ export default {
 	
 	},
 	mounted() {
-		// let self = this;
-		// uni.getSystemInfo({
-		// 　　success: function(res) { // res - 各种参数
-		// // 　　   console.log(res,res.windowHeight); // 屏幕的高度 
-				
-		// 　　    let info = uni.createSelectorQuery().select(".swiper-item");
-		// 　　　  　info.boundingClientRect(function(data) { //data - 各种参数
-		// 　　　  　console.log(data,data.height,111222222)  // 获取元素高度
-		// 			self.swiperHeight = data.height +'px'
-		// 　　    }).exec()
-		//        }
-		// });
 		this.getDescBox();
+		this.share.title = '购房旅程'
 	},
 	onLoad(option){
 		console.log('-----首页',this.$cache.getCache('M-Token'))
@@ -508,7 +515,7 @@ export default {
 	}
 	.journey_ownership{
 		background: linear-gradient(181deg, #0A2056, #0D255F, #062471 99%);
-		padding-bottom: 97rpx;
+		
 		.user_msg{
 			display: flex;
 			justify-content: space-between; 
@@ -571,7 +578,7 @@ export default {
 				background-color: #FFFFFF;
 				margin: 0 10rpx;
 				border-radius: 20rpx;
-				height: 2850rpx;
+				/* height: 2850rpx; */
 				overflow: hidden;
 				.list_item_warp{
 					display:flex;
@@ -1024,9 +1031,15 @@ export default {
 		}
 		.no-data-build{
 			position: absolute;
-			top: 50%;
+			top: 65%;
 			left: 50%;
 			transform: translate(-50%, -75%);
+			.text{
+				text-align: center;
+				font-size: 28rpx;
+				color: #FFFFFF !important;
+				line-height: 44rpx;
+			}
 		}
 		.no-data-plan{
 			padding-top: 80rpx;
