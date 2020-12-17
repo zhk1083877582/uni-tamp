@@ -64,7 +64,7 @@
 							</view>
 							<view class="rows">
 								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
-								<view class="tool_tip_warp">
+								<!-- <view class="tool_tip_warp">
 									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 									<view class="tool_tip" v-show="isShowTooltip">
 										<i class="sanJ"></i>
@@ -72,7 +72,7 @@
 											根据首付35%，4.65%LPR，30年期限等额本息计算所得。
 										</view>
 									</view>
-								</view>
+								</view> -->
 							</view>
 						</view>
 						
