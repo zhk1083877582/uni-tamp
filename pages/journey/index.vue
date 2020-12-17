@@ -103,7 +103,7 @@
 										<view class="recommend_warp">
 											<view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
 											<u-tabs
-												name='recommendationNum' 
+												name='tableTitle' 
 												:list="item.recommendation.list" 
 												:is-scroll="true" 
 												:current="currentPlan" 
@@ -415,7 +415,6 @@ export default {
 				customerId:1
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
-				console.log(res);
 				res.reportBuildingIntro && res.reportBuildingIntro.forEach((itemT, indexT) => {
 					let buildingTagArr = []
 					itemT.baseTagsName && itemT.baseTagsName.split(",").forEach((item, index) => {
@@ -423,7 +422,13 @@ export default {
 					})
 					itemT.buildingTagArr = buildingTagArr
 				})
+				res.forEach((itemR,index)=>{
+					itemR.recommendation && itemR.recommendation.list.forEach((itemY,indexY)=>{
+						itemY.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(indexY+1)
+					})
+				})
 				this.journeyArr = res;
+				console.log(this.journeyArr,'置业报告列表数据');
 			}).catch(err=>{
 				console.log(err)
 			})

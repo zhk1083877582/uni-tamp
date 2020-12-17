@@ -221,6 +221,7 @@
 	position: relative;
 	padding-bottom: 140rpx;
 	background-color:#f3f3f3;
+	overflow: hidden;
 	//封面图
 	.configImg{
 		height:453rpx;
