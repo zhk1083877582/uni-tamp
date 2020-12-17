@@ -153,7 +153,7 @@ export default {
 				//推荐方案
 				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
 				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo:null;
-				let isShowRecommend = res.recommendation == null&&res.buildingInfo==null?false:true;
+				let isShowRecommend = res.recommendation != null&&res.buildingInfo!=null?true:false;
 				this.changeScrollTabsShow('recommend',isShowRecommend)
 				
 				//公共样式列表
