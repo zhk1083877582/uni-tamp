@@ -26,6 +26,7 @@ export default{
 		},
 	},
     onShareAppMessage(res) {
+		console.log(123123)
         return {
             title:this.share.title,
             path:this.share.path,

@@ -120,9 +120,9 @@ import encryptList from "@/request/encrypt.js"
               //   window.location.href = "/#/login?topath="+name
               // });
 			  cache.removeCache('M-Token')
-							uni.navigateTo({
-								url: '/pagesUser/login/login'
-							});
+							// uni.navigateTo({
+							// 	url: '/pagesUser/login/login'
+							// });
 							showToast("未授权，请登录");
               err.message = false;
               break

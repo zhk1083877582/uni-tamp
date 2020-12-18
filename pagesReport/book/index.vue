@@ -114,7 +114,7 @@ export default {
 							jsCode: res.code,
 						};
 						// #ifdef MP-WEIXIN
-						let api = '/tospurWeb/wxapp/wxAuth' 
+						let api = '/userAuthServer/wx/wxAuth' 
 						// #endif
 						// #ifdef MP-BAIDU
 						let api =  '/tospurWeb/baiduapp/baiduAuth'

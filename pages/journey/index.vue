@@ -44,7 +44,7 @@
 											<view class="details_title">
 												{{item.reportBuildingIntro.buildingAlias}}
 												<view class="label cl_B">{{item.reportBuildingIntro.salesStatus == 1?'待售':item.reportBuildingIntro.salesStatus == 2?'在售':item.reportBuildingIntro.salesStatus == 3?'售罄':item.reportBuildingIntro.salesStatus == 4?'在租':''}}</view>
-												<view class="label cl_Y" v-if="!!item.reportBuildingIntro.propertyType">{{handlePropertyType(item.reportBuildingIntro.propertyType)}}</view>
+												<view class="label cl_Y" v-if="!!item.reportBuildingIntro.propertyType">{{handlePropertyType(item.reportBuildingIntro.propertyType.length>0&&item.reportBuildingIntro.propertyType!=null?item.reportBuildingIntro.propertyType[0]:'')}}</view>
 											</view>
 											<view class="price_details">{{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}</view>
 											<view class="address_details">{{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}</view>
@@ -321,13 +321,14 @@ export default {
 	watch: {},
 	methods: {
 		handlePropertyType(key){
-			let newKey = ''
-			if(key.length>1){
-				newKey = key.substring(0,1)
-			}else{
-				newKey = key
-			}
-			return this.$formatter.switchName('propertyType',newKey)
+			if(key == '') return
+			// let newKey = ''
+			// if(key.length>1){
+			// 	newKey = key.substring(0,1)
+			// }else{
+			// 	newKey = key
+			// }
+			return this.$formatter.switchName('propertyType',key)
 		},
 		//登录
 		doGoLoginPage(){
