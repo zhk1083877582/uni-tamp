@@ -42,7 +42,9 @@
 		<!-- 置业小贴士 -->
 		<tips-page class="part100"></tips-page>
 		<!-- 管家信息 -->
-		<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId"></foot-bottom>
+		<view :class="isfixed?'fixed_bottom':''">
+			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId"></foot-bottom>
+		</view>
 	</view>
 </template>
 
@@ -346,6 +348,13 @@ export default {
 	}
 	.No_fixed{
 		position: sticky;
+	}
+	.fixed_bottom{
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 9999;
+		width: 100%;
 	}
 }
 </style>
