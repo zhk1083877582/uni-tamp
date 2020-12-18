@@ -49,7 +49,7 @@
 		<!-- 免责声明 -->
 		<house-disclaimer></house-disclaimer>
 		<view class="pageHouse-bottom">
-			<footBottom></footBottom>
+			<footBottom v-if="userId" :userId='userId'></footBottom>
 		</view>
 	</view>
 </template>
@@ -94,6 +94,7 @@
 		},
 		data() {
 			return {
+				userId:'',
 				buildingId:'',
 				baseInfo:{
 					favourTitle: '', //图片顶部广告
@@ -166,8 +167,9 @@
 			}
 		},
 		onLoad(option={}){
-			console.log('-------进入builddingInfo')
+			console.log('-------进入builddingInfo',option)
 			this.buildingId = option.buildingId||'10178';
+			this.userId = option.userId;
 			this.initBaseInfo();
 			this.initGetAnnex();
 			// this.initGetBuildingDescription();

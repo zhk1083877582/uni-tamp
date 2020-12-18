@@ -121,6 +121,10 @@ export default {
 				return {}
 			 }
 		},
+		userId:{
+			type: String,
+			default: ''
+		}
 	},
 	computed: {},
 	watch: {},
@@ -143,8 +147,10 @@ export default {
 		handleBodyClick(){
 			this.isShowTooltip = false;
 		},
-		toDetail(){
-		
+		toDetail(buildingId){
+			uni.navigateTo({
+				url: `/pagesHouse/house/house?buildingId=${buildingId}&userId=${this.userId}`
+			});
 		},
 		handlePropertyType(key){
 			let newKey = ''

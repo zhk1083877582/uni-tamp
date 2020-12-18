@@ -121,7 +121,7 @@
 												<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
 													<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
 														<view class="change_box_warp">
-															<view class="change_box" @click="toDetail(itemR.buildingId)">
+															<view class="change_box">
 																<view class="change_image_warp">
 																	<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
 																</view>
@@ -194,7 +194,7 @@
 														
 													</view>
 													<view class="status u-line-2">{{itemL.stage==2?'复看':'首看'}}</view>
-													<view class="content" @click="toReportDetail">
+													<view class="content" @click="toReportDetail(itemL.reportId)">
 														<view class="report_title">
 															<i class="iconfont iconzhiyebaogao"></i>{{itemL.reportName}}<i class="iconfont iconjiantou"></i>
 														</view>
@@ -351,8 +351,11 @@ export default {
 				});
 		},
 		// 跳转楼盘详情
-		toDetail(){
+		toDetail(buildingId){
 			console.log('跳转楼盘详情')
+			uni.navigateTo({
+				url: '/pagesHouse/house/house?buildingId=' + buildingId
+			});
 		},
 		changeSwipe(val){
 			console.log(val)
@@ -402,9 +405,9 @@ export default {
 				}
 			});
 		},
-		toReportDetail(){
+		toReportDetail(reportId){
 			uni.navigateTo({
-				url: '../../pagesReport/reportDetail/index?reportId=' + 3//+ this.buildingId
+				url: '../../pagesReport/reportDetail/index?reportId=' + reportId
 			});
 		},
 		toIdealHome(data){

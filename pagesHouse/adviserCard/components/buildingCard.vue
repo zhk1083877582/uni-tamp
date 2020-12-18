@@ -82,6 +82,10 @@ export default {
 	buildingId:{
 		type: String,
 		default: ''
+	},
+	userId:{
+		type:String,
+		default:''
 	}
   },
   data () {
@@ -98,7 +102,7 @@ export default {
 	//跳转楼盘详情
 	doToBulidingInfo (buildingId) {
 		uni.navigateTo({
-		   url: '/pagesHouse/house/house?buildingId='+ buildingId
+		   url: '/pagesHouse/house/house?buildingId='+ buildingId + '&userId='+ this.userId
 		});
 	},
 	doFormatAveragePrice(type,averagePrice){ //均价格式化

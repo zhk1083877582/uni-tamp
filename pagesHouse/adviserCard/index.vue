@@ -69,7 +69,7 @@
 					:effect3d="true"  circular='true' @change="doChangeSwipe">
 					<swiper-item v-for="(item,index) in baseInfo" :key="index" >
 						<view class="building-item uni-bg-red" :class="index!=swiperInfo.current?'scale_swiper':''">
-							<buildingCard :baseInfo="item">
+							<buildingCard :baseInfo="item" :userId="userId">
 							</buildingCard>
 						</view>
 					</swiper-item>

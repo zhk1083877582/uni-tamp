@@ -21,7 +21,7 @@
 						购房资质：
 					</view>
 					<view class="content">
-						{{resData.housePurchaseCondition==1?'有':'无'}}
+						{{resData.housePurchaseCondition==1?'有':resData.housePurchaseCondition==2?'无':'-'}}
 					</view>
 				</view>
 				<view class="box">
@@ -29,7 +29,7 @@
 						贷款资质：
 					</view>
 					<view class="content">
-						{{resData.loanCondition==1?'首套':'二套'}}
+						{{resData.loanCondition==1?'首套':resData.housePurchaseCondition==2?'二套':'-'}}
 					</view>
 				</view>
 			</view>
@@ -41,13 +41,13 @@
 					</view>
 					<view class="content column">
 						<view class="item_view">
-							<text>总价预算</text><text class="color_red">{{resData.totalBudget || '-'}}<text v-if="resData.totalBudget">万元</text></text>
+							<text>总价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.totalBudget,'万元')}}</text>
 						</view>
 						<view class="item_view">
-							<text>单价预算</text><text class="color_red">{{resData.unitPriceBudget || '-'}}<text v-if="resData.unitPriceBudget">/㎡</text></text>
+							<text>单价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.unitPriceBudget,'万元/㎡')}}</text>
 						</view>
 						<view class="item_view">
-							<text>首付区间</text><text class="color_red">{{resData.downPaymentBudget|| '-'}}<text v-if="resData.totalBudget">万元</text></text>
+							<text>首付区间</text><text class="color_red">{{$tool.changeArrayToNum(resData.downPaymentBudget,'万元')}}</text>
 						</view>
 					</view>
 				</view>
@@ -76,7 +76,7 @@
 							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet || '-'}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">面积</view><view class="right_text"><text>{{resData.intentionArea || '-'}}</text></view>
+							<view class="second_label">面积</view><view class="right_text"><text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text></view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType || '-'}}</text></view>
@@ -113,6 +113,7 @@ export default {
 	onLoad(option){
 		console.log(option);
 		this.resData = JSON.parse(option.resData)
+		console.log(this.resData);
 	}
 }
 </script>

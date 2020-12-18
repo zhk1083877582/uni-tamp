@@ -32,7 +32,7 @@
 		<!-- 置业需求 -->
 		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention'></demand>
 		<!-- 方案推荐 -->
-		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo'></recommend>
+		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId'></recommend>
 		<!-- 公共组件 -->
 		<view v-for="(item,index) in articleList" :key="index">
 			<public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
@@ -247,6 +247,7 @@ export default {
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	/* height: 100%; */
+	padding-bottom: 104rpx;
 	.title_warp{
 		padding: 40rpx 32rpx 32rpx 32rpx;
 		display: flex;

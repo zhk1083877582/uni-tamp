@@ -376,6 +376,25 @@ const TOOL = {
 	        newchar = newchar.substr(0, newchar.length - 1);
 	    }
 	    return newchar;
+	},
+	//[{"start":"55","end":"333"}]数据转换
+	changeArrayToNum(arr,unit){
+		console.log(arr,'arrarr')
+		if(arr==null||arr == '[]') return '-'
+		let arrR = []
+		JSON.parse(arr).map((item,index)=>{
+			if(item.start == ''){
+				let str = item.end+'以下'
+				arrR.push(str) 
+			}else if(item.end == ''){
+				let str = item.start+'以上'
+				arrR.push(str)
+			}else{
+				let str = item.start+'-'+item.end + unit
+				arrR.push(str)
+			}
+		})
+		return arrR.join('、')
 	}
 }
 export default TOOL;
