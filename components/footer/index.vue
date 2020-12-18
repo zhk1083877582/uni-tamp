@@ -61,7 +61,6 @@ export default {
 			});
 		},
 		tohouseKeeper(){
-			console.log('跳转名片')
 			if (!this.istoDetail) return
 			uni.navigateTo({
 				url: '/pagesHouse/adviserCard/index?userId=' + this.userInfo.userId
@@ -82,10 +81,8 @@ export default {
           }else{
               res.servedPeopleNum = 99
           }
-		  console.log(res,'23456111')
 					self.userInfo = res
           this.$emit('handelUserName',res);
-          console.log(self.userInfo)
 				})
 				.catch(err => {
 					console.log('管家信息', err);

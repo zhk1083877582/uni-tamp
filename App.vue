@@ -1,7 +1,7 @@
 <script>
 export default {
 	onLaunch: function() {
-		console.log('进入App Launch');
+		// console.log('进入App Launch');
 	},
 	onShow: function() {
 		// console.log('App Show');
@@ -26,7 +26,7 @@ export default {
 		
 	},
 	onHide: function() {
-		console.log('关闭App Hide');
+		// console.log('关闭App Hide');
 	}
 };
 </script>

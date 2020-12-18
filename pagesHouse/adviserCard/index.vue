@@ -30,14 +30,14 @@
 					</view>
 				</view>
 				<view class="datail-tag">
-					<text class="tag-item" v-for="(item,index) in adviserInfo.personalityTags" :key="index">{{item}}</text>
+					<text class="tag-item" v-for="(item,index) in adviserInfo.personalityTags" :key="index">{{item.paraValue}}</text>
 				</view>
 				<view class="datail-title">
 					<text class="datail-title_icon"></text>
 					<text class="datail-title_text">擅长领域</text>
 				</view>
 				<view class="datail-label">
-					<text  v-for="(item,index) in adviserInfo.expertiseFields" :key="index">{{item}}</text>
+					<text  v-for="(item,index) in adviserInfo.expertiseFields" :key="index">{{item.paraValue}}</text>
 				</view>
 			</view>
 		</view>
@@ -423,7 +423,7 @@
 	
 	.adviser-bottom{
 		width:100%;
-		height: 114rpx;
+		// height: 114rpx;
 		box-sizing: border-box;
 		background: #FFFFFF;
 		position: fixed;

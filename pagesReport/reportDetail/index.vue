@@ -238,6 +238,15 @@ export default {
 				.exec();
 		}
 	},
+	onShow(){
+		console.log('onShow 111')
+	},
+	onHide(){
+		console.log('onHide 222')
+	},
+	onUnload(){
+		console.log('onUnload 333')
+	}
 }
 </script>
 <style lang='scss' scoped>

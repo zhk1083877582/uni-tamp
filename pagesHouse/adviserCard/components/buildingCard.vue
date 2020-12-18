@@ -95,7 +95,7 @@ export default {
     }
   },
   mounted(){
-	
+	console.log('楼盘信息',this.baseInfo)
   },
   
   methods:{
