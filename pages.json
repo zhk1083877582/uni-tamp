@@ -6,7 +6,7 @@
 		{
 			"path": "pages/journey/index",
 			"style": {
-				"navigationBarTitleText": "置业旅程",
+				"navigationBarTitleText": "购房旅程",
 				"app-plus": {
 					"titleNView": false,
 					"bounce": "none"

@@ -11,7 +11,7 @@
 						<text>{{userInfo.userName||'-'}}</text><text class="years">{{userInfo.workExperience||'-'}}年</text>
 					</view>
 					<view class="num">
-						<text>服务人数：</text><text>{{userInfo.servedPeopleNum||'-'}}人</text>
+						<text>服务人数：</text><text>{{userInfo.servedPeopleNum}}人</text>
 					</view>
 				</view>
 			</view>
@@ -74,9 +74,18 @@ export default {
 			let self =this;
 			getData('/business/user/getUserCardDetail', params)
 				.then(res => {
-					console.log('管家信息',res)
+          console.log('管家信息',res)
+          if(res.servedPeopleNum!=null){
+            if(parseInt(res.servedPeopleNum) <99){
+              res.servedPeopleNum = 99
+            }
+          }else{
+              res.servedPeopleNum = 99
+          }
+		  console.log(res,'23456111')
 					self.userInfo = res
-					this.$emit('handelUserName',res);
+          this.$emit('handelUserName',res);
+          console.log(self.userInfo)
 				})
 				.catch(err => {
 					console.log('管家信息', err);

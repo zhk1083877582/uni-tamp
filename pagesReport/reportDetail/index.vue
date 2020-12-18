@@ -94,6 +94,7 @@ export default {
 			userName:'',
 			userId:'',//顾问ID
 			windowTitle:'',//客户姓名  客户性别
+			
 		};
 	},
 	computed: {
@@ -154,6 +155,11 @@ export default {
 				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
 				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo:null;
 				let isShowRecommend = res.recommendation != null&&res.buildingInfo!=null?true:false;
+				//添加title
+				this.recommendation&&this.recommendation.forEach((item,index)=>{
+					item.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(index+1)
+				})
+				this.recommendation
 				this.changeScrollTabsShow('recommend',isShowRecommend)
 				
 				//公共样式列表
@@ -174,10 +180,11 @@ export default {
 				
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 			    let subscriberName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = subscriberName + customerGender=='1'?'先生':'女士'
+				this.windowTitle = `${subscriberName}${customerGender=='1'?'先生':'女士'}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
+				this.share.title = this.buildingInfo.buildingAlias + '置业报告'
 			}).catch((err)=>{
 				console.log(err)
 			})

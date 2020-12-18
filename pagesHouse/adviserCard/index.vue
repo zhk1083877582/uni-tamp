@@ -26,7 +26,7 @@
 					<view class="serve">
 						<text class="iconfont iconren"></text>
 						<text class="count-flag"></text>
-						<text class="serve-num">服务{{adviserInfo.servedPeopleNum||'99'}}人</text>
+						<text class="serve-num">服务{{adviserInfo.servedPeopleNum}}人</text>
 					</view>
 				</view>
 				<view class="datail-tag">
@@ -77,7 +77,7 @@
 			</view>
 		</view>
 		<view class="adviser-bottom">
-			<footBottom :istoDetail='false'></footBottom>
+			<footBottom :istoDetail='false' :userId='userId' v-if="userId"></footBottom>
 		</view>
 	</view>
 </template>
@@ -154,6 +154,13 @@
 							}
 						}
 						res.expertiseFields= expertiseFields;
+						if(res.servedPeopleNum!=null){
+						  if(parseInt(res.servedPeopleNum) <99){
+						    res.servedPeopleNum = 99
+						  }
+						}else{
+						    res.servedPeopleNum = 99
+						}
 						self.adviserInfo = res
 						
 					})
@@ -221,6 +228,7 @@
 	position: relative;
 	padding-bottom: 140rpx;
 	background-color:#f3f3f3;
+	overflow: hidden;
 	//封面图
 	.configImg{
 		height:453rpx;

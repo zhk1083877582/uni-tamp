@@ -24,7 +24,7 @@
 				</view>
 			</view>
 			<u-tabs 
-				name='recommendationNum' 
+				name='tableTitle' 
 				:list="resData" 
 				:is-scroll="true" 
 				:current="current" 
