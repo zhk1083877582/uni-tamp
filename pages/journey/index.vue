@@ -353,6 +353,9 @@ export default {
 		// 跳转楼盘详情
 		toDetail(buildingId){
 			console.log('跳转楼盘详情')
+			this.buryingPoint.operationType = '6'
+			this.buryingPoint.modelType = '1'
+			this.ReportLog()
 			uni.navigateTo({
 				url: '/pagesHouse/house/house?buildingId=' + buildingId
 			});
@@ -485,7 +488,9 @@ export default {
 		
 	},
 	onShow(){
-		
+		this.buryingPoint.operationType = '5'
+		this.buryingPoint.modelType = '1'
+		this.ReportLog()
 	}
 }
 </script>

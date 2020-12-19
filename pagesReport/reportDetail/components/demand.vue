@@ -21,7 +21,7 @@
 					<view class="col">
 						<view class="title">意向区域</view>
 						<view class="content_text">
-							{{resData.intentionCityRegion||'-'}}
+							{{resData.intentionCityRegionName||'-'}}
 						</view>
 					</view>
 					<view class="col col_L">

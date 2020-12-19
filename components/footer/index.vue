@@ -39,6 +39,10 @@ export default {
 		userId:{
 			type:String,
 			default:''
+		},
+		modelType:{
+			type:String,
+			default:'3'
 		}
 	},
 	computed: {},
@@ -46,12 +50,17 @@ export default {
 	methods: {
 		tellPhone(){
 			console.log('拨打电话');
+			console.log(this.buryingPoint)
+			let self = this
 			uni.makePhoneCall({
 				// 手机号
 				phoneNumber: '114',
 				// 成功回调
 				success: (res) => {
 					console.log('调用成功!') 
+					this.buryingPoint.operationType = '7'
+					this.buryingPoint.modelType = this.modelType
+					this.ReportLog()
 					// potentialCustomersInfo('',saveParams)
 				},
 				// 失败回调
@@ -62,6 +71,10 @@ export default {
 		},
 		tohouseKeeper(){
 			if (!this.istoDetail) return
+			// this.ReportLog({operationType:7})
+			this.buryingPoint.operationType = '8'
+			this.buryingPoint.modelType = this.modelType
+			this.ReportLog()
 			uni.navigateTo({
 				url: '/pagesHouse/adviserCard/index?userId=' + this.userInfo.userId
 			});

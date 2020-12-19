@@ -148,6 +148,9 @@ export default {
 			this.isShowTooltip = false;
 		},
 		toDetail(buildingId){
+			this.buryingPoint.operationType = '6'
+			this.buryingPoint.modelType = '3'
+			this.ReportLog()
 			uni.navigateTo({
 				url: `/pagesHouse/house/house?buildingId=${buildingId}&userId=${this.userId}`
 			});

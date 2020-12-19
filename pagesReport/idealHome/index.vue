@@ -61,7 +61,7 @@
 					<view class="content column">
 						<view class="item_view">
 							<view class="second_label">区域</view>
-							<view class="right_text">{{resData.intentionCityRegion || '-'}}</view>
+							<view class="right_text">{{resData.intentionCityRegionName || '-'}}</view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">环线</view><view class="right_text"><text>{{resData.intentionLoopLine || '-'}}</text></view>

@@ -116,6 +116,9 @@
 			this.userId = option.userId||'1';
 			this.initUserInfo();//管家信息
 			this.initBaseInfo();//楼盘信息
+			
+			//埋点
+			this.buryingPoint.operationType = '9'
 		},
 		onReady(){
 			//设置页面导航条颜色

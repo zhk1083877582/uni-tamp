@@ -49,7 +49,7 @@
 		<!-- 免责声明 -->
 		<house-disclaimer></house-disclaimer>
 		<view class="pageHouse-bottom">
-			<footBottom v-if="userId" :userId='userId'></footBottom>
+			<footBottom v-if="userId" :userId='userId' modelType='2'></footBottom>
 		</view>
 	</view>
 </template>

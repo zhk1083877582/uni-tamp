@@ -43,7 +43,7 @@
 		<tips-page class="part100"></tips-page>
 		<!-- 管家信息 -->
 		<view :class="isfixed?'fixed_bottom':''">
-			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId"></foot-bottom>
+			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3'></foot-bottom>
 		</view>
 	</view>
 </template>
@@ -201,11 +201,14 @@ export default {
 
 	},
 	mounted() {
-
+		console.log(this.buryingPoint,'this.buryingPointthis.buryingPoint')
+		//埋点
+		// this.buryingPoint.operationType = '4'
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
 		this.getReportData(option.reportId);
+		this.buryingPoint.reportId = option.reportId
 	},
 	onPageScroll(e) {
 		// console.log(77,e)
@@ -240,12 +243,25 @@ export default {
 	},
 	onShow(){
 		console.log('onShow 111')
+		this.buryingPoint.beginTime = (new Date()).getTime()
+		this.buryingPoint.endTime = ''
+		this.buryingPoint.operationType = '2'
+		this.buryingPoint.modelType = '3'
+		this.ReportLog()
 	},
 	onHide(){
 		console.log('onHide 222')
+		this.buryingPoint.endTime = (new Date()).getTime()
+		this.buryingPoint.operationType = '3'
+		this.buryingPoint.modelType = '3'
+		this.ReportLog()
 	},
 	onUnload(){
 		console.log('onUnload 333')
+		this.buryingPoint.operationType = '3'
+		this.buryingPoint.endTime = (new Date()).getTime()
+		this.buryingPoint.modelType = '3'
+		this.ReportLog()
 	}
 }
 </script>
