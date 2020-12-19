@@ -11,7 +11,7 @@
 			</scroll-view>
 		</view>
 		<building-info ref="reBuildingInfo" :baseInfo="baseInfo" 
-			 :buildingId="buildingId">
+			 :buildingId="buildingId" :userId="userId">
 		</building-info>
 		<!-- 楼盘简介 -->
 		<house-describe :class="scrollTabs['introduce']['cl']" v-if="descriptionInfo.buildingDescription" 
@@ -96,28 +96,29 @@
 			return {
 				userId:'',
 				buildingId:'',
-				baseInfo:{
-					favourTitle: '', //图片顶部广告
-					referenceAveragePriceType:'',//楼盘价格
-					referenceAveragePrice:'',//楼盘价格
-					referenceAveragePriceMax:'',//楼盘价格
-					buildingAlias:'',//名称
-					salesStatusItem:'',//销售状态
-					propertyTypeList:[],
-					buildingTags:[],
-					buildingBrightSpot: '',//介绍
-					referenceTotalPriceMin:'',//参考价格
-					referenceTotalPriceMax:'',//参考价格
-					referenceBuildAreaMin:'',//建筑面积
-					referenceBuildAreaMax:'',//建筑面积
-					houseType:'',//户型
-					openTime:'',//开盘时间
-					detailAddress:'',//地址
-					updateTime:'',//更新时间
-					lat:'',
-					lng:'',
+				baseInfo:null,
+				// {
+				// 	favourTitle: '', //图片顶部广告
+				// 	referenceAveragePriceType:'',//楼盘价格
+				// 	referenceAveragePrice:'',//楼盘价格
+				// 	referenceAveragePriceMax:'',//楼盘价格
+				// 	buildingAlias:'',//名称
+				// 	salesStatusItem:'',//销售状态
+				// 	propertyTypeList:[],
+				// 	buildingTags:[],
+				// 	buildingBrightSpot: '',//介绍
+				// 	referenceTotalPriceMin:'',//参考价格
+				// 	referenceTotalPriceMax:'',//参考价格
+				// 	referenceBuildAreaMin:'',//建筑面积
+				// 	referenceBuildAreaMax:'',//建筑面积
+				// 	houseType:'',//户型
+				// 	openTime:'',//开盘时间
+				// 	detailAddress:'',//地址
+				// 	updateTime:'',//更新时间
+				// 	lat:'',
+				// 	lng:'',
 					
-				},
+				// },
 				//楼盘介绍
 				descriptionInfo: {
 					annexPath: '', //图片

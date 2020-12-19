@@ -56,54 +56,19 @@
 			"root": "pagesHouse",
 			"pages": [
 				{
+				    "path" : "adviserCard/index",
+				    "style" :                                                                                    
+						{
+							"navigationBarTitleText": "顾问卡片",
+							"navigationBarTextStyle": "black",
+							"navigationBarBackgroundColor": "#ffffff",
+							"enablePullDownRefresh": false
+						}
+				},
+				{
 					"path": "house/house",
 					"style": {
 						"navigationBarTitleText": "楼盘详情",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-					"path": "moreBuildDetail/index",
-					"style": {
-						"navigationBarTitleText": "楼盘详情",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-					"path": "unitBuilding/index",
-					"style": {
-						"navigationBarTitleText": "楼栋",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-					"path": "majordomoList/index",
-					"style": {
-						"navigationBarTitleText": "优秀管家",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-					"path": "propertyDynamic/index",
-					"style": {
-						"navigationBarTitleText": "楼盘动态",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-					"path": "VR/index",
-					"style": {
-						"navigationBarTitleText": "",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -118,34 +83,71 @@
 							"bounce": "none"
 						}
 					}
-				},{
-					"path": "houseTypeList/houseTypeList",
-					"style": {
-						"navigationBarTitleText": "户型列表",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-					"path": "houseTypeDetails/houseTypeDetails",
-					"style": {
-						"navigationBarTitleText": "户型详情",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},{
-                    "path" : "adviserCard/index",
-                    "style" :                                                                                    
-						{
-							"navigationBarTitleText": "顾问卡片",
-							"navigationBarTextStyle": "black",
-							"navigationBarBackgroundColor": "#ffffff",
-							"enablePullDownRefresh": false
-						}
-                }
+				}
+				// ,{
+				// 	"path": "moreBuildDetail/index",
+				// 	"style": {
+				// 		"navigationBarTitleText": "楼盘详情",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// },{
+				// 	"path": "unitBuilding/index",
+				// 	"style": {
+				// 		"navigationBarTitleText": "楼栋",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// },{
+				// 	"path": "majordomoList/index",
+				// 	"style": {
+				// 		"navigationBarTitleText": "优秀管家",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// },{
+				// 	"path": "propertyDynamic/index",
+				// 	"style": {
+				// 		"navigationBarTitleText": "楼盘动态",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// },{
+				// 	"path": "VR/index",
+				// 	"style": {
+				// 		"navigationBarTitleText": "",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// },{
+				// 	"path": "houseTypeList/houseTypeList",
+				// 	"style": {
+				// 		"navigationBarTitleText": "户型列表",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// },{
+				// 	"path": "houseTypeDetails/houseTypeDetails",
+				// 	"style": {
+				// 		"navigationBarTitleText": "户型详情",
+				// 		"app-plus": {
+				// 			"titleNView": false,
+				// 			"bounce": "none"
+				// 		}
+				// 	}
+				// }
             ]
 		},
 		{

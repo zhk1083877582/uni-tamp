@@ -122,18 +122,36 @@ export default {
   methods: {
     //咨询配套和规划
     toOtherPage () {
-      this.$emit("chatMess")
+		this.toMap();
     },
     //跳转地图
     toMap () {
-		let path = this.$tool.returnWebviewconfigUrl('peripheralSupporting');
-		console.log(path,'pathpathpath')
-      let { baseInfo } = this;
-      uni.navigateTo({
-        url: '../webView/webView?toMWebpath='+ path + baseInfo.lng + '-' + baseInfo.lat + '&buildingName=' + baseInfo.buildingAlias + '&buildingUrl=' + baseInfo.detailAddress
-        // url:`../webView/webView?toMWebpath=housePhoto/1141`
-      });
+		let {baseInfo} =this;
+		let routeParams={
+			lng:baseInfo.lng,
+			lat:baseInfo.lat,
+			buildingAlias:baseInfo.buildingAlias,
+			buildingUrl:baseInfo.buildingUrl,
+		}
+		this.goWebView('/peripheral',routeParams)
     },
+	//去webview
+	goWebView(routeName,routeParams,toPath){
+		let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+		let pathParams='';//获取路由参数
+		routeParams=routeParams||{};
+		Object.keys(routeParams).forEach(keyStr=>{
+			pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+		if( this.$cache.getCache('toMWebpath')){
+			this.$cache.removeCache('toMWebpath');
+		}
+		this.$cache.setCache('toMWebpath',{
+			toMWebpath:toPath||`${mWebSite}#${routeName}?${pathParams}`
+		})
+		uni.navigateTo({
+		  url: '/pagesHouse/webView/webView'
+		});
+	},	
     change (index) {
       this.current = index;
     },

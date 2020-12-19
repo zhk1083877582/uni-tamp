@@ -56,7 +56,7 @@
 			<view class="characteristic-text">
 				参考均价
 			</view>
-			<view class="characteristic-value price-value">
+			<view class="characteristic-value price-value" v-if="baseInfo">
 				{{doFormatAveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice)}}
 			</view>
 		</view>
@@ -64,7 +64,7 @@
 			<view class="characteristic-text">
 				建筑面积
 			</view>
-			<view class="characteristic-value">
+			<view class="characteristic-value" v-if="baseInfo">
 				{{doFormatArea(baseInfo.referenceBuildAreaMin,baseInfo.referenceBuildAreaMax)}}
 			</view>
 		</view>
@@ -72,7 +72,7 @@
 			<view class="characteristic-text">
 				参考总价
 			</view>
-			<view class="characteristic-value">
+			<view class="characteristic-value" v-if="baseInfo">
 				{{doFormatTotalPrice(baseInfo.referenceTotalPriceMin,baseInfo.referenceTotalPriceMax)}}
 			</view>
 		</view>
@@ -117,6 +117,10 @@ export default {
 	buildingId:{
 		type: String,
 		default: ''
+	},
+	userId:{
+		type: String,
+		default: ''
 	}
   },
   data () {
@@ -132,6 +136,15 @@ export default {
       ImgNum: 0,
       NetworkType: ''
     }
+  },
+  created () {
+	  let self = this
+	  uni.getNetworkType({
+		success: function (res) {
+		  console.log(res.networkType, 'networkTypenetworkType');
+		  self.NetworkType = res.networkType
+		}
+	  });
   },
   mounted(){
 	
@@ -230,45 +243,42 @@ export default {
 	},
 	
 	//跳转 MP4或者图片区域
-	toMp4OrImg () {
-		let { activeNo, mp4Start, mp4Num, VRStart, VRNum, ImgStart, ImgNum, NetworkType, buildingId, imgList } = this;
-		let url = '';
-		if (mp4Num > 0 && activeNo < VRStart) {//视频
-		let path = this.$tool.returnWebviewconfigUrl('videoPlayback');
-		console.log(path,'videoPlaybackPath')
-		url = '../webView/webView?toMWebpath='+ path +'&fromAppName=xcx&buildingId=' + buildingId + '&NetworkType=' + NetworkType;
-		} else if (VRNum > 0 && activeNo >= VRStart && activeNo < ImgStart) {//VR
-		// https://www.123kanfang.com/houseClient/?hid=tongce_90c229bb-dd07-4e07-9dc9-8f3cbff66954"
-		let item = imgList[activeNo];
-		this.$cache.setCache('urlVR', item.annexPath);
-		url = '../VR/index';
-		} else {
-		let path = this.$tool.returnWebviewconfigUrl('propertyAlbum');
-		console.log(path,'propertyAlbumPath')
-		url = '../webView/webView?toMWebpath='+ path + buildingId + '&fromAppName=xcx' + '&NetworkType=' + NetworkType;
-		}
-		// return 
-		uni.navigateTo({
-		url: url
-		});
+	toMp4OrImg (type) {
+		let routeParams={buildingId:this.buildingId,userId:this.userId,NetworkType:this.NetworkType}
+		if(type==='img'){//楼盘相册
+			this.goWebView('/housePhoto')
+		}else{
+			this.goWebView('/videoPlayer')
+		}	
 	},
 	
 	//地图
 	toMap () {
-		let path = this.$tool.returnWebviewconfigUrl('peripheralSupporting');
-		console.log(path,'pathpathpath')
-	    let { baseInfo } = this;
-		uni.navigateTo({
-			url: '../webView/webView?toMWebpath='+ path + baseInfo.lng + '-' + baseInfo.lat + '&buildingName=' + baseInfo.buildingAlias + '&buildingUrl=' + baseInfo.detailAddress
-		});
+		let routeParams={buildingId:this.buildingId,userId:this.userId};
+		this.goWebView('/peripheral',routeParams)
 	},
 	//查看详情
 	goBuildingDetailMore () {
-	  // console.log(this.buildingId)
-	  uni.navigateTo({
-	    url: '../moreBuildDetail/index?buildingId=' + this.buildingId
-	  });
-	},  
+		let routeParams={buildingId:this.buildingId,userId:this.userId};
+		this.goWebView('/moreBuildDetail',routeParams)
+	},
+	//去webview
+	goWebView(routeName,routeParams,toPath){
+		let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+		let pathParams='';//获取路由参数
+		routeParams=routeParams||{};
+		Object.keys(routeParams).forEach(keyStr=>{
+			pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+		if( this.$cache.getCache('toMWebpath')){
+			this.$cache.removeCache('toMWebpath');
+		}
+		this.$cache.setCache('toMWebpath',{
+			toMWebpath:toPath||`${mWebSite}#${routeName}?${pathParams}`
+		})
+		uni.navigateTo({
+		  url: '/pagesHouse/webView/webView'
+		});
+	},	
 	  
 	//参考总价
 	doFormatTotalPrice(min,max){ //总价格式化

@@ -303,6 +303,25 @@ const TOOL = {
     console.log(url)
     return url;
   },
+  //得到二级嵌套页面路由
+  getOtherWebSite(otherUrl){
+	 let baseURL = config.baseURL.target,url="";
+	 switch(baseURL){
+		case 'https://tcwgwtest.tospur.com':
+			url='https://mtest.tospur.com/';
+			break;
+		case 'https://tcwgwstag.tospur.com':
+			url='https://mstag.tospur.com/';
+			break;
+		case 'https://tcwgwprod.tospurhf.com':
+			url='https://m.tongcehaofang.com/';
+			break;
+		 default:
+			url="localhost"
+	 }
+	 return otherUrl||url;
+  },
+  
   returnWebviewconfigUrl(path){
   	    let AllConfigPath = cache.getCache('ConfigPath'),url='';
   	  	Object.getOwnPropertyNames(AllConfigPath).forEach(function(key){

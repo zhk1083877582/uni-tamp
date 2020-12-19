@@ -108,10 +108,22 @@
 		methods: {
 			//更多
 			toMoreDynamic(){
+				this.goWebView('/propertyDynamic')
+			},
+			//去webview
+			goWebView(routeName,toPath){
+				let {userId,buildingId,NetworkType} =this;
+				let mWebSite = this.$tool.getOtherWebSite();
+				if( this.$cache.getCache('toMWebpath')){
+						  this.$cache.removeCache('toMWebpath');
+				}
+				this.$cache.setCache('toMWebpath',{
+					toMWebpath:toPath||`${mWebSite}#${routeName}?buildingId=${buildingId}&userId=${userId}&NetworkType=${NetworkType}`
+				})
 				uni.navigateTo({
-				   url: '../propertyDynamic/index?buildingId='+this.buildingId
+				  url: '/pagesHouse/webView/webView'
 				});
-			},				
+			}
 		}
 	}
 </script>

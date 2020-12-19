@@ -86,12 +86,26 @@
 			},
 			//查看楼栋详情
 			toSpreadDetail(){
-				let  {itemInfo,buildingId} =this;
-				let url='../unitBuilding/index?buildingId='+buildingId+'&houseUnitElement='+itemInfo.unitName;
+				let routeParams={};
+				this.goWebView('/unitBuilding',routeParams)
+			},
+			//去webview
+			goWebView(routeName,routeParams,toPath){
+				let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+				let pathParams='';//获取路由参数
+				routeParams=routeParams||{};
+				Object.keys(routeParams).forEach(keyStr=>{
+					pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+				if( this.$cache.getCache('toMWebpath')){
+					this.$cache.removeCache('toMWebpath');
+				}
+				this.$cache.setCache('toMWebpath',{
+					toMWebpath:toPath||`${mWebSite}#${routeName}?${pathParams}`
+				})
 				uni.navigateTo({
-				    url: url
+				  url: '/pagesHouse/webView/webView'
 				});
-			}
+			},	
 			
 		}
 	}
