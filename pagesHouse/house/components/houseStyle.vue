@@ -84,10 +84,26 @@
 			},
 			//咨询首付和贷款
 			toOtherPage(item){
-				item.buildingId = this.buildingId;
-				// this.$emit("chatMess",item)
+				let routeParams={};
+				this.goWebView('/houseTypeList',routeParams)
 			},
-			
+			//去webview
+			goWebView(routeName,routeParams,toPath){
+				let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+				let pathParams='';//获取路由参数
+				routeParams=routeParams||{};
+				Object.keys(routeParams).forEach(keyStr=>{
+					pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+				if( this.$cache.getCache('toMWebpath')){
+					this.$cache.removeCache('toMWebpath');
+				}
+				this.$cache.setCache('toMWebpath',{
+					toMWebpath:toPath||`${mWebSite}#${routeName}?buildingId=${buildingId}&userId=${userId}&NetworkType=${NetworkType}`
+				})
+				uni.navigateTo({
+				  url: '/pagesHouse/webView/webView'
+				});
+			},			
 			//户型切换
 			doTabChange(item,index){
 				if(index==0){
