@@ -93,7 +93,7 @@ export default {
 				code:this.VerificationCode,
 			}
 			console.log('----telParams',params)
-			let api = '/userAuthServer/wx/wxLogin'
+			let api = '/userAuthServer/noToken/wx/wxLogin'
 			getData(api,params).then((res)=>{
 				console.log('---telLogin',res)
 				this.$cache.setCache('M-Token', res['token']);

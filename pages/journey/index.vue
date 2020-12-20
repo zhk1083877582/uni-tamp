@@ -339,16 +339,19 @@ export default {
 		},
 		// 退出登录
 		GetOutClick(){
-			let api = '/userAuthServer/bapp/logout'
-			getData(api)
-				.then(res => {
-					this.$cache.removeCache('M-Token');
-					this.$cache.removeCache('Login-Data');
-					this.HasToken =false;
-				})
-				.catch(err => {
-					console.log('请求结果报错', err);
-				});
+      this.$cache.removeCache('M-Token');
+      this.$cache.removeCache('Login-Data');
+      this.HasToken =false;
+			// let api = '/userAuthServer/noToken/bapp/logout'
+			// getData(api)
+			// 	.then(res => {
+			// 		this.$cache.removeCache('M-Token');
+			// 		this.$cache.removeCache('Login-Data');
+			// 		this.HasToken =false;
+			// 	})
+			// 	.catch(err => {
+			// 		console.log('请求结果报错', err);
+			// 	});
 		},
 		// 跳转楼盘详情
 		toDetail(buildingId){

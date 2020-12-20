@@ -54,7 +54,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/wx/wxAuth' 
+						let api = '/userAuthServer/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log('----openid||session_key', res);
@@ -101,7 +101,7 @@ export default {
 					loginType: 0,
 					registerCity:this.$cache.getCache('storageCity')||''
 				};
-				let api = '/userAuthServer/wx/wxLogin';
+				let api = '/userAuthServer/noToken/wx/wxLogin';
 				getData(api, params)
 					.then(res => {
 						this.$cache.setCache('M-Token', res['token']);
@@ -122,7 +122,7 @@ export default {
 		},
 		getWXAudit(){
 			console.log(123)
-			getData('/business/home/WXAudit').then(res=>{
+			getData('/business/noToken/home/WXAudit').then(res=>{
 				console.log(res)
 			}).catch(err=>{
 				console.log(err)
