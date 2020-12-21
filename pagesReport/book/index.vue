@@ -144,7 +144,7 @@ export default {
 			let params = {
 				reportId
 			}
-			getData('/business/report/reportDetail',params).then((res)=>{
+			getData('/business/noToken/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
 				// this.getUserInfo(res.businessReport.userId);
 				let customerGender=res.businessReport?res.businessReport.customerGender:''

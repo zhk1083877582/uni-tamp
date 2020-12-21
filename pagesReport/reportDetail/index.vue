@@ -145,7 +145,7 @@ export default {
 			let params = {
 				reportId
 			}
-			getData('/business/report/reportDetail',params).then((res)=>{
+			getData('/business/noToken/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
 				let self = this
 				//置业需求
@@ -174,7 +174,7 @@ export default {
 				
 				//问答列表
 				this.questionList = res.questionList;
-				let isShowQuestion = res.questionList==null?false:true;
+				let isShowQuestion = res.questionList==null||JSON.stringify(res.questionList)=='[]'?false:true;
 				this.changeScrollTabsShow('question',isShowQuestion)
 				console.log(this.scrollRealTabs,1111)
 				

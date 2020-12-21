@@ -7,7 +7,7 @@
 					<view class="col">
 						<view class="title">置业目的</view>
 						<view class="content_text">
-							{{resData.intentionPurpose||'-'}}
+							{{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}}
 						</view>
 					</view>
 					<view class="col col_L">

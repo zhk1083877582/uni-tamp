@@ -358,6 +358,7 @@ export default {
 			console.log('跳转楼盘详情')
 			this.buryingPoint.operationType = '6'
 			this.buryingPoint.modelType = '1'
+			this.buryingPoint.buildingId = buildingId
 			this.ReportLog()
 			uni.navigateTo({
 				url: '/pagesHouse/house/house?buildingId=' + buildingId
@@ -477,6 +478,7 @@ export default {
 	},
 	mounted() {
 		this.getDescBox();
+		this.buryingPoint.buildingId = 
 		this.share.title = '购房旅程'
 	},
 	onLoad(option){

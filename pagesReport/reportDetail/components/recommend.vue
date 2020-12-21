@@ -150,6 +150,7 @@ export default {
 		toDetail(buildingId){
 			this.buryingPoint.operationType = '6'
 			this.buryingPoint.modelType = '3'
+			this.buryingPoint.buildingId = buildingId
 			this.ReportLog()
 			uni.navigateTo({
 				url: `/pagesHouse/house/house?buildingId=${buildingId}&userId=${this.userId}`
@@ -179,6 +180,7 @@ export default {
 	},
 	mounted() {
 		this.getDescBox();
+		this.buryingPoint.buildingId = ''
 		console.log('resData',this.resData)
 	},
 }
