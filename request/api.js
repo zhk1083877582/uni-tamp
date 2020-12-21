@@ -20,7 +20,7 @@ export const getDataGet = (url,params)=>{
 
 //楼盘详情
 export const getBuildingBaseInfo = (url,params)=>{
-	url=url||'/business/building/info';
+	url=url||'/business/noToken/building/info';
     return apiRequestList.$post(url,params)
 };
 // 图片视频vr 附件
