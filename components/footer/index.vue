@@ -84,7 +84,7 @@ export default {
 				userId: this.userId
 			};
 			let self =this;
-			getData('/business/user/getUserCardDetail', params)
+			getData('/business/noToken/user/getUserCardDetail', params)
 				.then(res => {
           console.log('管家信息',res)
           if(res.servedPeopleNum!=null){

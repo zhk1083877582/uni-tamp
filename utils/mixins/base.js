@@ -11,6 +11,7 @@ export default{
 				reportId:'',//置业报告Id
 				beginTime:'',//打开时间
 				endTime:'',//关闭时间
+				buildingId:''
 			},
             //设置默认的分享参数
             share:{
@@ -29,7 +30,7 @@ export default{
 		ReportLog(data){
 			let params = this.buryingPoint;
 			console.log('埋点数据',params)
-			getData('/business/report/reportLog',params).then((res)=>{
+			getData('/business/noToken/report/reportLog',params).then((res)=>{
 				console.log('埋点接口',res)
 			}).catch((err)=>{
 				console.log(err)

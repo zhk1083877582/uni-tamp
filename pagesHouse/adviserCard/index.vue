@@ -147,7 +147,7 @@
 					userId: this.userId
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/user/getUserCardDetail', params)
+				getBuildingBaseInfo('/business/noToken/user/getUserCardDetail', params)
 					.then(res => {
 						console.log('管家信息',res);
 						let {expertiseFields=[]} = res;
@@ -177,7 +177,7 @@
 					userId: this.userId
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/home/userServedBuilding', params)
+				getBuildingBaseInfo('/business/noToken/home/userServedBuilding', params)
 					.then(res => {
 						console.log('----楼盘信息', res);
 						

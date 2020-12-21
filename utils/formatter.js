@@ -57,6 +57,24 @@ const FM = {
     {key:'3',value:'商住两用'},
     // {key:'4',value:['在租','#F6B638']},
    ],
+   intentionPurpose:[
+    {key:'1',value:'自住'},
+    {key:'2',value:'投资'},
+    {key:'3',value:'自住兼投资'},
+	{key:'4',value:'刚需'},
+	{key:'5',value:'结婚'},
+	{key:'6',value:'养老'},
+	{key:'7',value:'改善'},
+	{key:'8',value:'教育'},
+	{key:'9',value:'投资'},
+   ],
+   intentionHouseType:[
+	   {key:'1',value:'自住'},
+	   {key:'2',value:'两室'},
+	   {key:'3',value:'三室'},
+	   {key:'4',value:'四室'},
+	   {key:'5',value:'五室及以上'},
+   ]
   };
   const Formatter = function () {
     this.cache = FM;

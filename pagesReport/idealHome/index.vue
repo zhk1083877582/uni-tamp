@@ -10,7 +10,7 @@
 						置业目的：
 					</view>
 					<view class="content">
-						{{resData.intentionPurpose || '-'}}
+						{{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}}
 					</view>
 				</view>
 			</view>
