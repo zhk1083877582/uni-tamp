@@ -49,7 +49,7 @@ export default {
 
 	},
 	mounted() {
-		console.log(this.resData,'公共样式数据')
+		// console.log(this.resData,'公共样式数据')
 	},
 }
 </script>

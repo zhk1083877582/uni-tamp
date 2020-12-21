@@ -109,6 +109,7 @@
 					autoplay:false
 				},
 				baseInfo:[],
+				beginTime:''
 			}
 		},
 		onLoad(option){
@@ -116,9 +117,30 @@
 			this.userId = option.userId||'1';
 			this.initUserInfo();//管家信息
 			this.initBaseInfo();//楼盘信息
-			
 			//埋点
-			this.buryingPoint.operationType = '9'
+			this.buryingPoint.modelType = '4'
+			this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			this.buryingPoint.userId = option.userId
+			
+			//客户足迹埋点
+			this.beginTime = (new Date()).getTime()
+			this.CustomerTrack.buildingId = ''
+			this.CustomerTrack.operateType = '3'
+			this.CustomerTrack.createrId = this.userId
+			this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			this.CustomerTrack.dataId = ''
+		},
+		onHide(){
+			console.log('onHide 222')
+			//客户足迹埋点
+			this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
+			this.addCustomerTrack()
+		},
+		onUnload(){
+			console.log('onUnload 333')
+			//客户足迹埋点
+			this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
+			this.addCustomerTrack()
 		},
 		onReady(){
 			//设置页面导航条颜色
@@ -215,7 +237,6 @@
 						});
 						//封面图
 						self.configPicture = arr[0].albumCoverPicture;
-						
 					})
 					.catch(err => {
 						console.log('基本信息-err', err);

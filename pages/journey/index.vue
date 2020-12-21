@@ -36,7 +36,7 @@
 						<view class="swiper-item uni-bg-red" :class="index!=curr?'scale_swiper':''">
 							<view class="swiper_item_H">
 								<view class="list_item">
-									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId)">
+									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
 										<view class="img_warp">
 											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://media.tongcehaofang.com/image/default/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"  mode="aspectFill"></image>
 										</view>
@@ -64,7 +64,7 @@
 													<view class="col">
 														<view class="title">置业目的</view>
 														<view class="content_text">
-															{{item.customerIntention.intentionPurpose}}
+															{{$formatter.switchName('intentionPurpose',item.customerIntention.intentionPurpose)}}
 														</view>
 													</view>
 													<view class="col col_L">
@@ -354,14 +354,16 @@ export default {
 			// 	});
 		},
 		// 跳转楼盘详情
-		toDetail(buildingId){
+		toDetail(buildingId,userId,reportData,flag){
 			console.log('跳转楼盘详情')
-			this.buryingPoint.operationType = '6'
+			let userIdTmp = flag?reportData[0].userId:userId;
+			this.buryingPoint.operationType = '5'
 			this.buryingPoint.modelType = '1'
 			this.buryingPoint.buildingId = buildingId
+			this.buryingPoint.userId = userIdTmp
 			this.ReportLog()
 			uni.navigateTo({
-				url: '/pagesHouse/house/house?buildingId=' + buildingId
+				url: '/pagesHouse/house/house?buildingId=' + buildingId + '&userId=' + userIdTmp
 			});
 		},
 		changeSwipe(val){
@@ -458,6 +460,12 @@ export default {
 				})
 				this.journeyArr = res;
 				console.log(this.journeyArr,'置业报告列表整合数据');
+				
+				//埋点
+				this.buryingPoint.operationType = '4'
+				this.buryingPoint.modelType = '1'
+				this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+				this.ReportLog()
 			}).catch(err=>{
 				console.log(err)
 			})
@@ -478,7 +486,6 @@ export default {
 	},
 	mounted() {
 		this.getDescBox();
-		this.buryingPoint.buildingId = 
 		this.share.title = '购房旅程'
 	},
 	onLoad(option){
@@ -493,9 +500,7 @@ export default {
 		
 	},
 	onShow(){
-		this.buryingPoint.operationType = '5'
-		this.buryingPoint.modelType = '1'
-		this.ReportLog()
+		
 	}
 }
 </script>

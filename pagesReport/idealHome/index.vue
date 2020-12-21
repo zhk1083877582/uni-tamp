@@ -111,9 +111,7 @@ export default {
 
 	},
 	onLoad(option){
-		console.log(option);
 		this.resData = JSON.parse(option.resData)
-		console.log(this.resData);
 	}
 }
 </script>

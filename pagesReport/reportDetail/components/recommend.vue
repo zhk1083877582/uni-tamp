@@ -124,6 +124,10 @@ export default {
 		userId:{
 			type: String,
 			default: ''
+		},
+		reportId:{
+			type: String,
+			default: ''
 		}
 	},
 	computed: {},
@@ -148,9 +152,12 @@ export default {
 			this.isShowTooltip = false;
 		},
 		toDetail(buildingId){
-			this.buryingPoint.operationType = '6'
+			this.buryingPoint.operationType = '5'
 			this.buryingPoint.modelType = '3'
 			this.buryingPoint.buildingId = buildingId
+			this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			this.buryingPoint.reportId = this.reportId
+			this.buryingPoint.userId = this.userId
 			this.ReportLog()
 			uni.navigateTo({
 				url: `/pagesHouse/house/house?buildingId=${buildingId}&userId=${this.userId}`

@@ -187,8 +187,6 @@ const TOOL = {
     // var url = window.location.search;
     // var url = window.location.hash;
     var n =url.indexOf('?');
-    console.log("n")
-    console.log(n)
     // if (url.indexOf('?') == 1) {
     //   return false;
     // }
@@ -398,7 +396,6 @@ const TOOL = {
 	},
 	//[{"start":"55","end":"333"}]数据转换
 	changeArrayToNum(arr,unit){
-		console.log(arr,'arrarr')
 		if(arr==null||arr == '[]') return '-'
 		let arrR = []
 		JSON.parse(arr).map((item,index)=>{

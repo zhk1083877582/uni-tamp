@@ -183,6 +183,16 @@
 							"bounce": "none"
 						}
 					}
+				},
+				{
+					"path": "article/article",
+					"style": {
+						"navigationBarTitleText": "文章",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
 				}
             ]
 		}

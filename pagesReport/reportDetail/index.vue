@@ -32,18 +32,18 @@
 		<!-- 置业需求 -->
 		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention'></demand>
 		<!-- 方案推荐 -->
-		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId'></recommend>
+		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
 		<!-- 公共组件 -->
 		<view v-for="(item,index) in articleList" :key="index">
 			<public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
 		</view>
 		<!-- 置业问答 -->
-		<question class="part99" v-if="questionList!=null" :resData='questionList'></question>
+		<question class="part99" v-if="questionList!=null&&JSON.stringify(questionList)!='[]'" :resData='questionList'></question>
 		<!-- 置业小贴士 -->
 		<tips-page class="part100"></tips-page>
 		<!-- 管家信息 -->
 		<view :class="isfixed?'fixed_bottom':''">
-			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3'></foot-bottom>
+			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId'></foot-bottom>
 		</view>
 	</view>
 </template>
@@ -97,6 +97,8 @@ export default {
 			userId:'',//顾问ID
 			windowTitle:'',//客户姓名  客户性别
 			
+			reportId:'',
+			beginTime:''//进入页面时间戳
 		};
 	},
 	computed: {
@@ -167,26 +169,40 @@ export default {
 				//公共样式列表
 				this.articleList = res.articleList;
 				res.articleList&&res.articleList.map((item,index)=>{
-					console.log(item)
 					self.scrollTabs.splice(2+index,0,{ label: item.ztLabelType, cl: 'part'+(3+index), isShow: true})
 				})
-				console.log('scrollTabs',this.scrollTabs)
 				
 				//问答列表
 				this.questionList = res.questionList;
 				let isShowQuestion = res.questionList==null||JSON.stringify(res.questionList)=='[]'?false:true;
 				this.changeScrollTabsShow('question',isShowQuestion)
-				console.log(this.scrollRealTabs,1111)
 				
 				this.userId = res.businessReport?res.businessReport.userId:''
 				
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 			    let subscriberName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = `${subscriberName}${customerGender=='1'?'先生':'女士'}`
+				this.windowTitle = `${subscriberName?subscriberName:'-'}${customerGender=='1'?'先生':'女士'}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
 				this.share.title = this.buildingInfo.buildingAlias + '置业报告'
+				
+				//埋点
+				this.buryingPoint.beginTime = this.beginTime
+				this.buryingPoint.endTime = ''
+				this.buryingPoint.operationType = '2'
+				this.buryingPoint.modelType = '3'
+				this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+				this.buryingPoint.reportId = reportId
+				this.buryingPoint.userId = this.userId
+				this.ReportLog()
+				
+				//客户足迹埋点
+				this.CustomerTrack.operateType = '1'
+				this.CustomerTrack.createrId = this.userId
+				this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+				this.CustomerTrack.dataId = this.reportId
+				
 			}).catch((err)=>{
 				console.log(err)
 			})
@@ -207,11 +223,11 @@ export default {
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
+		this.reportId = option.reportId
 		this.getReportData(option.reportId);
-		this.buryingPoint.reportId = option.reportId
+		this.beginTime = (new Date()).getTime()
 	},
 	onPageScroll(e) {
-		// console.log(77,e)
 		if (e.scrollTop > 150) {
 			this.isfixed = true;
 		} else {
@@ -233,7 +249,6 @@ export default {
 			query
 				.select(`.${cl}`)
 				.boundingClientRect(data => {
-					// console.log(9898, data);
 					if (data && data.top <= 90 && data.bottom >= 90) {
 						self.scrollActiveIndex = i;
 					}
@@ -243,25 +258,37 @@ export default {
 	},
 	onShow(){
 		console.log('onShow 111')
-		this.buryingPoint.beginTime = (new Date()).getTime()
-		this.buryingPoint.endTime = ''
-		this.buryingPoint.operationType = '2'
-		this.buryingPoint.modelType = '3'
-		this.ReportLog()
+		console.log(this.$tool.getStorage('Login-Data'),'customerInfocustomerInfo')
 	},
 	onHide(){
 		console.log('onHide 222')
+		this.buryingPoint.beginTime = this.beginTime
 		this.buryingPoint.endTime = (new Date()).getTime()
 		this.buryingPoint.operationType = '3'
 		this.buryingPoint.modelType = '3'
+		this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+		this.buryingPoint.reportId = this.reportId
+		this.buryingPoint.userId = this.userId
 		this.ReportLog()
+		
+		//客户足迹埋点
+		this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
+		this.addCustomerTrack()
 	},
 	onUnload(){
 		console.log('onUnload 333')
-		this.buryingPoint.operationType = '3'
+		this.buryingPoint.beginTime = this.beginTime
 		this.buryingPoint.endTime = (new Date()).getTime()
+		this.buryingPoint.operationType = '3'
 		this.buryingPoint.modelType = '3'
+		this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+		this.buryingPoint.reportId = this.reportId
+		this.buryingPoint.userId = this.userId
 		this.ReportLog()
+		
+		//客户足迹埋点
+		this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
+		this.addCustomerTrack()
 	}
 }
 </script>

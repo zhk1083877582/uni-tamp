@@ -40,6 +40,10 @@ export default {
 			type:String,
 			default:''
 		},
+		reportId:{
+			type:String,
+			default:''
+		},
 		modelType:{
 			type:String,
 			default:'3'
@@ -50,7 +54,6 @@ export default {
 	methods: {
 		tellPhone(){
 			console.log('拨打电话');
-			console.log(this.buryingPoint)
 			let self = this
 			uni.makePhoneCall({
 				// 手机号
@@ -58,8 +61,11 @@ export default {
 				// 成功回调
 				success: (res) => {
 					console.log('调用成功!') 
-					this.buryingPoint.operationType = '7'
+					this.buryingPoint.operationType = '6'
 					this.buryingPoint.modelType = this.modelType
+					this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+					this.buryingPoint.reportId = this.reportId
+					this.buryingPoint.userId = this.userId
 					this.ReportLog()
 					// potentialCustomersInfo('',saveParams)
 				},
@@ -71,9 +77,11 @@ export default {
 		},
 		tohouseKeeper(){
 			if (!this.istoDetail) return
-			// this.ReportLog({operationType:7})
-			this.buryingPoint.operationType = '8'
+			this.buryingPoint.operationType = '7'
 			this.buryingPoint.modelType = this.modelType
+			this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			this.buryingPoint.reportId = this.reportId
+			this.buryingPoint.userId = this.userId
 			this.ReportLog()
 			uni.navigateTo({
 				url: '/pagesHouse/adviserCard/index?userId=' + this.userInfo.userId

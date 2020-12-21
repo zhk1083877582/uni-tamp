@@ -154,7 +154,9 @@
 					spread: { label: '楼栋', cl: 'part4', isShow: false },
 					periphery: { label: '周边', cl: 'part5', isShow: false },
 					highlights: { label: '亮点', cl: 'part6', isShow: false },
-				}
+				},
+				
+				beginTime:''
 			}
 		},
 		computed: {
@@ -178,6 +180,26 @@
 			// this.initBuildingTypeCount();
 			// this.initBuildingUnitList();
 			// this.initBuildingBrightSpotList();
+			
+			this.beginTime = (new Date()).getTime()
+			//客户足迹埋点
+			this.CustomerTrack.buildingId = this.buildingId
+			this.CustomerTrack.operateType = '2'
+			this.CustomerTrack.createrId = this.userId
+			this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			this.CustomerTrack.dataId = ''
+		},
+		onHide(){
+			console.log('onHide 222')
+			//客户足迹埋点
+			this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
+			this.addCustomerTrack()
+		},
+		onUnload(){
+			console.log('onUnload 333')
+			//客户足迹埋点
+			this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
+			this.addCustomerTrack()
 		},
 		onPageScroll(e) {
 			if (e.scrollTop > 600) {
