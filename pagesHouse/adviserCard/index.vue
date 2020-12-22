@@ -126,7 +126,8 @@
 			this.beginTime = (new Date()).getTime()
 			this.CustomerTrack.buildingId = ''
 			this.CustomerTrack.operateType = '3'
-			this.CustomerTrack.createrId = this.userId
+      this.CustomerTrack.createrId = this.userId
+      this.CustomerTrack.userId = this.userId
 			this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 			this.CustomerTrack.dataId = ''
 		},

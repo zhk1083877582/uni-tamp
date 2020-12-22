@@ -181,7 +181,7 @@ export default {
 				
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 			    let subscriberName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = `${subscriberName?subscriberName:'-'}${customerGender=='1'?'先生':'女士'}`
+				this.windowTitle = `${subscriberName?subscriberName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
@@ -199,7 +199,8 @@ export default {
 				
 				//客户足迹埋点
 				this.CustomerTrack.operateType = '1'
-				this.CustomerTrack.createrId = this.userId
+        this.CustomerTrack.createrId = this.userId
+				this.CustomerTrack.userId = this.userId
 				this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 				this.CustomerTrack.dataId = this.reportId
 				

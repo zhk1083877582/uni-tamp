@@ -16,7 +16,8 @@ export default{
 			//客户足迹埋点
 			CustomerTrack:{
 				buildingId:'',//楼盘ID
-				createrId:'',//创建人\顾问ID
+				createrId:'',//创建人
+				userId:'',//顾问ID
 				customerId:'',//客户id
 				dataId:'',//业务id(名片/置业报告ID/素材id)
 				stayTime:'',//	停留时长

@@ -47,6 +47,7 @@ export default {
 			buildingName:'',
 			userName:'',
 			windowTitle:'',//客户姓名
+			reportId: '',
 		};
 	},
 	computed: {},
@@ -84,7 +85,7 @@ export default {
 						this.$cache.setCache('loginFlag', true);
 						this.$cache.setCache('loginFlag1', true);
 						uni.reLaunch({
-							url:'../reportDetail/index'
+							url:'../reportDetail/index?reportId='+ this.reportId
 						});
 						// if(this.$cache.getCache('LoginTopath')){
 						// 	uni.reLaunch({
@@ -175,6 +176,7 @@ export default {
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
+		this.reportId = option.reportId
 		this.getPhone();
 		this.getReportData(option.reportId)
 	},

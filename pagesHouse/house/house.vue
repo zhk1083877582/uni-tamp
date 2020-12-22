@@ -185,7 +185,8 @@
 			//客户足迹埋点
 			this.CustomerTrack.buildingId = this.buildingId
 			this.CustomerTrack.operateType = '2'
-			this.CustomerTrack.createrId = this.userId
+      this.CustomerTrack.createrId = this.userId
+      this.CustomerTrack.userId = this.userId
 			this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 			this.CustomerTrack.dataId = ''
 		},

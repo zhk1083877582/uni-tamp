@@ -193,7 +193,7 @@
 														</view>
 														
 													</view>
-													<view class="status u-line-2">{{itemL.stage==2?'复看':'首看'}}</view>
+													<view class="status u-line-2">{{itemL.stage==2?'复看':'首访'}}</view>
 													<view class="content" @click="toReportDetail(itemL.reportId)">
 														<view class="report_title">
 															<i class="iconfont iconzhiyebaogao"></i>{{itemL.reportName}}<i class="iconfont iconjiantou"></i>
@@ -298,15 +298,12 @@ export default {
 			// 未登录时首页banner数据
 			bannerList: [{
 					image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-					title: '昨夜星辰昨夜风，画楼西畔桂堂东'
 				},
 				{
 					image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-					title: '身无彩凤双飞翼，心有灵犀一点通'
 				},
 				{
 					image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
-					title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
 				}
 			],
 		};
@@ -426,9 +423,12 @@ export default {
 		},
 		getinitData(){
 			let params = {
-				customerId:1
+				customerId:2//this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
+				if(JSON.stringify(res) == '[]'){
+					this.ishowbuilding = false
+				}
 				console.log(res,'置业报告列表数据');
 				res.reportBuildingIntro && res.reportBuildingIntro.forEach((itemT, indexT) => {
 					let buildingTagArr = []

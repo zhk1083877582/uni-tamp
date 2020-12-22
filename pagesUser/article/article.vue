@@ -28,7 +28,8 @@ export default {
 		return {
 			articleId:'',
 			articleData:{},
-			beginTime:''
+      beginTime:'',
+      userId:''
 		};
 	},
 	computed: {},
@@ -51,19 +52,21 @@ export default {
 	mounted() {
 	},
 	onLoad(option){
-		console.log(option.articleId)
+		console.log(option)
 		if(!this.$cache.getCache('M-Token')){
 			uni.navigateTo({
-				url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId
+				url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
 			});
 		}else{
 			this.getArticle(option.articleId)
-		}
+    }
+		let userId = option.userId
 		this.beginTime = (new Date()).getTime()
 		//客户足迹埋点
 		this.CustomerTrack.buildingId = ''
 		this.CustomerTrack.operateType = '4'
-		this.CustomerTrack.createrId = ''
+		this.CustomerTrack.createrId = userId
+		this.CustomerTrack.userId = userId
 		this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 		this.CustomerTrack.dataId = option.articleId
 	},

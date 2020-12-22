@@ -46,7 +46,7 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx8333a23e5c6d1720",
+        "appid" : "wx844435836c179523",
         "setting" : {
             "urlCheck" : false,
             "postcss" : false,
@@ -70,11 +70,11 @@
         }
     },
     "h5" : {
-		"optimization": {
-			"treeShaking": {
-				"enable": true
-			}
-		},
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
         "router" : {
             "mode" : "hash"
         },
