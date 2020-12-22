@@ -143,7 +143,7 @@ export default {
 				-webkit-background-clip: text;
 				display: block;
 				font-size: 34rpx;
-				line-height: 28rpx;
+				line-height: 32rpx;
 			}
 			.shu{
 				width: 6rpx;
@@ -169,25 +169,25 @@ export default {
 			.main_content{
 				display: flex;
 				justify-content: space-between;
-				margin-bottom: 56rpx;
+				margin-bottom: 50rpx;
 				.box{
 					display: flex;
 					.lable{
 						font-size: 28rpx;
 						color: #999999;
-						line-height: 28rpx;
+						line-height: 32rpx;
 					}
 					.content{
 						font-size: 28rpx;
 						color: #141414;
-						line-height: 28rpx;
+						line-height: 32rpx;
 					}
 					.column{
 						display: flex;
 						flex-direction: column;
 						flex: 1;
 						.item_view{
-							margin-bottom: 32rpx;
+							margin-bottom: 30rpx;
 							color: #928b94;
 							display: flex;
 							.color_red{
@@ -195,7 +195,9 @@ export default {
 								font-size: 28rpx;
 								font-weight: 400;
 								color: #FE3A07;
-								line-height: 28rpx;
+								line-height: 32rpx;
+								display: flex;
+								flex: 1;
 							}
 							.second_label{
 								flex: none;

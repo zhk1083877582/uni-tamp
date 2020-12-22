@@ -399,11 +399,11 @@ const TOOL = {
 		if(arr==null||arr == '[]') return '-'
 		let arrR = []
 		JSON.parse(arr).map((item,index)=>{
-			if(item.start == ''){
-				let str = item.end+'以下'
+			if(item.start == ''||item.start == '0'){
+				let str = item.end + unit + '以下'
 				arrR.push(str) 
-			}else if(item.end == ''){
-				let str = item.start+'以上'
+			}else if(item.end == ''||item.end > 99999){
+				let str = item.start + unit + '以上'
 				arrR.push(str)
 			}else{
 				let str = item.start+'-'+item.end + unit

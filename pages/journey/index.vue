@@ -450,6 +450,7 @@ export default {
 						  itemR.ishowPlanStatus = true
 					  }else{
 						  itemR.ishowPlanStatus = false
+						  this.swiperHeight = '950rpx'
 					  }
 					 
 					//判断是否有楼盘

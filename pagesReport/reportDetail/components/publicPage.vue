@@ -79,10 +79,6 @@ export default {
 		width: 100% !important;
 		display: block;
 	}
-	/deep/img {
-		width: 100% !important;
-		display: block;
-	}
 	/deep/iframe{
 		width: 100% !important;
 		height: 100% !important;

@@ -65,7 +65,7 @@ export default{
 			
 			var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
 			
-			var seconds = (mss % (1000 * 60)) / 1000;
+			var seconds = parseInt((mss % (1000 * 60)) / 1000);
 			
 			hours = hours < 10 ? ('0' + hours) : hours;
 			

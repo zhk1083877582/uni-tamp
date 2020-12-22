@@ -99,9 +99,9 @@ export default {
     flex-direction: row;
 }
 
-.avatarImg {
-    width: 40px;
-    height: 40px;
+.avatar .avatarImg {
+    width: 40px !important;
+    height: 40px !important;
 }
 
 .Nickname {
@@ -125,4 +125,20 @@ export default {
     line-height: 21px;
     margin: 20px 0;
 }
+/deep/video {
+	width: 100% !important;
+	display: block;
+}
+/deep/img {
+	width: 100% !important;
+	display: block;
+}
+/deep/video {
+	width: 100% !important;
+	display: block;
+}
+/deep/iframe{
+	width: 100% !important;
+	height: 100% !important;
+	}
 </style>
