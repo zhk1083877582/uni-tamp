@@ -83,16 +83,20 @@ export default{
 	},
     onShareAppMessage(res) {
 		let buryingPointShareType = '',CustomerTrackShareType=''
+		//大数据
 		if(this.buryingPoint.modelType=='3'||this.buryingPoint.modelType == '4'){
 			if(this.buryingPoint.modelType == '3'){
-				this.buryingPoint.operationType = ''
+				this.buryingPoint.operationType = ''//清空操作类型
 				buryingPointShareType = '1'
 			}
 			if(this.buryingPoint.modelType == '4'){
-				this.buryingPoint.operationType = '8'
+				this.buryingPoint.operationType = ''//清空操作类型
+				buryingPointShareType = '2'
 			}
 			this.ReportLog({shareType:buryingPointShareType})
 		}
+		
+		//客户足迹
 		if(this.CustomerTrack.operateType == '1'){
 			CustomerTrackShareType = '1'
 		}
