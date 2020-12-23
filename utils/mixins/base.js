@@ -109,6 +109,9 @@ export default{
 		if(this.CustomerTrack.operateType == '4'){
 			CustomerTrackShareType = '4'
 		}
+		if(this.CustomerTrack.operateType == '5'){
+			CustomerTrackShareType = '5'
+		}
 		
 		this.addCustomerTrack({shareType:CustomerTrackShareType})
         return {
