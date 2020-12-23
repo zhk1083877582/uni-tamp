@@ -237,7 +237,7 @@
 			//获取顾问信息
 			initUserInfo(){
 				//埋点
-				this.buryingPoint.modelType = '4'
+				this.buryingPoint.modelType = '4'//前端添加modelType = 4 代表管家名片
 				this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 				this.buryingPoint.userId = this.userId
 				

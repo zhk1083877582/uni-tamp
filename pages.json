@@ -193,6 +193,16 @@
 							"bounce": "none"
 						}
 					}
+				},
+				{
+					"path": "question/index",
+					"style": {
+						"navigationBarTitleText": "客户问题",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}
 				}
             ]
 		}

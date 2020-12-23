@@ -242,7 +242,7 @@ export default {
 		this.reportId = option.reportId
 		this.getReportData(option.reportId);
 		this.beginTime = (new Date()).getTime()
-		this.lookTime = new Date()
+		this.lookTime = this.$tool.DateFormat('yyyy-MM-dd hh:mm:ss',new Date())
 		this.share.path = '/pagesReport/book/index?reportId='+ option.reportId
 	},
 	onPageScroll(e) {
