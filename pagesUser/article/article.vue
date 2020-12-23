@@ -107,7 +107,6 @@ export default {
 					sessionKey: this.session_key,
 					openId: this.openid,
 					loginType: 0,
-					registerCity:this.$cache.getCache('storageCity')||''
 				};
 				let api = '/userAuthServer/noToken/wx/wxLogin';
 				getData(api, params)

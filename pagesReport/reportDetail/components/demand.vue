@@ -13,7 +13,7 @@
 					<view class="col col_L">
 						<view class="title">总价预算</view>
 						<view class="content_text">
-							{{$tool.changeArrayToNum(resData.totalBudget,'万元')}}</text>
+							{{$tool.changeArrayToNum(resData.totalBudget,'万')}}</text>
 						</view>
 					</view>
 				</view>

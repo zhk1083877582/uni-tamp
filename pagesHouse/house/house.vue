@@ -288,8 +288,7 @@
 						encryData: e.detail.encryptedData,
 						sessionKey: this.session_key,
 						openId: this.openid,
-						loginType: 0,
-						registerCity:this.$cache.getCache('storageCity')||''
+						loginType: 0
 					};
 					let api = '/userAuthServer/noToken/wx/wxLogin';
 					getData(api, params)

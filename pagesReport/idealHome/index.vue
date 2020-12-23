@@ -41,13 +41,13 @@
 					</view>
 					<view class="content column">
 						<view class="item_view">
-							<text>总价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.totalBudget,'万元')}}</text>
+							<text>总价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.totalBudget,'万')}}</text>
 						</view>
 						<view class="item_view">
-							<text>单价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.unitPriceBudget,'万元/㎡')}}</text>
+							<text>单价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.unitPriceBudget,'元/㎡')}}</text>
 						</view>
 						<view class="item_view">
-							<text>首付区间</text><text class="color_red">{{$tool.changeArrayToNum(resData.downPaymentBudget,'万元')}}</text>
+							<text>首付区间</text><text class="color_red">{{$tool.changeArrayToNum(resData.downPaymentBudget,'万')}}</text>
 						</view>
 					</view>
 				</view>

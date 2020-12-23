@@ -406,7 +406,7 @@ const TOOL = {
 				let str = item.start + unit + '以上'
 				arrR.push(str)
 			}else{
-				let str = item.start+'-'+item.end + unit
+				let str = item.start+'~'+item.end + unit
 				arrR.push(str)
 			}
 		})
