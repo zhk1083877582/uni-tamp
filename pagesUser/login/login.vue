@@ -9,7 +9,7 @@
 				微信授权登录
 			</u-button>
 			<!-- #endif -->
-			<u-button @click="doTelLogin">
+			<u-button @click="doTelLogin" v-if="isExamine == 'false'">
 				<i class="iconfont icondenglu-shouji"></i>
 				手机号码登录
 			</u-button>
@@ -30,7 +30,8 @@ export default {
 			jsCode: '',
 			openid: '',
 			unionid: '',
-			session_key: ''
+			session_key: '',
+			isExamine:''
 		};
 	},
 	computed: {},
@@ -120,10 +121,12 @@ export default {
 					});
 			}
 		},
+		//微信审核标识
 		getWXAudit(){
 			console.log(123)
 			getData('/business/noToken/home/WXAudit').then(res=>{
 				console.log(res)
+				this.isExamine = res
 			}).catch(err=>{
 				console.log(err)
 			})

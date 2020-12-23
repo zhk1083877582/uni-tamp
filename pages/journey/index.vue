@@ -492,10 +492,12 @@ export default {
 	onLoad(option){
 		console.log('-----首页',this.$cache.getCache('M-Token'))
 		// this.getUserInfo();
-		let loginData = this.$cache.getCache('Login-Data').customerInfo
-		this.userPhone = loginData.phone;
+		let customerId = this.$cache.getCache('Login-Data').customerInfo?this.$cache.getCache('Login-Data').customerInfo.customerId:''
+		this.userPhone = this.$cache.getCache('Login-Data').customerInfo?this.$cache.getCache('Login-Data').customerInfo.phone:'';
 		this.HasToken = this.$cache.getCache('M-Token')?true:false;
-		this.getinitData(loginData.customerId);
+		if(customerId){
+			this.getinitData(customerId);
+		}
 	},
 	onReady(){
 		

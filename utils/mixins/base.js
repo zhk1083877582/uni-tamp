@@ -40,7 +40,7 @@ export default{
 		*/
 		ReportLog(data){
 			let params = Object.assign({},this.buryingPoint,data);
-			console.log('埋点数据',params)
+			console.log('大数据埋点数据',params)
 			getData('/business/noToken/report/reportLog',params).then((res)=>{
 				// console.log('埋点接口',res)
 			}).catch((err)=>{
@@ -54,7 +54,7 @@ export default{
 			let params = Object.assign({},this.CustomerTrack,data);
 			params.stayTime = params.stayTime?this.formatDuring(params.stayTime):''
 			console.log('客户足迹埋点',params)
-			getData('/business/cpp/customer/addCustomerTrack',params).then((res)=>{
+			getData('/business/noToken/capp/customer/addCustomerTrack',params).then((res)=>{
 				// console.log('埋点接口',res)
 			}).catch((err)=>{
 				console.log('埋点接口',err)

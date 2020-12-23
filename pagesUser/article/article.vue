@@ -5,15 +5,28 @@
 			<view class="detailTit">{{articleData.articleTitle}}</view>
 			<view class="avatar">
 				<img :src="articleData.articleImage" class="avatarImg">
-				<text class="Nickname">{{articleData.creater}}</text>
+				<text class="Nickname">{{articleData.creater||''}}</text>
 				<text class="dataTime">
-						{{articleData.createTime}}
+						{{articleData.createTime||''}}
 				</text>
 			</view>
 			<view class="artCon">
 				<jyf-parser :html="articleData.articleContent" ref="article"></jyf-parser>
 			</view>
 		</view>	
+		<u-mask :show="showAuthorize" mask-click-able="false">
+			<view class="showAuthorize_warp" @tap.stop>
+				<view class="authorize_title">
+					授权提醒
+				</view>
+				<view class="authorize_text">
+					您好，为了更好得为您提供服务 请您授权登录
+				</view>
+				<u-button type="default" class="authorize_btn" hover-class="none" plain="true" :hair-line='false' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+					确定
+				</u-button>
+			</view>
+		</u-mask>
 	</view>
 </template>
 
@@ -28,8 +41,9 @@ export default {
 		return {
 			articleId:'',
 			articleData:{},
-      beginTime:'',
-      userId:''
+			beginTime:'',
+			userId:'',
+			showAuthorize:false
 		};
 	},
 	computed: {},
@@ -42,9 +56,72 @@ export default {
 			getData('/business/article/manager/info/get',params).then((res)=>{
 				console.log(res)
 				this.articleData = res
-				
+				//客户足迹埋点
+				this.beginTime = (new Date()).getTime()
+				this.CustomerTrack.buildingId = ''
+				this.CustomerTrack.operateType = '4'
+				this.CustomerTrack.createrId = this.userId
+				this.CustomerTrack.userId = this.userId
+				this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+				this.CustomerTrack.dataId = id
 			})
-		}
+		},
+		// 获取jsCode openid session_key
+		getPhone() {
+			const self = this;
+			uni.login({
+				success: res => {
+					console.log('---jsCode',res);
+					if (res.code) {
+						//微信登录成功 已拿到code
+						self.jsCode = res.code; //保存获取到的code
+						let params = {
+							jsCode: res.code,
+						};
+						let api = '/userAuthServer/noToken/wx/wxAuth' 
+						getData(api, params)
+							.then(res => {
+								console.log('----openid||session_key', res);
+								self.openid = res.openid; //openid 用户唯一标识
+								self.session_key =res.session_key; //session_key  会话密钥
+							})
+							.catch(err => {
+								console.log('请求结果报错', err);
+							});
+					} else {
+						console.log('登录失败！' + res.errMsg);
+					}
+				}
+			});
+		},
+		onGetPhoneNumber(e) {
+			console.log('-----login-btn', e);
+			if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+				//用户决绝授权
+				//拒绝授权后弹出一些提示
+			} else {
+				//允许授权
+				let params = {
+					iv: e.detail.iv,
+					encryData: e.detail.encryptedData,
+					sessionKey: this.session_key,
+					openId: this.openid,
+					loginType: 0,
+					registerCity:this.$cache.getCache('storageCity')||''
+				};
+				let api = '/userAuthServer/noToken/wx/wxLogin';
+				getData(api, params)
+					.then(res => {
+						this.$cache.setCache('M-Token', res['token']);
+						this.$cache.setCache('Login-Data', res);
+						this.showAuthorize = false;
+						this.getArticle(this.articleId)
+					})
+					.catch(err => {
+						console.log('请求结果报错', err);
+					});
+			}
+		},
 	},
 	created() {
 
@@ -53,22 +130,18 @@ export default {
 	},
 	onLoad(option){
 		console.log(option)
+		this.getArticle(option.articleId)
+		this.articleId = option.articleId
+		this.userId = option.userId
 		if(!this.$cache.getCache('M-Token')){
-			uni.navigateTo({
-				url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
-			});
+			this.showAuthorize = true;
+			this.getPhone()
+			// uni.navigateTo({
+			// 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
+			// });
 		}else{
-			this.getArticle(option.articleId)
-    }
-		let userId = option.userId
-		this.beginTime = (new Date()).getTime()
-		//客户足迹埋点
-		this.CustomerTrack.buildingId = ''
-		this.CustomerTrack.operateType = '4'
-		this.CustomerTrack.createrId = userId
-		this.CustomerTrack.userId = userId
-		this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-		this.CustomerTrack.dataId = option.articleId
+			this.showAuthorize = false;
+		}
 	},
 	onHide(){
 		console.log('onHide 222')

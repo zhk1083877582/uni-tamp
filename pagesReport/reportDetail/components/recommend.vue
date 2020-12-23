@@ -37,7 +37,7 @@
 				bg-color='transparent'
 				>
 				</u-tabs>
-			<swiper :style="{'min-height':swiperHeight}" class="swiper" :current='curr'  :indicator-dots="indicatorDots" :autoplay="autoplay" :circular='autoplay' @change="changeSwipe">
+			<swiper :style="{'height':swiperHeight}" class="swiper" :current='curr'  :indicator-dots="indicatorDots" :autoplay="autoplay" :circular='autoplay' @change="changeSwipe">
 				<swiper-item v-for="(item,index) in resData" :key="index">	
 					<view class="change_box_warp">
 						<view class="change_box">
@@ -102,7 +102,7 @@ export default {
 		return {
 			current: 0,
 			isShowTooltip:false,
-			swiperHeight: null,
+			swiperHeight: '0px',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,

@@ -51,6 +51,19 @@
 		<view class="pageHouse-bottom">
 			<footBottom v-if="userId" :userId='userId' modelType='2'></footBottom>
 		</view>
+		<u-mask :show="showAuthorize" mask-click-able="false">
+			<view class="showAuthorize_warp" @tap.stop>
+				<view class="authorize_title">
+					授权提醒
+				</view>
+				<view class="authorize_text">
+					您好，为了更好得为您提供服务 请您授权登录
+				</view>
+				<u-button type="default" class="authorize_btn" hover-class="none" plain="true" :hair-line='false' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+					确定
+				</u-button>
+			</view>
+		</u-mask>
 	</view>
 </template>
 
@@ -94,6 +107,7 @@
 		},
 		data() {
 			return {
+				showAuthorize:false,
 				userId:'',
 				buildingId:'',
 				baseInfo:null,
@@ -156,7 +170,7 @@
 					highlights: { label: '亮点', cl: 'part6', isShow: false },
 				},
 				
-				beginTime:''
+				beginTime:'',
 			}
 		},
 		computed: {
@@ -169,9 +183,10 @@
 				return arr;
 			}
 		},
+		
 		onLoad(option={}){
 			console.log('-------进入builddingInfo',option)
-			this.buildingId = option.buildingId||'10178';
+			this.buildingId = option.buildingId||'';
 			this.userId = option.userId;
 			this.initBaseInfo();
 			this.initGetAnnex();
@@ -180,15 +195,15 @@
 			// this.initBuildingTypeCount();
 			// this.initBuildingUnitList();
 			// this.initBuildingBrightSpotList();
-			
-			this.beginTime = (new Date()).getTime()
-			//客户足迹埋点
-			this.CustomerTrack.buildingId = this.buildingId
-			this.CustomerTrack.operateType = '2'
-      this.CustomerTrack.createrId = this.userId
-      this.CustomerTrack.userId = this.userId
-			this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-			this.CustomerTrack.dataId = ''
+			if(!this.$cache.getCache('M-Token')){
+				this.showAuthorize = true;
+				this.getPhone()
+				// uni.navigateTo({
+				// 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
+				// });
+			}else{
+				this.showAuthorize = false;
+			}
 		},
 		onHide(){
 			console.log('onHide 222')
@@ -233,6 +248,62 @@
 			}
 		},
 		methods: {
+			// 获取jsCode openid session_key
+			getPhone() {
+				const self = this;
+				uni.login({
+					success: res => {
+						console.log('---jsCode',res);
+						if (res.code) {
+							//微信登录成功 已拿到code
+							self.jsCode = res.code; //保存获取到的code
+							let params = {
+								jsCode: res.code,
+							};
+							let api = '/userAuthServer/noToken/wx/wxAuth' 
+							getData(api, params)
+								.then(res => {
+									console.log('----openid||session_key', res);
+									self.openid = res.openid; //openid 用户唯一标识
+									self.session_key =res.session_key; //session_key  会话密钥
+								})
+								.catch(err => {
+									console.log('请求结果报错', err);
+								});
+						} else {
+							console.log('登录失败！' + res.errMsg);
+						}
+					}
+				});
+			},
+			onGetPhoneNumber(e) {
+				console.log('-----login-btn', e);
+				if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+					//用户决绝授权
+					//拒绝授权后弹出一些提示
+				} else {
+					//允许授权
+					let params = {
+						iv: e.detail.iv,
+						encryData: e.detail.encryptedData,
+						sessionKey: this.session_key,
+						openId: this.openid,
+						loginType: 0,
+						registerCity:this.$cache.getCache('storageCity')||''
+					};
+					let api = '/userAuthServer/noToken/wx/wxLogin';
+					getData(api, params)
+						.then(res => {
+							this.$cache.setCache('M-Token', res['token']);
+							this.$cache.setCache('Login-Data', res);
+							this.showAuthorize = false;
+							this.initBaseInfo()
+						})
+						.catch(err => {
+							console.log('请求结果报错', err);
+						});
+				}
+			},
 			// srcoll-tabs切换
 			changeScrollTabs(index) {
 				this.scrollActiveIndex = index;
@@ -260,8 +331,17 @@
 					buildingId: this.buildingId
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/building/info', params)
+				getBuildingBaseInfo('/business/noToken/building/info', params)
 					.then(res => {
+						//客户足迹埋点
+						this.beginTime = (new Date()).getTime()
+						this.CustomerTrack.buildingId = this.buildingId
+						this.CustomerTrack.operateType = '2'
+						this.CustomerTrack.createrId = this.userId
+						this.CustomerTrack.userId = this.userId
+						this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+						this.CustomerTrack.dataId = ''
+						
 						console.log('----基本信息', res);
 						let {baseInfo,brightSpot={},buildingList={},dynamicList={},houseTypeAll={},introduction={},openTimeList={}} =res;
 						
@@ -295,7 +375,7 @@
 					buildingId: this.buildingId
 				};
 				let self = this;
-				getBuildingAnnex('/business/building/buildingAnnex',params)
+				getBuildingAnnex('/business/noToken/building/buildingAnnex',params)
 					.then(res => {
 						self.$refs.reBuildingInfo.doFormatImgList(res.list||[]);
 					})

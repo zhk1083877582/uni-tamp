@@ -98,7 +98,8 @@ export default {
 			windowTitle:'',//客户姓名  客户性别
 			
 			reportId:'',
-			beginTime:''//进入页面时间戳
+			beginTime:'',//进入页面时间戳
+			endTime:''//离开页面时间戳
 		};
 	},
 	computed: {
@@ -199,7 +200,7 @@ export default {
 				
 				//客户足迹埋点
 				this.CustomerTrack.operateType = '1'
-        this.CustomerTrack.createrId = this.userId
+				this.CustomerTrack.createrId = this.userId
 				this.CustomerTrack.userId = this.userId
 				this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 				this.CustomerTrack.dataId = this.reportId
@@ -212,7 +213,21 @@ export default {
 			console.log('1===',userInfo)
 			this.userName = userInfo.userName
 			this.headPortrait = userInfo.avatarUrl
-		}
+		},
+		//客户查看置业报告埋点接口
+		getCustomerLookReportLog(){
+			let params = {
+				customerId:this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:'',//客户id
+				reportId:this.reportId,//置业报告id
+				lookTime:this.lookTime,//阅读时间
+				readTime: this.endTime - this.beginTime//阅读时长
+			}
+			getData('/business/noToken/report/customerLookReportLog',params).then((res)=>{
+				
+			}).catch(err=>{
+				console.log(err)
+			})
+		}	
 	},
 	created() {
 
@@ -227,6 +242,8 @@ export default {
 		this.reportId = option.reportId
 		this.getReportData(option.reportId);
 		this.beginTime = (new Date()).getTime()
+		this.lookTime = new Date()
+		this.share.path = '/pagesReport/book/index?reportId='+ option.reportId
 	},
 	onPageScroll(e) {
 		if (e.scrollTop > 150) {
@@ -263,8 +280,9 @@ export default {
 	},
 	onHide(){
 		console.log('onHide 222')
+		this.endTime = (new Date()).getTime()
 		this.buryingPoint.beginTime = this.beginTime
-		this.buryingPoint.endTime = (new Date()).getTime()
+		this.buryingPoint.endTime = this.endTime
 		this.buryingPoint.operationType = '3'
 		this.buryingPoint.modelType = '3'
 		this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
@@ -275,11 +293,15 @@ export default {
 		//客户足迹埋点
 		this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
 		this.addCustomerTrack()
+		
+		//客户查看置业报告埋点接口
+		this.getCustomerLookReportLog()
 	},
 	onUnload(){
 		console.log('onUnload 333')
+		this.endTime = (new Date()).getTime()
 		this.buryingPoint.beginTime = this.beginTime
-		this.buryingPoint.endTime = (new Date()).getTime()
+		this.buryingPoint.endTime = this.endTime
 		this.buryingPoint.operationType = '3'
 		this.buryingPoint.modelType = '3'
 		this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
@@ -290,6 +312,9 @@ export default {
 		//客户足迹埋点
 		this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
 		this.addCustomerTrack()
+		
+		//客户查看置业报告埋点接口
+		this.getCustomerLookReportLog()
 	}
 }
 </script>

@@ -68,15 +68,7 @@ export default {
 					loginType: 0,
 					registerCity:this.$cache.getCache('storageCity')||''
 				};
-				// #ifdef MP-BAIDU
-				let api =  '/tospurWeb/baiduapp/baiduLogin'
-				// #endif
-				// #ifdef MP-WEIXIN
-				let api = '/tospurWeb/wxapp/wxLogin'
-				// #endif
-				// #ifdef MP-TOUTIAO
-				let api = '/tospurWeb/toutiaoApp/toutiaoLogin'
-				// #endif
+				let api = '/userAuthServer/noToken/wx/wxLogin'
 				getData(api, params)
 					.then(res => {
 						console.log(res)
@@ -114,16 +106,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						// #ifdef MP-WEIXIN
-						let api = '/userAuthServer/wx/wxAuth' 
-						// #endif
-						// #ifdef MP-BAIDU
-						let api =  '/tospurWeb/baiduapp/baiduAuth'
-						 params.type =1
-						// #endif
-						// #ifdef MP-TOUTIAO
-						let api = '/tospurWeb/toutiaoApp/toutiaoAuth'
-						// #endif
+						let api = '/userAuthServer/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log(res, 111111);
@@ -151,7 +134,7 @@ export default {
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 				let subscriberName = res.businessReport?res.businessReport.customerName:''
 				console.log(subscriberName,customerGender)
-				this.windowTitle = `${subscriberName}${customerGender=='1'?'先生':'女士'}`
+				this.windowTitle = `${subscriberName?subscriberName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
 				console.log(this.windowTitle)
 				this.buildingName = res.buildingInfo.buildingAlias
 			}).catch((err)=>{

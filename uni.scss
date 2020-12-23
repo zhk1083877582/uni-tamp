@@ -111,5 +111,45 @@ $uni-font-size-paragraph: 30rpx;
 page{
 	// background-color: #251B11;
 }
+//授权弹窗样式
+.showAuthorize_warp{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 74%;
+	// height: 412rpx;
+	background-color: #fff;
+	border-radius: 16rpx;
+	.authorize_title{
+		font-size: 34rpx;
+		font-weight: 600;
+		text-align: center;
+		color: #141414;
+		line-height: 48rpx;
+		margin: 50rpx 0;
+	}
+	.authorize_text{
+		font-size: 34rpx;
+		font-weight: 400;
+		text-align: center;
+		color: #999999;
+		line-height: 48rpx;
+		padding: 0 39rpx;
+		padding-bottom: 54rpx;
+		border-bottom: 1px solid #d8d8d8;
+		// margin-bottom: 10rpx;
+	}
+	.authorize_btn{
+		/deep/button {
+			border: 0 !important;
+			background-color: transparent !important;
+			color: #062471 !important;
+			height: 112rpx !important;
+			line-height: 112rpx !important;
+			font-weight: 600;
+		}
+	}
+}
 
 	

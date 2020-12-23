@@ -187,7 +187,7 @@
 				{
 					"path": "article/article",
 					"style": {
-						"navigationBarTitleText": "文章",
+						"navigationBarTitleText": "素材",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
