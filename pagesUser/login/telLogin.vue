@@ -9,7 +9,7 @@
 						您好，
 					</view>
 					<view class="tel-text2">
-						欢迎来到德勤置业报告
+						欢迎开启云房置业旅程
 					</view>
 				</view>
 				<view class="log_form">
@@ -45,9 +45,9 @@
 							@input='validatorCode'/>
 					</view>
 					<view class="login_agreement">
-						登录既同意
+						登录即同意
 						<text class="agreement" @click="toAgreement">
-							德勤置业报告使用协议
+							云房用户服务及隐私协议
 						</text>
 					</view>
 					<u-button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary" @click='onSubmit'>

@@ -186,7 +186,7 @@ export default {
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
-				this.share.title = this.buildingInfo.buildingAlias + '置业报告'
+				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业报告' : '专属置业报告'
 				
 				//埋点
 				this.buryingPoint.beginTime = this.beginTime
@@ -319,12 +319,12 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-/deep/page{
+page{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 }
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
-	/* height: 100%; */
+	height: 100%;
 	padding-bottom: 104rpx;
 	.title_warp{
 		padding: 40rpx 32rpx 32rpx 32rpx;

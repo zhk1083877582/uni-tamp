@@ -26,7 +26,7 @@ export default{
 			},
             //设置默认的分享参数
             share:{
-                title:'海鸥飞翔',
+                title:'云房',
                 path:'',
                 imageUrl:'',
             }

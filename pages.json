@@ -156,7 +156,7 @@
 				{
                     "path" : "login/login",
                     "style" : {
-						"navigationBarTitleText": "登录德勤置业报告",
+						"navigationBarTitleText": "登录云房",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -167,7 +167,7 @@
 				{
 					"path": "login/telLogin",
 					"style": {
-						"navigationBarTitleText": "登录德勤置业报告",
+						"navigationBarTitleText": "登录云房",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -177,7 +177,7 @@
 				{
 					"path": "login/agreement",
 					"style": {
-						"navigationBarTitleText": "德勤置业报告协议",
+						"navigationBarTitleText": "云房产品使用协议",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
