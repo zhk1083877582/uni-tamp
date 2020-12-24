@@ -171,6 +171,7 @@
 				},
 				
 				beginTime:'',
+
 			}
 		},
 		computed: {
@@ -344,6 +345,9 @@
 						console.log('----基本信息', res);
 						let {baseInfo,brightSpot={},buildingList={},dynamicList={},houseTypeAll={},introduction={},openTimeList={}} =res;
 						
+						this.share.title = `【${baseInfo.buildingAlias}】 ${baseInfo.referenceAveragePrice?baseInfo.referenceAveragePrice+'元/㎡':'待定'}`
+						this.share.path = '/pagesHouse/house/house?buildingId='+this.buildingId+'&userId='+this.userId
+						this.share.imageUrl = baseInfo.albumCoverPicture
 						//设置标题
 						uni.setNavigationBarTitle({ title: baseInfo.buildingAlias });
 						

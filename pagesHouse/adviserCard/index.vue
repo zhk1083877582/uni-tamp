@@ -256,6 +256,7 @@
 				getBuildingBaseInfo('/business/noToken/user/getUserCardDetail', params)
 					.then(res => {
 						console.log('管家信息',res);
+						this.share.title = `置业顾问【${res.userName?res.userName:'-'}】`
 						let {expertiseFields=[]} = res;
 						for(let i=0,fieldsLen=expertiseFields.length;i<fieldsLen;i++){
 							if(i<(fieldsLen-1)){
