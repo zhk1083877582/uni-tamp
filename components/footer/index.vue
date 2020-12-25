@@ -53,8 +53,16 @@ export default {
 	watch: {},
 	methods: {
 		tellPhone(){
-			console.log('拨打电话');
 			let self = this
+			if(!self.userInfo.fourPhone){
+				uni.showToast({
+					title: '暂无管家电话',
+					icon: 'none',
+					duration: 5000
+				});
+				return 
+			}
+			
 			uni.makePhoneCall({
 				// 手机号
 				phoneNumber: '114',
