@@ -12,7 +12,7 @@
 						<view class="details_title">
 							{{baseInfo.buildingAlias}}
 							<view class="label cl_B">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</view>
-							<view class="label cl_Y" v-if="!!baseInfo.propertyType">{{handlePropertyType(baseInfo.propertyType)}}</view>
+							<view class="label cl_Y" v-if="!!baseInfo.propertyType">{{handlePropertyType(baseInfo.propertyType.length>0&&baseInfo.propertyType!=null?baseInfo.propertyType[0]:'')}}</view>
 						</view>
 						<view class="price_details">{{$formatter.AveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}}</view>
 						<view class="address_details">{{$formatter.formatArea(baseInfo.referenceBuildAreaMin, baseInfo.referenceBuildAreaMax)}}</view>
@@ -165,12 +165,14 @@ export default {
 		},
 		handlePropertyType(key){
 			let newKey = ''
-			if(key.length>1){
-				newKey = key.substring(0,1)
-			}else{
-				newKey = key
-			}
-			return this.$formatter.switchName('propertyType',newKey)
+			if(!key) return
+			// let newKey = ''
+			// if(key.length>1){
+			// 	newKey = key.substring(0,1)
+			// }else{
+			// 	newKey = key
+			// }
+			return this.$formatter.switchName('propertyType',key)
 		},
 		getDescBox() { 
 		  uni.createSelectorQuery().in(this).select('.change_box_warp').boundingClientRect(result => { 

@@ -79,7 +79,7 @@
 							<view class="second_label">面积</view><view class="right_text"><text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType || '-'}}</text></view>
+							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}}</text></view>
 						</view>
 					</view>
 				</view>

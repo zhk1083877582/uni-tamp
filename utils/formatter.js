@@ -69,7 +69,7 @@ const FM = {
 	{key:'9',value:'投资'},
    ],
    intentionHouseType:[
-	   {key:'1',value:'自住'},
+	   {key:'1',value:'一室'},
 	   {key:'2',value:'两室'},
 	   {key:'3',value:'三室'},
 	   {key:'4',value:'四室'},

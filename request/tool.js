@@ -434,6 +434,29 @@ const TOOL = {
 		})
 		return arrR.join('、')
 	},
+	//意向户型转换
+	intentionHouseType(value){
+	  if(!value) return;
+	  let valuetmp = ''
+	  let valueArr = []
+	  let set = {
+		1:'一室',
+		2:'两室',
+		3:'三室',
+		4:'四室',
+		5:'五室及以上'
+	  };
+	  if(value.length>1){
+		valuetmp = value.split(',')
+	  }else{
+		return  set.hasOwnProperty(value) ? set[value] : value
+	  }
+	  valuetmp.forEach(element => {
+		let newvalue = set.hasOwnProperty(element) ? set[element] : element;
+		valueArr.push(newvalue)
+	  });
+	  return valueArr.join(',')
+	},
 	
 }
 export default TOOL;

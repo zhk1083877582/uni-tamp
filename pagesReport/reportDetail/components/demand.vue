@@ -27,7 +27,7 @@
 					<view class="col col_L">
 						<view class="title">意向户型</view>
 						<view class="content_text">
-							{{resData.intentionHouseType||'-'}}
+							{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}}
 						</view>
 					</view>
 				</view>

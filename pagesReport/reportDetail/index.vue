@@ -181,12 +181,12 @@ export default {
 				this.userId = res.businessReport?res.businessReport.userId:''
 				
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
-			    let subscriberName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = `${subscriberName?subscriberName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
+			    let customerName = res.businessReport?res.businessReport.customerName:''
+				this.windowTitle = `${customerName?customerName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业报告`
 				});
-				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业报告' : '专属置业报告'
+				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业报告' : '置业报告'
 				this.share.imageUrl = 'https://media.tongcehaofang.com/image/default/07D7DE2501184C56B79427AEE26B9DB1-6-2.jpg'
 				//埋点
 				this.buryingPoint.beginTime = this.beginTime
@@ -324,7 +324,7 @@ page{
 }
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
-	height: 100%;
+	/* height: 100%; */
 	padding-bottom: 104rpx;
 	.title_warp{
 		padding: 40rpx 32rpx 32rpx 32rpx;

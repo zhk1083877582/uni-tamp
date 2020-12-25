@@ -84,7 +84,7 @@
 													<view class="col col_L">
 														<view class="title">意向户型</view>
 														<view class="content_text">
-															{{item.customerIntention.intentionHouseType}}
+															{{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}}
 														</view>
 													</view>
 												</view>
