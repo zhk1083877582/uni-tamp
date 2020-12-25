@@ -27,7 +27,7 @@
         </view>
       </view>
     </view>
-    <view class="btn-chat" @click="toOtherPage">
+    <view class="btn-chat" @click="toOtherPage" v-if="userId">
       咨询配套和规划
     </view>
   </view>
@@ -47,6 +47,10 @@ export default {
         return {}
       }
     },
+	userId:{
+		type:String,
+		default:''
+	},
 	// isIos:{
 	// 	type: Boolean,
 	// 	default: false
@@ -122,26 +126,25 @@ export default {
   methods: {
     //咨询配套和规划
     toOtherPage () {
-		this.toMap();
+		this.$emit('makePhone')
     },
     //跳转地图
     toMap () {
-		let {baseInfo} =this;
+		let { baseInfo }=this;
 		let routeParams={
-			lng:baseInfo.lng,
-			lat:baseInfo.lat,
-			buildingAlias:baseInfo.buildingAlias,
-			buildingUrl:baseInfo.buildingUrl,
-		}
-		this.goWebView('/peripheral',routeParams)
+			buildingName:baseInfo.buildingAlias,
+			// buildingUrl:baseInfo.detailAddress
+		};
+		this.goWebView(`/peripheral/${baseInfo.lng}-${baseInfo.lat}`,routeParams)
     },
 	//去webview
 	goWebView(routeName,routeParams,toPath){
 		let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
 		let pathParams='';//获取路由参数
 		routeParams=routeParams||{};
-		Object.keys(routeParams).forEach(keyStr=>{
-			pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+		Object.keys(routeParams).forEach((keyStr,index)=>{
+			pathParams+= index>0?`&${keyStr}=${routeParams[keyStr]}`:`${keyStr}=${routeParams[keyStr]}`;				
+		})
 		if( this.$cache.getCache('toMWebpath')){
 			this.$cache.removeCache('toMWebpath');
 		}
@@ -151,7 +154,7 @@ export default {
 		uni.navigateTo({
 		  url: '/pagesHouse/webView/webView'
 		});
-	},	
+	},		
     change (index) {
       this.current = index;
     },

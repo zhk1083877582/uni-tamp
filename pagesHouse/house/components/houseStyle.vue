@@ -23,7 +23,7 @@
 				<text class="houseStyleMess_area_span">{{item.orientedLabel?'朝向 '+item.orientedLabel:''}}</text>
 			  </view>
 			  <view class="houseStyleMess_price">{{item.totalPrice?'总价约'+item.totalPrice+'万':''}}</view>
-			  <view class="houBtn" @click.stop="toOtherPage(item)">
+			  <view class="houBtn" @click.stop="toOtherPage()">
 			  	咨询首付和贷款
 			  </view>
 			</view>
@@ -39,6 +39,10 @@
 	export default {
 		props:{
 			buildingId:{
+				type:String,
+				default:''
+			},
+			userId:{
 				type:String,
 				default:''
 			},
@@ -64,7 +68,8 @@
 				//更多操作
 				btnRightInfo:{
 					text:'全部户型',
-					url:''
+					routePath:'',
+					routeParams:''
 				}
 			}
 		},
@@ -74,18 +79,18 @@
 
 		mounted(option) {
 			this.styleList = this.totalHouseStyleList.slice(0);
+			this.changeBtnRightInfo()
 		},
 		methods: {
 			//全部户型
-			changeBtnRightInfo(buildingId){
+			changeBtnRightInfo(){
 				let {btnRightInfo} =this;
-				let url=url = '../houseTypeList/houseTypeList?buildingId='+this.buildingId
-				btnRightInfo.url = url;
+				btnRightInfo.routePath = '/houseTypeList';
+				btnRightInfo.routeParams=JSON.stringify({buildingId:this.buildingId,userId:this.userId});
 			},
 			//咨询首付和贷款
 			toOtherPage(item){
-				let routeParams={};
-				this.goWebView('/houseTypeList',routeParams)
+				this.$emit('makePhone')
 			},
 			//去webview
 			goWebView(routeName,routeParams,toPath){

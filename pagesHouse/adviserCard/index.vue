@@ -128,8 +128,18 @@
 			}
 		},
 		onLoad(option){
-			console.log('-------进入builddingInfo')
-			this.userId = option.userId||'1';
+			console.log('-------进入管家名片')
+			if (option.scene) {
+				const scene = decodeURIComponent(option.scene);
+				let obj = {};
+				scene.split('&').forEach(item => {
+					const key = item.split('=')[0];
+					obj[key] = item.split('=')[1];
+				});
+				this.userId = obj.userId;
+			} else {
+				this.userId = option.userId;
+			}
 			this.initUserInfo();//管家信息
 			this.initBaseInfo();//楼盘信息
 			

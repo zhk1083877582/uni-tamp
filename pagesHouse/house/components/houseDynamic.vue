@@ -68,6 +68,10 @@
 					dynamicBaseInfoList:[]
 				}
 			},
+			userId:{
+				type: String,
+				default: ''
+			}
 		},
 		data() {
 			return {
@@ -95,35 +99,40 @@
 	
 		},
 		mounted() {
-			// this.buildingId ='1078';
-			//动态
-			// if( this.buildingId){this.initBuildingDynamicAndDate(this.buildingId)}
 			let self =this,btnRightInfo=this.btnRightInfo;
 			setTimeout(()=>{
 				self.dateBaseInfoList = self.dongtaiInfo.dateBaseInfoList;
 				self.dynamicBaseInfoList = self.dongtaiInfo.dynamicBaseInfoList;
-			},1500)
+			},1000)
 			
 		},
 		methods: {
 			//更多
 			toMoreDynamic(){
-				this.goWebView('/propertyDynamic')
+				let routeParams={buildingId:this.dongtaiInfo.buildingId};
+				if(this.userId){
+					routeParams['userId'] = this.userId;
+				}
+				this.goWebView('/propertyDynamic',routeParams)
 			},
 			//去webview
-			goWebView(routeName,toPath){
-				let {userId,buildingId,NetworkType} =this;
-				let mWebSite = this.$tool.getOtherWebSite();
+			goWebView(routeName,routeParams,toPath){
+				let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+				let pathParams='';//获取路由参数
+				routeParams=routeParams||{};
+				Object.keys(routeParams).forEach((keyStr,index)=>{
+					pathParams+= index>0?`&${keyStr}=${routeParams[keyStr]}`:`${keyStr}=${routeParams[keyStr]}`;				
+				})
 				if( this.$cache.getCache('toMWebpath')){
-						  this.$cache.removeCache('toMWebpath');
+					this.$cache.removeCache('toMWebpath');
 				}
 				this.$cache.setCache('toMWebpath',{
-					toMWebpath:toPath||`${mWebSite}#${routeName}?buildingId=${buildingId}&userId=${userId}&NetworkType=${NetworkType}`
+					toMWebpath:toPath||`${mWebSite}#${routeName}?${pathParams}`
 				})
 				uni.navigateTo({
 				  url: '/pagesHouse/webView/webView'
 				});
-			}
+			},	
 		}
 	}
 </script>

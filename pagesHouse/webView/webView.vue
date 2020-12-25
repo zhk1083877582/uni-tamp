@@ -1,7 +1,7 @@
 <!-- 跳转M站 -->
 <template>
 	<view class='webview'>
-		<web-view :src="src"></web-view>
+		<web-view :src="url"></web-view>
 	</view>
 </template>
 
@@ -11,12 +11,13 @@ export default {
 	components: {},
 	data () {
 	  return {
-	    src: this.$cache.getCache('toMWebpath'),
+	    url: this.$cache.getCache('toMWebpath'),
 	  };
 	},
 	onLoad (option) {
-		console.log('toMWebpath',this.$cache.getCache('toMWebpath'))
-		this.src =this.$cache.getCache('toMWebpath');
+		// console.log('toMWebpath',this.$cache.getCache('toMWebpath'))
+		this.url =this.$cache.getCache('toMWebpath').toMWebpath;
+		console.log('toMWebpath1111',this.url)
 	},
 	computed: {},
 }
