@@ -60,7 +60,11 @@
 			buildingId:{
 				type:String,
 				default:''
-			}
+			},
+			userId:{
+				type:String,
+				default:''
+			},
 		},
 		data(){
 			return {
@@ -80,13 +84,15 @@
 		methods:{
 			handleclickUnit(item,index){
 				console.log(item,index)
-				this.current = item.numberName
-				// this.itemInfo =null;
+				this.current = item.numberName;
 				this.itemInfo = this.buildingUnitBaseInfoList[index];
 			},
 			//查看楼栋详情
 			toSpreadDetail(){
-				let routeParams={};
+				let routeParams={
+					buildingId:this.buildingId,
+					userId:this.userId
+				};
 				this.goWebView('/unitBuilding',routeParams)
 			},
 			//去webview
@@ -94,8 +100,9 @@
 				let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
 				let pathParams='';//获取路由参数
 				routeParams=routeParams||{};
-				Object.keys(routeParams).forEach(keyStr=>{
-					pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+				Object.keys(routeParams).forEach((keyStr,index)=>{
+					pathParams+= index>0?`&${keyStr}=${routeParams[keyStr]}`:`${keyStr}=${routeParams[keyStr]}`;				
+				})
 				if( this.$cache.getCache('toMWebpath')){
 					this.$cache.removeCache('toMWebpath');
 				}

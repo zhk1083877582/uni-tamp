@@ -327,8 +327,8 @@ const TOOL = {
   getOtherWebSite(otherUrl){
 	 let baseURL = config.baseURL.target,url="";
 	 switch(baseURL){
-		case 'https://tcwgwtest.tospur.com':
-			url='https://mtest.tospur.com/';
+		case 'https://ztwgwtest.tospur.com':
+			url='https://zttest.tospurhouse.net/';
 			break;
 		case 'https://tcwgwstag.tospur.com':
 			url='https://mstag.tospur.com/';
@@ -337,7 +337,7 @@ const TOOL = {
 			url='https://m.tongcehaofang.com/';
 			break;
 		 default:
-			url="localhost"
+			url="https://zttest.tospurhouse.net/"
 	 }
 	 return otherUrl||url;
   },

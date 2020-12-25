@@ -20,26 +20,26 @@
 		<!-- 楼盘动态 -->
 		<house-dynamic :class="scrollTabs['dynamic']['cl']"
 			v-if="dongtaiInfo.isShow"
-			:dongtaiInfo="dongtaiInfo"
+			:dongtaiInfo="dongtaiInfo" :userId="userId"
 			@changeCollectionStatus="doChangeCollectionStatus">
 		</house-dynamic>
 		<!-- 户型 -->
 		<house-style :class="scrollTabs['style']['cl']"
 		  v-if="isShowHouseStyle"
-		  :totalHouseStyleList="totalHouseStyleList" :houseTabs="houseTabs"
-		  :buildingId="buildingId">
+		  :totalHouseStyleList="totalHouseStyleList" :houseTabs="houseTabs" 
+		  :buildingId="buildingId" :userId="userId" @makePhone="handlerMakePhone">
 		</house-style>
 		
 		<!-- 楼栋分布 -->
 		<house-spread :class="scrollTabs['spread']['cl']"
 			v-if="spreadAnnexPath" 	:buildingId="buildingId"
-			:spreadAnnexPath="spreadAnnexPath"
+			:userId="userId" :spreadAnnexPath="spreadAnnexPath"
 			:buildingUnitBaseInfoList="buildingUnitBaseInfoList">
 		</house-spread>
 		<!-- 周边配套 -->
 		<house-periphery :class="scrollTabs['periphery']['cl']" 
 			v-if="baseInfo.lat && baseInfo.lng" 
-			:baseInfo="baseInfo">
+			:baseInfo="baseInfo" :userId="userId" @makePhone="handlerMakePhone">
 		</house-periphery>
 		<!-- 楼盘亮点 -->
 		<house-highlights :class="scrollTabs['highlights']['cl']"
@@ -71,17 +71,7 @@
 	import {
 		getData,
 		getBuildingBaseInfo,
-		getBuildingAnnex,
-		getCarPhone,
-		getBuildingCouponInfo,
-		getBuildingDescription,
-		getBuildingDynamicAndDate,
-		getBuildingTypeCount,
-		getBuildingBrightSpotListByBuildingId,
-		getBuildingUnitList,
-		getHousekeeperList,
-		getBuildingRecommend,
-		saveCustomerTrack
+		getBuildingAnnex
 	} from '@/request/api';
 	
 	import buildingInfo from './components/buildingInfo.vue';
@@ -107,32 +97,11 @@
 		},
 		data() {
 			return {
+				fourPhone:'',//管家手机号码
 				showAuthorize:false,
 				userId:'',
 				buildingId:'',
 				baseInfo:null,
-				// {
-				// 	favourTitle: '', //图片顶部广告
-				// 	referenceAveragePriceType:'',//楼盘价格
-				// 	referenceAveragePrice:'',//楼盘价格
-				// 	referenceAveragePriceMax:'',//楼盘价格
-				// 	buildingAlias:'',//名称
-				// 	salesStatusItem:'',//销售状态
-				// 	propertyTypeList:[],
-				// 	buildingTags:[],
-				// 	buildingBrightSpot: '',//介绍
-				// 	referenceTotalPriceMin:'',//参考价格
-				// 	referenceTotalPriceMax:'',//参考价格
-				// 	referenceBuildAreaMin:'',//建筑面积
-				// 	referenceBuildAreaMax:'',//建筑面积
-				// 	houseType:'',//户型
-				// 	openTime:'',//开盘时间
-				// 	detailAddress:'',//地址
-				// 	updateTime:'',//更新时间
-				// 	lat:'',
-				// 	lng:'',
-					
-				// },
 				//楼盘介绍
 				descriptionInfo: {
 					annexPath: '', //图片
@@ -191,11 +160,10 @@
 			this.userId = option.userId;
 			this.initBaseInfo();
 			this.initGetAnnex();
-			// this.initGetBuildingDescription();
-			// this.initBuildingDynamicAndDate();
-			// this.initBuildingTypeCount();
-			// this.initBuildingUnitList();
-			// this.initBuildingBrightSpotList();
+			//获取顾问400手机号码
+			if(this.userId){
+				this.getUserInfo()
+			}
 			if(!this.$cache.getCache('M-Token')){
 				this.showAuthorize = true;
 				this.getPhone()
@@ -249,6 +217,53 @@
 			}
 		},
 		methods: {
+			//拨打顾问电话
+			handlerMakePhone(){
+				let self =this;
+				if(!self.fourPhone){
+					uni.showToast({
+						title: '暂无管家电话',
+						icon: 'none',
+						duration: 5000
+					});
+					return 
+				}
+				
+				uni.makePhoneCall({
+					// 手机号
+					phoneNumber:self.fourPhone,
+					// 成功回调
+					success: (res) => {
+						console.log('调用成功!') 
+						// this.buryingPoint.operationType = '6'
+						// this.buryingPoint.modelType = this.modelType
+						// this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+						// this.buryingPoint.reportId = this.reportId
+						// this.buryingPoint.userId = this.userId
+						// this.ReportLog()
+						// potentialCustomersInfo('',saveParams)
+					},
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}
+				});
+			},
+			//获取顾问手机号码
+			getUserInfo(){
+				let params = {
+					userId: this.userId
+				};
+				let self =this;
+				getData('/business/noToken/user/getUserCardDetail', params)
+					.then(res => {
+						console.log('------管家信息',res)
+						this.fourPhone = res.fourPhone||'';
+					})
+					.catch(err => {
+						console.log('管家信息', err);
+					});
+			},
 			// 获取jsCode openid session_key
 			getPhone() {
 				const self = this;
@@ -343,7 +358,7 @@
 						this.CustomerTrack.dataId = ''
 						
 						console.log('----基本信息', res);
-						let {baseInfo,brightSpot={},buildingList={},dynamicList={},houseTypeAll={},introduction={},openTimeList={}} =res;
+						let {baseInfo={},brightSpot={},buildingList={},dynamicList={},houseTypeAll={},introduction={},openTimeList={}} =res;
 						
 						this.share.title = `【${baseInfo.buildingAlias}】 ${baseInfo.referenceAveragePrice?baseInfo.referenceAveragePrice+'元/㎡':'待定'}`
 						this.share.path = '/pagesHouse/house/house?buildingId='+this.buildingId+'&userId='+this.userId

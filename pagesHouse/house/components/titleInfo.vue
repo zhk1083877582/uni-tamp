@@ -42,8 +42,9 @@
 				type:Object,
 				default:function(){
 					 return {
-						 text:'',
-						 url:''
+						 routePath:'',
+						 routeParams:'',
+						 text:''
 					 }
 				}
 			},
@@ -53,15 +54,29 @@
 		methods:{
 			//更多操作
 			toOtherPage(){
-				let url=this.btnRightInfo.url;
-				console.log('获取到的地址url:'+url)
-				if(!url){
-					return 
+				let {btnRightInfo} =this;
+				let routeName = btnRightInfo.routePath;
+				let routeParams = JSON.parse(btnRightInfo.routeParams);
+				this.goWebView(routeName,routeParams)
+			},
+			//去webview
+			goWebView(routeName,routeParams,toPath){
+				let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+				let pathParams='';//获取路由参数
+				routeParams=routeParams||{};
+				Object.keys(routeParams).forEach((keyStr,index)=>{
+					pathParams+= index>0?`&${keyStr}=${routeParams[keyStr]}`:`${keyStr}=${routeParams[keyStr]}`;				
+				})
+				if( this.$cache.getCache('toMWebpath')){
+					this.$cache.removeCache('toMWebpath');
 				}
+				this.$cache.setCache('toMWebpath',{
+					toMWebpath:toPath||`${mWebSite}#${routeName}?${pathParams}`
+				})
 				uni.navigateTo({
-				    url: url
+				  url: '/pagesHouse/webView/webView'
 				});
-			}
+			},	
 		}
 	}
 </script>

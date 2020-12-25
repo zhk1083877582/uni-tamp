@@ -244,22 +244,31 @@ export default {
 	
 	//跳转 MP4或者图片区域
 	toMp4OrImg (type) {
-		let routeParams={buildingId:this.buildingId,userId:this.userId,NetworkType:this.NetworkType}
+		let routeParams={buildingId:this.buildingId,NetworkType:this.NetworkType};
+		if(this.userId){
+			routeParams['routeParams'] = this.userId;
+		}
 		if(type==='img'){//楼盘相册
-			this.goWebView('/housePhoto')
+			this.goWebView('/housePhoto',routeParams)
 		}else{
-			this.goWebView('/videoPlayer')
+			this.goWebView('/videoPlayer',routeParams)
 		}	
 	},
 	
 	//地图
 	toMap () {
-		let routeParams={buildingId:this.buildingId,userId:this.userId};
-		this.goWebView('/peripheral',routeParams)
+		let { baseInfo }=this;
+		let routeParams={
+			buildingName:baseInfo.buildingAlias
+		};
+		this.goWebView(`/peripheral/${baseInfo.lng}-${baseInfo.lat}`,routeParams)
 	},
 	//查看详情
 	goBuildingDetailMore () {
-		let routeParams={buildingId:this.buildingId,userId:this.userId};
+		let routeParams={buildingId:this.buildingId};
+		if(this.userId){
+			routeParams['userId'] = this.userId;
+		}
 		this.goWebView('/moreBuildDetail',routeParams)
 	},
 	//去webview
@@ -267,8 +276,9 @@ export default {
 		let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
 		let pathParams='';//获取路由参数
 		routeParams=routeParams||{};
-		Object.keys(routeParams).forEach(keyStr=>{
-			pathParams+=`${keyStr}=${routeParams[keyStr]}`				})
+		Object.keys(routeParams).forEach((keyStr,index)=>{
+			pathParams+= index>0?`&${keyStr}=${routeParams[keyStr]}`:`${keyStr}=${routeParams[keyStr]}`;				
+		})
 		if( this.$cache.getCache('toMWebpath')){
 			this.$cache.removeCache('toMWebpath');
 		}
