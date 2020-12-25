@@ -156,7 +156,7 @@
 				{
                     "path" : "login/login",
                     "style" : {
-						"navigationBarTitleText": "登录云房",
+						"navigationBarTitleText": "登录窝记",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -167,7 +167,7 @@
 				{
 					"path": "login/telLogin",
 					"style": {
-						"navigationBarTitleText": "登录云房",
+						"navigationBarTitleText": "登录窝记",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -177,7 +177,7 @@
 				{
 					"path": "login/agreement",
 					"style": {
-						"navigationBarTitleText": "云房产品使用协议",
+						"navigationBarTitleText": "窝记产品使用协议",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -209,7 +209,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "同策好房",
+		"navigationBarTitleText": "窝记好房",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8"
 	}

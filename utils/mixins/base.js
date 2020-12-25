@@ -26,7 +26,7 @@ export default{
 			},
             //设置默认的分享参数
             share:{
-                title:'云房',
+                title:'窝记',
                 path:'',
                 imageUrl:'',
             }

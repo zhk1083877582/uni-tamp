@@ -319,8 +319,8 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-page{
-	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
+/deep/page{
+	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%) !important;
 }
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
