@@ -54,7 +54,7 @@
 								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
 							</view> 
 							<view class="rows">
-								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.constructionArea||'-'}}<text>㎡</text></text>
+								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea||'-'}}<text>㎡</text></text>
 							</view> 
 							<view class="rows">
 								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
