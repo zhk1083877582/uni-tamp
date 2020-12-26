@@ -17,8 +17,8 @@ export default {
 	responseType: 'json',
 	baseURL: {
 		// target: 'http://172.16.9.58:8100', // 开发版接口
-		// target: 'https://tcwgwdev.tospur.com:18443', // 开发版本接口
-		target: 'https://ztwgwtest.tospur.com', // 测试版接口  
+		target: 'https://tcwgwdev.tospur.com:18443', // 开发版本接口
+		// target: 'https://ztwgwtest.tospur.com', // 测试版接口  
 		  // target: 'https://tcwgwstag.tospur.com', // 预发布接口
 		// target: 'https://tcstag.tospur.com',
 		// target: 'https://tcwgwprod.tospurhf.com', // 正式环境接口

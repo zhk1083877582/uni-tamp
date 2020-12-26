@@ -32,7 +32,7 @@
 		<!-- 置业需求 -->
 		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention'></demand>
 		<!-- 方案推荐 -->
-		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
+		<recommend class="part2" v-if="recommendation!=null||buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
 		<!-- 公共组件 -->
 		<view v-for="(item,index) in articleList" :key="index">
 			<public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
@@ -157,14 +157,15 @@ export default {
 				this.changeScrollTabsShow('demand',isShowDemand)
 				
 				//推荐方案
-				this.recommendation = res.recommendation!=null?res.recommendation.list:null;
+				this.recommendation = res.recommendation!=null?res.recommendation:null;
 				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo:null;
 				let isShowRecommend = res.recommendation != null&&res.buildingInfo!=null?true:false;
+				console.log(isShowRecommend,'11111111111')
 				//添加title
 				this.recommendation&&this.recommendation.forEach((item,index)=>{
 					item.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(index+1)
+					item.houseType = `${item.bedroom||'-'}室${item.parlor||'-'}厅${item.kitchen||'-'}厨${item.bathroom||'-'}卫`
 				})
-				this.recommendation
 				this.changeScrollTabsShow('recommend',isShowRecommend)
 				
 				//公共样式列表

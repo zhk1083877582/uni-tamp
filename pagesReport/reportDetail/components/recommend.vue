@@ -42,13 +42,13 @@
 					<view class="change_box_warp">
 						<view class="change_box">
 							<view class="change_image_warp">
-								<image class="change_image" :src="item.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
+								<image class="change_image" :src="item.houseTypeImg?item.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeDetail?item.houseTypeDetail.houseTypeName:'-'}}</text>
+								<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeName?item.houseTypeName:'-'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail?item.houseTypeDetail.houseType:'-'}}</text>
+								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseType?item.houseType:'-'}}</text>
 							</view>
 							<view class="rows">
 								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>

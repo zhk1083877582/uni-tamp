@@ -119,32 +119,32 @@
 												</u-tabs>
 												
 												<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
-													<swiper-item v-for="(itemR,index) in item.recommendation.list" :key="index">			
+													<swiper-item v-for="(itemR,index) in item.recommendation" :key="index">			
 														<view class="change_box_warp">
 															<view class="change_box">
 																<view class="change_image_warp">
-																	<image class="change_image" :src="itemR.houseTypeDetail?item.houseTypeDetail.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
+																	<image class="change_image" :src="itemR.houseTypeImg?itemR.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeDetail?itemR.houseTypeDetail.houseTypeName:'-'}}</text>
+																	<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeName?itemR.houseTypeName:'-'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseTypeDetail?itemR.houseTypeDetail.houseType:'-'}}</text>
+																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{`${item.bedroom||'-'}室${item.parlor||'-'}厅${item.kitchen||'-'}厨${item.bathroom||'-'}卫`}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
+																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.houseNumber||'-'}}</text>
 																</view> 
 																<view class="rows">
-																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea||'-'}}<text>㎡</text></text>
+																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{itemR.houseArea||'-'}}<text>㎡</text></text>
 																</view> 
 																<view class="rows">
-																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
+																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemR.houseTotalPrice||'-'}}万元</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay||'-'}}万元</text>
+																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay||'-'}}万元</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
+																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay||'-'}}元</text>
 																	<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
 																		<i class="iconfont iconwenhao question"></i>
 																		<view class="tool_tip" v-show="isShowTooltip">
