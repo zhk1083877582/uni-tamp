@@ -80,6 +80,7 @@ const FM = {
     this.cache = FM;
   };
   Formatter.prototype.switchName = function (name, key) { //字段格式化查询
+	if(!key) return '-';
     let formatter = this.cache[name];
     return this.switchFormatter(formatter, key);
   };

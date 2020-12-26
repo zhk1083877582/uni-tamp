@@ -32,7 +32,7 @@
 		<!-- 置业需求 -->
 		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention'></demand>
 		<!-- 方案推荐 -->
-		<recommend class="part2" v-if="recommendation!=null||buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
+		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
 		<!-- 公共组件 -->
 		<view v-for="(item,index) in articleList" :key="index">
 			<public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
