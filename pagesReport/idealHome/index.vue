@@ -53,7 +53,7 @@
 				</view>
 			</view>
 			
-			<view class="main_content">
+			<view class="main_content" style="margin-bottom: 0;">
 				<view class="box">
 					<view class="lable">
 						考虑因素：
@@ -115,18 +115,27 @@ export default {
 	}
 }
 </script>
+<style lang='scss'>
+	page{
+		background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
+	}
+</style>
 <style lang='scss' scoped>
 .ideal_home_warp{
-	background-color: #062471;
-	position: relative;
+	/* background-color: #062471; */
+	/* position: relative; */
+	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	width: 100%;
-	height: 100%;
+	display: flex;
+	justify-content: center;
+	/* height: 100%; */
+	padding: 56rpx 0;
 	.ideal_home{
-		position: absolute;
+		/* position: absolute;
 		top: 6%;
-		width: 91%;
 		left: 50%;
-		transform: translate(-50%);
+		transform: translate(-50%); */
+		width: 91%;
 		background-color: #FFFFFF;
 		border-radius: 20rpx;
 		.top_title {

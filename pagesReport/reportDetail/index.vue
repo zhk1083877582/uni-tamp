@@ -319,10 +319,12 @@ export default {
 	}
 }
 </script>
+<style lang='scss'>
+	page{
+		background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
+	}
+</style>
 <style lang='scss' scoped>
-/deep/page{
-	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%) !important;
-}
 .report_detail{
 	background: linear-gradient(181deg,#0A2056, #0D255F,#062471 99%);
 	/* height: 100%; */
