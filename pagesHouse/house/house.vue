@@ -424,13 +424,13 @@
 			getDynamicAndDate(openTimeList,dynamicList) {
 				let self=this;
 				let dateBaseInfoList =(openTimeList.list||[]).map(item=>{
-					item.evidenceDate = item.evidenceDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.evidenceDate * 1)) : '';
-					item.identifyChipsDate = item.identifyChipsDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.identifyChipsDate * 1)) : '';
-					item.openTime = item.openTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.openTime * 1)) : '';
+					item.evidenceDate = item.evidenceDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.evidenceDate)) : '';
+					item.identifyChipsDate = item.identifyChipsDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.identifyChipsDate)) : '';
+					item.openTime = item.openTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.openTime)) : '';
 					return item;
 				})
 				let dynamicBaseInfoList = (dynamicList.list||[]).map(item=>{
-					item.createTime = item.createTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.createTime * 1)) : '';
+					item.createTime = item.createTime ? self.$tool.dateFtt('yyyy-MM-dd hh:mm', new Date(item.createTime)) : '';
 					return item;
 				})
 				self.dongtaiInfo.isShow = ( dateBaseInfoList.length > 0 || dynamicBaseInfoList.length>0 ) ? true : false;

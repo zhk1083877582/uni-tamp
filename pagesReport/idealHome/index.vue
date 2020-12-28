@@ -29,7 +29,7 @@
 						贷款资质：
 					</view>
 					<view class="content">
-						{{resData.loanCondition==1?'首套':resData.housePurchaseCondition==2?'二套':'-'}}
+						{{resData.loanCondition==1?'首套':resData.loanCondition==2?'二套':'-'}}
 					</view>
 				</view>
 			</view>

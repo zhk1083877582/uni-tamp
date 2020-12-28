@@ -11,7 +11,7 @@
 						<text>{{userInfo.userName||'-'}}</text><text class="years">{{userInfo.workExperience||'-'}}年</text>
 					</view>
 					<view class="num">
-						<text>服务人数：</text><text>{{userInfo.servedPeopleNum}}人</text>
+						<text>服务人数：</text><text>{{userInfo.servedPeopleNum||'-'}}人</text>
 					</view>
 				</view>
 			</view>

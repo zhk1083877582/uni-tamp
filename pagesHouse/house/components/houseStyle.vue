@@ -12,7 +12,7 @@
 					<view class="houseStyleMess_imgDivBottom">{{item.houseTypeName}}</view>
 				</view>
 				<view>
-					<text class="houseStyleMess_style">{{item.houseType}}</text>
+					<text class="houseStyleMess_style">{{item.houseType||'-'}}</text>
 					<!-- (1:待售 2:在售 3:售罄) -->
 					<text class="houseStyleMess_spans " v-if="item.salesStatus=='1'">待售</text>
 					<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='2'">在售</text>

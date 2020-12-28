@@ -41,6 +41,7 @@
 			<view  class="houseShare_dynamic_timeing" v-for="(item,index) in dynamicBaseInfoList" :key="index">
 				<view class="right-time">
 					<text class="time-circle"></text>
+					<text class="leftTimes_line"></text>
 					<text >{{item.createTime}}</text>
 				</view>
 				<view class="right-title">{{item.title}}</view> 
@@ -230,6 +231,9 @@
 		//list
 
 		.houseShare_dynamic_timeing{
+			position: relative;
+			padding-bottom: 20rpx;
+			// overflow: hidden;
 			.right-time {
 				// width: 210rpx;
 				height: 24rpx;
@@ -246,6 +250,13 @@
 				border-radius: 50% 50%;
 				background: #d8d8d8;
 			}
+			.leftTimes_line{
+				position: absolute;
+				height: 100%;
+				left: 4px;
+				border-left: 1px solid #d8d8d8;
+				top: 4rpx;
+			}
 			.right-title {
 				font-size: 30rpx;
 				color: #141414;
@@ -256,7 +267,6 @@
 				color: #666666;
 				font-size: 26rpx;
 				margin-left: 18rpx;
-				margin-bottom: 20rpx;
 				display: -webkit-box;
 				-webkit-line-clamp: 3;
 				overflow: hidden;
