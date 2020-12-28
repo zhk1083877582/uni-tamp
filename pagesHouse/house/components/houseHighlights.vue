@@ -4,7 +4,7 @@
 		<title-info text="楼盘亮点" ></title-info>
 		<view class="img-container" v-if="highlightsInfo.type==1">
 			<view class="img-item">
-				<image class="img" v-for="(item,index) in highlightsInfo.list" :key="index" :src="item.annexPath" mode=""></image>
+				<image class="img" v-for="(item,index) in highlightsInfo.list" :key="index" :src="item.annexPath" mode="scaleToFill"></image>
 			</view>
 		</view>
 		<view class="img-container" v-if="highlightsInfo.type==2">
@@ -13,7 +13,7 @@
 				 indicator-pos="bottomCenter" @change="doSwiper"></u-swiper>
 			</view>
 			<view v-else class="img-item">
-				<image  v-for="(item,index) in highlightsInfo.list" :key="index" :src="item.annexPath" mode=""></image>
+				<image  v-for="(item,index) in highlightsInfo.list" :key="index" :src="item.annexPath" mode="scaleToFill"></image>
 			</view>
 			<view class="des">
 				<view class="des-title">{{highlightsInfo['list'][active].title}}</view>

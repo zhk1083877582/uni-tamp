@@ -36,7 +36,7 @@
 	<view class="base-info">
 		<view class="baseInfo-flag1">
 			<view class="flag1-alias">
-				{{baseInfo.buildingAlias}}
+				{{baseInfo.buildingAlias||''}}
 			</view>
 			<view class="flag1-propertytypeAndstatus">
 				<text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypeList" :key="index">
@@ -125,7 +125,7 @@ export default {
   },
   data () {
     return {
-	  defaultImg:'/static/pic_default_small@2x.png',//默认图片
+	  defaultImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg',//默认图片
       imgList: [],
       activeNo: 0,//当前轮播的是第几张图片
       mp4Start: 0,//mp4
@@ -244,7 +244,7 @@ export default {
 	
 	//跳转 MP4或者图片区域
 	toMp4OrImg (type) {
-		let routeParams={buildingId:this.buildingId,NetworkType:this.NetworkType};
+		let routeParams={buildingId:this.buildingId,NetworkType:this.NetworkType,fromAppName:'xcx'};
 		if(this.userId){
 			routeParams['routeParams'] = this.userId;
 		}

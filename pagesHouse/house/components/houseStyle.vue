@@ -7,25 +7,26 @@
 		</view>
 		<view class="list houseStyleMess">
 			<view  class="houseStyleMess_all"  v-for="(item,index) in styleList" :key="index" @click="toHouseStyleDetail(item)">
-			  <view class="houseStyleMess_imgDiv" >
-				  <image class="houseStyleMess_img" :src="item.annexPath?item.annexPath+'?x-oss-process=image/resize,h_165,w_200' :'/static/pic_default_small@2x.png'" mode=""></image>
-				  <view class="houseStyleMess_imgDivBottom">{{item.houseTypeName}}</view>
-			  </view>
-			  <view>
-				<text class="houseStyleMess_style">{{item.houseType}}</text>
-				<!-- (1:待售 2:在售 3:售罄) -->
-				<text class="houseStyleMess_spans " v-if="item.salesStatus=='1'">待售</text>
-				<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='2'">在售</text>
-				<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='3'">售罄</text>
-			  </view>
-			  <view class="houseStyleMess_area">
-				<text>建面约{{item.constructionArea}}㎡</text>
-				<text class="houseStyleMess_area_span">{{item.orientedLabel?'朝向 '+item.orientedLabel:''}}</text>
-			  </view>
-			  <view class="houseStyleMess_price">{{item.totalPrice?'总价约'+item.totalPrice+'万':''}}</view>
-			  <view class="houBtn" @click.stop="toOtherPage()">
-			  	咨询首付和贷款
-			  </view>
+				<view class="houseStyleMess_imgDiv" >
+					<image class="houseStyleMess_img" :src="item.annexPath?item.annexPath+'?x-oss-process=image/resize,h_165,w_200' :'/static/pic_default_small@2x.png'" mode=""></image>
+					<view class="houseStyleMess_imgDivBottom">{{item.houseTypeName}}</view>
+				</view>
+				<view>
+					<text class="houseStyleMess_style">{{item.houseType}}</text>
+					<!-- (1:待售 2:在售 3:售罄) -->
+					<text class="houseStyleMess_spans " v-if="item.salesStatus=='1'">待售</text>
+					<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='2'">在售</text>
+					<text class="houseStyleMess_spans " v-else-if="item.salesStatus=='3'">售罄</text>
+				</view>
+				<view class="houseStyleMess_area">
+					<text>建面约{{item.constructionArea}}㎡</text>
+					<text class="houseStyleMess_area_span">{{item.orientedLabel?'朝向 '+item.orientedLabel:''}}</text>
+				</view>
+				<view class="houseStyleMess_price">{{item.totalPrice?'总价约'+item.totalPrice+'万':''}}</view>
+			  
+				<view class="houBtn" @click.stop="toOtherPage()">
+					咨询首付和贷款
+				</view>
 			</view>
 			
 		</view>
@@ -123,10 +124,30 @@
 			},
 			// 户型详情
 			toHouseStyleDetail(item){
-				// console.log(555,item)
-				// return 
+				let obj={
+					buildingId:this.buildingId,
+					houseTypeId:item.houseTypeId,
+					userId:this.userId,
+					fromAppName:'xcx'
+				}
+				this.goWebView('/houseTypeDetails',obj)
+			},
+			//去webview
+			goWebView(routeName,routeParams,toPath){
+				let mWebSite = this.$tool.getOtherWebSite();//获取跳转域名
+				let pathParams='';//获取路由参数
+				routeParams=routeParams||{};
+				Object.keys(routeParams).forEach((keyStr,index)=>{
+					pathParams+= index>0?`&${keyStr}=${routeParams[keyStr]}`:`${keyStr}=${routeParams[keyStr]}`;				
+				})
+				if( this.$cache.getCache('toMWebpath')){
+					this.$cache.removeCache('toMWebpath');
+				}
+				this.$cache.setCache('toMWebpath',{
+					toMWebpath:toPath||`${mWebSite}#${routeName}?${pathParams}`
+				})
 				uni.navigateTo({
-				   url: '../houseTypeDetails/houseTypeDetails?buildingId='+this.buildingId+'&houseTypeId='+item.id
+				  url: '/pagesHouse/webView/webView'
 				});
 			},
 			  //销售类型转换

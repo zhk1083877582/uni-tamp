@@ -43,7 +43,7 @@
 		</house-periphery>
 		<!-- 楼盘亮点 -->
 		<house-highlights :class="scrollTabs['highlights']['cl']"
-			 v-if="isShowHighlights" 
+			 v-if="scrollTabs['highlights'].isShow" 
 			:highlightsInfo="highlightsInfo">
 		</house-highlights>
 		<!-- 免责声明 -->
@@ -533,6 +533,7 @@
 					this.highlightsInfo.list  = brightSpotTemplateList;
 				}
 				if(this.highlightsInfo.list.length){
+					this.isShowHighlights = true
 					this.scrollTabs.highlights.isShow = true;
 				}
 			},
