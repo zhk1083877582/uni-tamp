@@ -87,6 +87,16 @@
 					</view>
 				</view>
 			</view>
+			<view class="main_content">
+				<view class="box">
+					<view class="lable">
+						关注重点：
+					</view>
+					<view class="content">
+						{{resData.customerFocusText?resData.customerFocusText:'-'}}
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </view>
@@ -217,6 +227,7 @@ export default {
 						font-size: 28rpx;
 						color: #141414;
 						line-height: 32rpx;
+						flex: 1;
 					}
 					.column{
 						display: flex;
