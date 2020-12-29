@@ -104,9 +104,9 @@ export default {
   
   methods:{
 	//跳转楼盘详情
-	doToBulidingInfo (buildingId) {
+	doToBulidingInfo () {
 		uni.navigateTo({
-		   url: '/pagesHouse/house/house?buildingId='+ buildingId + '&userId='+ this.userId
+		   url: '/pagesHouse/house/house?buildingId='+ this.buildingId + '&userId='+ this.userId
 		});
 	},
 	doFormatAveragePrice(type,averagePrice){ //均价格式化
