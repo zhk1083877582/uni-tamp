@@ -70,10 +70,10 @@
 							<view class="second_label">地铁</view><view class="right_text"><text>{{resData.intentionSubway || '-'}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">学区</view><view class="right_text"><text>{{resData.intentionSchoolDistrict || '-'}}</text></view>
+							<view class="second_label">学区</view><view class="right_text"><text>{{resData.intentionSchoolDistrict || '不限'}}</text></view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet || '-'}}</text></view>
+							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet || '不限'}}</text></view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">面积</view><view class="right_text"><text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text></view>
