@@ -423,7 +423,7 @@ export default {
 		},
 		getinitData(){
 			let params = {
-				customerId:2//this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+				customerId:this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 			}
 			getData("/business/home/cAppHome",params).then((res)=>{
 				if(JSON.stringify(res) == '[]'){
@@ -438,7 +438,7 @@ export default {
 					itemT.buildingTagArr = buildingTagArr
 				})
 				res.forEach((itemR,index)=>{
-					itemR.recommendation.list && itemR.recommendation.list.forEach((itemY,indexY)=>{
+					itemR.recommendation && itemR.recommendation.list.forEach((itemY,indexY)=>{
 						itemY.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(indexY+1)
 					})
 					

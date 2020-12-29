@@ -29,7 +29,7 @@
 						贷款资质：
 					</view>
 					<view class="content">
-						{{resData.loanCondition==1?'首套':resData.loanCondition==2?'二套':'-'}}
+						{{getformatloanCondition(resData.loanCondition)}}
 					</view>
 				</view>
 			</view>
@@ -99,10 +99,34 @@ export default {
 			resData:null
 		};
 	},
-	computed: {},
+	computed: {
+		
+	},
 	watch: {},
 	methods: {
-
+		getformatloanCondition(type){
+			
+			let loanConditionStr = '';
+			switch (type){
+				case '1':
+					loanConditionStr = '有'
+					break;
+				case '2':
+					loanConditionStr = '无'
+					break;
+				case '3':
+					loanConditionStr = '首套'
+					break;
+				case '4':
+					loanConditionStr = '二套'
+					break;
+				default:
+					loanConditionStr = '-'
+					break;
+			}
+			console.log(type,loanConditionStr,'loanConditionStrloanConditionStr')
+			return loanConditionStr
+		}
 	},
 	created() {
 

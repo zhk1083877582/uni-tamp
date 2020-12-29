@@ -23,15 +23,19 @@
 			</view>
 			<view class="flag1-propertytypeAndstatus">
 				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</text>
-				<text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypes" :key="index">
+				<!-- <text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypes" :key="index">
 					{{getPropertyType(item)}}
-				</text>
+				</text> -->
+				<text class="flag1-item flag1-propertytype" v-if="!!baseInfo.propertyTypes">{{getPropertyType(baseInfo.propertyTypes.length>0&&baseInfo.propertyTypes!=null?baseInfo.propertyTypes[0]:'')}}</text>
 			</view>
 		</view>
 		<view class="baseInfo-flag2">
-			<text class="flag2-tag" v-for="(item,index) in baseInfo.buildingTags" :key="index">
-				{{item}}
-			</text>
+			<!-- <text class="flag2-tag" v-for="(item,index) in baseInfo.buildingTags" :key="index">
+				{{item.tagName}}
+			</text> -->
+			<view class="classify">
+				<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in baseInfo.buildingTags" :key="indexT">{{itemT.tagName}}</view></view>
+			</view>
 		</view>
 	</view>
 	
@@ -158,8 +162,11 @@ export default {
 	
 	// 物业类型
 	getPropertyType(type){
-		type = type*1-1;
-		return this.$formatter.cache.propertyType[type].value;
+		// type = type*1-1;
+		// return this.$formatter.cache.propertyType[type].value;
+		let newKey = ''
+		if(!type) return
+		return this.$formatter.switchName('propertyType',type)
 	},
 	
   }
@@ -274,7 +281,31 @@ export default {
 		border: 1rpx solid #2951b8;
 	}
 	.baseInfo-flag2{
-		padding-left: 30rpx;
+		padding: 0 30rpx;
+		.classify{
+			font-size: 20rpx;
+			overflow-y: hidden;
+			overflow-x: scroll;
+			height: 30rpx;
+			&::-webkit-scrollbar {display:none}
+			.claWarp{
+				height: 100%;
+				width: 200rpx;
+				display: flex;
+			}
+			.claCon{
+				display: block;
+				float: left;
+				margin-right: 8rpx;
+				height: 30rpx;
+				line-height: 30rpx;
+				padding: 0 6rpx;
+				color: #999999;
+				background-color: rgba(6,36,113,0.05);
+				border-radius:4rpx;
+				white-space: nowrap;
+			}
+		}
 	}
 	.flag2-tag{
 		min-width: 84rpx;

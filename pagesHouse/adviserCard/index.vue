@@ -26,7 +26,7 @@
 					<view class="serve">
 						<text class="iconfont iconren"></text>
 						<text class="count-flag"></text>
-						<text class="serve-num">服务{{adviserInfo.servedPeopleNum}}人</text>
+						<text class="serve-num">服务{{adviserInfo.servedPeopleNum||'-'}}人</text>
 					</view>
 				</view>
 				<view class="datail-tag">
@@ -235,7 +235,7 @@
 				console.log('----swiper',val)
 				this.swiperInfo.current = val.detail.current;
 				this.currentPlan = 0;
-				let item = this.baseInfo[val];
+				let item = this.baseInfo[val.detail.current];
 				//设置标题
 				uni.setNavigationBarTitle({ 
 					title: item.buildingAlias||item.buildingName,

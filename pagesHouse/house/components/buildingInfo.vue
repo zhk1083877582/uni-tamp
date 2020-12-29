@@ -42,7 +42,7 @@
 				<text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypeList" :key="index">
 					{{item}}
 				</text>
-				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}">{{baseInfo.salesStatusItem.label}}</text>
+				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}" v-if="baseInfo.salesStatusItem.label">{{baseInfo.salesStatusItem.label}}</text>
 			</view>
 		</view>
 		<view class="baseInfo-flag2">
@@ -443,8 +443,9 @@ export default {
 		margin-top:40rpx;
 	}
 	
-	// .baseInfo-flag1{
-	// }
+	.baseInfo-flag1{
+		display: flex;
+	}
 	
 	.flag1-alias,.flag1-propertytypeAndstatus{
 		display: inline-block;
