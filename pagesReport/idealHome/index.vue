@@ -56,7 +56,7 @@
 			<view class="main_content" style="margin-bottom: 0;">
 				<view class="box">
 					<view class="lable">
-						考虑因素：
+						意向需求：
 					</view>
 					<view class="content column">
 						<view class="item_view">
@@ -69,17 +69,20 @@
 						<view class="item_view">
 							<view class="second_label">地铁</view><view class="right_text"><text>{{resData.intentionSubway || '-'}}</text></view>
 						</view>
-						<view class="item_view">
+						<!-- <view class="item_view">
 							<view class="second_label">学区</view><view class="right_text"><text>{{resData.intentionSchoolDistrict || '不限'}}</text></view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet || '不限'}}</text></view>
-						</view>
+						</view> -->
 						<view class="item_view">
 							<view class="second_label">面积</view><view class="right_text"><text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text></view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}}</text></view>
+						</view>
+						<view class="item_view">
+							<view class="second_label">关注</view><view class="right_text"><text>{{resData.customerFocusText?resData.customerFocusText:'-'}}</text></view>
 						</view>
 					</view>
 				</view>

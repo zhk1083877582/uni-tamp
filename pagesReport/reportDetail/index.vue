@@ -92,6 +92,7 @@ export default {
 			questionList:null,//问答列表
 			recommendation:null, //推荐方案
 			buildingInfo:null,
+			LabelCategoryList:[],//关注重点字典
 			
 			userName:'',
 			userId:'',//顾问ID
@@ -152,6 +153,9 @@ export default {
 				console.log('置业报告详情数据',res)
 				let self = this
 				//置业需求
+				if(res.customerIntention&&res.customerIntention.customerFocus){
+					res.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,res.customerIntention.customerFocus)
+				}
 				this.customerIntention = res.customerIntention;
 				let isShowDemand = res.customerIntention != null?true:false;
 				this.changeScrollTabsShow('demand',isShowDemand)
@@ -228,7 +232,29 @@ export default {
 			}).catch(err=>{
 				console.log(err)
 			})
-		}	
+		},
+		//关注重点
+		getLabelCategory(){
+			getData('/business/customer/getLabelCategory').then((res)=>{
+				this.LabelCategoryList = res.list
+				console.log('关注重点',res)
+			}).catch(err=>{
+				console.log('关注重点',err)
+			})
+		},
+		//关注重点转换
+		formatLabelCategory(list,key){
+			if(!key) return '-'
+			let keyArr = [],arr=[]
+			keyArr = key.length>1?key.split(','):keyArr.push(key)
+			list.forEach((item,index)=>{
+				keyArr.forEach((itemT,indexT)=>{
+					if(itemT==item.labelId)
+						arr.push(item.ztLabelType)
+				})
+			})
+			return arr.join('、')
+		}
 	},
 	created() {
 
@@ -240,6 +266,7 @@ export default {
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
+		this.getLabelCategory();
 		this.reportId = option.reportId
 		this.getReportData(option.reportId);
 		this.beginTime = (new Date()).getTime()

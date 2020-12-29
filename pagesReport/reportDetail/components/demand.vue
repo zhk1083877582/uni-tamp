@@ -33,9 +33,9 @@
 				</view>
 				<view class="rows">
 					<view class="col col_bottom">
-						<view class="title">考虑因素</view>
+						<view class="title">关注重点</view>
 						<view class="content_text">
-							{{resData.considerFactor||'-'}}
+							{{resData.customerFocusText||'-'}}
 						</view>
 					</view>
 				</view>

@@ -90,7 +90,7 @@
 												</view>
 												<view class="rows">
 													<view class="col col_bottom">
-														<view class="title">考虑因素</view>
+														<view class="title">关注重点</view>
 														<view class="content_text">
 															{{item.customerIntention.considerFactor}}
 														</view>
@@ -269,6 +269,7 @@ export default {
 			curr:0,
 			authorize:true,
 			journeyArr:[],
+			LabelCategoryList:[],//关注重点字典
 		
 			// 方案
 			currentPlan: 0,
@@ -438,6 +439,10 @@ export default {
 					itemT.buildingTagArr = buildingTagArr
 				})
 				res.forEach((itemR,index)=>{
+					//置业需求
+					if(itemR.customerIntention&&itemR.customerIntention.customerFocus){
+						itemR.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,itemR.customerIntention.customerFocus)
+					}
 					itemR.recommendation && itemR.recommendation.list.forEach((itemY,indexY)=>{
 						itemY.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(indexY+1)
 					})
@@ -481,6 +486,28 @@ export default {
 		 } 
 		  }).exec(); 
 		},
+		//关注重点
+		getLabelCategory(){
+			getData('/business/customer/getLabelCategory').then((res)=>{
+				this.LabelCategoryList = res.list
+				console.log('关注重点',res)
+			}).catch(err=>{
+				console.log('关注重点',err)
+			})
+		},
+		//关注重点转换
+		formatLabelCategory(list,key){
+			if(!key) return '-'
+			let keyArr = [],arr=[]
+			keyArr = key.length>1?key.split(','):keyArr.push(key)
+			list.forEach((item,index)=>{
+				keyArr.forEach((itemT,indexT)=>{
+					if(itemT==item.labelId)
+						arr.push(item.ztLabelType)
+				})
+			})
+			return arr.join('、')
+		}
 	},
 	created() {
 	
@@ -491,6 +518,7 @@ export default {
 	},
 	onLoad(option){
 		console.log('-----首页',this.$cache.getCache('M-Token'))
+		this.getLabelCategory()
 		// this.getUserInfo();
 		let customerId = this.$cache.getCache('Login-Data').customerInfo?this.$cache.getCache('Login-Data').customerInfo.customerId:''
 		this.userPhone = this.$cache.getCache('Login-Data').customerInfo?this.$cache.getCache('Login-Data').customerInfo.phone:'';
