@@ -110,6 +110,7 @@
 		},
 		data() {
 			return {
+				buildingIdX:'',//app扫码进来，带过来buildingId时
 				userId:'',
 				listArr:['1111','222','333'],
 				configPicture:'',//楼盘配置图，如果不存在取c-app的封面图
@@ -138,11 +139,13 @@
 					obj[key] = item.split('=')[1];
 				});
 				this.userId = obj.userId;
+				this.buildingIdX = obj.buildingId;
 			} else {
 				this.userId = option.userId;
+				this.buildingIdX = option.buildingId;
 			}
 			this.initUserInfo();//管家信息
-			this.initBaseInfo();//楼盘信息
+			// this.initBaseInfo();//楼盘信息
 			
 			
 			if(!this.$cache.getCache('M-Token')){
@@ -224,12 +227,31 @@
 							this.$cache.setCache('Login-Data', res);
 							this.showAuthorize = false;
 							this.initUserInfo();//管家信息
-							this.initBaseInfo();//楼盘信息
+							// this.initBaseInfo();//楼盘信息
+							console.log('--------授权',res)
+							// this.doAddCustorm()
 						})
 						.catch(err => {
 							console.log('请求结果报错', err);
 						});
 				}
+			},
+			
+			// 把当前手机号推进客户池
+			doAddCustorm(phone,customerId){
+				let params={
+					customerId:customerId,
+					phone:phone,
+					buildingId:this.buildingIdX,
+					userId:this.userId,
+				}
+				let api = '/userAuthServer/noToken/wx/wxLogin';
+				getData(api, params)
+					.then(res => {
+					})
+					.catch(err => {
+						console.log('请求结果报错', err);
+					});
 			},
 			
 			doChangeSwipe(val){
@@ -269,7 +291,7 @@
 					.then(res => {
 						console.log('管家信息',res);
 						this.share.title = `置业顾问【${res.userName?res.userName:'-'}】`
-						let {expertiseFields=[]} = res;
+						let {expertiseFields=[],buildingInfos=[]} = res;
 						for(let i=0,fieldsLen=expertiseFields.length;i<fieldsLen;i++){
 							if(i<(fieldsLen-1)){
 								expertiseFields[i] +='、';
@@ -285,15 +307,22 @@
 						}
 						self.adviserInfo = res
 						
+						//获取buildingIds
+						let buildingIds=buildingInfos.map(item1=>{
+							return item1.buildingId;
+						});
+						self.initBaseInfo(buildingIds)
+						
+						
 					})
 					.catch(err => {
 						console.log('管家信息', err);
 					});
 			},
 			// 楼盘-图片信息|基本信息
-			initBaseInfo(){
+			initBaseInfo(buildingIds){
 				let params = {
-					userId: this.userId
+					buildingIds:buildingIds,
 				};
 				let self =this;
 				getBuildingBaseInfo('/business/noToken/home/userServedBuilding', params)
