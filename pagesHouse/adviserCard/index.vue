@@ -129,7 +129,7 @@
 			}
 		},
 		onLoad(option){
-			console.log('-------进入管家名片')
+			console.log('-------进入管家名片',option)
 			if (option.scene) {
 				const scene = decodeURIComponent(option.scene);
 				let obj = {};
@@ -298,7 +298,7 @@
 				let self =this;
 				getBuildingBaseInfo('/business/noToken/home/userServedBuilding', params)
 					.then(res => {
-						console.log('----楼盘信息', res);
+						console.log('----楼盘信息--', res);
 						
 						let arr = (res||[]).map(item=>{
 							item.referenceAveragePrice = item.referenceAveragePrice?parseInt(item.referenceAveragePrice):item.referenceAveragePrice;
@@ -318,7 +318,7 @@
 							})
 							// console.log('====vrArr',vrArr)
 							let imgArr = [annexVOS[0]];
-							console.log('====imgArr',imgArr)
+							// console.log('====imgArr',imgArr)
 							item.mp4Picture = mp4Arr[0]?mp4Arr[0].annexPath:'';
 							item.vrPicture =  vrArr[0]?vrArr[0].annexPath:'';
 							item.imgPicture = imgArr[0]?imgArr[0].annexPath:'';
@@ -327,7 +327,7 @@
 						})
 						
 						self.baseInfo = arr;
-						console.log('----楼盘信息1',arr)
+						// console.log('----楼盘信息1',arr)
 						//设置标题
 						uni.setNavigationBarTitle({ 
 							title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
