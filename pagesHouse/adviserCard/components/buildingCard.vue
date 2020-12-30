@@ -66,7 +66,7 @@
 				在售户型:{{baseInfo.houseType?baseInfo.houseType+'室':'待定'}}
 			</text>
 			<text class="other-item">
-				开盘时间:{{baseInfo.openTime||'开盘待定'}}
+				开盘时间:{{baseInfo.openTime?$tool.DateFormat('yyyy-MM-dd',new Date(baseInfo.openTime)):'开盘待定'}}
 			</text>
 		</view>
 	</view>

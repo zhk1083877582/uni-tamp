@@ -105,7 +105,7 @@
 											<view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
 											<u-tabs
 												name='tableTitle' 
-												:list="item.recommendation.list" 
+												:list="item.recommendation" 
 												:is-scroll="true" 
 												:current="currentPlan" 
 												@change="changePlanTab" 
@@ -187,7 +187,7 @@
 																	<image class="img" :src="itemL.userHeadPhoto?itemL.userHeadPhoto:defaultHead" mode="circle"></image>
 																</view>
 																<view class="keeper_name">
-																	<text class="keeper_name_text">{{itemL.userName?itemL.userName:'--'}}</text> <i class="iconfont icondianhua" @click.stop="tellPhone"></i>
+																	<text class="keeper_name_text">{{itemL.userName?itemL.userName:'--'}}</text> <i class="iconfont icondianhua" :id="itemL.userId" @click.stop="e=>tellPhone(e,itemL)"></i>
 																</view>
 															</view>
 														</view>
@@ -278,7 +278,7 @@ export default {
 			currPlan:0,
 			
 			userPhone:'',
-			
+			userInfo:{},
 			//退出登录参数
 			showGetOut:false,
 			GetOutcontent:'退出登录后将无法查看订单，重新登录即可查看',
@@ -298,13 +298,7 @@ export default {
 			
 			// 未登录时首页banner数据
 			bannerList: [{
-					image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-				},
-				{
-					image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-				},
-				{
-					image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
+					image: 'https://media.tongcehaofang.com/image/default/F1DF769249794F33A1F1314B5E8E7981-6-2.jpg',
 				}
 			],
 		};
@@ -368,6 +362,7 @@ export default {
 			console.log(val)
 			this.curr = val.detail.current;
 			this.currentPlan = 0;
+			this.currPlan = 0;
 			this.isShowTooltip = false;//月供切换隐藏
 		},
 		//方案swiper
@@ -397,20 +392,41 @@ export default {
 			});
 		},
 		// 拨打电话
-		tellPhone(){
-			console.log('拨打电话')
-			uni.makePhoneCall({
-				// 手机号
-				phoneNumber: '114',
-				// 成功回调
-				success: (res) => {
-					// potentialCustomersInfo('',saveParams)
-				},
-				// 失败回调
-				fail: (res) => {
-					console.log('调用失败!')
-				}
+		tellPhone(e,item){
+			let self = this
+			let params = {
+				userId: e.currentTarget.id
+			};
+			getData('/business/noToken/user/getUserCardDetail', params)
+				.then(res => {
+			console.log('管家信息',res)
+				self.userInfo = res
+			})
+			.catch(err => {
+				console.log('管家信息', err);
 			});
+			if(!self.userInfo.fourPhone||!self.userInfo.extensionNumber){
+				uni.showToast({
+					title: '暂无顾问电话',
+					icon: 'none',
+					duration: 5000
+				});
+				return 
+			}
+			
+			uni.makePhoneCall({
+			// 手机号
+			phoneNumber: self.userInfo.fourPhone + self.userInfo.extensionNumber,
+			// 成功回调
+			success: (res) => {
+				console.log('调用成功!') 
+				// potentialCustomersInfo('',saveParams)
+			},
+			// 失败回调
+			fail: (res) => {
+				console.log('调用失败!')
+			}
+			})
 		},
 		toReportDetail(reportId){
 			uni.navigateTo({
@@ -443,7 +459,8 @@ export default {
 					if(itemR.customerIntention&&itemR.customerIntention.customerFocus){
 						itemR.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,itemR.customerIntention.customerFocus)
 					}
-					itemR.recommendation && itemR.recommendation.list.forEach((itemY,indexY)=>{
+					console.log(itemR)
+					itemR.recommendation && itemR.recommendation.forEach((itemY,indexY)=>{
 						itemY.tableTitle = '方案'+this.$tool.Arabia_To_SimplifiedChinese(indexY+1)
 					})
 					
@@ -473,6 +490,7 @@ export default {
 				this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 				this.ReportLog()
 			}).catch(err=>{
+				this.ishowbuilding = false;
 				console.log(err)
 			})
 		},
