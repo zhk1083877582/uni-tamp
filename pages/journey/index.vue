@@ -136,7 +136,7 @@
 																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{`${itemR.bedroom||'-'}室${itemR.parlor||'-'}厅${itemR.kitchen||'-'}厨${itemR.bathroom||'-'}卫`}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.houseNumber||'-'}}</text>
+																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.buildingNumber}}栋{{itemR.houseNumber||'-'}}室</text>
 																</view> 
 																<view class="rows">
 																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{itemR.houseArea||'-'}}<text>㎡</text></text>
@@ -527,13 +527,21 @@ export default {
 		formatLabelCategory(list,key){
 			if(!key) return '-'
 			let keyArr = [],arr=[]
-			keyArr = key.length>1?key.split(','):keyArr.push(key)
-			list.forEach((item,index)=>{
-				keyArr.forEach((itemT,indexT)=>{
-					if(itemT==item.labelId)
-						arr.push(item.ztLabelType)
-				})
-			})
+			if(key.length>1){
+			    keyArr = key.split(',')
+			    list.forEach((item,index)=>{
+			      keyArr.forEach((itemT,indexT)=>{
+			        if(itemT==item.labelId)
+			          arr.push(item.ztLabelType)
+			      })
+			    })
+			}else{
+			    list.forEach((item,index)=>{
+			        if(key==item.labelId){
+			          arr.push(item.ztLabelType)
+			        }
+			    })
+			}
 			return arr.join('、')
 		}
 	},

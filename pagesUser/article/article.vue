@@ -14,6 +14,9 @@
 				<jyf-parser :html="articleData.articleContent" ref="article"></jyf-parser>
 			</view>
 		</view>	
+		<view class="fixed_bottom">
+			<foot-bottom :userId='userId' v-if="userId&&buildingId" :buildingId="buildingId"></foot-bottom>
+		</view>
 		<u-mask :show="showAuthorize" mask-click-able="false">
 			<view class="showAuthorize_warp" @tap.stop>
 				<view class="authorize_title">
@@ -33,9 +36,11 @@
 <script>
 import { getData } from '@/request/api';
 import jyfParser from "@/components/jyf-parser/jyf-parser.vue";
+import footBottom from "@/components/footer/index.vue";
 export default {
 	components: {
-		jyfParser
+		jyfParser,
+		footBottom
 	},
 	data() {
 		return {
@@ -43,7 +48,8 @@ export default {
 			articleData:{},
 			beginTime:'',
 			userId:'',
-			showAuthorize:false
+			showAuthorize:false,
+			buildingId:''
 		};
 	},
 	computed: {},
@@ -129,9 +135,24 @@ export default {
 	},
 	onLoad(option){
 		console.log(option)
-		this.getArticle(option.articleId)
-		this.articleId = option.articleId
-		this.userId = option.userId
+		if (option.scene) {
+			const scene = decodeURIComponent(option.scene);
+			let obj = {};
+			scene.split('&').forEach(item => {
+				const key = item.split('=')[0];
+				obj[key] = item.split('=')[1];
+			});
+			
+			this.articleId = obj.articleId
+			this.userId = obj.userId
+			this.buildingId = obj.buildingId || ''
+		} else {
+			this.articleId = option.articleId
+			this.userId = option.userId
+			this.buildingId = option.buildingId || ''
+		}
+		this.getArticle(this.articleId)
+		
 		if(!this.$cache.getCache('M-Token')){
 			this.showAuthorize = true;
 			this.getPhone()
@@ -160,8 +181,15 @@ export default {
 .detail {
     background-color: #fff;
     padding: 20px;
+	padding-bottom: 70px;
 }
-
+.fixed_bottom{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 9999;
+	width: 100%;
+}
 .detailTit{
 	font-size: 16px;
 	color: #333;

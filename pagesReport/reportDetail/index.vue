@@ -43,7 +43,7 @@
 		<tips-page class="part100"></tips-page>
 		<!-- 管家信息 -->
 		<view :class="isfixed?'fixed_bottom':''">
-			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId&&buildingId" modelType='3' :reportId='reportId' :buildingId='buildingId'></foot-bottom>
+			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId'></foot-bottom>
 		</view>
 	</view>
 </template>
@@ -257,13 +257,21 @@ export default {
 		formatLabelCategory(list,key){
 			if(!key) return '-'
 			let keyArr = [],arr=[]
-			keyArr = key.length>1?key.split(','):keyArr.push(key)
-			list.forEach((item,index)=>{
-				keyArr.forEach((itemT,indexT)=>{
-					if(itemT==item.labelId)
-						arr.push(item.ztLabelType)
-				})
-			})
+			if(key.length>1){
+			    keyArr = key.split(',')
+			    list.forEach((item,index)=>{
+			      keyArr.forEach((itemT,indexT)=>{
+			        if(itemT==item.labelId)
+			          arr.push(item.ztLabelType)
+			      })
+			    })
+			  }else{
+			    list.forEach((item,index)=>{
+			        if(key==item.labelId){
+			          arr.push(item.ztLabelType)
+			        }
+			    })
+			  }
 			return arr.join('、')
 		}
 	},

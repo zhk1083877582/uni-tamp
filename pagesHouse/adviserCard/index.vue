@@ -330,11 +330,11 @@
 						console.log('----楼盘信息1',arr)
 						//设置标题
 						uni.setNavigationBarTitle({ 
-							title: arr[0].buildingAlias||arr[0].buildingName,
+							title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
 						});
-						self.buildingId = arr[0]?arr[0].buildingId:'',
+						self.buildingId = arr.length>1?arr[1].buildingId:arr.length==0?arr[0].buildingId:'',
 						//封面图
-						self.configPicture = arr[0].albumCoverPicture;
+						self.configPicture = arr.length>1?arr[1].albumCoverPicture:arr[0].albumCoverPicture
 					})
 					.catch(err => {
 						console.log('基本信息-err', err);

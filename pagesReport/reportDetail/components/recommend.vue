@@ -51,7 +51,7 @@
 								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseType?item.houseType:'-'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.houseNumber||'-'}}</text>
+								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.buildingNumber}}栋{{item.houseNumber||'-'}}室</text>
 							</view> 
 							<view class="rows">
 								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea||'-'}}<text>㎡</text></text>

@@ -22,7 +22,10 @@
 			
 			<view class="qundai">
 				<view class="HDJ">
-					<u-button type="default" hover-class='none' class="btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+					<u-button type="default" hover-class='none' class="btn" v-if="showAuthorize" @click="toreport">
+						尊享开启
+					</u-button>
+					<u-button type="default" hover-class='none' class="btn" v-else open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
 						尊享开启
 					</u-button>
 					<view class="bottom_text">
@@ -48,6 +51,8 @@ export default {
 			userName:'',
 			windowTitle:'',//客户姓名
 			reportId: '',
+			
+			showAuthorize:false
 		};
 	},
 	computed: {},
@@ -72,7 +77,7 @@ export default {
 				getData(api, params)
 					.then(res => {
 						console.log(res)
-						this.$cache.setCache('M-Token', res['X-Token']);
+						this.$cache.setCache('M-Token', res['token']);
 						this.$cache.setCache('Login-Data', res);
 						this.$cache.setCache('loginFlag', true);
 						this.$cache.setCache('loginFlag1', true);
@@ -123,6 +128,11 @@ export default {
 				}
 			});
 		},
+		toreport(){
+			uni.reLaunch({
+				url:'../reportDetail/index?reportId='+ this.reportId
+			});
+		},
 		//获取顾问userId
 		getReportData(reportId){
 			let params = {
@@ -159,9 +169,25 @@ export default {
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
-		this.reportId = option.reportId
+		if (option.scene) {
+			const scene = decodeURIComponent(option.scene);
+			let obj = {};
+			scene.split('&').forEach(item => {
+				const key = item.split('=')[0];
+				obj[key] = item.split('=')[1];
+			});
+			this.reportId = obj.reportId
+		} else {
+			this.reportId = option.reportId
+		}
+		
 		this.getPhone();
 		this.getReportData(option.reportId)
+		if(this.$cache.getCache('M-Token')){
+			this.showAuthorize = true;
+		}else{
+			this.showAuthorize = false;
+		}
 	},
 	created() {
 

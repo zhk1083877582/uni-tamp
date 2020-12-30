@@ -48,7 +48,7 @@
 		</view>
 		<u-divider color="#999999" border-color="#999999" height='50' margin-top="40">已显示全部</u-divider>
 		<view class="fixed_bottom">
-			<foot-bottom :userId='userId' v-if="userId"></foot-bottom>
+			<foot-bottom :userId='userId' v-if="userId&&buildingId" :buildingId="buildingId"></foot-bottom>
 		</view>
 		<u-mask :show="showAuthorize" mask-click-able="false">
 			<view class="showAuthorize_warp" @tap.stop>
@@ -200,8 +200,20 @@ export default {
 		}
 	},
 	onLoad(option) {
-		this.buildingId = option.buildingId
-		this.userId = option.userId
+		
+		if (option.scene) {
+			const scene = decodeURIComponent(option.scene);
+			let obj = {};
+			scene.split('&').forEach(item => {
+				const key = item.split('=')[0];
+				obj[key] = item.split('=')[1];
+			});
+			this.buildingId = obj.buildingId
+			this.userId = obj.userId
+		} else {
+			this.buildingId = option.buildingId
+			this.userId = option.userId
+		}
 		this.getBuildingData()
 		this.getQuestionData()
 		if(!this.$cache.getCache('M-Token')){

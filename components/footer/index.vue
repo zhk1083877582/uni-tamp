@@ -70,7 +70,7 @@ export default {
 			
 			uni.makePhoneCall({
 				// 手机号
-				phoneNumber: self.userInfo.fourPhone + self.userInfo.extensionNumber,
+				phoneNumber: String(self.userInfo.fourPhone) + String(self.userInfo.extensionNumber),
 				// 成功回调
 				success: (res) => {
 					console.log('调用成功!') 
