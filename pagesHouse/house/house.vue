@@ -409,7 +409,7 @@
 				baseInfo.referenceBuildAreaMax = baseInfo.referenceBuildAreaMax?parseInt(baseInfo.referenceBuildAreaMax):'';
 				baseInfo.referenceTotalPriceMin = baseInfo.referenceTotalPriceMin?parseInt(baseInfo.referenceTotalPriceMin):'';
 				baseInfo.referenceTotalPriceMax = baseInfo.referenceTotalPriceMax?parseInt(baseInfo.referenceTotalPriceMax):'';
-				baseInfo.openTime = baseInfo.openTime?this.$tool.dateFtt('yyyy-MM-dd',new Date( baseInfo.openTime)) :'开盘待定'
+				baseInfo.openTime = baseInfo.openTime?this.$tool.DateFormat('yyyy-MM-dd',new Date( baseInfo.openTime)) :'开盘待定'
 				baseInfo.salesStatusItem = this.getSalesStatus(baseInfo.salesStatus);
 				baseInfo.propertyTypeList=[];
 				(baseInfo.propertyTypes||[]).forEach(item=>{
@@ -425,13 +425,13 @@
 			getDynamicAndDate(openTimeList,dynamicList) {
 				let self=this;
 				let dateBaseInfoList =(openTimeList.list||[]).map(item=>{
-					item.evidenceDate = item.evidenceDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.evidenceDate)) : '';
-					item.identifyChipsDate = item.identifyChipsDate ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.identifyChipsDate)) : '';
-					item.openTime = item.openTime ? self.$tool.dateFtt('yyyy-MM-dd', new Date(item.openTime)) : '';
+					item.evidenceDate = item.evidenceDate ? self.$tool.DateFormat('yyyy-MM-dd', new Date(item.evidenceDate)) : '';
+					item.identifyChipsDate = item.identifyChipsDate ? self.$tool.DateFormat('yyyy-MM-dd', new Date(item.identifyChipsDate)) : '';
+					item.openTime = item.openTime ? self.$tool.DateFormat('yyyy-MM-dd', new Date(item.openTime)) : '';
 					return item;
 				})
 				let dynamicBaseInfoList = (dynamicList.list||[]).map(item=>{
-					item.createTime = item.createTime ? self.$tool.dateFtt('yyyy-MM-dd hh:mm', new Date(item.createTime)) : '';
+					item.createTime = item.createTime ? self.$tool.DateFormat('yyyy-MM-dd hh:mm', new Date(item.createTime)) : '';
 					return item;
 				})
 				self.dongtaiInfo.isShow = ( dateBaseInfoList.length > 0 || dynamicBaseInfoList.length>0 ) ? true : false;

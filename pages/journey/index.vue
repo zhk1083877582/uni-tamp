@@ -184,7 +184,7 @@
 														<text class="georama"></text>
 														<view class="list_top_title">
 															<view class="time_text">
-																看房时间：{{$tool.dateFtt('yyyy-MM-dd', itemL.createTime) }}
+																看房时间：{{itemL.createTime?$tool.DateFormat('yyyy-MM-dd', new Date(itemL.createTime)):'-'}}
 															</view>
 															<view class="keeper_msg" :id="itemL.userId" @click="e=>tohouseKeeper(e,itemL)">
 																<view class="keeper_portrait">
