@@ -59,7 +59,7 @@ export default {
 		tellPhone(){
 			this.getUserInfo();
 			let self = this
-			if(!self.userInfo.fourPhone||!self.userInfo.extensionNumber){
+			if(!self.userInfo.phone){
 				uni.showToast({
 					title: '暂无顾问电话',
 					icon: 'none',
@@ -70,7 +70,7 @@ export default {
 			
 			uni.makePhoneCall({
 				// 手机号
-				phoneNumber: String(self.userInfo.fourPhone) + String(self.userInfo.extensionNumber),
+				phoneNumber: self.userInfo.phone,
 				// 成功回调
 				success: (res) => {
 					console.log('调用成功!') 

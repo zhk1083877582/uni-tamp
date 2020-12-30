@@ -259,7 +259,7 @@
 				getData('/business/noToken/user/getUserCardDetail', params)
 					.then(res => {
 						console.log('------管家信息',res)
-						this.fourPhone = res.fourPhone||'';
+						this.fourPhone = res.phone||'';
 					})
 					.catch(err => {
 						console.log('管家信息', err);

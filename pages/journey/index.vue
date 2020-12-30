@@ -411,32 +411,37 @@ export default {
 				.then(res => {
 			console.log('管家信息',res)
 				self.userInfo = res
+				if(!self.userInfo.phone){
+					uni.showToast({
+						title: '暂无顾问电话',
+						icon: 'none',
+						duration: 5000
+					});
+					return 
+				}
+				uni.makePhoneCall({
+				// 手机号
+				phoneNumber: self.userInfo.phone,
+				// 成功回调
+				success: (res) => {
+					console.log('调用成功!') 
+					// potentialCustomersInfo('',saveParams)
+				},
+				// 失败回调
+				fail: (res) => {
+					console.log('调用失败!')
+				}
+				})
 			})
 			.catch(err => {
-				console.log('管家信息', err);
-			});
-			if(!self.userInfo.fourPhone||!self.userInfo.extensionNumber){
 				uni.showToast({
 					title: '暂无顾问电话',
 					icon: 'none',
 					duration: 5000
 				});
 				return 
-			}
-			
-			uni.makePhoneCall({
-			// 手机号
-			phoneNumber: self.userInfo.fourPhone + self.userInfo.extensionNumber,
-			// 成功回调
-			success: (res) => {
-				console.log('调用成功!') 
-				// potentialCustomersInfo('',saveParams)
-			},
-			// 失败回调
-			fail: (res) => {
-				console.log('调用失败!')
-			}
-			})
+				console.log('管家信息', err);
+			});
 		},
 		toReportDetail(reportId){
 			uni.navigateTo({
