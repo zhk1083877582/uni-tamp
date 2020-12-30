@@ -197,7 +197,7 @@ export default {
 					title: `${this.windowTitle}的专属置业报告`
 				});
 				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业报告' : '置业报告'
-				this.share.imageUrl = 'https://media.tongcehaofang.com/image/default/9516ABF199B94F1DBEC7024E8228A17C-6-2.jpg'
+				this.share.imageUrl = 'https://media.tongcehaofang.com/image/default/AF9E2415C43545269526819F42B32324-6-2.jpg'
 				
 				this.logData = {
 					beginTime:this.beginTime,
