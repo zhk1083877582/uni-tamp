@@ -133,7 +133,7 @@
 																	<i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeName?itemR.houseTypeName:'-'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{`${item.bedroom||'-'}室${item.parlor||'-'}厅${item.kitchen||'-'}厨${item.bathroom||'-'}卫`}}</text>
+																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{`${itemR.bedroom||'-'}室${itemR.parlor||'-'}厅${itemR.kitchen||'-'}厨${itemR.bathroom||'-'}卫`}}</text>
 																</view>
 																<view class="rows">
 																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.houseNumber||'-'}}</text>
