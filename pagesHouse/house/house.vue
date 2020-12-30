@@ -49,7 +49,7 @@
 		<!-- 免责声明 -->
 		<house-disclaimer></house-disclaimer>
 		<view class="pageHouse-bottom">
-			<footBottom v-if="userId" :userId='userId' modelType='2'></footBottom>
+			<footBottom v-if="userId" :userId='userId' modelType='2' :buildingId='buildingId'></footBottom>
 		</view>
 		<u-mask :show="showAuthorize" mask-click-able="false">
 			<view class="showAuthorize_warp" @tap.stop>
@@ -252,7 +252,8 @@
 			//获取顾问手机号码
 			getUserInfo(){
 				let params = {
-					userId: this.userId
+					userId: this.userId,
+					buildingId: this.buildingId
 				};
 				let self =this;
 				getData('/business/noToken/user/getUserCardDetail', params)

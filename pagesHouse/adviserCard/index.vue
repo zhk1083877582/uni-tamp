@@ -77,7 +77,7 @@
 			</view>
 		</view>
 		<view class="adviser-bottom">
-			<footBottom :istoDetail='false' :userId='userId' v-if="userId"></footBottom>
+			<footBottom :istoDetail='false' :userId='userId' v-if="userId" :buildingId='buildingId'></footBottom>
 		</view>
 		<u-mask :show="showAuthorize" mask-click-able="false">
 			<view class="showAuthorize_warp" @tap.stop>
@@ -124,7 +124,8 @@
 				},
 				baseInfo:[],
 				beginTime:'',
-				showAuthorize:false
+				showAuthorize:false,
+				buildingId:''
 			}
 		},
 		onLoad(option){
@@ -236,6 +237,7 @@
 				this.swiperInfo.current = val.detail.current;
 				this.currentPlan = 0;
 				let item = this.baseInfo[val.detail.current];
+				this.buildingId = item.buildingId
 				//设置标题
 				uni.setNavigationBarTitle({ 
 					title: item.buildingAlias||item.buildingName,
@@ -330,6 +332,7 @@
 						uni.setNavigationBarTitle({ 
 							title: arr[0].buildingAlias||arr[0].buildingName,
 						});
+						self.buildingId = arr[0]?arr[0].buildingId:'',
 						//封面图
 						self.configPicture = arr[0].albumCoverPicture;
 					})

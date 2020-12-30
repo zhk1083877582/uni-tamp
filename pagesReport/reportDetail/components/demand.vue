@@ -68,12 +68,31 @@ export default {
 			default:()=>{
 				return {}
 			}
+		},
+		logData:{
+			type:Object,
+			default:()=>{
+				return {
+					beginTime:'',
+					reportId:'',
+					userId:''
+				}
+			}
 		}
 	},
 	computed: {},
 	watch: {},
 	methods: {
 		toIdealHome(){
+			//埋点
+			this.buryingPoint.beginTime = this.logData.beginTime
+			this.buryingPoint.endTime = ''
+			this.buryingPoint.operationType = '8'
+			this.buryingPoint.modelType = '3'
+			this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			this.buryingPoint.reportId = this.logData.reportId
+			this.buryingPoint.userId = this.logData.userId
+			this.ReportLog()
 			uni.navigateTo({
 				url: '../idealHome/index?resData=' + JSON.stringify(this.resData)
 			  });

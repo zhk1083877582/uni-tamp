@@ -53,9 +53,11 @@
 					<u-button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary" @click='onSubmit'>
 						<text :style="{'color':submitColor}">登录</text>
 					</u-button>
+					
 				</view>
 			</view>
 		</view>
+		<view class="btm_text">仅限接受线下置业顾问服务的用户使用</view>
 		<u-toast ref="uToast" />
 	</view>
 </template>
@@ -272,6 +274,16 @@ export default {
 				   }
 		        }
 		    }
+		}
+		.btm_text{
+			width: 100%;
+			font-size: 24rpx;
+			font-weight: 400;
+			text-align: center;
+			color: #999999;
+			line-height: 24rpx;
+			position: fixed;
+			bottom: 64rpx;
 		}
 	}
 </style>

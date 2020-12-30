@@ -30,7 +30,7 @@
 				</u-sticky>
 			</view>
 		<!-- 置业需求 -->
-		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention'></demand>
+		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention' :logData='logData'></demand>
 		<!-- 方案推荐 -->
 		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
 		<!-- 公共组件 -->
@@ -43,7 +43,7 @@
 		<tips-page class="part100"></tips-page>
 		<!-- 管家信息 -->
 		<view :class="isfixed?'fixed_bottom':''">
-			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId'></foot-bottom>
+			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId&&buildingId" modelType='3' :reportId='reportId' :buildingId='buildingId'></foot-bottom>
 		</view>
 	</view>
 </template>
@@ -97,10 +97,13 @@ export default {
 			userName:'',
 			userId:'',//顾问ID
 			windowTitle:'',//客户姓名  客户性别
+			buildingId:'',//楼盘ID
 			
 			reportId:'',
 			beginTime:'',//进入页面时间戳
-			endTime:''//离开页面时间戳
+			endTime:'',//离开页面时间戳
+			
+			logData:{}
 		};
 	},
 	computed: {
@@ -163,6 +166,8 @@ export default {
 				//推荐方案
 				this.recommendation = res.recommendation!=null?res.recommendation:null;
 				this.buildingInfo = res.buildingInfo!=null?res.buildingInfo:null;
+				this.buildingId = res.buildingInfo!=null?res.buildingInfo.buildingId:''
+				console.log(this.buildingId,'buildingId')
 				let isShowRecommend = res.recommendation != null&&res.buildingInfo!=null?true:false;
 				console.log(isShowRecommend,'11111111111')
 				//添加title
@@ -193,6 +198,12 @@ export default {
 				});
 				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业报告' : '置业报告'
 				this.share.imageUrl = 'https://media.tongcehaofang.com/image/default/9516ABF199B94F1DBEC7024E8228A17C-6-2.jpg'
+				
+				this.logData = {
+					beginTime:this.beginTime,
+					reportId:reportId,
+					userId:this.userId
+				}
 				//埋点
 				this.buryingPoint.beginTime = this.beginTime
 				this.buryingPoint.endTime = ''

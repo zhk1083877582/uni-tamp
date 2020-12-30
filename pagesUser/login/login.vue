@@ -1,7 +1,7 @@
 <!-- 登录 -->
 <template>
 	<view class="login_warp">
-		<image src="https://media.tongcehaofang.com/image/default/958AD14D1BDB419A8A2F6A93E37FF161-6-2.jpg" class="login_log"></image>
+		<image src="https://media.tongcehaofang.com/image/default/49BB7C672F3343CD88D32EFB91DEDF2F-6-2.jpg" class="login_log"></image>
 		<view class="btn_warp">
 			<!-- #ifdef MP-WEIXIN -->
 			<u-button type="primary" class="WX_btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
@@ -13,7 +13,14 @@
 				<i class="iconfont icondenglu-shouji"></i>
 				手机号码登录
 			</u-button>
+			<view class="login_agreement">
+				登录即同意
+				<text class="agreement" @click="toAgreement">
+					窝记用户服务及隐私协议
+				</text>
+			</view>
 		</view>
+		<view class="btm_text">仅限接受线下置业顾问服务的用户使用</view>
 	</view>
 </template>
 
@@ -161,14 +168,22 @@ export default {
 	background-color: #FFFFFF;
 	height:100%;
 	.login_log {
-		width: 215rpx;
-		height: 210rpx;
+		width: 152rpx;
+		height: 244rpx;
 		position: absolute;
 		left: 50%;
 		transform: translate(-50%, 0);
 		top: 198rpx;
 	}
-
+	.login_agreement{
+	   font-size: 24rpx;
+	   line-height: 24rpx;
+	   padding: 36rpx 0 60rpx 0;
+	   color: #666666;
+	   .agreement{
+		   color: #00A4FF;
+	   }
+	}
 	.btn_warp {
 		padding: 0 48rpx;
 		position: absolute;
@@ -186,8 +201,9 @@ export default {
 		.WX_btn {
 			margin-bottom: 34rpx;
 			display: block;
-
+			
 			/deep/button {
+				background: #062471;
 				color: #FFFFFF;
 			}
 		}
@@ -202,6 +218,16 @@ export default {
 		.icondenglu-weixin {
 			margin-right: 16rpx;
 		}
+	}
+	.btm_text{
+		width: 100%;
+		font-size: 24rpx;
+		font-weight: 400;
+		text-align: center;
+		color: #999999;
+		line-height: 24rpx;
+		position: fixed;
+		bottom: 64rpx;
 	}
 }
 </style>

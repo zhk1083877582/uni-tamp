@@ -47,12 +47,17 @@ export default {
 		modelType:{
 			type:String,
 			default:'3'
+		},
+		buildingId:{
+			type:String,
+			default:''
 		}
 	},
 	computed: {},
 	watch: {},
 	methods: {
 		tellPhone(){
+			this.getUserInfo();
 			let self = this
 			if(!self.userInfo.fourPhone||!self.userInfo.extensionNumber){
 				uni.showToast({
@@ -97,7 +102,8 @@ export default {
 		},
 		getUserInfo(){
 			let params = {
-				userId: this.userId
+				userId: this.userId,
+				buildingId: this.buildingId
 			};
 			let self =this;
 			getData('/business/noToken/user/getUserCardDetail', params)

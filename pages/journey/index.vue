@@ -70,7 +70,8 @@
 													<view class="col col_L">
 														<view class="title">总价预算</view>
 														<view class="content_text">
-															{{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text>
+															<!-- {{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text> -->
+															{{$tool.changeArrayToNum(item.customerIntention.totalBudget,'万')}}
 														</view>
 													</view>
 												</view>
@@ -78,13 +79,15 @@
 													<view class="col">
 														<view class="title">意向区域</view>
 														<view class="content_text">
-															{{item.customerIntention.intentionCityRegion}}
+															<!-- {{item.customerIntention.intentionCityRegion}} -->
+															{{item.customerIntention.intentionCityRegionName || '-'}}
 														</view>
 													</view>
 													<view class="col col_L">
 														<view class="title">意向户型</view>
 														<view class="content_text">
-															{{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}}
+															<!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}} -->
+															{{item.customerIntention?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'-'}}
 														</view>
 													</view>
 												</view>
@@ -92,7 +95,8 @@
 													<view class="col col_bottom">
 														<view class="title">关注重点</view>
 														<view class="content_text">
-															{{item.customerIntention.considerFactor}}
+															<!-- {{item.customerIntention.considerFactor}} -->
+															{{item.customerIntention.customerFocusText?item.customerIntention.customerFocusText:'-'}}
 														</view>
 													</view>
 												</view>
@@ -187,7 +191,7 @@
 																	<image class="img" :src="itemL.userHeadPhoto?itemL.userHeadPhoto:defaultHead" mode="circle"></image>
 																</view>
 																<view class="keeper_name">
-																	<text class="keeper_name_text">{{itemL.userName?itemL.userName:'--'}}</text> <i class="iconfont icondianhua" :id="itemL.userId" @click.stop="e=>tellPhone(e,itemL)"></i>
+																	<text class="keeper_name_text">{{itemL.userName?itemL.userName:'--'}}</text> <i class="iconfont icondianhua" :id="itemL.userId" @click.stop="e=>tellPhone(e,itemL,item)"></i>
 																</view>
 															</view>
 														</view>
@@ -392,10 +396,12 @@ export default {
 			});
 		},
 		// 拨打电话
-		tellPhone(e,item){
+		tellPhone(e,item,obj){
+			console.log(e,item,obj,'111111')
 			let self = this
 			let params = {
-				userId: e.currentTarget.id
+				userId: e.currentTarget.id,
+				buildingId: obj.$orig.reportBuildingIntro?obj.$orig.reportBuildingIntro.buildingId:''
 			};
 			getData('/business/noToken/user/getUserCardDetail', params)
 				.then(res => {
