@@ -422,7 +422,7 @@ const TOOL = {
 	},
 	//[{"start":"55","end":"333"}]数据转换
 	changeArrayToNum(arr,unit){
-		if(arr==null||arr == '[]') return '-'
+		if(arr==null||arr == '') return '-'
 		let arrR = []
 		JSON.parse(arr).map((item,index)=>{
 			if(item.start == ''||item.start == '0'){
