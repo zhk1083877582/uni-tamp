@@ -4,7 +4,7 @@
 		
 	<!-- 搜索小程序进入 -->
 		<view class="home_banner" v-if="!HasToken">
-			<u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit' border-radius='24'></u-swiper>
+			<u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit' border-radius='24' :autoplay="autoplay"></u-swiper>
 			<view class="login_btn">
 				<u-button shape="circle" @click="doGoLoginPage">开启购房旅程</u-button>
 			</view>
@@ -302,8 +302,12 @@ export default {
 			
 			// 未登录时首页banner数据
 			bannerList: [{
-					image: 'https://media.tongcehaofang.com/image/default/F1DF769249794F33A1F1314B5E8E7981-6-2.jpg',
-				}
+					image: 'https://media.tongcehaofang.com/image/default/C4A64C6AC96D431D8839871B3B7C65FC-6-2.jpg',
+				},{
+					image: 'https://media.tongcehaofang.com/image/default/8DF83A1BDE5B47F9897090D9AA643DDE-6-2.jpg',
+				},{
+					image: 'https://media.tongcehaofang.com/image/default/A29A5DD2F02141F397D0EF78BEF0E423-6-2.jpg',
+				},
 			],
 		};
 	},
