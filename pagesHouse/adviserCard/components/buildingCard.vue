@@ -6,7 +6,7 @@
 		<!-- <image class="img" :src="baseInfo.img?baseInfo.img:defaultImg" mode=""></image> -->
 		<view class="img" :style="{'background-image':`url(${baseInfo.realImgPath||'https://media.tongcehaofang.com/image/default/F8EF2B9B78C44DEF9A0C1185C12EF525-6-2.jpg'})`}">
 		</view>
-		<view class="play-flag">
+		<view class="play-flag" v-if="baseInfo.mp4Picture == baseInfo.realImgPath||baseInfo.vrPicture==baseInfo.realImgPath">
 			<view class="triangle"></view>
 		</view>
 		<view class="img-flag">
