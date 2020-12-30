@@ -10,9 +10,9 @@
 			<view class="triangle"></view>
 		</view>
 		<view class="img-flag">
-			<text class="flag-item flag-item-active" v-if="baseInfo.mp4Picture == baseInfo.realImgPath">VR</text>
-			<text class="flag-item " v-if="baseInfo.vrPicture==baseInfo.realImgPath">视频</text>
-			<text class="flag-item " v-if="baseInfo.imgPicture== baseInfo.realImgPath">图片</text>
+			<text class="flag-item flag-item-active" v-if="baseInfo.vrPicture  == baseInfo.realImgPath">VR</text>
+			<text class="flag-item flag-item-active" v-if="baseInfo.mp4Picture==baseInfo.realImgPath">视频</text>
+			<text class="flag-item flag-item-active" v-if="baseInfo.imgPicture== baseInfo.realImgPath">图片</text>
 		</view>
 	</view>
 	<!-- 名称 特色 -->

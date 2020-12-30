@@ -338,19 +338,27 @@
 						
 							let annexVOS = item.annexVOS||[];
 							// console.log('====annexVOS',annexVOS)
+							/**
+							   * 附件类型(101:效果图 102:样板间 103:环境规划图 104:配套实景图 105:楼盘实景图 106:楼栋分布图 107:户型 108:预售证
+							   * 109:视频,110:楼盘VR, 113:首屏周边, 114:楼盘介绍, 115:楼盘logo, 116:pc封面图
+							   * 201:预售证管理附件,301:户型图,302户型VR,112:发现主题,304:测评图,305:样板间)
+						    */
 							let mp4Arr = annexVOS.filter(item1=>{
 								return item1.annexType=='109'
 							})
-							// console.log('====mp4Arr',mp4Arr)
+							console.log('存在mp4Arr',mp4Arr)
 							let vrArr = annexVOS.filter(item1=>{
 								return item1.annexType=='110'||item1.annexType=='302'
 							})
-							// console.log('====vrArr',vrArr)
-							let imgArr = [annexVOS[0]];
-							// console.log('====imgArr',imgArr)
-							item.mp4Picture = mp4Arr[0]?mp4Arr[0].annexPath:'';
-							item.vrPicture =  vrArr[0]?vrArr[0].annexPath:'';
-							item.imgPicture = imgArr[0]?imgArr[0].annexPath:'';
+							console.log('存在vrArr',vrArr)
+							let imgArr =annexVOS.filter(item1=>{
+								return item1.annexType!='109'&&item1.annexType!='110'&&item1.annexType!='302'
+							}) ;
+							console.log('存在imgArr',imgArr)
+							item.mp4Picture = mp4Arr.length>0?mp4Arr[0].smallAnnexPath:'';
+							item.vrPicture =  vrArr.length>0?vrArr[0].smallAnnexPath:'';
+							item.imgPicture = imgArr.length>0? imgArr[0].annexPath:'';
+							console.log(`视频:${item.mp4Picture} ---VR：${item.vrPicture} --图片：${item.imgPicture}`)
 							item.realImgPath = item.mp4Picture|| item.vrPicture ||item.imgPicture;
 							return item
 						})

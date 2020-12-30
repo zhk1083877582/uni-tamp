@@ -396,6 +396,7 @@
 				let self = this;
 				getBuildingAnnex('/business/noToken/building/buildingAnnex',params)
 					.then(res => {
+						console.log('----楼盘相册',res)
 						self.$refs.reBuildingInfo.doFormatImgList(res.list||[]);
 					})
 					.catch(err => {

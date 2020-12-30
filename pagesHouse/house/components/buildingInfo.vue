@@ -160,17 +160,17 @@ export default {
 		let aliaOss = '?x-oss-process=image/resize,h_750,w_750';//限制图片大小
 		let mp4Arr = [],VRArr = [],imgArr=[];
 		annexs.forEach(item=>{
-			let {annexType,annexPath} = item;
+			let {annexType,annexPath,smallAnnexPath} = item;
 			if(annexPath&&annexType =='109'){
 				mp4Arr.push({
 					isShow:false,
-					image1:annexPath+aliaOss,
+					image1:smallAnnexPath+aliaOss,
 					image:defaultImg
 				})
 			}else if(annexPath&&(annexType =='110'||annexType =='302')){
 				VRArr.push({
 					isShow:false,
-					image1:annexPath+aliaOss,
+					image1:smallAnnexPath+aliaOss,
 					image:defaultImg
 				})
 			}else if(annexPath){
