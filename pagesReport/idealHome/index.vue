@@ -81,9 +81,9 @@
 						<view class="item_view">
 							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}}</text></view>
 						</view>
-						<view class="item_view">
+						<!-- <view class="item_view">
 							<view class="second_label">关注</view><view class="right_text"><text>{{resData.customerFocusText?resData.customerFocusText:'-'}}</text></view>
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>

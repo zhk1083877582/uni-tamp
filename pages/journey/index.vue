@@ -136,7 +136,7 @@
 																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{`${itemR.bedroom||'-'}室${itemR.parlor||'-'}厅${itemR.kitchen||'-'}厨${itemR.bathroom||'-'}卫`}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.buildingNumber}}栋{{itemR.houseNumber||'-'}}室</text>
+																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.buildingNumber||'-'}}栋{{itemR.houseNumber||'-'}}室</text>
 																</view> 
 																<view class="rows">
 																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{itemR.houseArea||'-'}}<text>㎡</text></text>

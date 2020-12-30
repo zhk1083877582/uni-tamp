@@ -20,9 +20,9 @@ Vue.prototype.$formatter = switchFormatter;
 Vue.prototype.$tool = tool;
 Vue.prototype.$cache = cache;
 
-if (uni.getSystemInfoSync().platform !== "devtools") {
-	console.log = () => {}
-}
+// if (uni.getSystemInfoSync().platform !== "devtools") {
+// 	console.log = () => {}
+// }
 
 // 解决微信小程序adapter
 axios.defaults.adapter = function(config) {
