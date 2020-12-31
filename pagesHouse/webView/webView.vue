@@ -11,12 +11,12 @@ export default {
 	components: {},
 	data () {
 	  return {
-	    url: this.$cache.getCache('toMWebpath'),
+	    url: '',
 	  };
 	},
 	onLoad (option) {
 		// console.log('toMWebpath',this.$cache.getCache('toMWebpath'))
-		this.url =this.$cache.getCache('toMWebpath').toMWebpath;
+		this.url =this.$cache.getCache('toMWebpath').toMWebpath + '&fromAppName=xcx';
 		console.log('toMWebpath1111',this.url)
 	},
 	computed: {},

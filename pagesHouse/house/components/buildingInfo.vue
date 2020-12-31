@@ -244,7 +244,7 @@ export default {
 	
 	//跳转 MP4或者图片区域
 	toMp4OrImg (type) {
-		let routeParams={buildingId:this.buildingId,NetworkType:this.NetworkType,fromAppName:'xcx'};
+		let routeParams={buildingId:this.buildingId,NetworkType:this.NetworkType};
 		if(this.userId){
 			routeParams['routeParams'] = this.userId;
 		}

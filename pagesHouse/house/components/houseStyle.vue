@@ -127,8 +127,7 @@
 				let obj={
 					buildingId:this.buildingId,
 					houseTypeId:item.houseTypeId,
-					userId:this.userId,
-					fromAppName:'xcx'
+					userId:this.userId
 				}
 				this.goWebView('/houseTypeDetails',obj)
 			},
