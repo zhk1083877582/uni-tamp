@@ -31,14 +31,14 @@
 				</view>
 			</view>
 			<view v-if="ishowbuilding">
-				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" circular='true' @change="changeSwipe" :effect3d="true">
+				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" :circular='autoplay' @change="changeSwipe">
 					<swiper-item v-for="(item,index) in journeyArr" :key="index" class="swiper_item_class">
 						<view class="swiper-item uni-bg-red" :class="index!=curr?'scale_swiper':''">
 							<view class="swiper_item_H">
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
 										<view class="img_warp">
-											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://media.tongcehaofang.com/image/default/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"  mode="aspectFill"></image>
+											<image class="tospur-image" :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture : 'https://media.tongcehaofang.com/image/default/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"  mode=""></image>
 										</view>
 										<view class="item_details">
 											<view class="details_title">
@@ -93,7 +93,7 @@
 														<view class="title">意向户型</view>
 														<view class="content_text">
 															<!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}} -->
-															{{item.customerIntention?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'-'}}
+															{{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'-'}}
 														</view>
 													</view>
 												</view>
@@ -113,6 +113,8 @@
 										<!-- 方案推荐 -->
 										<view class="recommend_warp" v-if="JSON.stringify(item.recommendation) != '{}'&&item.recommendation!=null">
 											<view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
+											<view v-if="item.recommendation!=null&&JSON.stringify(item.recommendation) != '[]'">
+												
 											<u-tabs
 												name='tableTitle' 
 												:list="item.recommendation" 
@@ -179,7 +181,7 @@
 														</view>
 													</swiper-item>
 												</swiper>
-										
+												</view>
 										</view>
 										
 										<!-- 置业报告列表 -->
@@ -689,13 +691,12 @@ export default {
 						width: 210rpx;
 						height: 210rpx;
 						border-radius: 10rpx;
-						overflow: hidden;
-						position: relative;
 						background-color: #F7F7F7;
 						.tospur-image{
-							height: 100%;
-							width: 100%;
+							height: 210rpx;
+							width: 210rpx;
 							border-radius: 8rpx;
+							display: block;
 						}
 					}
 					.item_details{
