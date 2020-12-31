@@ -155,6 +155,14 @@
 				// 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
 				// });
 			}else{
+				console.log('-------------',this.buildingIdX)
+				if(this.buildingIdX){
+					let {phone,customerId} =this.$cache.getCache('Login-Data').customerInfo||{};
+					console.log('---phone&&customerId----',phone,customerId)
+					if(phone&&customerId){
+						this.doAddCustorm(phone,customerId)
+					}
+				}
 				this.showAuthorize = false;
 			}
 		},
