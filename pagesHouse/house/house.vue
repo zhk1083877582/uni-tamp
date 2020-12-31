@@ -14,7 +14,7 @@
 			 :buildingId="buildingId" :userId="userId">
 		</building-info>
 		<!-- 楼盘简介 -->
-		<house-describe :class="scrollTabs['introduce']['cl']" v-if="descriptionInfo.buildingDescription" 
+		<house-describe :class="scrollTabs['introduce']['cl']" v-if="scrollTabs['introduce'].isShow" 
 			:descriptionInfo="descriptionInfo">
 		</house-describe>
 		<!-- 楼盘动态 -->
@@ -370,9 +370,11 @@
 						//baseInfo的信息
 						self.getBuildingInfo(baseInfo)
 						//楼盘介绍
-						self.annexPath = introduction.logoImage;
-						self.buildingDescription = introduction.description;
-						self.scrollTabs.introduce.isShow = introduction.buildingDescription ? true : false;
+						// console.log('---------introduction-----------------',introduction)
+						self.descriptionInfo.annexPath = introduction.logoImage;
+						self.descriptionInfo.buildingDescription = introduction.description;
+						self.scrollTabs.introduce.isShow = introduction.description ? true : false;
+						// console.log('----res----',self.descriptionInfo)
 						//楼盘动态
 						self.getDynamicAndDate(openTimeList,dynamicList);
 						//户型
