@@ -422,7 +422,7 @@
 				(baseInfo.tags||[]).forEach(item=>{
 					baseInfo['buildingTags'].push( item.tagName)
 				})
-				baseInfo.realAdress= ` ${baseInfo.areaName} ${baseInfo.detailAddress}`
+				baseInfo.realAdress= ` ${baseInfo.cityName} ${baseInfo.areaName} ${baseInfo.detailAddress}`
 				this.baseInfo =baseInfo;
 			},
 			// 楼盘动态
