@@ -50,7 +50,13 @@
 											<view class="address_details">{{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}</view>
 											<view class="address_details"><text>{{item.reportBuildingIntro.areaName}}<text v-if="item.reportBuildingIntro.streetName">-</text>{{item.reportBuildingIntro.streetName}}</text></view>
 											<view class="classify">
-												<view class="claWarp"><view class="claCon" v-for="(itemT,indexT) in item.reportBuildingIntro.baseTagsName" :key="indexT">{{itemT}}</view></view>
+												<view class="claWarp">
+													<view v-for="(itemT,indexT) in item.reportBuildingIntro.baseTagsName" :key="indexT">
+														<view class="claCon" v-if="indexT<3">
+																{{itemT}}
+														</view>
+													</view>
+												</view>
 											</view>
 										</view>
 									</view>
@@ -587,12 +593,12 @@ export default {
 	height: 100%;
 	.home_banner{
 		/* height: 813rpx; */
-		width: 610rpx;
+		width: 600rpx;
 		margin: 0 auto;
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%,-50%);
+		transform: translate(-50%,-54%);
 		.login_btn{
 			display: flex;
 			justify-content: center;
