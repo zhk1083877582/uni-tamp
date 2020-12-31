@@ -89,7 +89,7 @@
 		</view>
 	</view>
 	<view class="baseInfo-address">
-	  <text class="baseInfo-address_text">地址:{{baseInfo.detailAddress}}</text>
+	  <text class="baseInfo-address_text">地址:{{baseInfo.realAdress}}</text>
 	  <text class="iconfont iconpoint_s1" @click="toMap"></text>
 	</view>
 	<view class="baseInfo-detail_btn" @click="goBuildingDetailMore">
