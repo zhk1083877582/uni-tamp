@@ -271,7 +271,7 @@
 					title: item.buildingAlias||item.buildingName,
 				});
 				//封面图
-				this.configPicture = item.backgroundUrl&&item.backgroundUrl[0];
+				this.configPicture = item.backgroundUrl;
 			},
 			
 			//获取顾问信息
@@ -377,7 +377,7 @@
 						});
 						self.buildingId = arr.length>1?arr[1].buildingId:arr.length==0?arr[0].buildingId:'',
 						//封面图
-						self.configPicture = arr.length>1?arr[1].albumCoverPicture:arr[0].backgroundUrl&&arr[0].backgroundUrl[0] 
+						self.configPicture = arr.length>1?arr[1].albumCoverPicture:arr[0].backgroundUrl
 					})
 					.catch(err => {
 						console.log('基本信息-err', err);
