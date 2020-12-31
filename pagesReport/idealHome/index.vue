@@ -64,10 +64,19 @@
 							<view class="right_text">{{resData.intentionCityRegionName || '-'}}</view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">环线</view><view class="right_text"><text>{{resData.intentionLoopLine || '-'}}</text></view>
+							<view class="second_label">环线</view><view class="right_text">
+								<text v-for="(item,index) in Loopline" :key="index">
+									{{item}}
+								</text>
+							</view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">地铁</view><view class="right_text"><text>{{resData.intentionSubway || '-'}}</text></view>
+							<view class="second_label">地铁</view>
+							<view class="right_text">
+								<text v-for="(item,index) in metroList" :key="index">
+									{{item}}
+								</text>
+							</view>
 						</view>
 						<!-- <view class="item_view">
 							<view class="second_label">学区</view><view class="right_text"><text>{{resData.intentionSchoolDistrict || '不限'}}</text></view>
@@ -103,13 +112,15 @@
 </template>
 
 <script>
-
+import { getData } from '@/request/api';
 export default {
 	components: {},
 	data() {
 		return {
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
-			resData:null
+			resData:null,
+			metroList:[],
+			Loopline:[],
 		};
 	},
 	computed: {
@@ -137,15 +148,76 @@ export default {
 					loanConditionStr = '-'
 					break;
 			}
-			console.log(type,loanConditionStr,'loanConditionStrloanConditionStr')
 			return loanConditionStr
-		}
+		},
+		
+		//获取环线详情
+		getloopline(id){
+			let params = {
+				loopLineId:id
+			};
+			let self =this;
+			getData('/business/noToken/base/loopline/getById', params)
+				.then(res => {
+				  console.log('获取环线详情',res)
+				  this.Loopline.push(res.loopLineName)
+			})
+			.catch(err => {
+				console.log('获取环线详情', err);
+			});
+		},
+		
+		//环线 转换
+		formatLoopline(key){
+		  if(!key) return '-'
+		  let keyArr = [],arr=[]
+		  if(key.length>1){
+		    keyArr = key.split(',')
+		  }else{
+		        keyArr.push(key)
+		  }
+		  keyArr.forEach((itemT,indexT)=>{
+		  	console.log(itemT);
+		  	this.getloopline(itemT)
+		  })
+		},
+		//获取地铁详情
+		getmetro(id){
+			let params = {
+				metroId:id
+			};
+			let self =this;
+			getData('/business/noToken/base/metro/get', params)
+				.then(res => {
+				  console.log('获取地铁详情',res)
+				  this.metroList.push(res.metroName)
+			})
+			.catch(err => {
+				console.log('获取地铁详情', err);
+			});
+		},
+		//地铁 转换
+		formatMetro(key){
+		  if(!key) return '-'
+		  let keyArr = [],arr=[]
+		  if(key.length>1){
+		    keyArr = key.split(',')
+		  }else{
+		        keyArr.push(key)
+		  }
+		  keyArr.forEach((itemT,indexT)=>{
+		  	this.getmetro(itemT)
+		  })
+		},
+		
 	},
 	created() {
 
 	},
 	mounted() {
-
+		 this.formatMetro(this.resData.intentionSubway)
+		 this.formatLoopline(this.resData.intentionLoopLine)
+		// this.resData.intentionLoopLineText = this.formatLoopline(this.resData.intentionLoopLine)
 	},
 	onLoad(option){
 		this.resData = JSON.parse(option.resData)

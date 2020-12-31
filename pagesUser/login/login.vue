@@ -181,7 +181,7 @@ export default {
 	   padding: 36rpx 0 60rpx 0;
 	   color: #666666;
 	   .agreement{
-		   color: #00A4FF;
+		   color: #062471;
 	   }
 	}
 	.btn_warp {
@@ -194,7 +194,7 @@ export default {
 			font-size: 36rpx;
 			height: 98rpx;
 			line-height: 98rpx;
-			color: #00A4FF;
+			color: #062471;
 			font-weight: 500;
 		}
 
