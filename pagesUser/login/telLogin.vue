@@ -127,7 +127,7 @@ export default {
 					this.submitColor = '#ffffff'
 				}else{
 					this.CodeBtndisabled = false
-					this.CodeColor = '#00A4FF'
+					this.CodeColor = '#062471'
 					if(this.VerificationCode){
 						this.submitBtn = false
 						this.submitColor = '#ffffff'
@@ -144,7 +144,7 @@ export default {
 					if(reg.test(this.phoneNum)){
 						this.submitBtn = false
 						this.submitColor = '#ffffff'
-						this.submitBg = '#00A4FF'
+						this.submitBg = '#062471'
 					}
 				}
 			}else{
@@ -264,7 +264,7 @@ export default {
 					   padding: 36rpx 0 60rpx 0;
 					   color: #666666;
 					   .agreement{
-						   color: #00A4FF;
+						   color: #062471;
 					   }
 				   }
 				   .submitBtn{
