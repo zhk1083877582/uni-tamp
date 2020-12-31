@@ -8,7 +8,7 @@
 				</view>
 				<view class="keeper_message">
 					<view class="name">
-						<text>{{userInfo.userName||'-'}}</text><text class="years">{{userInfo.workExperienceDesc||'-'}}年</text>
+						<text>{{userInfo.userName||'-'}}</text><text class="years">{{userInfo.workExperienceDesc||'-'}}</text>
 					</view>
 					<view class="num">
 						<text>服务人数：</text><text>{{userInfo.servedPeopleNum||'-'}}人</text>
