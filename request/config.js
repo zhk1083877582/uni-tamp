@@ -20,7 +20,6 @@ export default {
 		// target: 'https://tcwgwdev.tospur.com:18443', // 开发版本接 口
 		target: 'https://ztwgwtest.tospurhouse.net', // 测试版接口  
 		  // target: 'https://tcwgwstag.tospur.com', // 预发布接口
-		// target: 'https://tcstag.tospur.com',
-		// target: 'https://tcwgwprod.tospurhf.com', // 正式环境接口
+		// target: 'https://tcwgwprod.tospurhouse.net', // 正式环境接口
 	}
 }
