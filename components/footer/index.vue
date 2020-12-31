@@ -151,11 +151,11 @@ export default {
 				font-weight: 600;
 				line-height: 28rpx;
 				.years{
-					background:#FF5835;
+					background: linear-gradient(180deg,#E6BB78, #FDEDD7);
 					border-radius: 16px 16px 16px 0px;
 					font-size: 18rpx;
 					text-align: center;
-					color: #ffffff;
+					color: #593B1C;
 					line-height: 18rpx;
 					padding: 2rpx 10rpx;
 					margin-left: 6rpx;

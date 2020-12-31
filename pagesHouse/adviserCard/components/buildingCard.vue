@@ -23,10 +23,10 @@
 			</view>
 			<view class="flag1-propertytypeAndstatus">
 				<text class="flag1-item flag1-status " :style="{color:baseInfo.salesStatusItem.color}">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</text>
-				<!-- <text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypes" :key="index">
+				<text class=" flag1-item flag1-propertytype" v-for="(item,index) in baseInfo.propertyTypes" :key="index">
 					{{getPropertyType(item)}}
-				</text> -->
-				<text class="flag1-item flag1-propertytype" v-if="!!baseInfo.propertyTypes">{{getPropertyType(baseInfo.propertyTypes.length>0&&baseInfo.propertyTypes!=null?baseInfo.propertyTypes[0]:'')}}</text>
+				</text>
+				<!-- <text class="flag1-item flag1-propertytype" v-if="!!baseInfo.propertyTypes">{{getPropertyType(baseInfo.propertyTypes.length>0&&baseInfo.propertyTypes!=null?baseInfo.propertyTypes[0]:'')}}</text> -->
 			</view>
 		</view>
 		<view class="baseInfo-flag2">
@@ -249,9 +249,15 @@ export default {
 	.base-info{
 		margin-top:20rpx;
 	}
+	.baseInfo-flag1{
+		display: flex;
+	}
 	
-	.flag1-alias,.flag1-propertytypeAndstatus{
-		display: inline-block;
+	.flag1-propertytypeAndstatus{
+		flex: 1;
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 10rpx;
 	}
 	.flag1-alias{
 		font-size: 40rpx;

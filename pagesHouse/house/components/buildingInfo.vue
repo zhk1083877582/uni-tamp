@@ -447,8 +447,10 @@ export default {
 		display: flex;
 	}
 	
-	.flag1-alias,.flag1-propertytypeAndstatus{
-		display: inline-block;
+	.flag1-propertytypeAndstatus{
+		flex: 1;
+		display: flex;
+		flex-wrap: wrap;
 	}
 	.flag1-alias{
 		font-size: 40rpx;
