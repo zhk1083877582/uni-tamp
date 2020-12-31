@@ -86,14 +86,14 @@
 														<view class="title">意向区域</view>
 														<view class="content_text">
 															<!-- {{item.customerIntention.intentionCityRegion}} -->
-															{{item.customerIntention.intentionCityRegionName || '-'}}
+															{{item.customerIntention.intentionCityRegionName || '不限'}}
 														</view>
 													</view>
 													<view class="col col_L">
 														<view class="title">意向户型</view>
 														<view class="content_text">
 															<!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}} -->
-															{{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'-'}}
+															{{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'不限'}}
 														</view>
 													</view>
 												</view>
@@ -102,7 +102,7 @@
 														<view class="title">关注重点</view>
 														<view class="content_text">
 															<!-- {{item.customerIntention.considerFactor}} -->
-															{{item.customerIntention.customerFocusText?item.customerIntention.customerFocusText:'-'}}
+															{{item.customerIntention.customerFocusText?item.customerIntention.customerFocusText:'不限'}}
 														</view>
 													</view>
 												</view>

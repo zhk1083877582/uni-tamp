@@ -21,13 +21,13 @@
 					<view class="col">
 						<view class="title">意向区域</view>
 						<view class="content_text">
-							{{resData.intentionCityRegionName||'-'}}
+							{{resData.intentionCityRegionName||'不限'}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">意向户型</view>
 						<view class="content_text">
-							{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}}
+							{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'不限'}}
 						</view>
 					</view>
 				</view>
@@ -35,7 +35,7 @@
 					<view class="col col_bottom">
 						<view class="title">关注重点</view>
 						<view class="content_text">
-							{{resData.customerFocusText||'-'}}
+							{{resData.customerFocusText||'不限'}}
 						</view>
 					</view>
 				</view>

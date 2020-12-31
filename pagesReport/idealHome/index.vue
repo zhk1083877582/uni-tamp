@@ -102,7 +102,7 @@
 						关注重点：
 					</view>
 					<view class="content">
-						{{resData.customerFocusText?resData.customerFocusText:'-'}}
+						{{resData.customerFocusText?resData.customerFocusText:'不限'}}
 					</view>
 				</view>
 			</view>
