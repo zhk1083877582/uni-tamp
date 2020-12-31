@@ -26,13 +26,13 @@
 		</view>
 		
 		<view class="question_warp">
-			<view v-for="(item,index) in questionData" :key="index" class="question_item_warp">
+			<view class="question_item_warp">
 				<view class="question_item">
 					<view class="icon_wen">
 						问
 					</view>
 					<view class="question_text">
-						{{item.questionDesc}}
+						{{questionData.questionDesc}}
 					</view>
 				</view>
 				<view class="question_item answer">
@@ -40,7 +40,7 @@
 						答
 					</view>
 					<view class="question_text answer_text">
-						{{item.answerDesc}}
+						{{questionData.answerDesc}}
 					</view>
 				</view>
 				<u-line color="#EDEDED" margin="40rpx 0 0 0"/>
@@ -75,9 +75,10 @@ export default {
 	},
 	data() {
 		return {
+			questionId:'',
 			buildingId:'',
 			baseInfo:{},
-			questionData:[],
+			questionData:{},
 			userId:'',
 			showAuthorize:false
 		};
@@ -100,10 +101,10 @@ export default {
 		//获取问答列表
 		getQuestionData(){
 			let params = {
-				buildingId:this.buildingId
+				questionAnswerId:this.questionId
 			}
-			getData('/business/report/getBuildingId',params).then((res)=>{
-				console.log(res)
+			getData('/business/homepage/getArticleGet',params).then((res)=>{
+				// console.log('-----------客户问答',res)
 				this.questionData = res
 			}).catch(err=>{
 				
@@ -210,9 +211,11 @@ export default {
 			});
 			this.buildingId = obj.buildingId
 			this.userId = obj.userId
+			this.questionId = obj.questionId
 		} else {
 			this.buildingId = option.buildingId
 			this.userId = option.userId
+			this.questionId = option.questionId
 		}
 		this.getBuildingData()
 		this.getQuestionData()

@@ -228,8 +228,12 @@
 							this.showAuthorize = false;
 							this.initUserInfo();//管家信息
 							// this.initBaseInfo();//楼盘信息
+							let {phone,customerId} = res.customerInfo||{};
 							console.log('--------授权',res)
-							// this.doAddCustorm()
+							if(phone&&customerId){
+								this.doAddCustorm(phone,customerId)
+							}
+							
 						})
 						.catch(err => {
 							console.log('请求结果报错', err);
@@ -239,15 +243,17 @@
 			
 			// 把当前手机号推进客户池
 			doAddCustorm(phone,customerId){
+				console.log('------进入到doAddCustorm')
 				let params={
 					customerId:customerId,
 					phone:phone,
 					buildingId:this.buildingIdX,
 					userId:this.userId,
 				}
-				let api = '/userAuthServer/noToken/wx/wxLogin';
+				let api = '/business/homepage/createCustomer';
 				getData(api, params)
 					.then(res => {
+						console.log('----------success',res)
 					})
 					.catch(err => {
 						console.log('请求结果报错', err);
