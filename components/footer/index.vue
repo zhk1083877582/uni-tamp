@@ -109,7 +109,7 @@ export default {
 			getData('/business/noToken/user/getUserCardDetail', params)
 				.then(res => {
           console.log('管家信息',res)
-          if(res.servedPeopleNum!=null){
+          if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
             if(parseInt(res.servedPeopleNum) <99){
               res.servedPeopleNum = 99
             }
