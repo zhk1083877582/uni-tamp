@@ -176,7 +176,7 @@ export default {
 			let params={
 				phone:this.phoneNum
 			}
-			getData('/userAuthServer/wx/sendMessage',params).then((res)=>{
+			getData('/userAuthServer/noToken/wx/sendMessage',params).then((res)=>{
 				console.log('----tel',res)
 			}).catch(error=>{
 				this.$refs.uToast.show({
