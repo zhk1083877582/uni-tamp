@@ -37,7 +37,7 @@
 					<text class="datail-title_text">擅长领域</text>
 				</view>
 				<view class="datail-label">
-					<text  v-for="(item,index) in adviserInfo.expertiseFields" :key="index">{{item.paraValue}}</text>
+					<text  v-for="(item,index) in adviserInfo.expertiseFields" :key="index">{{ index==(adviserInfo.expertiseFields.length-1)? item.paraValue :item.paraValue+'、'}}</text>
 				</view>
 			</view>
 		</view>
@@ -306,11 +306,6 @@
 						console.log('管家信息',res);
 						this.share.title = `置业顾问【${res.userName?res.userName:'-'}】`
 						let {expertiseFields=[],buildingInfos=[]} = res;
-						for(let i=0,fieldsLen=expertiseFields.length;i<fieldsLen;i++){
-							if(i<(fieldsLen-1)){
-								expertiseFields[i] +='、';
-							}
-						}
 						res.expertiseFields= expertiseFields;
 						if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
 						    res.servedPeopleNum = 99 + parseInt(res.servedPeopleNum)
