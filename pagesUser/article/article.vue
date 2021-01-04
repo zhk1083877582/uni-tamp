@@ -15,7 +15,7 @@
 			</view>
 		</view>	
 		<view class="fixed_bottom">
-			<foot-bottom :userId='userId' v-if="userId&&buildingId" :buildingId="buildingId"></foot-bottom>
+			<foot-bottom :userId='userId' v-if="userId" :buildingId="buildingId"></foot-bottom>
 		</view>
 		<u-mask :show="showAuthorize" mask-click-able="false">
 			<view class="showAuthorize_warp" @tap.stop>
@@ -61,7 +61,8 @@ export default {
 			}
 			getData('/business/article/manager/info/get',params).then((res)=>{
 				console.log(res)
-				this.articleData = res
+				this.articleData = res;
+				this.buildingId = res.buildingId
 				//客户足迹埋点
 				this.beginTime = (new Date()).getTime()
 				this.CustomerTrack.buildingId = ''
@@ -145,11 +146,11 @@ export default {
 			
 			this.articleId = obj.articleId
 			this.userId = obj.userId
-			this.buildingId = obj.buildingId || ''
+			// this.buildingId = obj.buildingId || ''
 		} else {
 			this.articleId = option.articleId
 			this.userId = option.userId
-			this.buildingId = option.buildingId || ''
+			// this.buildingId = option.buildingId || ''
 		}
 		this.getArticle(this.articleId)
 		
