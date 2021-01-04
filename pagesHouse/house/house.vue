@@ -363,7 +363,7 @@
 						
 						this.share.title = `【${baseInfo.buildingAlias}】 ${baseInfo.referenceAveragePrice?baseInfo.referenceAveragePrice+'元/㎡':'待定'}`
 						this.share.path = '/pagesHouse/house/house?buildingId='+this.buildingId+'&userId='+this.userId
-						this.share.imageUrl = baseInfo.albumCoverPicture
+						// this.share.imageUrl = baseInfo.albumCoverPicture
 						//设置标题
 						uni.setNavigationBarTitle({ title: baseInfo.buildingAlias });
 						
@@ -399,6 +399,10 @@
 				getBuildingAnnex('/business/noToken/building/buildingAnnex',params)
 					.then(res => {
 						console.log('----楼盘相册',res)
+						let albumCoverPictureItem =( res.list||[]).filter(item=>{
+							return item.annexType=='101';
+						});
+						self.share.imageUrl = albumCoverPictureItem.annexPath;
 						self.$refs.reBuildingInfo.doFormatImgList(res.list||[]);
 					})
 					.catch(err => {
