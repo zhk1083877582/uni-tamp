@@ -337,8 +337,8 @@ const TOOL = {
 		case 'https://tcwgwstag.tospur.com':
 			url='https://mstag.tospur.com/';
 			break;
-		case 'https://tcwgwprod.tospurhf.com':
-			url='https://m.tongcehaofang.com/';
+		case 'https://tcwgwprod.tospurhouse.net':
+			url='https://ztweb.tospurhouse.net/';
 			break;
 		 default:
 			url="https://zttest.tospurhouse.net/"
