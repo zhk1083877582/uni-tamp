@@ -514,7 +514,12 @@ export default {
 				this.ReportLog()
 			}).catch(err=>{
 				this.ishowbuilding = false;
-				console.log(err)
+				if(err.request.code == 401){
+					this.$cache.removeCache('M-Token');
+					this.$cache.removeCache('Login-Data');
+					this.HasToken =false;
+				}
+				console.log(err,'首页接口报错')
 			})
 		},
 		getDescBox() {

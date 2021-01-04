@@ -119,11 +119,11 @@ import encryptList from "@/request/encrypt.js"
               //   let name = window.location.hash.split("#/")[1] || '';
               //   window.location.href = "/#/login?topath="+name
               // });
-			  // cache.removeCache('M-Token')
-					// 		uni.navigateTo({
-					// 			url: '/pagesUser/login/login'
-					// 		});
-							showToast("未授权，请登录");
+							// uni.navigateTo({
+							// 	url: '/pages/journey/index'
+							// });
+							// showToast("未授权，请登录");
+				return Promise.reject(err.response) // 返回接口返回的错误信息
               err.message = false;
               break
 
