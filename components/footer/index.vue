@@ -110,9 +110,7 @@ export default {
 				.then(res => {
           console.log('管家信息',res)
           if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
-            if(parseInt(res.servedPeopleNum) <99){
-              res.servedPeopleNum = 99
-            }
+              res.servedPeopleNum = 99 + parseInt(res.servedPeopleNum)
           }else{
               res.servedPeopleNum = 99
           }

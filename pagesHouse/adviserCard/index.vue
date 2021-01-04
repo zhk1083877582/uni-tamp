@@ -312,10 +312,8 @@
 							}
 						}
 						res.expertiseFields= expertiseFields;
-						if(res.servedPeopleNum!=null){
-						  if(parseInt(res.servedPeopleNum) <99){
-						    res.servedPeopleNum = 99
-						  }
+						if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
+						    res.servedPeopleNum = 99 + parseInt(res.servedPeopleNum)
 						}else{
 						    res.servedPeopleNum = 99
 						}
