@@ -9,7 +9,7 @@
 		<!-- 管家名片 -->
 		<view class="adviser-info">
 			<view class="info-img">
-				<view class="img" :style="{backgroundImage:`url(${adviserInfo.avatarUrl?adviserInfo.avatarUrl+'?x-oss-process=image/resize,h_60,w_60':'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'})`}">
+				<view class="img" :style="{backgroundImage:`url(${adviserInfo.avatarUrl?adviserInfo.avatarUrl+'?x-oss-process=image/resize,h_180,w_180':'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'})`}">
 				</view>
 			</view>
 			<view class="info-datail">
