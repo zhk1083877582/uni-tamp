@@ -448,6 +448,7 @@ export default {
 	}
 	
 	.flag1-propertytypeAndstatus{
+		margin-top:10rpx;
 		flex: 1;
 		display: flex;
 		flex-wrap: wrap;

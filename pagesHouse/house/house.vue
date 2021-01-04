@@ -156,8 +156,19 @@
 		
 		onLoad(option={}){
 			console.log('-------进入builddingInfo',option)
-			this.buildingId = option.buildingId||'';
-			this.userId = option.userId;
+			if (option.scene) {
+				const scene = decodeURIComponent(option.scene);
+				let obj = {};
+				scene.split('&').forEach(item => {
+					const key = item.split('=')[0];
+					obj[key] = item.split('=')[1];
+				});
+				this.userId = obj.userId;
+				this.buildingId = obj.buildingId;
+			} else {
+				this.buildingId = option.buildingId;
+				this.userId = option.userId;
+			}
 			this.initBaseInfo();
 			this.initGetAnnex();
 			//获取顾问400手机号码

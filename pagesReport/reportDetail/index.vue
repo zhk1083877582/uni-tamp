@@ -10,7 +10,7 @@
 						亲爱的{{windowTitle}}： 
 					</view>
 					<view class="text">
-						 您好！感谢你来访【{{buildingInfo.buildingAlias||'-'}}】销售中心，我是您的置业顾问【{{userName||'-'}}】
+						 您好！感谢您来访【{{buildingInfo.buildingAlias||'-'}}】销售中心，我是您的置业顾问【{{userName||'-'}}】
 					</view>
 				</view>
 			</view>
