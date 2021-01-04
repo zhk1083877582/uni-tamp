@@ -313,9 +313,7 @@
 						}
 						res.expertiseFields= expertiseFields;
 						if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
-						  if(res.servedPeopleNum){
 						    res.servedPeopleNum = 99 + parseInt(res.servedPeopleNum)
-						  }
 						}else{
 						    res.servedPeopleNum = 99
 						}
