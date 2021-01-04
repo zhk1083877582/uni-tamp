@@ -413,7 +413,8 @@
 						let albumCoverPictureItem =( res.list||[]).filter(item=>{
 							return item.annexType=='101';
 						});
-						self.share.imageUrl = albumCoverPictureItem.annexPath;
+						self.share.imageUrl = albumCoverPictureItem[0]&&albumCoverPictureItem[0].annexPath||'';
+						console.log('22---------',self.share.imageUrl)
 						self.$refs.reBuildingInfo.doFormatImgList(res.list||[]);
 					})
 					.catch(err => {
