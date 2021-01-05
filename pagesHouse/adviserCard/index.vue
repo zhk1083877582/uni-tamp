@@ -255,7 +255,7 @@
 				let params={
 					customerId:customerId,
 					phone:phone,
-					buildingId:this.buildingIdX,
+					// buildingId:this.buildingIdX,
 					userId:this.userId,
 				}
 				let api = '/business/homepage/createCustomer';
