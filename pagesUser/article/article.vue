@@ -3,13 +3,13 @@
 	<view class='article_page'>
 		<view class="detail">
 			<view class="detailTit">{{articleData.articleTitle}}</view>
-			<view class="avatar">
+			<!-- <view class="avatar">
 				<img :src="articleData.articleImage" class="avatarImg">
 				<text class="Nickname">{{articleData.creater||''}}</text>
 				<text class="dataTime">
 						{{articleData.createTime||''}}
 				</text>
-			</view>
+			</view> -->
 			<view class="artCon">
 				<jyf-parser :html="articleData.articleContent" ref="article"></jyf-parser>
 			</view>
