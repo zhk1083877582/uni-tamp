@@ -364,7 +364,8 @@
 							console.log('存在imgArr',imgArr)
 							item.mp4Picture = mp4Arr.length>0?mp4Arr[0].smallAnnexPath:'';
 							item.vrPicture =  vrArr.length>0?vrArr[0].smallAnnexPath:'';
-							item.imgPicture = imgArr.length>0? imgArr[0].annexPath:'';
+							// item.imgPicture = imgArr.length>0? imgArr[0].annexPath:'';
+							item.imgPicture = item.backgroundUrl||'';
 							console.log(`视频:${item.mp4Picture} ---VR：${item.vrPicture} --图片：${item.imgPicture}`)
 							item.realImgPath = item.mp4Picture|| item.vrPicture ||item.imgPicture;
 							return item
