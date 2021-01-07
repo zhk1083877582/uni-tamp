@@ -15,7 +15,7 @@
 			<view class="info-datail">
 				<view class="datail-name">
 					<text class="name">{{adviserInfo.userName||'--'}}</text>
-					<text class="role">{{adviserInfo.roleName||'--'}}</text>
+					<!-- <text class="role">{{adviserInfo.roleName||'--'}}</text> -->
 				</view>
 				<view class="datail-count">
 					<view class="year">
@@ -276,7 +276,8 @@
 				this.buildingId = item.buildingId
 				//设置标题
 				uni.setNavigationBarTitle({ 
-					title: item.buildingAlias||item.buildingName,
+					// title: item.buildingAlias||item.buildingName,
+					title: '名片'
 				});
 				//封面图
 				this.configPicture = item.backgroundUrl;
@@ -375,7 +376,8 @@
 						// console.log('----楼盘信息1',arr)
 						//设置标题
 						uni.setNavigationBarTitle({ 
-							title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
+							// title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
+							title: '名片',
 						});
 						self.buildingId = arr.length>1?arr[1].buildingId:arr.length==0?arr[0].buildingId:'',
 						//封面图
