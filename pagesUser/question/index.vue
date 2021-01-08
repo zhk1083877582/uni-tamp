@@ -197,7 +197,7 @@ export default {
 			this.CustomerTrack.createrId = this.userId
 			this.CustomerTrack.userId = this.userId
 			this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-			this.CustomerTrack.dataId = ''
+			this.CustomerTrack.dataId = this.questionId
 		}
 	},
 	onLoad(option) {
