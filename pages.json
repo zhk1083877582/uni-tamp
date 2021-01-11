@@ -21,7 +21,7 @@
 				{
 					"path": "reportDetail/index",
 					"style": {
-						"navigationBarTitleText": "专属置业报告",
+						"navigationBarTitleText": "专属置业计划书",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -32,7 +32,7 @@
 				{
 					"path": "book/index",
 					"style": {
-						"navigationBarTitleText": "专属置业小蓝书",
+						"navigationBarTitleText": "专属置业计划书",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
@@ -197,7 +197,7 @@
 				{
 					"path": "question/index",
 					"style": {
-						"navigationBarTitleText": "客户问题",
+						"navigationBarTitleText": "常见问题",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
