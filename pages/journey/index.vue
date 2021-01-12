@@ -220,7 +220,7 @@
 										<view class="no-data-plan">
 											<image class="img" src="https://media.tongcehaofang.com/image/default/A92894D89E954C9198EDDA3349607E4D-6-2.jpg" mode=""></image>
 											<view class="text">
-												您的置业报告正在定制中，
+												您的置业计划书正在定制中，
 											</view> 
 											<view class="text">
 												敬请期待~
