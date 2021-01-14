@@ -309,9 +309,9 @@
 						let {expertiseFields=[],buildingInfos=[]} = res;
 						res.expertiseFields= expertiseFields;
 						if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
-						    res.servedPeopleNum = 99 + parseInt(res.servedPeopleNum)
+						    res.servedPeopleNum = parseInt(res.servedPeopleNum)
 						}else{
-						    res.servedPeopleNum = 99
+						    res.servedPeopleNum = ''
 						}
 						self.adviserInfo = res
 						

@@ -194,10 +194,10 @@ export default {
 			    let customerName = res.businessReport?res.businessReport.customerName:''
 				this.windowTitle = `${customerName?customerName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
 				uni.setNavigationBarTitle({
-					title: `${this.windowTitle}的专属置业报告`
+					title: `${this.windowTitle}的专属置业计划书`
 				});
-				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业报告' : '置业报告'
-				this.share.imageUrl = 'https://media.tongcehaofang.com/image/default/AF9E2415C43545269526819F42B32324-6-2.jpg'
+				this.share.title = this.buildingInfo?this.buildingInfo.buildingAlias + '置业计划书' : '置业计划书'
+				this.share.imageUrl = 'https://media.tongcehaofang.com/image/default/7053D048F5714430B1815AAA566CC1FF-6-2.jpg'
 				
 				this.logData = {
 					beginTime:this.beginTime,
