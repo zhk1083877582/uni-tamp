@@ -177,10 +177,8 @@ export default {
 <style lang="scss" scoped>
 .building-card {
 	width:100%;
-	// width:702rpx;
-	height:842rpx ;
+	// height:842rpx ;
 	background-color: #FFFFFF;
-	// background-color: green;
    //图片
 	.img-container{
 		width:100%;
@@ -353,7 +351,7 @@ export default {
 		// height: 48rpx;
 		padding-left: 30rpx;
 		margin-top:15rpx;
-		font-size: 24rpx;
+		font-size: 26rpx;
 		font-weight: 400;
 		text-align: left;
 		color: #827870;
@@ -380,7 +378,7 @@ export default {
 		margin-top:20rpx;
 		// padding-left: 30rpx;
 		padding-bottom: 50rpx;
-		font-size: 26rpx;
+		font-size: 28rpx;
 		font-weight: 400;
 		color: #827870;
 		border-top: 1rpx solid #efefef;
