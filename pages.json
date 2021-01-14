@@ -203,7 +203,16 @@
 							"bounce": "none"
 						}
 					}
-				}
+				},{
+          "path": "reportPage/reportdetail/index",
+          "style": {
+            "navigationBarTitleText": "置业报告",
+            "app-plus": {
+              "titleNView": false,
+              "bounce": "none"
+            }
+          }
+        }
             ]
 		}
 	],
