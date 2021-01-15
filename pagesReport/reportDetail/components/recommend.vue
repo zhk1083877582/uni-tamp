@@ -190,7 +190,9 @@ export default {
 	created() {
 	},
 	mounted() {
-		this.getDescBox(0);
+		this.$nextTick(function(){
+			this.getDescBox(0);
+		})
 		this.buryingPoint.buildingId = ''
 		console.log('resData',this.resData)
 	},

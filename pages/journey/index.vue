@@ -130,7 +130,7 @@
 												>
 												</u-tabs>
 												
-												<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
+												<swiper :style="{'height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
 													<swiper-item v-for="(itemR,index) in item.recommendation" :key="index">			
 														<view :class="'change_box_warp'+index">
 															<view class="change_box">
@@ -508,7 +508,9 @@ export default {
 				})
 				this.journeyArr = res;
 				console.log(this.journeyArr,'置业报告列表整合数据');
-				
+				this.$nextTick(function(){
+					this.getDescBox(0);
+				})
 				//埋点
 				this.buryingPoint.operationType = '4'
 				this.buryingPoint.modelType = '1'
@@ -529,6 +531,7 @@ export default {
 		   if (result) { 
 		     console.log('==========',result) 
 			 this.swiperHeightPlan = result.height + 20 +'px'
+			 console.log('==========',this.swiperHeightPlan) 
 		   }else { 
 		     this.getDescBox(); 
 		 } 
@@ -568,10 +571,7 @@ export default {
 	created() {
 	
 	},
-	mounted() {
-		this.getDescBox(0);
-		this.share.title = '购房旅程'
-	},
+	
 	onLoad(option){
 		console.log('-----首页',this.$cache.getCache('M-Token'))
 		// this.getUserInfo();
@@ -582,6 +582,10 @@ export default {
 			this.getinitData(customerId);
 			this.getLabelCategory()
 		}
+	},
+	mounted() {
+		
+		this.share.title = '购房旅程'
 	},
 	onReady(){
 		
