@@ -132,7 +132,7 @@
 												
 												<swiper :style="{'min-height':swiperHeightPlan}" :current='currPlan' :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
 													<swiper-item v-for="(itemR,index) in item.recommendation" :key="index">			
-														<view class="change_box_warp">
+														<view :class="'change_box_warp'+index">
 															<view class="change_box">
 																<view class="change_image_warp">
 																	<image class="change_image" :src="itemR.houseTypeImg?itemR.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
@@ -150,13 +150,13 @@
 																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{itemR.houseArea||'-'}}<text>㎡</text></text>
 																</view> 
 																<view class="rows">
-																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemPlan.houseTotalPrice?itemPlan.houseTotalPrice+'万元':'不限'}}</text>
+																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemPlan.houseTotalPrice?itemPlan.houseTotalPrice+'万元':'待定'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemPlan.firstPay?itemPlan.firstPay+'万元':'不限'}}</text>
+																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemPlan.firstPay?itemPlan.firstPay+'万元':'待定'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemPlan.mouthPay?itemPlan.mouthPay+'元':'不限'}}</text>
+																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemPlan.mouthPay?itemPlan.mouthPay+'元':'待定'}}</text>
 																	<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
 																		<i class="iconfont iconwenhao question"></i>
 																		<view class="tool_tip" v-show="isShowTooltip">
@@ -386,11 +386,13 @@ export default {
 			console.log(index,11111)
 			this.currentPlan = index;
 			this.currPlan = index;
+			this.getDescBox(index.detail.current)
 		},
 		changeSwipePlan(index){
 			console.log(index)
 			this.currentPlan = index.detail.current;
 			this.currPlan = index.detail.current;
+			this.getDescBox(index.detail.current)
 		},
 		//气泡显示
 		showTooltip(){
@@ -522,8 +524,8 @@ export default {
 				console.log(err,'首页接口报错')
 			})
 		},
-		getDescBox() {
-		  uni.createSelectorQuery().in(this).select('.change_box_warp').boundingClientRect(result => { 
+		getDescBox(len) {
+		  uni.createSelectorQuery().in(this).select('.change_box_warp'+len).boundingClientRect(result => { 
 		   if (result) { 
 		     console.log('==========',result) 
 			 this.swiperHeightPlan = result.height + 20 +'px'
@@ -567,7 +569,7 @@ export default {
 	
 	},
 	mounted() {
-		this.getDescBox();
+		this.getDescBox(0);
 		this.share.title = '购房旅程'
 	},
 	onLoad(option){

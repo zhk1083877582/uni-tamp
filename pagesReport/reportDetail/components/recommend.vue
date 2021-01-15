@@ -39,7 +39,7 @@
 				</u-tabs>
 			<swiper :style="{'height':swiperHeight}" class="swiper" :current='curr'  :indicator-dots="indicatorDots" :autoplay="autoplay" :circular='autoplay' @change="changeSwipe">
 				<swiper-item v-for="(item,index) in resData" :key="index">	
-					<view class="change_box_warp">
+					<view :class="'change_box_warp'+index">
 						<view class="change_box">
 							<view class="change_image_warp">
 								<image class="change_image" :src="item.houseTypeImg?item.houseTypeImg:'https://media.tongcehaofang.com/image/default/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
@@ -57,13 +57,13 @@
 								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea||'-'}}<text>㎡</text></text>
 							</view> 
 							<view class="rows">
-								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice?item.houseTotalPrice+'万元':'不限'}}</text>
+								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice?item.houseTotalPrice+'万元':'待定'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay?item.firstPay+'万元':'不限'}}</text>
+								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay?item.firstPay+'万元':'待定'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'不限'}}</text>
+								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
 								<!-- <view class="tool_tip_warp">
 									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 									<view class="tool_tip" v-show="isShowTooltip">
@@ -102,7 +102,7 @@ export default {
 		return {
 			current: 0,
 			isShowTooltip:false,
-			swiperHeight: '650px',
+			swiperHeight: '0',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,
@@ -137,11 +137,13 @@ export default {
 			this.curr = val.detail.current;
 			this.current = val.detail.current;
 			this.isShowTooltip = false;
+			this.getDescBox(val.detail.current)
 		},
 		change(index) {
 			this.current = index;
 			this.curr = index;
 			this.isShowTooltip = false;
+			this.getDescBox(val.detail.current)
 		},
 		//气泡显示
 		showTooltip(){
@@ -174,11 +176,11 @@ export default {
 			// }
 			return this.$formatter.switchName('propertyType',key)
 		},
-		getDescBox() { 
-		  uni.createSelectorQuery().in(this).select('.change_box_warp').boundingClientRect(result => { 
+		getDescBox(len) { 
+		  uni.createSelectorQuery().in(this).select('.change_box_warp'+len).boundingClientRect(result => { 
 		   if (result) { 
 		     console.log('==========',result) 
-			 // this.swiperHeight = result.height + 20 +'px'
+			 this.swiperHeight = result.height + 20 +'px'
 		   }else { 
 		     this.getDescBox(); 
 		 } 
@@ -188,7 +190,7 @@ export default {
 	created() {
 	},
 	mounted() {
-		this.getDescBox();
+		this.getDescBox(0);
 		this.buryingPoint.buildingId = ''
 		console.log('resData',this.resData)
 	},
