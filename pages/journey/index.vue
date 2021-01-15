@@ -143,20 +143,20 @@
 																<view class="rows">
 																	<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{`${itemR.bedroom||'-'}室${itemR.parlor||'-'}厅${itemR.kitchen||'-'}厨${itemR.bathroom||'-'}卫`}}</text>
 																</view>
-																<view class="rows">
-																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.buildingNumber||'-'}}栋{{itemR.houseNumber||'-'}}室</text>
+																<view class="rows" v-if="itemR.buildingNumber&&itemR.houseNumber">
+																	<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{itemR.buildingNumber?itemR.buildingNumber+'栋':''}}{{itemR.houseNumber?itemR.houseNumber+'室':''}}</text>
 																</view> 
 																<view class="rows">
 																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{itemR.houseArea||'-'}}<text>㎡</text></text>
 																</view> 
 																<view class="rows">
-																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemR.houseTotalPrice||'-'}}万元</text>
+																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemPlan.houseTotalPrice?itemPlan.houseTotalPrice+'万元':'不限'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay||'-'}}万元</text>
+																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemPlan.firstPay?itemPlan.firstPay+'万元':'不限'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay||'-'}}元</text>
+																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemPlan.mouthPay?itemPlan.mouthPay+'元':'不限'}}</text>
 																	<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
 																		<i class="iconfont iconwenhao question"></i>
 																		<view class="tool_tip" v-show="isShowTooltip">
@@ -169,7 +169,7 @@
 																</view>
 															</view>
 															
-															<view class="reason">
+															<view class="reason" v-if="itemR.content">
 																<view class="sanJ"></view>
 																<view class="reason_title">
 																	<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>

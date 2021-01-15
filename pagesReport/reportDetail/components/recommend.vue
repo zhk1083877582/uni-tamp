@@ -50,20 +50,20 @@
 							<view class="rows">
 								<i class="iconfont icongeju"></i><text class="lable">格局</text><text class="text">{{item.houseType?item.houseType:'-'}}</text>
 							</view>
-							<view class="rows">
-								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.buildingNumber||'-'}}栋{{item.houseNumber||'-'}}室</text>
+							<view class="rows" v-if="item.buildingNumber&&item.houseNumber">
+								<i class="iconfont iconfanghao"></i><text class="lable">房号</text><text class="text">{{item.buildingNumber?item.buildingNumber+'栋':''}}{{item.houseNumber?item.houseNumber+'室':''}}</text>
 							</view> 
 							<view class="rows">
 								<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{item.houseArea||'-'}}<text>㎡</text></text>
 							</view> 
 							<view class="rows">
-								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice||'-'}}万元</text>
+								<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice?item.houseTotalPrice+'万元':'不限'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay||'-'}}万元</text>
+								<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay?item.firstPay+'万元':'不限'}}</text>
 							</view>
 							<view class="rows">
-								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay||'-'}}元</text>
+								<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'不限'}}</text>
 								<!-- <view class="tool_tip_warp">
 									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 									<view class="tool_tip" v-show="isShowTooltip">
@@ -76,7 +76,7 @@
 							</view>
 						</view>
 						
-						<view class="reason">
+						<view class="reason" v-if="item.content">
 							<view class="sanJ"></view>
 							<view class="reason_title">
 								<i class="iconfont icontuijianliyou"></i><text class="text">推荐理由</text>
@@ -102,7 +102,7 @@ export default {
 		return {
 			current: 0,
 			isShowTooltip:false,
-			swiperHeight: '0px',
+			swiperHeight: '650px',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,
@@ -178,7 +178,7 @@ export default {
 		  uni.createSelectorQuery().in(this).select('.change_box_warp').boundingClientRect(result => { 
 		   if (result) { 
 		     console.log('==========',result) 
-			 this.swiperHeight = result.height + 20 +'px'
+			 // this.swiperHeight = result.height + 20 +'px'
 		   }else { 
 		     this.getDescBox(); 
 		 } 
