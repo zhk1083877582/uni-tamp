@@ -117,7 +117,7 @@
 				adviserInfo:{},
 				//滑动信息
 				swiperInfo:{
-					itemHeight:'850rpx',
+					itemHeight:'840rpx',
 					swiperMargin:'17rpx',
 					current:'1',
 					indicatorDots:false,
@@ -585,7 +585,7 @@
 			}
 		}
 		.scale_swiper{
-			transform:scaleY(0.85);
+			// transform:scaleY(0.85);
 			// opacity: 0.5;
 		}
 	}
