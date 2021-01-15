@@ -150,13 +150,13 @@
 																	<i class="iconfont iconmianji"></i><text class="lable">面积</text><text class="text">{{itemR.houseArea||'-'}}<text>㎡</text></text>
 																</view> 
 																<view class="rows">
-																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemPlan.houseTotalPrice?itemPlan.houseTotalPrice+'万元':'待定'}}</text>
+																	<i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{itemR.houseTotalPrice?itemR.houseTotalPrice+'万元':'待定'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemPlan.firstPay?itemPlan.firstPay+'万元':'待定'}}</text>
+																	<i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay?itemR.firstPay+'万元':'待定'}}</text>
 																</view>
 																<view class="rows">
-																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemPlan.mouthPay?itemPlan.mouthPay+'元':'待定'}}</text>
+																	<i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay?itemR.mouthPay+'元':'待定'}}</text>
 																	<!-- <view class="tool_tip_warp" @click.stop="showTooltip()">
 																		<i class="iconfont iconwenhao question"></i>
 																		<view class="tool_tip" v-show="isShowTooltip">
