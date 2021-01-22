@@ -435,9 +435,12 @@
 					baseInfo['propertyTypeList'].push( this.getPropertyType(item.propertyType))
 				})
 				let houseTypes = (baseInfo.houseTypes||[]).map(item1=>{
-					return item1.bedroom;
+					return item1.bedroom*1;
 				})
-				baseInfo.houseType = [...new Set(houseTypes)].join('/');
+				houseTypes= [...new Set(houseTypes)].sort(function(a,b){
+					return a-b;
+				})
+				baseInfo.houseType = houseTypes.join('/');
 				baseInfo.buildingTags =[];
 				(baseInfo.tags||[]).forEach(item=>{
 					baseInfo['buildingTags'].push( item.tagName)
