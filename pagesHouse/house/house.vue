@@ -434,6 +434,10 @@
 				(baseInfo.propertyTypes||[]).forEach(item=>{
 					baseInfo['propertyTypeList'].push( this.getPropertyType(item.propertyType))
 				})
+				let houseTypes = (baseInfo.houseTypes||[]).map(item1=>{
+					return item1.bedroom;
+				})
+				baseInfo.houseType = [...new Set(houseTypes)].join('/');
 				baseInfo.buildingTags =[];
 				(baseInfo.tags||[]).forEach(item=>{
 					baseInfo['buildingTags'].push( item.tagName)
