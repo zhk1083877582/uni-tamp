@@ -9,9 +9,9 @@ export default {
 		// let cityList = this.$cache.getCache('storageCity')
 		// let city = cityList.title||'上海市'
 		// console.log(city,'app.vue')
-		// let keywords =  city+'新房'+','+city+'新楼盘'+','+city+'新开楼盘'+','+'窝记好房'
+		// let keywords =  city+'新房'+','+city+'新楼盘'+','+city+'新开楼盘'+','+'置业笔记'
 		//  swan.setPageInfo({
-		//             title: '窝记好房，新房,新楼盘,新开楼盘',
+		//             title: '置业笔记，新房,新楼盘,新开楼盘',
 		//             keywords:keywords,
 		//             description: keywords,
 		// 			image: 'https://media.tongcehaofang.com/image/default/616DCC531C714EC29C237697590BB5FC-6-2.jpg',       

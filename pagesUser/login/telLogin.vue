@@ -9,7 +9,7 @@
 						您好，
 					</view>
 					<view class="tel-text2">
-						欢迎开启窝记置业旅程
+						欢迎开启置业笔记置业旅程
 					</view>
 				</view>
 				<view class="log_form">
@@ -47,7 +47,7 @@
 					<view class="login_agreement">
 						登录即同意
 						<text class="agreement" @click="toAgreement">
-							窝记用户服务及隐私协议
+							置业笔记用户服务及隐私协议
 						</text>
 					</view>
 					<u-button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary" @click='onSubmit'>

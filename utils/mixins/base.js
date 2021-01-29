@@ -26,7 +26,7 @@ export default{
 			},
             //设置默认的分享参数
             share:{
-                title:'窝记',
+                title:'置业笔记',
                 path:'',
                 imageUrl:'',
             }

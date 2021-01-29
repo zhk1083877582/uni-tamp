@@ -16,7 +16,7 @@
 			<view class="login_agreement">
 				登录即同意
 				<text class="agreement" @click="toAgreement">
-					窝记用户服务及隐私协议
+					置业笔记用户服务及隐私协议
 				</text>
 			</view>
 		</view>
@@ -44,6 +44,11 @@ export default {
 	computed: {},
 	watch: {},
 	methods: {
+    toAgreement(){
+			uni.navigateTo({
+			    url: '/pagesUser/login/agreement' 
+			});
+		},
 		//手机号码登录
 		doTelLogin() {
 			uni.redirectTo({
