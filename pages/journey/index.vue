@@ -34,7 +34,7 @@
 				<swiper :style="{height:swiperHeight}" class="swiper" :current='curr' :next-margin='swiperMargin' :previous-margin='swiperMargin' :indicator-dots="indicatorDots" :autoplay="autoplay" :circular='autoplay' @change="changeSwipe">
 					<swiper-item v-for="(item,index) in journeyArr" :key="index" class="swiper_item_class">
 						<view class="swiper-item uni-bg-red" :class="index!=curr?'scale_swiper':''">
-							<view class="swiper_item_H">
+							<view class="swiper_item_H" :class="'swiper_item_warp'+index">
 								<view class="list_item">
 									<view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
 										<view class="img_warp">
@@ -275,7 +275,7 @@ export default {
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			defaultHead:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			swiperMargin:'30rpx',
-			swiperHeight: '2852rpx',
+			swiperHeight: '2850rpx',
 			indicatorDots: false,
 			autoplay: false,
 			curr:0,
@@ -377,6 +377,7 @@ export default {
 		changeSwipe(val){
 			console.log(val)
 			this.curr = val.detail.current;
+			this.getDescWarpSwiper(val.detail.current)
 			this.currentPlan = 0;
 			this.currPlan = 0;
 			this.isShowTooltip = false;//月供切换隐藏
@@ -497,7 +498,7 @@ export default {
 						  itemR.ishowPlanStatus = true
 					  }else{
 						  itemR.ishowPlanStatus = false
-						  this.swiperHeight = '950rpx'
+						  // this.swiperHeight = '950rpx'
 					  }
 					 
 					//判断是否有楼盘
@@ -510,6 +511,7 @@ export default {
 				console.log(this.journeyArr,'置业报告列表整合数据');
 				this.$nextTick(function(){
 					this.getDescBox(0);
+					this.getDescWarpSwiper(0);
 				})
 				//埋点
 				this.buryingPoint.operationType = '4'
@@ -526,12 +528,23 @@ export default {
 				console.log(err,'首页接口报错')
 			})
 		},
+		getDescWarpSwiper(len) {
+		  uni.createSelectorQuery().in(this).select('.swiper_item_warp'+len).boundingClientRect(result => { 
+		   if (result) { 
+		     // console.log('==========',result) 
+			 this.swiperHeight = result.height + 30 +'px'
+			 // console.log('==========',this.swiperHeight) 
+		   }else { 
+		     this.getDescWarpSwiper(); 
+		 } 
+		  }).exec(); 
+		},
 		getDescBox(len) {
 		  uni.createSelectorQuery().in(this).select('.change_box_warp'+len).boundingClientRect(result => { 
 		   if (result) { 
-		     console.log('==========',result) 
+		     // console.log('==========',result) 
 			 this.swiperHeightPlan = result.height + 20 +'px'
-			 console.log('==========',this.swiperHeightPlan) 
+			 // console.log('==========',this.swiperHeightPlan) 
 		   }else { 
 		     this.getDescBox(); 
 		 } 

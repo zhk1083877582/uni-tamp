@@ -41,6 +41,7 @@
 		<question class="part99" v-if="questionList!=null&&JSON.stringify(questionList)!='[]'" :resData='questionList'></question>
 		<!-- 置业小贴士 -->
 		<tips-page class="part100"></tips-page>
+		<view class="reference_txt">*本方案仅供参考，准确信息请以开发商所披露的信息为准。</view>
 		<!-- 管家信息 -->
 		<view :class="isfixed?'fixed_bottom':''">
 			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId'></foot-bottom>
@@ -483,6 +484,14 @@ export default {
 		left: 0;
 		z-index: 9999;
 		width: 100%;
+	}
+	.reference_txt{
+		font-size: 24rpx;
+		font-weight: 400;
+		color: rgba(255,255,255,0.28);
+		line-height: 24rpx;
+		color: rgba(255,255,255,0.28);
+		margin: 40rpx 24rpx;
 	}
 }
 </style>
