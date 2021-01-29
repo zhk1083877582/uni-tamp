@@ -1,7 +1,7 @@
 <!-- 登录 -->
 <template>
 	<view class="login_warp">
-		<image src="https://media.tongcehaofang.com/image/default/49BB7C672F3343CD88D32EFB91DEDF2F-6-2.jpg" class="login_log"></image>
+		<image src="https://media.tongcehaofang.com/image/default/5259F332FEF24BB1B2699C7A3CC205E8-6-2.jpg" class="login_log"></image>
 		<view class="btn_warp">
 			<!-- #ifdef MP-WEIXIN -->
 			<u-button type="primary" class="WX_btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
@@ -173,7 +173,7 @@ export default {
 	background-color: #FFFFFF;
 	height:100%;
 	.login_log {
-		width: 152rpx;
+		width: 330rpx;
 		height: 244rpx;
 		position: absolute;
 		left: 50%;
