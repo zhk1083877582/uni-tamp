@@ -78,14 +78,14 @@ export default {
 				{ label: '方案推荐', cl: 'part2', isShow: false,id:'recommend' },
 				// dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
 				{ label: '置业问答', cl: 'part99', isShow: false,id:'question' },
-				{ label: '购房小贴士', cl: 'part100', isShow: true,id:'tips' },
+				{ label: '置业小贴士', cl: 'part100', isShow: true,id:'tips' },
 			],
 			// scrollTabs:{
 			// 	demand: { label: '置业需求', cl: 'part1', isShow: false },
 			// 	recommend: { label: '方案推荐', cl: 'part2', isShow: false },
 			// 	// dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
 			// 	question: { label: '置业问答', cl: 'part99', isShow: false },
-			// 	tips: { label: '购房小贴士', cl: 'part100', isShow: true },
+			// 	tips: { label: '置业小贴士', cl: 'part100', isShow: true },
 			// }
 			isfixed:false,
 			customerIntention:null,//置业需求
