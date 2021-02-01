@@ -206,7 +206,7 @@
 														
 													</view>
 													<view class="status u-line-2">{{itemL.stage==2?'复看':'首访'}}</view>
-													<view class="content" @click="toReportDetail(itemL.reportId)">
+													<view class="content" :id="itemL.reportId" @click="e=>toReportDetail(e,itemL.reportId)">
 														<view class="report_title">
 															<i class="iconfont iconzhiyebaogao"></i>{{itemL.reportName}}<i class="iconfont iconjiantou"></i>
 														</view>
@@ -454,9 +454,10 @@ export default {
 				console.log('管家信息', err);
 			});
 		},
-		toReportDetail(reportId){
+		toReportDetail(e,reportId){
+			console.log(e,reportId,'111222333')
 			uni.navigateTo({
-				url: '../../pagesReport/reportDetail/index?reportId=' + reportId
+				url: '../../pagesReport/reportDetail/index?reportId=' + e.currentTarget.id
 			});
 		},
 		toIdealHome(data){
