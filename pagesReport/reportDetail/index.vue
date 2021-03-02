@@ -193,7 +193,7 @@ export default {
 				
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 			    let customerName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = `${customerName?customerName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
+				this.windowTitle = `${customerName?customerName.substring(0,1):'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':'先生/女士'}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业计划书`
 				});

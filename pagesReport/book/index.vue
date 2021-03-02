@@ -144,7 +144,7 @@ export default {
 				let customerGender=res.businessReport?res.businessReport.customerGender:''
 				let subscriberName = res.businessReport?res.businessReport.customerName:''
 				console.log(subscriberName,customerGender)
-				this.windowTitle = `${subscriberName?subscriberName:'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':''}`
+				this.windowTitle = `${subscriberName?subscriberName.substring(0,1):'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':'先生/女士'}`
 				console.log(this.windowTitle)
 				this.buildingName = res.buildingInfo.buildingAlias
 			}).catch((err)=>{
