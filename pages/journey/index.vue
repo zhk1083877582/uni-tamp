@@ -78,7 +78,7 @@
 														<view class="title">总价预算</view>
 														<view class="content_text">
 															<!-- {{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text> -->
-															{{$tool.changeArrayToNum(item.customerIntention.totalBudget,'万')}}
+															{{$tool.changeArrayToNum(item.customerIntention.more.intentionTotalPrice,'万')}}
 														</view>
 													</view>
 												</view>

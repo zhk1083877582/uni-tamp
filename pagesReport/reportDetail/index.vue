@@ -157,9 +157,9 @@ export default {
 				console.log('置业报告详情数据',res)
 				let self = this
 				//置业需求
-				if(res.customerIntention&&res.customerIntention.customerFocus){
-					res.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,res.customerIntention.customerFocus)
-				}
+				// if(res.customerIntention&&res.customerIntention.customerFocus){
+				// 	res.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,res.customerIntention.customerFocus)
+				// }
 				this.customerIntention = res.customerIntention;
 				let isShowDemand = res.customerIntention != null?true:false;
 				this.changeScrollTabsShow('demand',isShowDemand)
@@ -286,7 +286,7 @@ export default {
 	},
 	onLoad(option){
 		console.log(option,'传过来的置业报告ID')
-		this.getLabelCategory();
+		// this.getLabelCategory();
 		this.reportId = option.reportId
 		this.getReportData(option.reportId);
 		this.beginTime = (new Date()).getTime()

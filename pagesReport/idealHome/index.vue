@@ -45,15 +45,15 @@
 					<view class="content column">
 						<view class="item_view">
 							<text>总价预算</text>
-							<text class="color_red">{{$tool.changeArrayToNum(resData.intentionTotalPrice,'万')}}</text>
+							<text class="color_red">{{$tool.changeArrayToNum(resDataMore.intentionTotalPrice,'万')}}</text>
 						</view>
 						<view class="item_view">
 							<text>单价预算</text>
-							<text class="color_red">{{$tool.changeArrayToNum(resData.intentionAveragePrice,'元/㎡')}}</text>
+							<text class="color_red">{{$tool.changeArrayToNum(resDataMore.intentionAveragePrice,'元/㎡')}}</text>
 						</view>
 						<view class="item_view">
 							<text>首付区间</text>
-							<text class="color_red">{{$tool.changeArrayToNum(resData.downPaymentInterval,'万')}}</text>
+							<text class="color_red">{{changeArrayDownPayment(resData.downPaymentInterval)}}</text>
 						</view>
 					</view>
 				</view>
@@ -97,7 +97,7 @@
 						<view class="item_view">
 							<view class="second_label">面积</view>
 							<view class="right_text">
-								<text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text>
+								<text>{{$tool.changeArrayToNum(resDataMore.intentionArea,'㎡')}}</text>
 								<!-- <text>{{resData.intentionArea||'不详'}}</text> -->
 								</view>
 						</view>
@@ -138,6 +138,7 @@ export default {
 		return {
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
 			resData:{},
+			resDataMore:{},
 			metroList:[],
 			Loopline:[],
 		};
@@ -228,7 +229,17 @@ export default {
 		  	this.getmetro(itemT)
 		  })
 		},
-		
+		changeArrayDownPayment(str){
+			if(str==null||str == '') return '不详'
+			let newStr = str.split(',')
+			if(newStr[0]==''&&newStr[1]!=''){
+				return newStr[1]
+			}else if(newStr[0]!=''&&newStr[1]==''){
+				return newStr[0]
+			}else{
+				return newStr[0]+'-'+newStr[1]
+			}
+		}
 	},
 	created() {
 
@@ -240,7 +251,8 @@ export default {
 	},
 	onLoad(option){
 		this.resData = JSON.parse(option.resData)
-		console.log(this.resData)
+		this.resDataMore = JSON.parse(option.resData).more
+		console.log(this.resData,this.resData.more.intentionTotalPrice)
 	}
 }
 </script>

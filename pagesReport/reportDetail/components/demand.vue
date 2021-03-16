@@ -15,7 +15,7 @@
 						<view class="title">总价预算</view>
 						<view class="content_text">
 							<!-- {{$tool.changeArrayToNum(resData.intentionTotalPrice,'万')}} -->
-							{{$tool.changeArrayToNum(resData.totalBudget,'万')}}
+							{{$tool.changeArrayToNum(resData.more.intentionTotalPrice,'万')}}
 						</view>
 					</view>
 				</view>
