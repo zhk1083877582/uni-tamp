@@ -70,7 +70,8 @@
 													<view class="col">
 														<view class="title">置业目的</view>
 														<view class="content_text">
-															{{$formatter.switchName('intentionPurpose',item.customerIntention.intentionPurpose)}}
+															<!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionPurpose)}} -->
+															{{item.customerIntention.intentionPurpose||'不详'}}
 														</view>
 													</view>
 													<view class="col col_L">
@@ -86,14 +87,15 @@
 														<view class="title">意向区域</view>
 														<view class="content_text">
 															<!-- {{item.customerIntention.intentionCityRegion}} -->
-															{{item.customerIntention.intentionCityRegionName || '不限'}}
+															{{item.customerIntention.intentionRegion || '不祥'}}
 														</view>
 													</view>
 													<view class="col col_L">
 														<view class="title">意向户型</view>
 														<view class="content_text">
 															<!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}} -->
-															{{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'不限'}}
+															<!-- {{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'不限'}} -->
+															{{item.customerIntention.intentionHouseType||'不详'}}
 														</view>
 													</view>
 												</view>
@@ -102,7 +104,7 @@
 														<view class="title">关注重点</view>
 														<view class="content_text">
 															<!-- {{item.customerIntention.considerFactor}} -->
-															{{item.customerIntention.customerFocusText?item.customerIntention.customerFocusText:'不限'}}
+															{{item.customerIntention.attentionFactor?item.customerIntention.attentionFactor:'不祥'}}
 														</view>
 													</view>
 												</view>
@@ -322,7 +324,7 @@ export default {
 	computed: {
 		phoneFormat(){
 			var reg = /^(\d{3})\d{4}(\d{4})$/;
-			let tel = this.userPhone.replace(reg, "$1****$2");
+			let tel = this.userPhone?this.userPhone.replace(reg, "$1****$2"):'暂无手机号';
 			return tel
 		}
 	},
@@ -521,11 +523,11 @@ export default {
 				this.ReportLog()
 			}).catch(err=>{
 				this.ishowbuilding = false;
-				if(err.request.code == 401){
-					this.$cache.removeCache('M-Token');
-					this.$cache.removeCache('Login-Data');
-					this.HasToken =false;
-				}
+				// if(err.request.code == 401){
+				// 	this.$cache.removeCache('M-Token');
+				// 	this.$cache.removeCache('Login-Data');
+				// 	this.HasToken =false;
+				// }
 				console.log(err,'首页接口报错')
 			})
 		},

@@ -10,7 +10,8 @@
 						置业目的：
 					</view>
 					<view class="content">
-						{{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}}
+						<!-- {{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}} -->
+						{{resData.intentionPurpose||'不详'}}
 					</view>
 				</view>
 			</view>
@@ -21,7 +22,8 @@
 						购房资质：
 					</view>
 					<view class="content">
-						{{resData.housePurchaseCondition==1?'有':resData.housePurchaseCondition==2?'无':'-'}}
+						{{resData.buyHouseQualification||'不详'}}
+						<!-- {{resData.buyHouseQualification==1?'有':resData.buyHouseQualification==2?'无':'不详'}} -->
 					</view>
 				</view>
 				<view class="box">
@@ -29,7 +31,8 @@
 						贷款资质：
 					</view>
 					<view class="content">
-						{{getformatloanCondition(resData.loanCondition)}}
+						<!-- {{getformatloanCondition(resData.loanCondition)}} -->
+						{{resData.loansQualification||'不详'}}
 					</view>
 				</view>
 			</view>
@@ -41,13 +44,16 @@
 					</view>
 					<view class="content column">
 						<view class="item_view">
-							<text>总价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.totalBudget,'万')}}</text>
+							<text>总价预算</text>
+							<text class="color_red">{{$tool.changeArrayToNum(resData.intentionTotalPrice,'万')}}</text>
 						</view>
 						<view class="item_view">
-							<text>单价预算</text><text class="color_red">{{$tool.changeArrayToNum(resData.unitPriceBudget,'元/㎡')}}</text>
+							<text>单价预算</text>
+							<text class="color_red">{{$tool.changeArrayToNum(resData.intentionAveragePrice,'元/㎡')}}</text>
 						</view>
 						<view class="item_view">
-							<text>首付区间</text><text class="color_red">{{$tool.changeArrayToNum(resData.downPaymentBudget,'万')}}</text>
+							<text>首付区间</text>
+							<text class="color_red">{{$tool.changeArrayToNum(resData.downPaymentInterval,'万')}}</text>
 						</view>
 					</view>
 				</view>
@@ -61,21 +67,25 @@
 					<view class="content column">
 						<view class="item_view">
 							<view class="second_label">区域</view>
-							<view class="right_text">{{resData.intentionCityRegionName || '-'}}</view>
+							<view class="right_text">{{resData.intentionRegion || '不详'}}</view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">环线</view><view class="right_text">
-								<text v-for="(item,index) in Loopline" :key="index">
+								<!-- <text v-for="(item,index) in Loopline" :key="index">
 									{{item}}
+								</text> -->
+								<text>
+									{{resData.intentionLoopLine||'不详'}}
 								</text>
 							</view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">地铁</view>
 							<view class="right_text">
-								<text v-for="(item,index) in metroList" :key="index">
+								<!-- <text v-for="(item,index) in metroList" :key="index">
 									{{item}}
-								</text>
+								</text> -->
+								<text>{{resData.intentionSubway||'不详'}}</text>
 							</view>
 						</view>
 						<!-- <view class="item_view">
@@ -85,10 +95,19 @@
 							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet || '不限'}}</text></view>
 						</view> -->
 						<view class="item_view">
-							<view class="second_label">面积</view><view class="right_text"><text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text></view>
+							<view class="second_label">面积</view>
+							<view class="right_text">
+								<text>{{$tool.changeArrayToNum(resData.intentionArea,'㎡')}}</text>
+								<!-- <text>{{resData.intentionArea||'不详'}}</text> -->
+								</view>
 						</view>
 						<view class="item_view">
-							<view class="second_label">户型</view><view class="right_text"><text>{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}}</text></view>
+							<view class="second_label">户型</view><view class="right_text">
+								<text>
+									<!-- {{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}} -->
+									{{resData.intentionHouseType||'不详'}}
+								</text>
+							</view>
 						</view>
 						<!-- <view class="item_view">
 							<view class="second_label">关注</view><view class="right_text"><text>{{resData.customerFocusText?resData.customerFocusText:'-'}}</text></view>
@@ -102,7 +121,7 @@
 						关注重点：
 					</view>
 					<view class="content">
-						{{resData.customerFocusText?resData.customerFocusText:'不限'}}
+						{{resData.attentionFactor||'不详'}}
 					</view>
 				</view>
 			</view>
@@ -118,7 +137,7 @@ export default {
 	data() {
 		return {
 			headPortrait:'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
-			resData:null,
+			resData:{},
 			metroList:[],
 			Loopline:[],
 		};
@@ -215,12 +234,13 @@ export default {
 
 	},
 	mounted() {
-		 this.formatMetro(this.resData.intentionSubway)
-		 this.formatLoopline(this.resData.intentionLoopLine)
+		 // this.formatMetro(this.resData.intentionSubway)
+		 // this.formatLoopline(this.resData.intentionLoopLine)
 		// this.resData.intentionLoopLineText = this.formatLoopline(this.resData.intentionLoopLine)
 	},
 	onLoad(option){
 		this.resData = JSON.parse(option.resData)
+		console.log(this.resData)
 	}
 }
 </script>

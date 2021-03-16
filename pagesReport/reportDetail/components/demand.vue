@@ -7,13 +7,15 @@
 					<view class="col">
 						<view class="title">置业目的</view>
 						<view class="content_text">
-							{{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}}
+							<!-- {{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}} -->
+							{{resData.intentionPurpose||'不详'}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">总价预算</view>
 						<view class="content_text">
-							{{$tool.changeArrayToNum(resData.totalBudget,'万')}}</text>
+							<!-- {{$tool.changeArrayToNum(resData.intentionTotalPrice,'万')}} -->
+							{{$tool.changeArrayToNum(resData.totalBudget,'万')}}
 						</view>
 					</view>
 				</view>
@@ -21,13 +23,14 @@
 					<view class="col">
 						<view class="title">意向区域</view>
 						<view class="content_text">
-							{{resData.intentionCityRegionName||'不限'}}
+							{{resData.intentionRegion||'不详'}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">意向户型</view>
 						<view class="content_text">
-							{{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'不限'}}
+							<!-- {{$tool.intentionHouseType(resData.intentionHouseType)}} -->
+							{{resData.intentionHouseType||'不详'}}
 						</view>
 					</view>
 				</view>
@@ -35,7 +38,7 @@
 					<view class="col col_bottom">
 						<view class="title">关注重点</view>
 						<view class="content_text">
-							{{resData.customerFocusText||'不限'}}
+							{{resData.attentionFactor||'不详'}}
 						</view>
 					</view>
 				</view>
