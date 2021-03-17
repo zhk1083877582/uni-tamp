@@ -423,6 +423,7 @@ const TOOL = {
 	//[{"start":"55","end":"333"}]数据转换
 	changeArrayToNum(arr,unit){
 		if(arr==null||arr == '') return '不详'
+		if(arr == '3') return '不限'
 		console.log(arr)
 		let arrR = []
 		arr.map((item,index)=>{

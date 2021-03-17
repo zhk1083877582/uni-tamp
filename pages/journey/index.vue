@@ -78,7 +78,7 @@
 														<view class="title">总价预算</view>
 														<view class="content_text">
 															<!-- {{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text> -->
-															{{$tool.changeArrayToNum(item.customerIntention.more.intentionTotalPrice,'万')}}
+															{{item.customerIntention?$tool.changeArrayToNum(item.customerIntention.more.intentionTotalPrice,'万'):'不详'}}
 														</view>
 													</view>
 												</view>
@@ -87,7 +87,7 @@
 														<view class="title">意向区域</view>
 														<view class="content_text">
 															<!-- {{item.customerIntention.intentionCityRegion}} -->
-															{{item.customerIntention.intentionRegion || '不祥'}}
+															{{!item.customerIntention.intentionRegion?'不祥':item.customerIntention.intentionRegion == 3?'不限':item.customerIntention.intentionRegion}}
 														</view>
 													</view>
 													<view class="col col_L">
@@ -95,7 +95,8 @@
 														<view class="content_text">
 															<!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}} -->
 															<!-- {{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'不限'}} -->
-															{{item.customerIntention.intentionHouseType||'不详'}}
+															<!-- {{item.customerIntention.intentionHouseType||'不详'}} -->
+															{{!item.customerIntention.intentionHouseType?'不祥':item.customerIntention.intentionHouseType == 3?'不限':item.customerIntention.intentionHouseType}}
 														</view>
 													</view>
 												</view>

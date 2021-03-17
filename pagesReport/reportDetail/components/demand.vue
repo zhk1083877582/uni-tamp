@@ -15,7 +15,8 @@
 						<view class="title">总价预算</view>
 						<view class="content_text">
 							<!-- {{$tool.changeArrayToNum(resData.intentionTotalPrice,'万')}} -->
-							{{$tool.changeArrayToNum(resData.more.intentionTotalPrice,'万')}}
+							<!-- {{$tool.changeArrayToNum(resData.more.intentionTotalPrice,'万')}} -->
+							{{resData.more?$tool.changeArrayToNum(resData.more.intentionTotalPrice,'万'):'不详'}}
 						</view>
 					</view>
 				</view>
@@ -23,14 +24,14 @@
 					<view class="col">
 						<view class="title">意向区域</view>
 						<view class="content_text">
-							{{resData.intentionRegion||'不详'}}
+							{{!resData.intentionRegion?'不祥':resData.intentionRegion == 3?'不限':resData.intentionRegion}}
 						</view>
 					</view>
 					<view class="col col_L">
 						<view class="title">意向户型</view>
 						<view class="content_text">
 							<!-- {{$tool.intentionHouseType(resData.intentionHouseType)}} -->
-							{{resData.intentionHouseType||'不详'}}
+							{{!resData.intentionHouseType?'不祥':resData.intentionHouseType == 3?'不限':resData.intentionHouseType}}
 						</view>
 					</view>
 				</view>

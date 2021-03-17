@@ -67,7 +67,10 @@
 					<view class="content column">
 						<view class="item_view">
 							<view class="second_label">区域</view>
-							<view class="right_text">{{resData.intentionRegion || '不详'}}</view>
+							<view class="right_text">
+								<!-- {{resData.intentionRegion || '不详'}} -->
+								{{!resData.intentionRegion?'不祥':resData.intentionRegion == 3?'不限':resData.intentionRegion}}
+							</view>
 						</view>
 						<view class="item_view">
 							<view class="second_label">环线</view><view class="right_text">
@@ -75,7 +78,8 @@
 									{{item}}
 								</text> -->
 								<text>
-									{{resData.intentionLoopLine||'不详'}}
+									<!-- {{resData.intentionLoopLine||'不详'}} -->
+									{{!resData.intentionLoopLine?'不祥':resData.intentionLoopLine == 3?'不限':resData.intentionLoopLine}}
 								</text>
 							</view>
 						</view>
@@ -85,7 +89,10 @@
 								<!-- <text v-for="(item,index) in metroList" :key="index">
 									{{item}}
 								</text> -->
-								<text>{{resData.intentionSubway||'不详'}}</text>
+								<text>
+									<!-- {{resData.intentionSubway||'不详'}} -->
+									{{!resData.intentionSubway?'不祥':resData.intentionSubway == 3?'不限':resData.intentionSubway}}
+								</text>
 							</view>
 						</view>
 						<!-- <view class="item_view">
@@ -105,7 +112,7 @@
 							<view class="second_label">户型</view><view class="right_text">
 								<text>
 									<!-- {{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}} -->
-									{{resData.intentionHouseType||'不详'}}
+									{{!resData.intentionHouseType?'不祥':resData.intentionHouseType == 3?'不限':resData.intentionHouseType}}
 								</text>
 							</view>
 						</view>
@@ -231,13 +238,14 @@ export default {
 		},
 		changeArrayDownPayment(str){
 			if(str==null||str == '') return '不详'
+			if(str == '3') return '不详'
 			let newStr = str.split(',')
 			if(newStr[0]==''&&newStr[1]!=''){
 				return newStr[1]
 			}else if(newStr[0]!=''&&newStr[1]==''){
 				return newStr[0]
 			}else{
-				return newStr[0]+'-'+newStr[1]
+				return newStr[0]+'~'+newStr[1]
 			}
 		}
 	},
