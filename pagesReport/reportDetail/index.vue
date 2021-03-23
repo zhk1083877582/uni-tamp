@@ -189,11 +189,11 @@ export default {
 				let isShowQuestion = res.questionList==null||JSON.stringify(res.questionList)=='[]'?false:true;
 				this.changeScrollTabsShow('question',isShowQuestion)
 				
-				this.userId = res.businessReport?res.businessReport.userId:''
+				this.userId = res.customerIntention?res.customerIntention.userId:''
 				
-				let customerGender=res.businessReport?res.businessReport.customerGender:''
-			    let customerName = res.businessReport?res.businessReport.customerName:''
-				this.windowTitle = `${customerName?customerName.substring(0,1):'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':'先生/女士'}`
+				let customerGender=res.customerIntention?res.customerIntention.gender:''
+			    let customerName = res.customerIntention?res.customerIntention.customerName:''
+				this.windowTitle = `${customerName?customerName.substring(0,1):'-'}${customerGender=='男'?'先生':customerGender=='女'?'女士':'先生/女士'}`
 				uni.setNavigationBarTitle({
 					title: `${this.windowTitle}的专属置业计划书`
 				});

@@ -140,11 +140,11 @@ export default {
 			}
 			getData('/business/noToken/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
-				// this.getUserInfo(res.businessReport.userId);
-				let customerGender=res.businessReport?res.businessReport.customerGender:''
-				let subscriberName = res.businessReport?res.businessReport.customerName:''
+				// this.getUserInfo(res.customerIntention.userId);
+				let customerGender=res.customerIntention?res.customerIntention.gender:''
+				let subscriberName = res.customerIntention?res.customerIntention.customerName:''
 				console.log(subscriberName,customerGender)
-				this.windowTitle = `${subscriberName?subscriberName.substring(0,1):'-'}${customerGender=='1'?'先生':customerGender=='2'?'女士':'先生/女士'}`
+				this.windowTitle = `${subscriberName?subscriberName.substring(0,1):'-'}${customerGender=='男'?'先生':customerGender=='女'?'女士':'先生/女士'}`
 				console.log(this.windowTitle)
 				this.buildingName = res.buildingInfo.buildingAlias
 			}).catch((err)=>{
