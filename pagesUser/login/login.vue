@@ -21,6 +21,7 @@
 			</view>
 		</view>
 		<view class="btm_text">仅限接受线下置业顾问服务的用户使用</view>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -130,6 +131,9 @@ export default {
 					})
 					.catch(err => {
 						console.log('请求结果报错', err);
+						this.$refs.uToast.show({
+							title: `${err.msg}`,
+						})
 					});
 			}
 		},
