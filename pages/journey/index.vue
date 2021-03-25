@@ -42,7 +42,9 @@
 										</view>
 										<view class="item_details">
 											<view class="details_title">
-												{{item.reportBuildingIntro.buildingAlias}}
+												<view class="details_title_text">
+													{{item.reportBuildingIntro.buildingAlias}}
+												</view>
 												<view class="label cl_B">{{item.reportBuildingIntro.salesStatus == 1?'待售':item.reportBuildingIntro.salesStatus == 2?'在售':item.reportBuildingIntro.salesStatus == 3?'售罄':item.reportBuildingIntro.salesStatus == 4?'在租':''}}</view>
 												<view class="label cl_Y" v-if="!!item.reportBuildingIntro.propertyType">{{handlePropertyType(item.reportBuildingIntro.propertyType.length>0&&item.reportBuildingIntro.propertyType!=null?item.reportBuildingIntro.propertyType[0]:'')}}</view>
 											</view>
@@ -211,7 +213,7 @@
 													<view class="status u-line-2">{{itemL.stage==2?'复看':'首访'}}</view>
 													<view class="content" :id="itemL.reportId" @click="e=>toReportDetail(e,itemL.reportId)">
 														<view class="report_title">
-															<i class="iconfont iconzhiyebaogao"></i>{{itemL.reportName}}<i class="iconfont iconjiantou"></i>
+															<i class="iconfont iconzhiyebaogao"></i><text class="report_title_text">{{itemL.reportName}}</text><i class="iconfont iconjiantou"></i>
 														</view>
 													</view>
 												</view>
@@ -736,6 +738,12 @@ export default {
 							color: #333333;
 							font-weight: 700;
 							display: flex;
+							.details_title_text{
+								overflow:hidden;
+								text-overflow:ellipsis;
+								white-space:nowrap;
+								width: 59%;
+							}
 							.label{
 								border-radius:5rpx;
 								font-size: 22rpx;
@@ -748,6 +756,7 @@ export default {
 								vertical-align: text-top;
 								display: flex;
 								align-self: center;
+								flex: 1;
 							}
 							.cl_B{
 								margin-right: 8rpx;
@@ -1142,6 +1151,13 @@ export default {
 						line-height: 28rpx;
 						background: #F8F9FB;
 						position: relative;
+						display: flex;
+						.report_title_text{
+							overflow:hidden;
+							text-overflow:ellipsis;
+							white-space:nowrap;
+							width: 85%;
+						}
 						.iconfont{
 							vertical-align: middle;
 							display: inline-block;

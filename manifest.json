@@ -49,8 +49,9 @@
         "appid" : "wx844435836c179523",
         "setting" : {
             "urlCheck" : false,
-            "postcss" : false,
-            "minified" : true
+            "postcss" : true,
+            "minified" : true,
+            "es6" : true
         },
         "permission" : {
             "scope.userLocation" : {

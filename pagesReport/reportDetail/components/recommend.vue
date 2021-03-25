@@ -10,7 +10,7 @@
 					</view>
 					<view class="item_details">
 						<view class="details_title">
-							{{baseInfo.buildingAlias}}
+							<view class="details_title_text">{{baseInfo.buildingAlias}}</view>
 							<view class="label cl_B">{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}</view>
 							<view class="label cl_Y" v-if="!!baseInfo.propertyType">{{handlePropertyType(baseInfo.propertyType.length>0&&baseInfo.propertyType!=null?baseInfo.propertyType[0]:'')}}</view>
 						</view>
@@ -229,6 +229,12 @@ export default {
 					color: #333333;
 					font-weight: 700;
 					display: flex;
+					.details_title_text{
+						overflow:hidden;
+						text-overflow:ellipsis;
+						white-space:nowrap;
+						width: 60%;
+					}
 					.label{
 						border-radius:5rpx;
 						font-size: 22rpx;
