@@ -211,7 +211,7 @@
 														
 													</view>
 													<!-- <view class="status u-line-2">{{itemL.stageName==2?'复看':'首访'}}</view> -->
-													<view class="status u-line-2">{{itemL.stageName||''}}</view>
+													<view class="status u-line-2">{{itemL.stageName?itemL.stageName=='回笼'?'复看':itemL.stageName:''}}</view>
 													<view class="content" :id="itemL.reportId" @click="e=>toReportDetail(e,itemL.reportId)">
 														<view class="report_title">
 															<i class="iconfont iconzhiyebaogao"></i><text class="report_title_text">{{itemL.reportName}}</text><i class="iconfont iconjiantou"></i>
