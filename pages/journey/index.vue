@@ -210,7 +210,8 @@
 														</view>
 														
 													</view>
-													<view class="status u-line-2">{{itemL.stage==2?'复看':'首访'}}</view>
+													<!-- <view class="status u-line-2">{{itemL.stageName==2?'复看':'首访'}}</view> -->
+													<view class="status u-line-2">{{itemL.stageName||''}}</view>
 													<view class="content" :id="itemL.reportId" @click="e=>toReportDetail(e,itemL.reportId)">
 														<view class="report_title">
 															<i class="iconfont iconzhiyebaogao"></i><text class="report_title_text">{{itemL.reportName}}</text><i class="iconfont iconjiantou"></i>
@@ -741,7 +742,8 @@ export default {
 							.details_title_text{
 								overflow:hidden;
 								text-overflow:ellipsis;
-								white-space:nowrap;
+								/* white-space:nowrap; */
+								height: 20px;
 								width: 59%;
 							}
 							.label{

@@ -232,7 +232,8 @@ export default {
 					.details_title_text{
 						overflow:hidden;
 						text-overflow:ellipsis;
-						white-space:nowrap;
+						/* white-space:nowrap; */
+						height: 20px;
 						width: 60%;
 					}
 					.label{
