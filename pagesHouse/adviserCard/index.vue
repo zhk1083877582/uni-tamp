@@ -255,13 +255,14 @@
 				let params={
 					customerId:customerId,
 					phone:phone,
-					// buildingId:this.buildingIdX,
+					buildingId:this.buildingIdX,
 					userId:this.userId,
 				}
 				let api = '/business/homepage/createCustomer';
 				getData(api, params)
 					.then(res => {
 						console.log('----------success',res)
+						this.getAppletsCustomerIdByPhone();
 					})
 					.catch(err => {
 						console.log('请求结果报错', err);
