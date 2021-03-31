@@ -329,13 +329,14 @@ const TOOL = {
   },
   //得到二级嵌套页面路由
   getOtherWebSite(otherUrl){
+	  console.log(otherUrl,'11111')
 	 let baseURL = config.baseURL.target,url="";
 	 switch(baseURL){
 		case 'https://ztwgwtest.tospur.com':
 			url='https://zttest.tospurhouse.net/';
 			break;
-		case 'https://tcwgwstag.tospur.com':
-			url='https://mstag.tospur.com/';
+		case 'https://tcwgwstag.tospurhouse.net':
+			url='https://tcwebstag.tospurhouse.net/';
 			break;
 		case 'https://tcwgwprod.tospurhouse.net':
 			url='https://ztweb.tospurhouse.net/';
