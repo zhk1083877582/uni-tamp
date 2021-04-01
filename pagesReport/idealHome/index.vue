@@ -238,14 +238,14 @@ export default {
 		},
 		changeArrayDownPayment(str){
 			if(str==null||str == '') return '不详'
-			if(str == '3') return '不详'
+			if(str == '3') return '不限'
 			let newStr = str.split(',')
 			if(newStr[0]==''&&newStr[1]!=''){
-				return newStr[1]
+				return newStr[1]+'万元'
 			}else if(newStr[0]!=''&&newStr[1]==''){
-				return newStr[0]
+				return newStr[0]+'万元'
 			}else{
-				return newStr[0]+'~'+newStr[1]
+				return newStr[0]+'万元~'+newStr[1]+'万元'
 			}
 		}
 	},
