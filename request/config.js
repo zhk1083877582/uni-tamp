@@ -19,7 +19,7 @@ export default {
 		// target: 'http://172.16.9.58:8100', // 开发版接口
 		// target: 'https://tcwgwdev.tospur.com:18443', // 开发版本接 口
 		// target: 'https://ztwgwtest.tospurhouse.net', // 测试版接口  
-		  target: 'https://tcwgwstag.tospurhouse.net', // 预发布接口
-		// target: 'https://tcwgwprod.tospurhouse.net', // 正式环境接口
+		// target: 'https://tcwgwstag.tospurhouse.net', // 预发布接口
+		target: 'https://tcwgwprod.tospurhouse.net', // 正式环境接口
 	}
 }
