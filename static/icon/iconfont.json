@@ -1,10 +1,59 @@
 {
   "id": "2230963",
-  "name": "置业笔记-小程序",
+  "name": "德勤-小程序",
   "font_family": "iconfont",
   "css_prefix_text": "icon",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "20839060",
+      "name": "icon_wing_left",
+      "font_class": "icon_wing_left",
+      "unicode": "e6b9",
+      "unicode_decimal": 59065
+    },
+    {
+      "icon_id": "20839061",
+      "name": "icon_wing_right",
+      "font_class": "icon_wing_right",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
+      "icon_id": "20838881",
+      "name": "icon_save",
+      "font_class": "icon_save",
+      "unicode": "e6b4",
+      "unicode_decimal": 59060
+    },
+    {
+      "icon_id": "20838882",
+      "name": "icon_phone",
+      "font_class": "icon_phone",
+      "unicode": "e6b5",
+      "unicode_decimal": 59061
+    },
+    {
+      "icon_id": "20838883",
+      "name": "icon_phone_gray",
+      "font_class": "icon_phone_gray",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
+      "icon_id": "20838884",
+      "name": "icon_wechat",
+      "font_class": "icon_wechat",
+      "unicode": "e6b7",
+      "unicode_decimal": 59063
+    },
+    {
+      "icon_id": "20838885",
+      "name": "icon_wechat_gray",
+      "font_class": "icon_wechat_gray",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
     {
       "icon_id": "18759752",
       "name": "人",

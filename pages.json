@@ -66,6 +66,16 @@
 						}
 				},
 				{
+				    "path" : "adviserCardNew/index",
+				    "style" :                                                                                    
+						{
+							"navigationBarTitleText": "我的名片",
+							"navigationBarTextStyle": "black",
+							"navigationBarBackgroundColor": "#ffffff",
+							"enablePullDownRefresh": false
+						}
+				},
+				{
 					"path": "house/house",
 					"style": {
 						"navigationBarTitleText": "楼盘详情",
@@ -203,16 +213,28 @@
 							"bounce": "none"
 						}
 					}
-				},{
-          "path": "reportPage/reportdetail/index",
-          "style": {
-            "navigationBarTitleText": "置业报告",
-            "app-plus": {
-              "titleNView": false,
-              "bounce": "none"
-            }
-          }
-        }
+				},
+				{
+					"path": "reportPage/reportdetail/index",
+				    "style": {
+						"navigationBarTitleText": "置业报告",
+						"app-plus": {
+						  "titleNView": false,
+						  "bounce": "none"
+						}
+					}
+				},
+				{
+				    "path" : "signIn/index",
+				    "style" : {
+						"navigationBarTitleText": "扫码签到",
+						"app-plus": {
+							"titleNView": false,
+							"bounce": "none"
+						}
+					}                                                                                   
+				
+				}
             ]
 		}
 	],
