@@ -205,16 +205,6 @@
 					}
 				},
 				{
-					"path": "reportPage/reportdetail/index",
-				    "style": {
-						"navigationBarTitleText": "置业报告",
-						"app-plus": {
-						  "titleNView": false,
-						  "bounce": "none"
-						}
-					}
-				},
-				{
 				    "path" : "signIn/index",
 				    "style" : {
 						"navigationBarTitleText": "扫码签到",
