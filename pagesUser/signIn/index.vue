@@ -229,15 +229,20 @@ export default {
 		},
 		//获取微信二维码
 		getwxCodeUserCard(){
+			let self = this
 			let params={
 				uId:this.userId,
 				bId:this.buildingIdX,
-				type:1
+				type:1,
+				pageType:1
 			}
 			getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
 				.then(res => {
 					// console.log(res,'获取小程序二维码')
-					this.wxcodeCard = res
+					this.wxcodeCard = res;
+					setTimeout(()=>{
+						self.createImg()
+					},600)
 				})
 				.catch(err => {
 					console.log('获取小程序二维码', err);
@@ -330,10 +335,6 @@ export default {
 					});
 					// self.initBaseInfo(buildingIds)
 					await self.getwxCodeUserCard();//获取小程序二维码
-					setTimeout(()=>{
-						self.createImg()
-					},1000)
-					
 				})
 				.catch(err => {
 					console.log('管家信息', err);
