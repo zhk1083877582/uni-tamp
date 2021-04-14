@@ -95,7 +95,7 @@ export default {
 				code:this.VerificationCode,
 			}
 			console.log('----telParams',params)
-			let api = '/userAuthServer/noToken/wx/wxLogin'
+			let api = '/dt-user/noToken/wx/wxLogin'
 			getData(api,params).then((res)=>{
 				console.log('---telLogin',res)
 				this.$cache.setCache('M-Token', res['token']);
@@ -176,7 +176,7 @@ export default {
 			let params={
 				phone:this.phoneNum
 			}
-			getData('/userAuthServer/noToken/wx/sendMessage',params).then((res)=>{
+			getData('/dt-user/noToken/wx/sendMessage',params).then((res)=>{
 				console.log('----tel',res)
 			}).catch(error=>{
 				this.$refs.uToast.show({

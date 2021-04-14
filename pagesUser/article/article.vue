@@ -59,7 +59,7 @@ export default {
 			let params = {
 				articleId:id
 			}
-			getData('/business/article/manager/info/get',params).then((res)=>{
+			getData('/dt-business/article/manager/info/get',params).then((res)=>{
 				console.log(res)
 				this.articleData = res;
 				this.buildingId = res.buildingId
@@ -85,7 +85,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/noToken/wx/wxAuth' 
+						let api = '/dt-user/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log('----openid||session_key', res);
@@ -115,7 +115,7 @@ export default {
 					openId: this.openid,
 					loginType: 0,
 				};
-				let api = '/userAuthServer/noToken/wx/wxLogin';
+				let api = '/dt-user/noToken/wx/wxLogin';
 				getData(api, params)
 					.then(res => {
 						this.$cache.setCache('M-Token', res['token']);

@@ -7,7 +7,7 @@ export default {
 				let params={
 					phone:this.$cache.getCache('Login-Data').customerInfo.phone,
 				}
-				let api = '/business/customer/manager/getAppletsCustomerIdByPhone'
+				let api = '/dt-business/customer/manager/getAppletsCustomerIdByPhone'
 				getData(api,params).then((res)=>{
 					if(res.customerInfo.phone){
 						this.$cache.setCache('Login-Data', res);

@@ -1,12 +1,14 @@
 <!-- 扫码签到 -->
 <template>
 	<view class='sing_in'>
+		<r-canvas ref="rCanvas"></r-canvas>
+		<!-- <image :src="'data:image/jpeg;base64,'+wxcodeCard" mode="" v-if="wxcodeCard"></image> -->
 		<view class="main">
 			<view class="building_warp">
-				<view class="building_name" :style="showAuthorize?'line-height:80rpx':'line-height:110rpx'">
-					万科天空之城
+				<view class="building_name" :style="showAuthorize?'line-height:80rpx':'line-height:110rpx'" v-if="adviserInfo.buildingInfos[0]">
+					{{adviserInfo.buildingInfos[0]?adviserInfo.buildingInfos[0].buildingAlias:'--'}}
 				</view>
-				<view class="introduce" v-if="showAuthorize">万科新产品系 健康的未来之城</view>
+				<view class="introduce" v-if="showAuthorize">{{adviserInfo.buildingInfos[0].buildingBrightSpot||'--'}}</view>
 			</view>
 			<view class="building_bg"></view>
 			
@@ -31,24 +33,24 @@
 				</view>
 				<view class="user_warp" v-else>
 					<view class="top">
-						<u-avatar class="avatarTou" :src="userInfo.avatarUrl" size='160' mode="circle"></u-avatar>
+						<u-avatar class="avatarTou" :src="adviserInfo.avatarUrl" size='160' mode="circle"></u-avatar>
 						<view class="user_msg">
 							<view class="name">
-								刘丽华
+								{{adviserInfo.userName||''}}
 							</view>
 							<view class="phone_chat">
 								<view>
-									<i class='iconfont iconicon_phone_gray'></i><text>13988320032</text>
+									<i class='iconfont iconicon_phone_gray'></i><text>{{adviserInfo.phone}}</text>
 								</view>
-								<button class="user_msg_btn" type="default" hover-class='none' @click="tellPhone('17362113082')">
+								<button class="user_msg_btn" type="default" hover-class='none' @click="tellPhone(adviserInfo.phone)">
 									拨打
 								</button>
 							</view>
 							<view class="phone_chat">
 								<view>
-									<i class='iconfont iconicon_wechat_gray'></i><text>Gere0032</text>
+									<i class='iconfont iconicon_wechat_gray'></i><text>{{adviserInfo.wechat}}</text>
 								</view>
-								<button class="user_msg_btn" type="default" hover-class='none' @click="copyNumber('Gere0032')">
+								<button class="user_msg_btn" type="default" hover-class='none' @click="copyNumber(adviserInfo.wechat)">
 									加微信
 								</button>
 							</view>
@@ -57,7 +59,7 @@
 					<view class="bottom_item">
 						<view class="item_warp">
 							<view class="num">
-								10<text class="unit">人</text>
+								{{adviserInfo.servedPeopleNum||'-'}}<text class="unit">人</text>
 							</view>
 							<view class="item_title">
 								服务客户
@@ -73,7 +75,7 @@
 						</view>
 						<view class="item_warp" style="border-right: 0;">
 							<view class="num">
-								3-5<text class="unit">年</text>
+								{{adviserInfo.workExperience||'--'}}<text class="unit">年</text>
 							</view>
 							<view class="item_title">
 								从业年限
@@ -106,17 +108,26 @@
 </template>
 
 <script>
-import { getData } from '@/request/api.js'
+import { getData } from '@/request/api.js';
+import rCanvas from "@/components/r-canvas/r-canvas.vue";
+import myCanvas from "@/components/my-canvas/index.js"
 export default {
-	components: {},
+	components: {rCanvas},
+	mixins:[myCanvas],
 	data() {
 		return {
-			titleName:'将有顾问【刘德华】为您服务',
+			titleName:'',
 			showAuthorize:false,
 			modalContent: `
 				您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
 			`,
-			showModal:false
+			showModal:false,
+			adviserInfo:{},
+			userId:'',
+			buildingIdX:'',//app扫码进来，带过来buildingId时
+			wxcodeCard:'',
+			canvasImg:'',
+			flagDownloadImg:true,//控制下载按钮
 		};
 	},
 	computed: {},
@@ -136,7 +147,7 @@ export default {
 					loginType: 0,
 					registerCity:this.$cache.getCache('storageCity')||''
 				};
-				let api = '/userAuthServer/noToken/wx/wxLogin'
+				let api = '/dt-user/noToken/wx/wxLogin'
 				getData(api, params)
 					.then(res => {
 						console.log(res)
@@ -164,7 +175,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/noToken/wx/wxAuth' 
+						let api = '/dt-user/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log(res, 111111);
@@ -183,37 +194,56 @@ export default {
 		},
 		//保存顾问名片
 		downloadUserImg(url){
-			uni.downloadFile({
-				url: 'https://media.tongcehaofang.com/image/default/A92894D89E954C9198EDDA3349607E4D-6-2.jpg',
-				success: (res) =>{
-					console.log(res)
-					if (res.statusCode === 200){
-						uni.saveImageToPhotosAlbum({
-							filePath: res.tempFilePath,
-							success: function() {
-								uni.showToast({
-									title: "保存成功",
-									icon: "none"
-								});
-							},
-							fail: function() {
-								// uni.showToast({
-								// 	title: "保存失败，请稍后重试",
-								// 	icon: "none"
-								// });
-							}
-						});
-					}
-				},
-				fail: function(err) {
-					console.log(err)
-					uni.showToast({
-						title: "res",
-						icon: "none"
-					});
-				}
-			})
+			if(!this.flagDownloadImg) return
+			this.$refs.rCanvas.saveImage(this.canvasImg)
+			// uni.downloadFile({
+			// 	url: 'https://media.tongcehaofang.com/image/default/A92894D89E954C9198EDDA3349607E4D-6-2.jpg',
+			// 	success: (res) =>{
+			// 		console.log(res)
+			// 		if (res.statusCode === 200){
+			// 			uni.saveImageToPhotosAlbum({
+			// 				filePath: res.tempFilePath,
+			// 				success: function() {
+			// 					uni.showToast({
+			// 						title: "保存成功",
+			// 						icon: "none"
+			// 					});
+			// 				},
+			// 				fail: function() {
+			// 					// uni.showToast({
+			// 					// 	title: "保存失败，请稍后重试",
+			// 					// 	icon: "none"
+			// 					// });
+			// 				}
+			// 			});
+			// 		}
+			// 	},
+			// 	fail: function(err) {
+			// 		console.log(err)
+			// 		uni.showToast({
+			// 			title: "res",
+			// 			icon: "none"
+			// 		});
+			// 	}
+			// })
 		},
+		//获取微信二维码
+		getwxCodeUserCard(){
+			let params={
+				uId:this.userId,
+				bId:this.buildingIdX,
+				type:1
+			}
+			getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
+				.then(res => {
+					// console.log(res,'获取小程序二维码')
+					this.wxcodeCard = res
+				})
+				.catch(err => {
+					console.log('获取小程序二维码', err);
+				});
+		},
+		
 		//复制微信号
 		copyNumber(value){
 			let self = this
@@ -261,25 +291,92 @@ export default {
 				}
 			});
 		},
+		//获取顾问信息
+		initUserInfo(){
+			//埋点
+			// this.buryingPoint.modelType = '4'//前端添加modelType = 4 代表管家名片
+			// this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			// this.buryingPoint.userId = this.userId
+			
+			//客户足迹埋点
+			// this.beginTime = (new Date()).getTime()
+			// this.CustomerTrack.buildingId = ''
+			// this.CustomerTrack.operateType = '3'
+			// this.CustomerTrack.createrId = this.userId
+			// this.CustomerTrack.userId = this.userId
+			// this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+			// this.CustomerTrack.dataId = ''
+			let params = {
+				userId: this.userId,
+				buildingId:this.buildingIdX
+			};
+			let self =this;
+			getData('/dt-business/noToken/user/getUserCardDetail', params)
+				.then(async (res) => {
+					console.log('管家信息',res);
+					// this.share.title = `置业顾问【${res.userName?res.userName:'-'}】`
+					let {expertiseFields=[],buildingInfos=[]} = res;
+					res.expertiseFields= expertiseFields;
+					if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){
+					    res.servedPeopleNum = parseInt(res.servedPeopleNum)
+					}else{
+					    res.servedPeopleNum = ''
+					}
+					self.adviserInfo = res
+					this.titleName = `将由顾问【${self.adviserInfo.userName}】为您服务`
+					//获取buildingIds
+					let buildingIds=buildingInfos.map(item1=>{
+						return item1.buildingId;
+					});
+					// self.initBaseInfo(buildingIds)
+					await self.getwxCodeUserCard();//获取小程序二维码
+					setTimeout(()=>{
+						self.createImg()
+					},1000)
+					
+				})
+				.catch(err => {
+					console.log('管家信息', err);
+				});
+		},
+		
 	},
 	onLoad(option) {
+		console.log('-------进入扫码页面',option)
 		if (option.scene) {
 			const scene = decodeURIComponent(option.scene);
+			console.log('-------scene数据',scene)
 			let obj = {};
 			scene.split('&').forEach(item => {
 				const key = item.split('=')[0];
 				obj[key] = item.split('=')[1];
 			});
-			this.reportId = obj.reportId
+			this.userId = obj.userId;
+			this.buildingIdX = obj.buildingId;
 		} else {
-			this.reportId = option.reportId
+			this.userId = option.userId;
+			this.buildingIdX = option.buildingId;
 		}
+		this.initUserInfo();//管家信息
+		// this.initBaseInfo();//楼盘信息
 		
-		this.getPhone();
-		if(this.$cache.getCache('M-Token')){
-			this.showAuthorize = true;
-		}else{
+		
+		if(!this.$cache.getCache('M-Token')){
 			this.showAuthorize = false;
+			this.getPhone()
+			// uni.navigateTo({
+			// 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
+			// });
+		}else{
+			// console.log('-------------',this.buildingIdX)
+			if(this.buildingIdX){
+				let {phone,customerId} =this.$cache.getCache('Login-Data').customerInfo||{};
+				// console.log('---phone&&customerId----',phone,customerId)
+				if(phone&&customerId){
+					// this.doAddCustorm(phone,customerId)
+				}
+			}
+			this.showAuthorize = true;
 		}
 	}
 }

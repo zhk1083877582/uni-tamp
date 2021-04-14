@@ -73,7 +73,7 @@ export default {
 					loginType: 0,
 					registerCity:this.$cache.getCache('storageCity')||''
 				};
-				let api = '/userAuthServer/noToken/wx/wxLogin'
+				let api = '/dt-user/noToken/wx/wxLogin'
 				getData(api, params)
 					.then(res => {
 						console.log(res)
@@ -111,7 +111,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/noToken/wx/wxAuth' 
+						let api = '/dt-user/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log(res, 111111);
@@ -138,7 +138,7 @@ export default {
 			let params = {
 				reportId
 			}
-			getData('/business/noToken/report/reportDetail',params).then((res)=>{
+			getData('/dt-business/noToken/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
 				// this.getUserInfo(res.customerIntention.userId);
 				let customerGender=res.customerIntention?res.customerIntention.gender:''
@@ -157,7 +157,7 @@ export default {
 		// 		userId: this.userId
 		// 	};
 		// 	let self =this;
-		// 	getData('/business/user/getUserCardDetail', params)
+		// 	getData('/dt-business/user/getUserCardDetail', params)
 		// 		.then(res => {
 		// 			console.log('管家信息',res)
 		// 			this.userName = res.userName

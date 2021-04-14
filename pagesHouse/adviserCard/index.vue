@@ -2,66 +2,67 @@
 
 <template>
 	<view class="adviser-card">
-		<!-- 楼盘配置图 -->
-		<view class="configImg">
-			<image class="img" :src="configPicture" mode=""></image>
-		</view>
+		<r-canvas ref="rCanvas"></r-canvas>
 		<!-- 管家名片 -->
 		<view class="adviser-info">
-			<view class="info-img">
-				<view class="img" :style="{backgroundImage:`url(${adviserInfo.avatarUrl?adviserInfo.avatarUrl+'?x-oss-process=image/resize,h_180,w_180':'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png'})`}">
-				</view>
-			</view>
-			<view class="info-datail">
-				<view class="datail-name">
-					<text class="name">{{adviserInfo.userName||'--'}}</text>
-					<!-- <text class="role">{{adviserInfo.roleName||'--'}}</text> -->
-				</view>
-				<view class="datail-count">
-					<view class="year">
-						<text class="iconfont iconxingzhuangjiehe"></text>
-						<text class="count-flag"></text>
-						<text class="year-num">从业{{adviserInfo.workExperience||'--'}}年</text>
+			<view class="user_warp">
+				<view class="top">
+					<u-avatar class="avatarTou" :src="adviserInfo.avatarUrl" size='160' mode="circle"></u-avatar>
+					<view class="user_msg">
+						<view class="name">
+							{{adviserInfo.userName||'--'}}
+							<!-- <view class="download_btn" @click="downloadUserImg()">
+								<i class='iconfont iconicon_save'></i>保存名片
+							</view> -->
+						</view>
+						<view class="phone_chat">
+							<view>
+								<i class='iconfont iconicon_phone_gray'></i><text>{{adviserInfo.phone}}</text>
+							</view>
+							<button class="user_msg_btn" type="default" hover-class='none' @click="tellPhone(adviserInfo.phone)">
+								拨打
+							</button>
+						</view>
+						<view class="phone_chat">
+							<view>
+								<i class='iconfont iconicon_wechat_gray'></i><text>{{adviserInfo.wechat}}</text>
+							</view>
+							<button class="user_msg_btn" type="default" hover-class='none' @click="copyNumber(adviserInfo.wechat)">
+								加微信
+							</button>
+						</view>
 					</view>
-					<view class="serve">
-						<text class="iconfont iconren"></text>
-						<text class="count-flag"></text>
-						<text class="serve-num">服务{{adviserInfo.servedPeopleNum||'-'}}人</text>
+				</view>
+				<view class="bottom_item">
+					<view class="item_warp">
+						<view class="num">
+							{{adviserInfo.servedPeopleNum||'-'}}<text class="unit">人</text>
+						</view>
+						<view class="item_title">
+							服务客户
+						</view>
+					</view>
+					<view class="item_warp">
+						<view class="num">
+							5<text class="unit">分</text>
+						</view>
+						<view class="item_title">
+							客户满意度
+						</view>
+					</view>
+					<view class="item_warp" style="border-right: 0;">
+						<view class="num">
+							{{adviserInfo.workExperience||'--'}}<text class="unit">年</text>
+						</view>
+						<view class="item_title">
+							从业年限
+						</view>
 					</view>
 				</view>
-				<view class="datail-tag">
-					<text class="tag-item" v-for="(item,index) in adviserInfo.personalityTags" :key="index">{{item.paraValue}}</text>
-				</view>
-				<view class="datail-title">
-					<text class="datail-title_icon"></text>
-					<text class="datail-title_text">擅长领域</text>
-				</view>
-				<view class="datail-label">
-					<text  v-for="(item,index) in adviserInfo.expertiseFields" :key="index">{{ index==(adviserInfo.expertiseFields.length-1)? item.paraValue :item.paraValue+'、'}}</text>
-				</view>
-			</view>
-		</view>
-		<!-- 楼盘标记 -->
-		<view class="adviser-tag">
-			<view class="adviser-tag_item">
-				<text class="iconfont iconicon_opening"></text>
-				<text>楼盘前线一手资料</text>
-			</view>
-			<view class="adviser-tag_item">
-				<text class="iconfont iconicon_experience"></text>
-				<text>专业咨询品质服务</text>
-			</view>
-			<view class="adviser-tag_item">
-				<text class="iconfont iconwodelixiangjia"></text>
-				<text>信息真实客观公正</text>
 			</view>
 		</view>
 		<!-- 服务楼盘 -->
 		<view class="adviser-buildingInfo">
-			<view class="title">
-				<text class="title-icon"></text> 
-				<text class="title-text">服务楼盘</text> 
-			</view>
 			<view class="adviser-building">
 				<swiper class="swiper" :style="{height:swiperInfo.itemHeight}" 
 					:next-margin="swiperInfo.swiperMargin" :previous-margin="swiperInfo.swiperMargin"  
@@ -77,7 +78,12 @@
 			</view>
 		</view>
 		<view class="adviser-bottom">
-			<footBottom :istoDetail='false' :userId='userId' v-if="userId" :buildingId='buildingId'></footBottom>
+			<button class="left_btn bottom_btn" data-name="shareBtn" open-type="share">
+				推荐给朋友
+			</button>
+			<button class="right_btn bottom_btn" @click="tellPhone(adviserInfo.phone)"> 
+				<i class='iconfont iconicon_phone'></i>联系顾问
+			</button>
 		</view>
 		<u-mask :show="showAuthorize" mask-click-able="false">
 			<view class="showAuthorize_warp" @tap.stop>
@@ -92,6 +98,8 @@
 				</u-button>
 			</view>
 		</u-mask>
+		<u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal>
+		
 	</view>
 </template>
 
@@ -102,12 +110,15 @@
 	import { getData } from '@/request/api';
 	import buildingCard from '@/pagesHouse/adviserCard/components/buildingCard.vue'
 	import footBottom from '@/components/footer/index.vue'
-	
+	import rCanvas from "@/components/r-canvas/r-canvas.vue"
+	// import myCanvas from "@/components/my-canvas/index.js"
 	export default {
 		components:{
 			buildingCard,
-			footBottom
+			footBottom,
+			rCanvas
 		},
+		// mixins:[myCanvas],
 		data() {
 			return {
 				buildingIdX:'',//app扫码进来，带过来buildingId时
@@ -117,7 +128,7 @@
 				adviserInfo:{},
 				//滑动信息
 				swiperInfo:{
-					itemHeight:'840rpx',
+					itemHeight:'1050rpx',
 					swiperMargin:'17rpx',
 					current:'1',
 					indicatorDots:false,
@@ -126,23 +137,33 @@
 				baseInfo:[],
 				beginTime:'',
 				showAuthorize:false,
-				buildingId:''
+				buildingId:'',
+				showModal:false,
+				modalContent: `
+					您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
+				`,
+				canvasImg:''
 			}
 		},
 		onLoad(option){
 			console.log('-------进入管家名片',option)
 			if (option.scene) {
 				const scene = decodeURIComponent(option.scene);
+				console.log('-------scene数据',scene)
 				let obj = {};
 				scene.split('&').forEach(item => {
 					const key = item.split('=')[0];
 					obj[key] = item.split('=')[1];
 				});
-				this.userId = obj.userId;
-				this.buildingIdX = obj.buildingId;
+				this.userId = obj.uId;
+				this.buildingIdX = obj.bId;
+				this.CustomerTrack.operateCanal = obj.type;
+				this.share.path = '/pagesHouse/adviserCard/index?userId='+ obj.uId + '&buildingId='+ obj.bId + '&operateCanal=3'
 			} else {
 				this.userId = option.userId;
 				this.buildingIdX = option.buildingId;
+				this.CustomerTrack.operateCanal = option.operateCanal||''
+				this.share.path = '/pagesHouse/adviserCard/index?userId='+ option.userId + '&buildingId='+ option.buildingId + '&operateCanal=3'
 			}
 			this.initUserInfo();//管家信息
 			// this.initBaseInfo();//楼盘信息
@@ -176,7 +197,7 @@
 			console.log('onUnload 333')
 			//客户足迹埋点
 			this.CustomerTrack.stayTime = (new Date()).getTime() - this.beginTime
-			this.addCustomerTrack()
+			// this.addCustomerTrack()
 		},
 		onReady(){
 			//设置页面导航条颜色
@@ -198,7 +219,7 @@
 							let params = {
 								jsCode: res.code,
 							};
-							let api = '/userAuthServer/noToken/wx/wxAuth' 
+							let api = '/dt-user/noToken/wx/wxAuth' 
 							getData(api, params)
 								.then(res => {
 									console.log('----openid||session_key', res);
@@ -228,7 +249,7 @@
 						openId: this.openid,
 						loginType: 0
 					};
-					let api = '/userAuthServer/noToken/wx/wxLogin';
+					let api = '/dt-user/noToken/wx/wxLogin';
 					getData(api, params)
 						.then(res => {
 							this.$cache.setCache('M-Token', res['token']);
@@ -258,7 +279,7 @@
 					buildingId:this.buildingIdX,
 					userId:this.userId,
 				}
-				let api = '/business/homepage/createCustomer';
+				let api = '/dt-business/homepage/createCustomer';
 				getData(api, params)
 					.then(res => {
 						console.log('----------success',res)
@@ -276,14 +297,28 @@
 				let item = this.baseInfo[val.detail.current];
 				this.buildingId = item.buildingId
 				//设置标题
-				uni.setNavigationBarTitle({ 
-					// title: item.buildingAlias||item.buildingName,
-					title: '名片'
-				});
+				// uni.setNavigationBarTitle({ 
+				// 	// title: item.buildingAlias||item.buildingName,
+				// 	title: '我的名片'
+				// });
 				//封面图
 				this.configPicture = item.backgroundUrl;
 			},
-			
+			//获取小程序二维码
+			getwxCodeUserCard(){
+				let params={
+					userId:this.userId,
+					buildingId:this.buildingIdX
+				}
+				getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
+					.then(res => {
+						// console.log(res,'获取小程序二维码')
+						this.wxcodeCard = res
+					})
+					.catch(err => {
+						console.log('获取小程序二维码', err);
+					});
+			},
 			//获取顾问信息
 			initUserInfo(){
 				//埋点
@@ -300,10 +335,11 @@
 				this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 				this.CustomerTrack.dataId = ''
 				let params = {
-					userId: this.userId
+					userId: this.userId,
+					buildingId:this.buildingIdX
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/noToken/user/getUserCardDetail', params)
+				getBuildingBaseInfo('/dt-business/noToken/user/getUserCardDetail', params)
 					.then(res => {
 						console.log('管家信息',res);
 						this.share.title = `置业顾问【${res.userName?res.userName:'-'}】`
@@ -315,13 +351,20 @@
 						    res.servedPeopleNum = ''
 						}
 						self.adviserInfo = res
-						
+						//设置标题
+						uni.setNavigationBarTitle({ 
+							// title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
+							title: res.userName?`${res.userName}的个人主页`:'顾问主页',
+						});
 						//获取buildingIds
 						let buildingIds=buildingInfos.map(item1=>{
 							return item1.buildingId;
 						});
-						self.initBaseInfo(buildingIds)
-						
+						self.initBaseInfo(buildingIds);
+						// self.getwxCodeUserCard();
+						// setTimeout(()=>{
+						// 	self.createImg()
+						// },1000)
 						
 					})
 					.catch(err => {
@@ -334,7 +377,7 @@
 					buildingIds:buildingIds,
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/noToken/home/userServedBuilding', params)
+				getBuildingBaseInfo('/dt-business/noToken/home/userServedBuilding', params)
 					.then(res => {
 						console.log('----楼盘信息--', res);
 						
@@ -375,11 +418,7 @@
 						
 						self.baseInfo = arr;
 						// console.log('----楼盘信息1',arr)
-						//设置标题
-						uni.setNavigationBarTitle({ 
-							// title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
-							title: '名片',
-						});
+						
 						self.buildingId = arr.length>1?arr[1].buildingId:arr.length==0?arr[0].buildingId:'',
 						//封面图
 						self.configPicture = arr.length>1?arr[1].backgroundUrl:arr[0].backgroundUrl
@@ -388,7 +427,58 @@
 						console.log('基本信息-err', err);
 					});
 			},
-			
+			//保存顾问名片
+			downloadUserImg(url){
+				this.$refs.rCanvas.saveImage(this.canvasImg)
+			},
+			//复制微信号
+			copyNumber(value){
+				let self = this
+				uni.setClipboardData({
+					data: value,
+					success: function () {
+						uni.hideToast()
+						// uni.showToast({
+						// 	title: "已复制微信号到剪贴板",
+						// 	icon: "none"
+						// });
+						self.showModal = true
+					}
+				});
+			},
+			//拨打电话
+			tellPhone(value){
+				let self = this
+				if(!value){
+					uni.showToast({
+						title: '暂无顾问电话',
+						icon: 'none',
+						duration: 5000
+					});
+					return 
+				}
+				
+				uni.makePhoneCall({
+					// 手机号
+					phoneNumber: value,
+					// 成功回调
+					success: (res) => {
+						// console.log('调用成功!') 
+						// this.buryingPoint.operationType = '6'
+						// this.buryingPoint.modelType = this.modelType
+						// this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+						// this.buryingPoint.reportId = this.reportId
+						// this.buryingPoint.userId = this.userId
+						// this.ReportLog()
+						// potentialCustomersInfo('',saveParams)
+					},
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}
+				});
+			},
+			    
 		}
 	}
 </script>
@@ -397,127 +487,107 @@
 .adviser-card{
 	position: relative;
 	padding-bottom: 140rpx;
-	background-color:#f3f3f3;
+	background-color:#FFFFFF;
 	overflow: hidden;
-	//封面图
-	.configImg{
-		height:453rpx;
-		text-align: center;
-		background:linear-gradient(180deg,#001944, rgba(0,25,68,0) 97%);
-		overflow: hidden;
-		border-radius: 0 0 25% 25%;
-		.img{
-			width:100%;
-			height: 100%;
-		}
-	}
 	//顾问信息
 	.adviser-info{
-		width:702rpx;
-		height: 350rpx;
-		padding: 40rpx 50rpx;
-		display: flex;
-		// border: 1px solid #FFFFFF;
-		background: url('https://media.tongcehaofang.com/image/default/F8EF2B9B78C44DEF9A0C1185C12EF525-6-2.jpg');
+		padding: 50rpx 0 56rpx 0;
+		background: url('https://media.tongcehaofang.com/image/default/88AC88E78E084CE699D62CA9E7141A62-6-2.jpg');
 		background-repeat: no-repeat;
-		background-size: cover;
-		position: absolute;
-		top:284rpx;
-		left:24rpx;
-		.info-img{
-			width:180rpx;
-			height: 100%;
-			// border: 1px solid red;
-			.img{
-				width:180rpx;
-				height: 180rpx;
-				background-repeat: no-repeat;
-				background-size: cover;
-				border-radius: 50% 50%;
-			}
-		}
-		.info-datail{
-			margin-left: 40rpx;
-			color: #FFFFFF;
-			.name{
-				font-size: 40rpx;
-				font-weight: 500;
-			}
-			.role{
-				margin-left: 10rpx;
-				font-size: 20rpx;
-				font-weight: 400;
-			}
-		}
-		
-		.datail-count{
-			margin-top: 24rpx;
-			
-			display: flex;
-			.year,.serve{
+		background-size: contain;
+		.user_warp{
+			margin: 0rpx 30rpx;
+			background: linear-gradient(226deg,#f4e6cf 1%, #e2cca8 98%);
+			border-radius: 16rpx;
+			box-shadow: 0px 2rpx 14rpx 0px rgba(0,0,0,0.09); 
+			.top{
 				display: flex;
-				align-items: center;
+				/* justify-content: space-between; */
+				padding: 32rpx 28rpx 34rpx 24rpx;
+				margin-bottom: 34rpx;
+				.avatarTou{
+					margin-right: 32rpx;
+				}
+				.user_msg{
+					display: flex;
+					flex-direction: column;
+					flex: 1;
+					.name{
+						font-size: 36rpx;
+						font-weight: 600;
+						color: #4c3612;
+						line-height: 36rpx;
+						margin-bottom: 8rpx;
+						display: flex;
+						justify-content: space-between;
+						.download_btn{
+							font-size: 20rpx;
+							text-align: center;
+							color: #4c3612;
+							line-height: 20rpx;
+							.iconfont{
+								display: inline-block;
+								margin-right: 11rpx;
+								vertical-align: middle;
+							}
+						}
+					}
+					.phone_chat{
+						display: flex;
+						justify-content: space-between;
+						margin-top: 16rpx;
+						color: #4c3612;
+						.iconfont{
+							display: inline-block;
+							margin-right: 16rpx;
+							color: #4c3612;
+						}
+						.user_msg_btn{
+							width: 96rpx;
+							height: 40rpx;
+							opacity: 1;
+							background: #694c1d;
+							border-radius: 20rpx;
+							font-size: 20rpx;
+							color: #ffffff;
+							line-height: 40rpx;
+							margin: 0;
+							padding: 0 18rpx;
+						}
+					}
+				}
 			}
-			.serve{
-				margin-left: 8rpx;
+			.bottom_item{
+				display: flex;
+				.item_warp{
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					flex: 1;
+					text-align: center;
+					border-top: 1px solid rgba(6,36,113,.1);
+					border-right: 1px solid rgba(6,36,113,.1);
+					padding: 40rpx 0;
+					.num{
+						font-size: 40rpx;
+						font-weight: 600;
+						color: #4c3612;
+						line-height: 40rpx;
+					}
+					.unit{
+						font-size: 20rpx;
+						font-weight: 400;
+						color: #4c3612;
+						line-height: 20rpx;
+					}
+					.item_title{
+						font-size: 24rpx;
+						color: #4c3612;
+						line-height: 33rpx;
+						margin-top: 13rpx;
+					}
+				}
 			}
-			.count-flag{
-				width:10rpx;
-				height: 22rpx;
-				display: inline-block;
-				background: url('/static/house/circle2x.png');
-				background-repeat: no-repeat;
-				background-size: cover;
-			}
-			.year-num,.serve-num{
-				font-size: 16rpx;
-				height: 22rpx;
-				line-height: 22rpx;
-				padding:0 10rpx;
-				margin-left: 0rpx;
-				border-top-right-radius: 10rpx;
-				border-bottom-right-radius: 10rpx;
-				color: #062471;
-				background: #FFFFFF;
-				
-			}
-		}
-		.datail-tag{
-			margin-top: 24rpx;
-			.tag-item{
-				min-width: 80rpx;
-				margin-right: 10rpx;
-				padding: 5rpx 10rpx;
-				text-align: center;
-				color: #062471;
-				font-size: 20rpx;
-				background: #FFFFFF;
-				border-radius: 4px;
-				
-				
-			}
-		}
-		.datail-title{
-			margin-top: 16rpx;
-		}
-		.datail-title_icon{
-			display: inline-block;
-			width: 4rpx;
-			height: 17rpx;
-			background: #FFFFFF;
-		}
-		.datail-title_text{
-			margin-left:6rpx;
-			font-size: 20rpx;
-			font-weight: 400;
-			color: #FFFFFF;
-		}
-		
-		.datail-label{
-			margin-top: 16rpx;
-			font-size: 24rpx;
-			font-weight: 400;
-			color: #FFFFFF;
 		}
 	}	
 	
@@ -546,36 +616,10 @@
 	// 服务楼盘
 	.adviser-buildingInfo{
 		width: 100%;
-		margin-top:270rpx;
-		//头部信息
-		.title {
-			display: flex;
-			align-items: center;
-			padding-left:24rpx;
-			// justify-content: center;
-			.title-icon {
-				width: 6rpx;
-				height: 34rpx;
-				background: #062471;
-			}
-			.title-text{
-				width: 136rpx;
-				height: 34rpx;
-				line-height: 34rpx;
-				margin-left: 8rpx;
-				font-size: 34rpx;
-				font-weight: 600;
-				color: #000000;
-			}
-			
-		}
-		.adviser-building{
-			// border:1px solid red;
-		}
+		background: #FFFFFF;
 		//顾问名片-item
 		.adviser-building{
-			margin-top: 40rpx;
-			background: #f3f3f3;
+			margin-top: 6rpx;
 			.building-item{
 				display: inline-block;
 				width:702rpx;
@@ -593,12 +637,46 @@
 	
 	.adviser-bottom{
 		width:100%;
+		padding: 28rpx 30rpx;
 		// height: 114rpx;
 		box-sizing: border-box;
 		background: #FFFFFF;
 		position: fixed;
 		bottom:0;
 		left:0;
+		display: flex;
+		.bottom_btn{
+			height: 76rpx;
+			box-shadow: 0px 2rpx 14rpx 0px rgba(0,0,0,0.09); 
+			font-size: 30rpx;
+			font-weight: 600;
+			text-align: center;
+			color: #ffffff;
+			line-height: 76rpx;
+			flex: 1;
+			text-align: center;
+			background: linear-gradient(270deg,#3b538b 97%, #465e96);
+			border-radius: 8rpx;
+			box-shadow: 0px 2rpx 14rpx 0px rgba(0,0,0,0.09); 
+		}
+		.left_btn{
+			// background: url(https://media.tongcehaofang.com/image/default/39B5A567522F4FF08EAE688A69117D18-6-2.jpg);
+			// background-repeat: no-repeat;
+			// background-size: contain;
+			margin-right: 15rpx;
+		}
+		.right_btn{
+			// background: url(https://media.tongcehaofang.com/image/default/39B5A567522F4FF08EAE688A69117D18-6-2.jpg);
+			// background-repeat: no-repeat;
+			// background-size: contain;
+			margin-left: 15rpx;
+			display: flex;
+			justify-content: center;
+			.iconfont{
+				margin-right: 13rpx;
+				font-size: 27rpx;
+			}
+		}
 	}
 }
 </style>

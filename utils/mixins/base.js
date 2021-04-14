@@ -22,7 +22,8 @@ export default{
 				dataId:'',//业务id(名片/置业报告ID/素材id)
 				stayTime:'',//	停留时长
 				operateType:'',//操作类型(1:查看置业报告 2:浏览楼盘 3:查看名片 4:查看素材 )
-				shareType:''//分享类型(1:分享置业报告 2:分享楼盘 3:分享名片 4:分享素材
+				shareType:'',//分享类型(1:分享置业报告 2:分享楼盘 3:分享名片 4:分享素材
+				operateCanal:'',//查看渠道(1:来源名片  2:来源置业计划书 3:来源客户转发)
 			},
             //设置默认的分享参数
             share:{
@@ -41,7 +42,7 @@ export default{
 		ReportLog(data){
 			let params = Object.assign({},this.buryingPoint,data);
 			console.log('大数据埋点数据',params)
-			getData('/business/noToken/report/reportLog',params).then((res)=>{
+			getData('/dt-business/noToken/report/reportLog',params).then((res)=>{
 				// console.log('埋点接口',res)
 			}).catch((err)=>{
 				console.log('埋点接口',err)
@@ -54,7 +55,7 @@ export default{
 			let params = Object.assign({},this.CustomerTrack,data);
 			params.stayTime = params.stayTime?this.formatDuring(params.stayTime):''
 			console.log('客户足迹埋点',params)
-			getData('/business/noToken/capp/customer/addCustomerTrack',params).then((res)=>{
+			getData('/dt-business/noToken/capp/customer/addCustomerTrack',params).then((res)=>{
 				// console.log('埋点接口',res)
 			}).catch((err)=>{
 				console.log('埋点接口',err)
@@ -83,7 +84,7 @@ export default{
 				let params={
 					phone:this.$cache.getCache('Login-Data').customerInfo.phone,
 				}
-				let api = '/business/customer/manager/getAppletsCustomerIdByPhone'
+				let api = '/dt-business/customer/manager/getAppletsCustomerIdByPhone'
 				getData(api,params).then((res)=>{
 					if(res.customerInfo.phone){
 						this.$cache.setCache('Login-Data', res);
@@ -98,7 +99,7 @@ export default{
 		
 	},
     onShareAppMessage(res) {
-		let buryingPointShareType = '',CustomerTrackShareType=''
+		let buryingPointShareType = '',CustomerTrackShareType='',CustomerOperateCanal = ''
 		//大数据
 		if(this.buryingPoint.modelType=='3'||this.buryingPoint.modelType == '4'){
 			if(this.buryingPoint.modelType == '3'){
@@ -129,7 +130,7 @@ export default{
 			CustomerTrackShareType = '5'
 		}
 		
-		this.addCustomerTrack({shareType:CustomerTrackShareType})
+		this.addCustomerTrack({shareType:CustomerTrackShareType,operateCanal:CustomerOperateCanal})
         return {
             title:this.share.title,
             path:this.share.path,

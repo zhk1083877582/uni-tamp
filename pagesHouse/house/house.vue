@@ -267,7 +267,7 @@
 					buildingId: this.buildingId
 				};
 				let self =this;
-				getData('/business/noToken/user/getUserCardDetail', params)
+				getData('/dt-business/noToken/user/getUserCardDetail', params)
 					.then(res => {
 						console.log('------管家信息',res)
 						this.fourPhone = res.phone||'';
@@ -288,7 +288,7 @@
 							let params = {
 								jsCode: res.code,
 							};
-							let api = '/userAuthServer/noToken/wx/wxAuth' 
+							let api = '/dt-user/noToken/wx/wxAuth' 
 							getData(api, params)
 								.then(res => {
 									console.log('----openid||session_key', res);
@@ -318,7 +318,7 @@
 						openId: this.openid,
 						loginType: 0
 					};
-					let api = '/userAuthServer/noToken/wx/wxLogin';
+					let api = '/dt-user/noToken/wx/wxLogin';
 					getData(api, params)
 						.then(res => {
 							this.$cache.setCache('M-Token', res['token']);
@@ -358,7 +358,7 @@
 					buildingId: this.buildingId
 				};
 				let self =this;
-				getBuildingBaseInfo('/business/noToken/building/info', params)
+				getBuildingBaseInfo('/dt-business/noToken/building/info', params)
 					.then(res => {
 						//客户足迹埋点
 						this.beginTime = (new Date()).getTime()
@@ -407,7 +407,7 @@
 					buildingId: this.buildingId
 				};
 				let self = this;
-				getBuildingAnnex('/business/noToken/building/buildingAnnex',params)
+				getBuildingAnnex('/dt-business/noToken/building/buildingAnnex',params)
 					.then(res => {
 						console.log('----楼盘相册',res)
 						let albumCoverPictureItem =( res.list||[]).filter(item=>{

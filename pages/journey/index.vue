@@ -356,7 +356,7 @@ export default {
       this.$cache.removeCache('M-Token');
       this.$cache.removeCache('Login-Data');
       this.HasToken =false;
-			// let api = '/userAuthServer/noToken/bapp/logout'
+			// let api = '/dt-user/noToken/bapp/logout'
 			// getData(api)
 			// 	.then(res => {
 			// 		this.$cache.removeCache('M-Token');
@@ -424,7 +424,7 @@ export default {
 				userId: e.currentTarget.id,
 				buildingId: obj.$orig.reportBuildingIntro?obj.$orig.reportBuildingIntro.buildingId:''
 			};
-			getData('/business/noToken/user/getUserCardDetail', params)
+			getData('/dt-business/noToken/user/getUserCardDetail', params)
 				.then(res => {
 			console.log('管家信息',res)
 				self.userInfo = res
@@ -475,7 +475,7 @@ export default {
 			let params = {
 				customerId:this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 			}
-			getData("/business/home/cAppHome",params).then((res)=>{
+			getData("/dt-business/home/cAppHome",params).then((res)=>{
 				if(JSON.stringify(res) == '[]'){
 					this.ishowbuilding = false
 				}
@@ -559,7 +559,7 @@ export default {
 		},
 		//关注重点
 		getLabelCategory(){
-			getData('/business/customer/getLabelCategory').then((res)=>{
+			getData('/dt-business/customer/getLabelCategory').then((res)=>{
 				this.LabelCategoryList = res.list
 				console.log('关注重点',res)
 			}).catch(err=>{

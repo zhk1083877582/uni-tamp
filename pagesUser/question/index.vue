@@ -91,7 +91,7 @@ export default {
 			let params = {
 				buildingId:this.buildingId
 			}
-			getData('/business/report/getByBuildingIds',params).then((res)=>{
+			getData('/dt-business/report/getByBuildingIds',params).then((res)=>{
 				console.log(res)
 				this.baseInfo = res
 			}).catch(err=>{
@@ -103,7 +103,7 @@ export default {
 			let params = {
 				questionAnswerId:this.questionId
 			}
-			getData('/business/homepage/getArticleGet',params).then((res)=>{
+			getData('/dt-business/homepage/getArticleGet',params).then((res)=>{
 				// console.log('-----------客户问答',res)
 				this.questionData = res
 			}).catch(err=>{
@@ -145,7 +145,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/noToken/wx/wxAuth' 
+						let api = '/dt-user/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log('----openid||session_key', res);
@@ -175,7 +175,7 @@ export default {
 					openId: this.openid,
 					loginType: 0,
 				};
-				let api = '/userAuthServer/noToken/wx/wxLogin';
+				let api = '/dt-user/noToken/wx/wxLogin';
 				getData(api, params)
 					.then(res => {
 						this.$cache.setCache('M-Token', res['token']);

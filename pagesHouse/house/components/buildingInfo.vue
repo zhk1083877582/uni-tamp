@@ -57,7 +57,7 @@
 				参考均价
 			</view>
 			<view class="characteristic-value price-value" v-if="baseInfo">
-				{{doFormatAveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice)}}
+				{{doFormatAveragePrice(baseInfo.referenceAveragePriceType,baseInfo.referenceAveragePrice,baseInfo.referenceAveragePriceMax)}}
 			</view>
 		</view>
 		<view class="characteristic-item characteristic-area">
@@ -296,11 +296,11 @@ export default {
 	    return '待定'
 	  }else{
 	      if(min==null){
-	          return `${max}万元`
+	          return `${max}万`
 	      }else if(max==null){
-	          return `${min}万元`
+	          return `${min}万`
 	      }else{
-	          return `${min}-${max}万元`
+	          return `${min}-${max}万`
 	      }
 	  }
 	},
@@ -317,17 +317,25 @@ export default {
 	      }
 	  }
 	},
-	doFormatAveragePrice(type,averagePrice){ //均价格式化
-	  if(!averagePrice){
+	doFormatAveragePrice(type,averagePriceMin,averagePriceMax){ //均价格式化
+	  if(!averagePriceMin){
 	    return '待定'
 	  }else{
 	      if(type==1){
-	          return `${averagePrice}元/㎡`
-	      }else {
-	          return `${averagePrice}元/㎡起`
+	          return `${this.unitChange(averagePriceMin)}万元/㎡`
+	      }else if(type==2){
+	          return `${this.unitChange(averagePriceMin)}-${this.unitChange(averagePriceMax)}万元/㎡`
+	      }else{
+	          return `${this.unitChange(averagePriceMin)}万元/㎡起`
 	      }
 	  }
-	}
+	},
+	unitChange(num){
+		if(!num){
+			return 
+		}
+		return ((num-0)/10000).toFixed(2)
+	},
   }
   
 }
@@ -525,9 +533,10 @@ export default {
 		margin:32rpx 0;
 		padding: 0 32rpx;
 		display: flex;
-		.characteristic-item{
-			flex:1;
-		}
+		justify-content: space-between;
+		// .characteristic-item{
+		// 	flex:1;
+		// }
 		.characteristic-text{
 			font-size: 24rpx;
 			font-weight: 400;

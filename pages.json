@@ -59,17 +59,7 @@
 				    "path" : "adviserCard/index",
 				    "style" :                                                                                    
 						{
-							"navigationBarTitleText": "顾问卡片",
-							"navigationBarTextStyle": "black",
-							"navigationBarBackgroundColor": "#ffffff",
-							"enablePullDownRefresh": false
-						}
-				},
-				{
-				    "path" : "adviserCardNew/index",
-				    "style" :                                                                                    
-						{
-							"navigationBarTitleText": "我的名片",
+							"navigationBarTitleText": "顾问主页",
 							"navigationBarTextStyle": "black",
 							"navigationBarBackgroundColor": "#ffffff",
 							"enablePullDownRefresh": false

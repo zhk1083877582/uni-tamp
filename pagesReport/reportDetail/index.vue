@@ -44,7 +44,7 @@
 		<view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
 		<!-- 管家信息 -->
 		<view :class="isfixed?'fixed_bottom':''">
-			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId'></foot-bottom>
+			<foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId' operateCanal='2'></foot-bottom>
 		</view>
 	</view>
 </template>
@@ -153,7 +153,7 @@ export default {
 			let params = {
 				reportId
 			}
-			getData('/business/noToken/report/reportDetail',params).then((res)=>{
+			getData('/dt-business/noToken/report/reportDetail',params).then((res)=>{
 				console.log('置业报告详情数据',res)
 				let self = this
 				//置业需求
@@ -239,7 +239,7 @@ export default {
 				lookTime:this.lookTime,//阅读时间
 				readTime: this.endTime - this.beginTime//阅读时长
 			}
-			getData('/business/noToken/report/customerLookReportLog',params).then((res)=>{
+			getData('/dt-business/noToken/report/customerLookReportLog',params).then((res)=>{
 				
 			}).catch(err=>{
 				console.log(err)
@@ -247,7 +247,7 @@ export default {
 		},
 		//关注重点
 		getLabelCategory(){
-			getData('/business/customer/getLabelCategory').then((res)=>{
+			getData('/dt-business/customer/getLabelCategory').then((res)=>{
 				this.LabelCategoryList = res.list
 				console.log('关注重点',res)
 			}).catch(err=>{

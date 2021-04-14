@@ -184,7 +184,7 @@ export default {
 				loopLineId:id
 			};
 			let self =this;
-			getData('/business/noToken/base/loopline/getById', params)
+			getData('/dt-business/noToken/base/loopline/getById', params)
 				.then(res => {
 				  console.log('获取环线详情',res)
 				  this.Loopline.push(res.loopLineName)
@@ -214,7 +214,7 @@ export default {
 				metroId:id
 			};
 			let self =this;
-			getData('/business/noToken/base/metro/get', params)
+			getData('/dt-business/noToken/base/metro/get', params)
 				.then(res => {
 				  console.log('获取地铁详情',res)
 				  this.metroList.push(res.metroName)

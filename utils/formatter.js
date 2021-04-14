@@ -114,11 +114,11 @@ const FM = {
       return '待定'
     }else{
         if(min==null){
-            return `约${max}㎡`
+            return `${max}`
         }else if(max==null){
-            return `约${min}㎡`
+            return `${min}`
         }else{
-            return `约${min}-${max}㎡`
+            return `${min}-${max}`
         }
     }
   };
@@ -141,11 +141,11 @@ const FM = {
       return '待定'
     }else{
         if(min==null){
-            return `约${max}万`
+            return `${max}`
         }else if(max==null){
-            return `约${min}万`
+            return `${min}`
         }else{
-            return `约${min}-${max}万`
+            return `${min}-${max}`
         }
     }
   };

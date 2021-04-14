@@ -51,6 +51,10 @@ export default {
 		buildingId:{
 			type:String,
 			default:''
+		},
+		operateCanal:{
+			type:String,
+			default:''
 		}
 	},
 	computed: {},
@@ -97,7 +101,7 @@ export default {
 			this.buryingPoint.userId = this.userId
 			this.ReportLog()
 			uni.navigateTo({
-				url: '/pagesHouse/adviserCard/index?userId=' + this.userInfo.userId
+				url: '/pagesHouse/adviserCard/index?userId=' + this.userInfo.userId + '&operateCanal='+this.operateCanal
 			});
 		},
 		getUserInfo(){
@@ -106,7 +110,7 @@ export default {
 				buildingId: this.buildingId
 			};
 			let self =this;
-			getData('/business/noToken/user/getUserCardDetail', params)
+			getData('/dt-business/noToken/user/getUserCardDetail', params)
 				.then(res => {
           console.log('管家信息',res)
           if(res.servedPeopleNum!=null||res.servedPeopleNum!=''){

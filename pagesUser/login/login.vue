@@ -68,7 +68,7 @@ export default {
 						let params = {
 							jsCode: res.code,
 						};
-						let api = '/userAuthServer/noToken/wx/wxAuth' 
+						let api = '/dt-user/noToken/wx/wxAuth' 
 						getData(api, params)
 							.then(res => {
 								console.log('----openid||session_key', res);
@@ -115,7 +115,7 @@ export default {
 					loginType: 0,
 					registerCity:this.$cache.getCache('storageCity')||''
 				};
-				let api = '/userAuthServer/noToken/wx/wxLogin';
+				let api = '/dt-user/noToken/wx/wxLogin';
 				getData(api, params)
 					.then(res => {
 						this.$cache.setCache('M-Token', res['token']);
@@ -140,7 +140,7 @@ export default {
 		//微信审核标识
 		getWXAudit(){
 			console.log(123)
-			getData('/business/noToken/home/WXAudit').then(res=>{
+			getData('/dt-business/noToken/home/WXAudit').then(res=>{
 				console.log(res)
 				this.isExamine = res
 			}).catch(err=>{
