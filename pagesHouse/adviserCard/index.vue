@@ -287,7 +287,7 @@
 						setTimeout(()=>{
 							this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
 							this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-						},500)
+						},800)
 					})
 					.catch(err => {
 						console.log('请求结果报错', err);
