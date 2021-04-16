@@ -158,12 +158,12 @@
 				this.userId = obj.uId;
 				this.buildingIdX = obj.bId;
 				this.CustomerTrack.operateCanal = obj.type;
-				this.share.path = '/pagesHouse/adviserCard/index?userId='+ obj.uId + '&buildingId='+ obj.bId + '&operateCanal=3'
+				this.share.path = '/pagesHouse/adviserCard/index?userId='+ this.userId + '&buildingId='+ this.buildingIdX + '&operateCanal=3'
 			} else {
 				this.userId = option.userId;
-				this.buildingIdX = option.buildingId;
+				this.buildingIdX = option.buildingId||'';
 				this.CustomerTrack.operateCanal = option.operateCanal||''
-				this.share.path = '/pagesHouse/adviserCard/index?userId='+ option.userId + '&buildingId='+ option.buildingId + '&operateCanal=3'
+				this.share.path = '/pagesHouse/adviserCard/index?userId='+ this.userId + '&buildingId='+ this.buildingIdX + '&operateCanal=3'
 			}
 			this.initUserInfo();//管家信息
 			// this.initBaseInfo();//楼盘信息
@@ -284,6 +284,10 @@
 					.then(res => {
 						console.log('----------success',res)
 						this.getAppletsCustomerIdByPhone();
+						setTimeout(()=>{
+							this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+							this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
+						},500)
 					})
 					.catch(err => {
 						console.log('请求结果报错', err);
@@ -338,6 +342,7 @@
 					userId: this.userId,
 					buildingId:this.buildingIdX
 				};
+				console.log('-------params',params)
 				let self =this;
 				getBuildingBaseInfo('/dt-business/noToken/user/getUserCardDetail', params)
 					.then(res => {
@@ -368,7 +373,7 @@
 						
 					})
 					.catch(err => {
-						console.log('管家信息', err);
+						console.log('管家信息11', err);
 					});
 			},
 			// 楼盘-图片信息|基本信息

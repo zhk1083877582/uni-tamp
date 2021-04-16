@@ -600,7 +600,7 @@ export default {
 		this.HasToken = this.$cache.getCache('M-Token')?true:false;
 		if(customerId){
 			this.getinitData(customerId);
-			this.getLabelCategory()
+			// this.getLabelCategory()
 		}
 	},
 	mounted() {

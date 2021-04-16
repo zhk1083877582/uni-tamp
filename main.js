@@ -26,7 +26,6 @@ Vue.prototype.$cache = cache;
 
 // 解决微信小程序adapter
 axios.defaults.adapter = function(config) {
-	console.log(config,'qweqwe')
     return new Promise((resolve, reject) => {
         var settle = require('axios/lib/core/settle');
         var buildURL = require('axios/lib/helpers/buildURL');

@@ -291,7 +291,7 @@ export default {
 		this.getReportData(option.reportId);
 		this.beginTime = (new Date()).getTime()
 		this.lookTime = this.$tool.DateFormat('yyyy-MM-dd hh:mm:ss',new Date())
-		this.share.path = '/pagesReport/book/index?reportId='+ option.reportId
+		this.share.path = '/pagesReport/book/index?reportId='+ this.reportId
 	},
 	onPageScroll(e) {
 		if (e.scrollTop > 150) {

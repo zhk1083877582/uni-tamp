@@ -332,17 +332,17 @@ const TOOL = {
 	  console.log(otherUrl,'11111')
 	 let baseURL = config.baseURL.target,url="";
 	 switch(baseURL){
-		case 'https://ztwgwtest.tospur.com':
-			url='https://zttest.tospurhouse.net/';
+		case 'https://dtwgwtest.tospurhouse.net':
+			url='https://dtwebtest.tospurhouse.net/';
 			break;
-		case 'https://tcwgwstag.tospurhouse.net':
-			url='https://tcwebstag.tospurhouse.net/';
+		case 'https://dtwgwstag.tospurhouse.net':
+			url='https://dtwebstag.tospurhouse.net/';
 			break;
-		case 'https://tcwgwprod.tospurhouse.net':
-			url='https://ztweb.tospurhouse.net/';
+		case 'https://dtwgwprod.tospurhouse.net':
+			url='https://dtweb.tospurhouse.net/';
 			break;
 		 default:
-			url="https://zttest.tospurhouse.net/"
+			url="https://dtweb.tospurhouse.net/"
 	 }
 	 return otherUrl||url;
   },

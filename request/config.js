@@ -23,9 +23,10 @@ export default {
 	// 	// target: 'https://tcwgwprod.tospurhouse.net', // 正式环境接口
 	// }
 	baseURL:{
-		// target:'https:dtwgwprod.tospurhouse.net',//生产
-		// target:'https:tcwgwstag.tospurhouse.net',//预发布
-		// target:'https:dtwgwtest.tospurhouse.net',//测试
-		target:'http://172.16.9.106:8100',//开发
+		// target:'https://dtwgwprod.tospurhouse.net',//生产
+		// target:'https://dtwgwstag.tospurhouse.net',//预发布
+		target:'https://dtwgwtest.tospurhouse.net',//测试
+		// target:'http://172.16.9.106:8100',//开发
+		// target:'http://172.16.17.74:8100'
 	}
 }
