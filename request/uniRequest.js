@@ -124,6 +124,8 @@ import encryptList from "@/request/encrypt.js"
 							// 	url: '/pages/journey/index'
 							// });
 							// showToast("未授权，请登录");
+				cache.removeCache('M-Token');
+				cache.removeCache('Login-Data');
 				return Promise.reject(err.response) // 返回接口返回的错误信息
               err.message = false;
               break
