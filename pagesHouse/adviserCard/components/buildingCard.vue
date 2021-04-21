@@ -197,6 +197,9 @@ export default {
 			color: transparent;
 			line-height: 56rpx;
 			text-shadow: 0px 2rpx 14rpx 0px rgba(0,0,0,0.09); 
+			overflow:hidden;
+			text-overflow:ellipsis;
+			white-space:nowrap
 		}
 		.building_bright_spot{
 			margin-top: 18rpx;
