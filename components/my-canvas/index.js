@@ -137,49 +137,44 @@ export default{
 				    })
 				})
 				//楼盘亮点下的横线
-				await this.$refs.rCanvas.fillRoundRect({
+				await this.$refs.rCanvas.drawRect({
 					x:0,
 					y:241,
 					w:375,
-					h:3,
-					radius:1,
-					fill_color:'rgba(243,243,243,1)'
+					h:1,
+					color:'rgba(243,243,243,1)'
 				})
 				//楼盘亮点下的第二横线
-				await this.$refs.rCanvas.fillRoundRect({
+				await this.$refs.rCanvas.drawRect({
 					x:0,
 					y:330,
 					w:375,
-					h:3,
-					radius:1,
-					fill_color:'rgba(243,243,243,1)'
+					h:1,
+					color:'rgba(243,243,243,1)'
 				})
 				//楼盘亮点下的竖线
-				await this.$refs.rCanvas.fillRoundRect({
+				await this.$refs.rCanvas.drawRect({
 					x:0,
 					y:330,
 					w:375,
-					h:3,
-					radius:1,
-					fill_color:'rgba(243,243,243,1)'
+					h:1,
+					color:'rgba(243,243,243,1)'
 				})
 				//楼盘亮点下的竖线
-				await this.$refs.rCanvas.fillRoundRect({
+				await this.$refs.rCanvas.drawRect({
 					x:125,
 					y:241,
-					w:3,
+					w:1,
 					h:90,
-					radius:1,
-					fill_color:'rgba(243,243,243,1)'
+					color:'rgba(243,243,243,1)'
 				})
 				//楼盘亮点下的竖线
-				await this.$refs.rCanvas.fillRoundRect({
+				await this.$refs.rCanvas.drawRect({
 					x:250,
 					y:241,
-					w:3,
+					w:1,
 					h:90,
-					radius:1,
-					fill_color:'rgba(243,243,243,1)'
+					color:'rgba(243,243,243,1)'
 				})
 				//服务客户
 				await this.$refs.rCanvas.drawSpecialText({
