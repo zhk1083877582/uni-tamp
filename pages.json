@@ -207,7 +207,7 @@
 				{
 					"path": "reportPage/reportdetail/index",
 					"style": {
-						"navigationBarTitleText": "置业报告",
+						"navigationBarTitleText": "扫码签到",
 						"app-plus": {
 						  "titleNView": false,
 						  "bounce": "none"

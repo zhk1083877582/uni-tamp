@@ -357,12 +357,12 @@ export default {
 			}
 			let api = '/dt-business/homepage/createCustomer';
 			getData(api, params)
-				.then(async res => {
+				.then(res => {
 					console.log('----------success',res)
-					await this.getAppletsCustomerIdByPhone();
+					this.getAppletsCustomerIdByPhone();
 					setTimeout(()=>{
 						this.CheckInCustorm();
-					},500)
+					},800)
 				})
 				.catch(err => {
 					console.log('请求结果报错', err);
