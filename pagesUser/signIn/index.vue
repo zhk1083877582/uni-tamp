@@ -104,6 +104,7 @@
 			</view>
 		</view>
 		<u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -201,7 +202,10 @@ export default {
 		//保存顾问名片
 		downloadUserImg(url){
 			if(!this.flagDownloadImg) return
-			this.$refs.rCanvas.saveImage(this.canvasImg)
+			this.$refs.rCanvas.saveImage(this.canvasImg);
+			this.$refs.uToast.show({
+				title: '保存成功'
+			});
 			// uni.downloadFile({
 			// 	url: 'https://media.tongcehaofang.com/image/default/A92894D89E954C9198EDDA3349607E4D-6-2.jpg',
 			// 	success: (res) =>{
