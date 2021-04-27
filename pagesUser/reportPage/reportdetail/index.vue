@@ -202,36 +202,13 @@ export default {
 		downloadUserImg(url){
 			if(!this.flagDownloadImg) return
 			this.$refs.rCanvas.saveImage(this.canvasImg)
-			// uni.downloadFile({
-			// 	url: 'https://media.tongcehaofang.com/image/default/A92894D89E954C9198EDDA3349607E4D-6-2.jpg',
-			// 	success: (res) =>{
-			// 		console.log(res)
-			// 		if (res.statusCode === 200){
-			// 			uni.saveImageToPhotosAlbum({
-			// 				filePath: res.tempFilePath,
-			// 				success: function() {
-			// 					uni.showToast({
-			// 						title: "保存成功",
-			// 						icon: "none"
-			// 					});
-			// 				},
-			// 				fail: function() {
-			// 					// uni.showToast({
-			// 					// 	title: "保存失败，请稍后重试",
-			// 					// 	icon: "none"
-			// 					// });
-			// 				}
-			// 			});
-			// 		}
-			// 	},
-			// 	fail: function(err) {
-			// 		console.log(err)
-			// 		uni.showToast({
-			// 			title: "res",
-			// 			icon: "none"
-			// 		});
-			// 	}
-			// })
+			if(this.canvasImg){
+				uni.showToast({
+					title: '已保存顾问名片',
+					icon: 'none',
+					duration: 2000
+				});
+			}
 		},
 		//获取微信二维码
 		getwxCodeUserCard(){
