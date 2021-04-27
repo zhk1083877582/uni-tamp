@@ -323,18 +323,6 @@ export default{
 			    // 生成海报
 			    await this.$refs.rCanvas.draw((res)=>{
 					this.canvasImg = res.tempFilePath
-					console.log(res,11111)
-			        //res.tempFilePath：生成成功，返回base64图片
-			        // 保存图片
-					// uni.saveImageToPhotosAlbum({
-					// 	filePath:res.tempFilePath,
-					// 	success:(res)=>{
-					// 		console.log(res)
-					// 	},
-					// 	fail:(err)=>{
-					// 		console.log(err)
-					// 	}
-					// })
 			    })
 			})
 		},
