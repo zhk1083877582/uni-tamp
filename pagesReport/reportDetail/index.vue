@@ -30,7 +30,7 @@
 				</u-sticky>
 			</view>
 		<!-- 置业需求 -->
-		<demand title="置业需求" class="part1" v-if="customerIntention!=null" :resData='customerIntention' :logData='logData'></demand>
+		<demand title="置业需求" class="part1" v-if="customerIntention != null && hideFlag != 1" :resData='customerIntention' :logData='logData'></demand>
 		<!-- 方案推荐 -->
 		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
 		<!-- 公共组件 -->
@@ -88,6 +88,7 @@ export default {
 			// 	tips: { label: '置业小贴士', cl: 'part100', isShow: true },
 			// }
 			isfixed:false,
+			hideFlag:1,//控制置业需求显示隐藏
 			customerIntention:null,//置业需求
 			articleList:[],//公共样式列表
 			questionList:null,//问答列表
@@ -161,8 +162,9 @@ export default {
 				// 	res.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,res.customerIntention.customerFocus)
 				// }
 				this.customerIntention = res.customerIntention;
-				let isShowDemand = res.customerIntention != null?true:false;
-				this.changeScrollTabsShow('demand',isShowDemand)
+				this.hideFlag = res.businessReport.hideFlag ? res.businessReport.hideFlag : 1
+				let isShowDemand = res.customerIntention != null && this.hideFlag != 1 ? true : false;
+				this.changeScrollTabsShow('demand',isShowDemand);
 				
 				//推荐方案
 				this.recommendation = res.recommendation!=null?res.recommendation:null;

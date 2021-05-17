@@ -66,7 +66,7 @@
 									<!-- 方案 -->
 									<view class='demand' v-if="item.ishowPlanStatus">
 										<!-- 置业需求 -->
-										<view class="LX_home" v-if="JSON.stringify(item.customerIntention) != '{}'&& item.customerIntention != null">
+										<view class="LX_home" v-if="JSON.stringify(item.customerIntention) != '{}'&& item.customerIntention != null && item.customerIntention.hideFlag != 1">
 											<view class="top_title"><i class="shu"></i><text class="span">置业需求</text></view>
 												<view class="rows">
 													<view class="col">
