@@ -204,7 +204,7 @@ export default {
 			this.$refs.rCanvas.saveImage(this.canvasImg)
 			if(this.canvasImg){
 				uni.showToast({
-					title: '已保存顾问名片',
+					title: '名片保存成功，您可在手机相册中查看',
 					icon: 'none',
 					duration: 2000
 				});
