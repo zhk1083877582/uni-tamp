@@ -162,7 +162,7 @@ export default {
 				// 	res.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,res.customerIntention.customerFocus)
 				// }
 				this.customerIntention = res.customerIntention;
-				this.hideFlag = res.businessReport.hideFlag ? res.businessReport.hideFlag : 1
+				this.hideFlag = res.businessReport ? res.businessReport.hideFlag : 1
 				let isShowDemand = res.customerIntention != null && this.hideFlag != 1 ? true : false;
 				this.changeScrollTabsShow('demand',isShowDemand);
 				
