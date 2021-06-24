@@ -86,7 +86,7 @@ import encryptList from "@/request/encrypt.js"
 		 // }
 		 // 根据返回的code值来做不同的处理（和后端约定）
 		 if(data.code == 200){
-		   data = !instance.prototype.ifEncrypt?encryptList.Decrypt(data.data): data.data;
+		   data =  data.data;
 		   if(data && !instance.prototype.ifEncrypt)data = JSON.parse(data)
 		   return data
 		 }else{
@@ -194,7 +194,8 @@ let apiRequest =function(instance){
   this.handleDate = function(data,ifEncrypt){
     let l = tool.extend({},data,commonParams);
     ifEncrypt?this.instance.prototype.ifEncrypt = true:this.instance.prototype.ifEncrypt = false;
-    return {param:!ifEncrypt?encryptList.Encrypt(JSON.stringify(l)):JSON.stringify(l)};
+	console.log(l,'123123123')
+    return l;
   }
 }
 apiRequest.prototype.$post = function(url,data={},ifEncrypt){
