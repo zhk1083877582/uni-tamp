@@ -77,7 +77,7 @@ import encryptList from "@/request/encrypt.js"
     instance.interceptors.response.use(
       response => {
 		 let data = response.request;
-		 data = data.response?(typeof data.response==='string'?JSON.parse(data.response):data.response):data;
+		 data = data.response?(typeof data.response==='string'?data.response:data.response):data;
 		 // // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
 		 // if (response.data === undefined) {
 		 //   data = response.request?typeof(response.request)=='string'?JSON.parse(response.request):response.request:''
@@ -86,8 +86,8 @@ import encryptList from "@/request/encrypt.js"
 		 // }
 		 // 根据返回的code值来做不同的处理（和后端约定）
 		 if(data.code == 200){
-		   data =  data.data;
-		   if(data && !instance.prototype.ifEncrypt)data = JSON.parse(data)
+		   data = !instance.prototype.ifEncrypt?encryptList.Decrypt(data.data): data.data;
+		   if(data && !instance.prototype.ifEncrypt)data = data
 		   return data
 		 }else{
 		   return Promise.reject(data) 
@@ -194,8 +194,7 @@ let apiRequest =function(instance){
   this.handleDate = function(data,ifEncrypt){
     let l = tool.extend({},data,commonParams);
     ifEncrypt?this.instance.prototype.ifEncrypt = true:this.instance.prototype.ifEncrypt = false;
-	console.log(l,'123123123')
-    return l;
+    return !ifEncrypt?encryptList.Encrypt(l):l;
   }
 }
 apiRequest.prototype.$post = function(url,data={},ifEncrypt){
@@ -240,7 +239,7 @@ Vue.use({
 
 function showToast(data) {
 	uni.showToast({
-		title: JSON.stringify(data),
+		title: data,
 		icon: 'none',
 		duration: 5000
 	});

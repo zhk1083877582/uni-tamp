@@ -9,7 +9,7 @@
 				微信授权登录
 			</u-button>
 			<!-- #endif -->
-			<u-button @click="doTelLogin" v-if="isExamine == 'false'">
+			<u-button @click="doTelLogin">
 				<i class="iconfont icondenglu-shouji"></i>
 				手机号码登录
 			</u-button>

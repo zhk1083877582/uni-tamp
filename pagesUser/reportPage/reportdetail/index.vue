@@ -104,6 +104,7 @@
 			</view>
 		</view>
 		<u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -337,9 +338,7 @@ export default {
 				.then(res => {
 					console.log('----------success',res)
 					this.getAppletsCustomerIdByPhone();
-					setTimeout(()=>{
-						this.CheckInCustorm();
-					},800)
+					this.CheckInCustorm();
 				})
 				.catch(err => {
 					console.log('请求结果报错', err);
@@ -350,13 +349,14 @@ export default {
 			console.log('------进入到doAddCustorm')
 			let {phone,customerId} =this.$cache.getCache('Login-Data').customerInfo||{};
 			let params={
-				customerId:customerId,
+				// customerId:customerId,
 				customerPhone:phone,
 				buildingId:parseInt(this.buildingIdX),
 				checkInType:1,
 				userId:parseInt(this.userId),
 				userName:this.adviserInfo.userName
 			}
+			console.log('==========',params)
 			let api = '/dt-business/checkIn/customerCheckIn';
 			getData(api, params)
 				.then(res => {
