@@ -184,10 +184,11 @@ import encryptList from "@/request/encrypt.js"
       
         }
     )
-const commonParams = {
-  // appName: 'xcx',
-  // appVersion: '1.0.0'
-};
+const commonParams= {
+	    appName: 'M-Web',
+	    appVersion: '2.0.0',
+	    appId: 36
+	  }
 let apiRequest =function(instance){
   this.instance = instance;
 

@@ -28,5 +28,6 @@ export default {
 		target:'https://dtwgwtest.tospurhouse.net',//测试
 		// target:'http://172.16.9.106:8100',//开发
 		// target:'http://172.16.17.74:8100'
-	}
+	},
+	
 }
