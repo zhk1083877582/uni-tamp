@@ -185,7 +185,7 @@ import encryptList from "@/request/encrypt.js"
         }
     )
 const commonParams= {
-	    appName: 'M-Web',
+	    appName: 'DT-XCX',
 	    appVersion: '2.0.0',
 	    appId: 36
 	  }
