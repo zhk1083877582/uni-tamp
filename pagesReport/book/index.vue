@@ -94,7 +94,7 @@ export default {
 						
 					})
 					.catch(err => {
-						console.log('请求结果报错', err);
+						console.log('请求结果报错/dt-user/noToken/wx/wxLogin',params, err);
 					});
 			}
 		},
@@ -120,7 +120,7 @@ export default {
 								console.log(self.openid, 12);
 							})
 							.catch(err => {
-								console.log('请求结果报错', err);
+								console.log('请求结果报错/dt-user/noToken/wx/wxAuth',params, err);
 							});
 					} else {
 						console.log('登录失败！' + res.errMsg);

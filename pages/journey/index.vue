@@ -498,13 +498,13 @@ export default {
 					})
 					
 					//判断是否有方案推荐
-					if( (JSON.stringify(itemR.customerIntention) != '{}'&& itemR.customerIntention != null)&&
-						(JSON.stringify(itemR.recommendation) != '{}'&&itemR.recommendation!=null)&&
-						(itemR.reportData!=null&&JSON.stringify(itemR.reportData) != '[]')
+					if( (JSON.stringify(itemR.customerIntention) == '{}'&& itemR.customerIntention == null)&&
+						(JSON.stringify(itemR.recommendation) == '{}'&&itemR.recommendation==null)&&
+						(JSON.stringify(itemR.reportData) == '[]'&&itemR.reportData==null)
 					  ){
-						  itemR.ishowPlanStatus = true
-					  }else{
 						  itemR.ishowPlanStatus = false
+					  }else{
+						  itemR.ishowPlanStatus = true
 						  // this.swiperHeight = '950rpx'
 					  }
 					 
