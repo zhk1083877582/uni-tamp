@@ -5,9 +5,9 @@
 		<view class="build_name">
 			{{baseInfo.buildingAlias}}
 		</view>
-		<view class="building_bright_spot">
+		<!-- <view class="building_bright_spot">
 			{{baseInfo.buildingBrightSpot}}
-		</view>
+		</view> -->
 		<view class="build_stickers">
 			{{baseInfo.salesStatus == 1?'待售':baseInfo.salesStatus == 2?'在售':baseInfo.salesStatus == 3?'售罄':baseInfo.salesStatus == 4?'在租':''}}
 		</view>

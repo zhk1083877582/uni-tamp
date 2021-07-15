@@ -452,11 +452,12 @@ export default {
 	}
 	
 	.baseInfo-flag1{
-		display: flex;
+		// display: flex;
 	}
 	
 	.flag1-propertytypeAndstatus{
 		margin-top:10rpx;
+		padding-left: 30rpx;
 		flex: 1;
 		display: flex;
 		flex-wrap: wrap;
@@ -464,7 +465,7 @@ export default {
 	.flag1-alias{
 		font-size: 40rpx;
 		min-width: 210rpx;
-		height: 40px;
+		// height: 40px;
 		padding-left: 30rpx;
 		font-weight: 600;
 		text-align: left;
