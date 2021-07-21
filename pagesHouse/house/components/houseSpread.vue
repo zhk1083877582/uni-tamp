@@ -26,15 +26,15 @@
 			</view>
 			<view class="tac f2 unit desList-item">
 				<view class="desList-item_title">单元数</view>
-				<text class="divsSpan">{{itemInfo.unitNum}}个单元</text>
+				<text class="divsSpan">{{itemInfo.unitNum||'-'}}个单元</text>
 			</view>
 			<view class="tac f2 ce desList-item">
 				<view class="desList-item_title">层数</view>
-				<text class="divsSpan">{{itemInfo.layers}}层</text>
+				<text class="divsSpan">{{itemInfo.layers||'-'}}层</text>
 			</view>
 			<view class="tar r14 hu desList-item">
 				<view class="desList-item_title">户数</view>
-				<text class="divsSpan">{{itemInfo.householdNum}}户</text> 
+				<text class="divsSpan">{{itemInfo.householdNum||'-'}}户</text> 
 			</view>
 		</view>
 		<view v-if="itemInfo" class="spread-btn" @click="toSpreadDetail">

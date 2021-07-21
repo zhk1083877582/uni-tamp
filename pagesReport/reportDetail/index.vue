@@ -30,7 +30,7 @@
 				</u-sticky>
 			</view>
 		<!-- 置业需求 -->
-		<demand title="置业需求" class="part1" v-if="customerIntention != null && hideFlag != 1" :resData='customerIntention' :logData='logData'></demand>
+		<demand title="置业需求" class="part1" v-if="customerIntention != null" :resData='customerIntention' :logData='logData'></demand>
 		<!-- 方案推荐 -->
 		<recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
 		<!-- 公共组件 -->

@@ -382,9 +382,9 @@
 						self.getBuildingInfo(baseInfo)
 						//楼盘介绍
 						// console.log('---------introduction-----------------',introduction)
-						self.descriptionInfo.annexPath = introduction.logoImage;
-						self.descriptionInfo.buildingDescription = introduction.description;
-						self.scrollTabs.introduce.isShow = introduction.description ? true : false;
+						self.descriptionInfo.annexPath = introduction&&introduction.logoImage?introduction.logoImage:'';
+						self.descriptionInfo.buildingDescription = introduction&&introduction.description;
+						self.scrollTabs.introduce.isShow = introduction&&introduction.description ? true : false;
 						// console.log('----res----',self.descriptionInfo)
 						//楼盘动态
 						self.getDynamicAndDate(openTimeList,dynamicList);
@@ -457,7 +457,7 @@
 					item.openTime = item.openTime ? self.$tool.DataFormatIos(item.openTime) : '';
 					return item;
 				})
-				let dynamicBaseInfoList = (dynamicList.list||[]).map(item=>{
+				let dynamicBaseInfoList = (dynamicList&&dynamicList.list||[]).map(item=>{
 					item.createTime = item.createTime ? item.createTime : '';
 					return item;
 				})

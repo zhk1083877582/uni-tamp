@@ -370,6 +370,8 @@ page {
                 font-weight: 400;
                 line-height: 32rpx;
                 color: #2b2014;
+				word-break:break-word;
+				width: 350rpx;
               }
             }
           }
