@@ -48,7 +48,7 @@
 			</view>
 			<view class="other-houseType">
 				<view class="other-item">
-					在售户型:<text class="black MR_R bed_room" v-for="(item,index) in baseInfo.houseTypeVOS">{{item.bedroom?item.bedroom+'室':'待定'}}</text>
+					在售户型:<text class="black MR_R bed_room" v-for="(item,index) in getNewArray(baseInfo.houseTypeVOS)" :key='index'>{{item.bedroom?item.bedroom+'室':'待定'}}</text>
 				</view>
 			</view>
 			<view class="other-address">
@@ -103,16 +103,19 @@ export default {
 		});
 	},
 	doFormatAveragePrice(type,averagePriceMin,averagePriceMax){ //均价格式化
+	console.log(type,averagePriceMin,averagePriceMax,'均价格式化')
+	let str = ''
 	  if(!averagePriceMin){
 	    return '待定'
 	  }else{
 	      if(type==1){
-	          return `${this.unitChange(averagePriceMin)}`
+	           str = `${this.unitChange(averagePriceMin)}`
 	      }else if(type==2){
-	          return `${this.unitChange(averagePriceMin)}-${this.unitChange(averagePriceMax)}`
+	            str = `${this.unitChange(averagePriceMin)}-${this.unitChange(averagePriceMax)}`
 	      }else{
-	          return `${this.unitChange(averagePriceMin)}`
+	            str = `${this.unitChange(averagePriceMin)}`
 	      }
+		  return str
 	  }
 	},
 	unitChange(num){
@@ -169,8 +172,22 @@ export default {
 		if(!type) return
 		return this.$formatter.switchName('propertyType',type)
 	},
-	
-  }
+	getNewArray(arr) {
+		for (var i = 0, len = arr.length; i < len; i++) {
+			for (var j = i + 1, len = arr.length; j < len; j++) {
+				if (arr[i].bedroom === arr[j].bedroom) {
+					arr.splice(j, 1);
+					j--;        // 每删除一个数j的值就减1
+					len--;      // j值减小时len也要相应减1（减少循环次数，节省性能）   
+					// console.log(j,len)
+
+				}
+			}
+		}
+			return arr;
+		}
+	}
+  
   
 }
 </script>
