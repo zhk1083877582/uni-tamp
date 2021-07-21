@@ -125,11 +125,13 @@ export default {
         // 画楼盘亮点
         await this.$refs.rCanvas.drawText({
           text: self.adviserInfo.buildingInfos[0].buildingBrightSpot,
-          max_width: 0,
+          max_width: 300,
           x: 32,
           y: 217,
           font_color: "rgba(102,102,102,1)",
-          font_size: 16
+          font_size: 16,
+		  line_clamp:1,
+		  line_clamp_hint:'...',
         }).catch(err_msg => {
           uni.showToast({
             title: err_msg,
@@ -245,13 +247,13 @@ export default {
         //从业年限
         await this.$refs.rCanvas.drawSpecialText({
           general: {
-            x: 300,
+            x: 288,
             y: 285,
           },
           list: [{
             text: self.adviserInfo.workExperienceDesc,
             font_color: 'rgba(0,0,0,1)',
-            font_size: 20
+            font_size: 20,
           }, ]
         }).catch(err => {
           this.error(err)
