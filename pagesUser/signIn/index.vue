@@ -335,7 +335,6 @@ export default {
     },
     // 把当前手机号推进客户池
     doAddCustorm(phone, customerId) {
-      console.log('------进入到doAddCustorm')
       let params = {
         // customerId: customerId,
         phone: phone,
@@ -347,15 +346,15 @@ export default {
         .then((res) => {
           console.log('----------success', res)
           this.getAppletsCustomerIdByPhone()
-          this.CheckInCustorm()
+          this.CheckInCustorm(res)
         })
         .catch((err) => {
           console.log('请求结果报错', err)
         })
     },
     // 扫码签到
-    CheckInCustorm() {
-      console.log('------进入到doAddCustorm')
+    CheckInCustorm(obj) {
+      console.log(obj,'------进入到doAddCustorm')
       let { phone, customerId } =
         this.$cache.getCache('Login-Data').customerInfo || {}
       let params = {
@@ -364,7 +363,7 @@ export default {
         buildingId: parseInt(this.buildingIdX),
         checkInType: 1,
         userId: parseInt(this.userId),
-        userName: this.adviserInfo.userName,
+        userName: obj.userName,
       }
       console.log('==========', params)
       let api = '/dt-business/checkIn/customerCheckIn'
