@@ -16,10 +16,10 @@ export default {
   // 返回数据类型
   responseType: 'json',
   baseURL: {
-    // target: 'https://dtgw.tospurfang.com', //生产
-    // target:'https://dtwgwstag.tospurhouse.net',//预发布
-    // target:'https://dtwgwtest.tospurhouse.net',//测试
     // target:'http://172.16.9.106:8100',//开发
+    // target:'https://dtwgwtest.tospurhouse.net',//测试
+    // target: 'https://dtgw.tospurfang.com', //生产
+    target: 'https://dtwgwstag.tospurhouse.net', //预发布
   },
 
 }
