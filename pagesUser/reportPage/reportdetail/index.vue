@@ -24,18 +24,18 @@
         <view class="img_warp" v-if="!showAuthorize">
           <view class="configImg_warp">
             <view class="configImg"><text class="img_text">区位介绍</text>
-              <image src="https://media.tongcehaofang.com/image/default/4E1BEB8C86B24C52BCE829E4AD8220E8-6-2.jpg" mode=""></image>
+              <image src="https://images.xique51.com/4E1BEB8C86B24C52BCE829E4AD8220E8-6-2.jpg" mode=""></image>
             </view>
             <view class="configImg"><text class="img_text">沙盘介绍</text>
-              <image src="https://media.tongcehaofang.com/image/default/BEC371A31E4B497BB353D8BEE11F423D-6-2.jpg" mode=""></image>
+              <image src="https://images.xique51.com/BEC371A31E4B497BB353D8BEE11F423D-6-2.jpg" mode=""></image>
             </view>
           </view>
           <view class="configImg_warp MR_T">
             <view class="configImg"><text class="img_text">样板间带看</text>
-              <image src="https://media.tongcehaofang.com/image/default/F029999A5A034BD39B2B8F703FDE55BA-6-2.jpg" mode=""></image>
+              <image src="https://images.xique51.com/F029999A5A034BD39B2B8F703FDE55BA-6-2.jpg" mode=""></image>
             </view>
             <view class="configImg"><text class="img_text">沟通洽谈</text>
-              <image src="https://media.tongcehaofang.com/image/default/4B2A4B48FC934EBEB6536DBE064C261B-6-2.jpg" mode=""></image>
+              <image src="https://images.xique51.com/4B2A4B48FC934EBEB6536DBE064C261B-6-2.jpg" mode=""></image>
             </view>
           </view>
         </view>
@@ -96,7 +96,7 @@
     </view>
     <view class="bottom_main">
       <view class="bottom_bg">
-        <!-- https://media.tongcehaofang.com/image/default/26CDF733F70A4F0A9898559F17EF7995-6-2.jpg -->
+        <!-- https://images.xique51.com/26CDF733F70A4F0A9898559F17EF7995-6-2.jpg -->
         <view class="HDJ">
           <button type="default" hover-class='none' class="btn" v-if="showAuthorize" @click="downloadUserImg">
             <!-- {{showAuthorize?'保存顾问名片':'立即开启服务'}} -->
@@ -629,7 +629,7 @@ page {
     .bottom_bg {
       width: 100%;
       height: 50%;
-      background: url(https://media.tongcehaofang.com/image/default/26CDF733F70A4F0A9898559F17EF7995-6-2.jpg)
+      background: url(https://images.xique51.com/26CDF733F70A4F0A9898559F17EF7995-6-2.jpg)
         no-repeat;
       background-size: 100% 50%;
       position: absolute;

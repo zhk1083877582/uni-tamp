@@ -153,7 +153,7 @@ export default {
   data() {
     return {
       headPortrait:
-        'https://media.tongcehaofang.com/image/default/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+        'https://images.xique51.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
       resData: {},
       metroList: [],
       Loopline: [],
@@ -370,8 +370,8 @@ page {
                 font-weight: 400;
                 line-height: 32rpx;
                 color: #2b2014;
-				word-break:break-word;
-				width: 350rpx;
+                word-break: break-word;
+                width: 350rpx;
               }
             }
           }

@@ -538,7 +538,7 @@ export default {
   //顾问信息
   .adviser-info {
     padding: 50rpx 0 56rpx 0;
-    background: url('https://media.tongcehaofang.com/image/default/88AC88E78E084CE699D62CA9E7141A62-6-2.jpg');
+    background: url('https://images.xique51.com/88AC88E78E084CE699D62CA9E7141A62-6-2.jpg');
     background-repeat: no-repeat;
     background-size: contain;
     .user_warp {
@@ -702,13 +702,13 @@ export default {
       box-shadow: 0px 2rpx 14rpx 0px rgba(0, 0, 0, 0.09);
     }
     .left_btn {
-      // background: url(https://media.tongcehaofang.com/image/default/39B5A567522F4FF08EAE688A69117D18-6-2.jpg);
+      // background: url(https://images.xique51.com/39B5A567522F4FF08EAE688A69117D18-6-2.jpg);
       // background-repeat: no-repeat;
       // background-size: contain;
       margin-right: 15rpx;
     }
     .right_btn {
-      // background: url(https://media.tongcehaofang.com/image/default/39B5A567522F4FF08EAE688A69117D18-6-2.jpg);
+      // background: url(https://images.xique51.com/39B5A567522F4FF08EAE688A69117D18-6-2.jpg);
       // background-repeat: no-repeat;
       // background-size: contain;
       margin-left: 15rpx;
