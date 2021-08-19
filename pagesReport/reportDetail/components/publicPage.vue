@@ -2,7 +2,7 @@
 <template>
   <view class='pablic_page'>
     <card :title="title">
-      <!-- <image class="content_image" src="https://images.xique51.com/EB5ACB88E76C4C5C81947F3A10968F55-6-2.jpg" mode="widthFix"></image>
+      <!-- <image class="content_image" src="https://images.tospurfang.com/EB5ACB88E76C4C5C81947F3A10968F55-6-2.jpg" mode="widthFix"></image>
 			<view class="content_text">
 				徐泾人口少、密度低，是青浦的老牌别墅区板块。一场进博会，彻底引爆了徐泾板块的楼市。 徐泾的房地产市场这几年发展得如火如荼，大虹桥徐泾板块是近年来炙手可热的置业区域，区域内新房曝光度颇高。徐泾板块配套整体来看，都更偏向国际化趋势。
 			</view> -->

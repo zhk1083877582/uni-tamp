@@ -153,7 +153,7 @@ export default {
   data() {
     return {
       headPortrait:
-        'https://images.xique51.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+        'https://images.tospurfang.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
       resData: {},
       metroList: [],
       Loopline: [],

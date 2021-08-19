@@ -296,14 +296,14 @@ export default {
       top: 20rpx;
       left: 20rpx;
       z-index: 1;
-      background: url(https://images.xique51.com/EAB52B7623624AF3B225B49024D161EF-6-2.jpg)
+      background: url(https://images.tospurfang.com/EAB52B7623624AF3B225B49024D161EF-6-2.jpg)
         no-repeat;
       background-size: 100% 100%;
     }
     .qundai {
       width: 100%;
       height: 560rpx;
-      background: url(https://images.xique51.com/6D95DE18F74A4D6986E1D7A37EE300B1-6-2.jpg)
+      background: url(https://images.tospurfang.com/6D95DE18F74A4D6986E1D7A37EE300B1-6-2.jpg)
         no-repeat;
       background-size: 100% 100%;
       position: absolute;
@@ -313,7 +313,7 @@ export default {
       .HDJ {
         width: 100%;
         height: 100%;
-        background: url(https://images.xique51.com/A068A1C25FC74588869BB73405F9EF6F-6-2.jpg)
+        background: url(https://images.tospurfang.com/A068A1C25FC74588869BB73405F9EF6F-6-2.jpg)
           no-repeat;
         background-size: 100% 100%;
         padding-top: 30%;

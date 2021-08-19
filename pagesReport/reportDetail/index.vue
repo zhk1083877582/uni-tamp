@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       defaultheadPortrait:
-        'https://images.xique51.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+        'https://images.tospurfang.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
       headPortrait: '',
       //锚点
       isShowScrollTabs: false,
@@ -239,7 +239,7 @@ export default {
             ? this.buildingInfo.buildingAlias + '置业计划书'
             : '置业计划书'
           this.share.imageUrl =
-            'https://images.xique51.com/7053D048F5714430B1815AAA566CC1FF-6-2.jpg'
+            'https://images.tospurfang.com/7053D048F5714430B1815AAA566CC1FF-6-2.jpg'
 
           this.logData = {
             beginTime: this.beginTime,

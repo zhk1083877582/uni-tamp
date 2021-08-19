@@ -30,7 +30,7 @@ export default {
     //             title: '置业笔记，新房,新楼盘,新开楼盘',
     //             keywords:keywords,
     //             description: keywords,
-    // 			image: 'https://images.xique51.com/616DCC531C714EC29C237697590BB5FC-6-2.jpg',
+    // 			image: 'https://images.tospurfang.com/616DCC531C714EC29C237697590BB5FC-6-2.jpg',
     //             success: res => {
     //                 console.log('setPageInfo success', res);
     //             },

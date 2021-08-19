@@ -41,7 +41,8 @@
                   <view class="list_item_warp" @click="toDetail(item.reportBuildingIntro.buildingId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
                     <view class="img_warp">
                       <image class="tospur-image"
-                        :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture : 'https://images.xique51.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'" mode="">
+                        :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
+                        mode="">
                       </image>
                     </view>
                     <view class="item_details">
@@ -139,7 +140,7 @@
                             <view :class="'change_box_warp'+index">
                               <view class="change_box">
                                 <view class="change_image_warp">
-                                  <image class="change_image" :src="itemR.houseTypeImg?itemR.houseTypeImg:'https://images.xique51.com/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
+                                  <image class="change_image" :src="itemR.houseTypeImg?itemR.houseTypeImg:'https://images.tospurfang.com/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
                                 </view>
                                 <view class="rows">
                                   <i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{itemR.houseTypeName?itemR.houseTypeName:'-'}}</text>
@@ -227,7 +228,7 @@
 
                   <view v-else>
                     <view class="no-data-plan">
-                      <image class="img" src="https://images.xique51.com/A92894D89E954C9198EDDA3349607E4D-6-2.jpg" mode=""></image>
+                      <image class="img" src="https://images.tospurfang.com/A92894D89E954C9198EDDA3349607E4D-6-2.jpg" mode=""></image>
                       <view class="text">
                         您的置业计划书正在定制中，
                       </view>
@@ -244,7 +245,7 @@
       </view>
       <view v-else>
         <view class="no-data-plan no-data-build">
-          <image class="img" src="https://images.xique51.com/A92894D89E954C9198EDDA3349607E4D-6-2.jpg" mode=""></image>
+          <image class="img" src="https://images.tospurfang.com/A92894D89E954C9198EDDA3349607E4D-6-2.jpg" mode=""></image>
           <view class="text">
             您尚未开启购房旅程
           </view>
@@ -272,9 +273,9 @@ export default {
       ishowbuilding: true,
       // ishowPlan:true,
       headPortrait:
-        'https://images.xique51.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+        'https://images.tospurfang.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
       defaultHead:
-        'https://images.xique51.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
+        'https://images.tospurfang.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
       swiperMargin: '30rpx',
       swiperHeight: '2850rpx',
       indicatorDots: false,
@@ -313,15 +314,15 @@ export default {
       bannerList: [
         {
           image:
-            'https://images.xique51.com/C4A64C6AC96D431D8839871B3B7C65FC-6-2.jpg',
+            'https://images.tospurfang.com/C4A64C6AC96D431D8839871B3B7C65FC-6-2.jpg',
         },
         {
           image:
-            'https://images.xique51.com/8DF83A1BDE5B47F9897090D9AA643DDE-6-2.jpg',
+            'https://images.tospurfang.com/8DF83A1BDE5B47F9897090D9AA643DDE-6-2.jpg',
         },
         {
           image:
-            'https://images.xique51.com/A29A5DD2F02141F397D0EF78BEF0E423-6-2.jpg',
+            'https://images.tospurfang.com/A29A5DD2F02141F397D0EF78BEF0E423-6-2.jpg',
         },
       ],
     }

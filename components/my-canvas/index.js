@@ -42,7 +42,7 @@ export default {
         })
         // 画手机图标
         await this.$refs.rCanvas.drawImage({
-          url: 'https://images.xique51.com/E9075F2FFABC4ADEB12819FDBAF9C970-6-2.jpg',
+          url: 'https://images.tospurfang.com/E9075F2FFABC4ADEB12819FDBAF9C970-6-2.jpg',
           x: 152,
           y: 77,
           w: 17,
@@ -69,7 +69,7 @@ export default {
         })
         // 画微信图标
         await this.$refs.rCanvas.drawImage({
-          url: 'https://images.xique51.com/74AB4837022B47C3B50B5AE126D4B43E-6-2.jpg',
+          url: 'https://images.tospurfang.com/74AB4837022B47C3B50B5AE126D4B43E-6-2.jpg',
           x: 152,
           y: 115,
           w: 20,
@@ -96,7 +96,7 @@ export default {
         })
         // 画楼盘图标
         await this.$refs.rCanvas.drawImage({
-          url: 'https://images.xique51.com/F49BC314D29E426F9C73662F83481CBE-6-2.jpg',
+          url: 'https://images.tospurfang.com/F49BC314D29E426F9C73662F83481CBE-6-2.jpg',
           x: 32,
           y: 167,
           w: 23,

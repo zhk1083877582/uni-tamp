@@ -1,7 +1,7 @@
 <!-- 登录 -->
 <template>
   <view class="login_warp">
-    <image src="https://images.xique51.com/5259F332FEF24BB1B2699C7A3CC205E8-6-2.jpg" class="login_log"></image>
+    <image src="https://images.tospurfang.com/5259F332FEF24BB1B2699C7A3CC205E8-6-2.jpg" class="login_log"></image>
     <view class="btn_warp">
       <!-- #ifdef MP-WEIXIN -->
       <u-button type="primary" class="WX_btn" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">

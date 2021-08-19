@@ -7,7 +7,7 @@
           <view class="img_warp">
             <!-- <image class="tospur-image" src="/static/pic_default_small@2x.png"></image> -->
             <image class="tospur-image"
-              :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://images.xique51.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
+              :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
               mode="aspectFill"></image>
           </view>
           <view class="item_details">

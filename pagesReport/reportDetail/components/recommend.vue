@@ -7,7 +7,7 @@
           <view class="img_warp">
             <!-- <image class="tospur-image" src="/static/pic_default_small@2x.png"></image> -->
             <image class="tospur-image"
-              :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://images.xique51.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
+              :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture+'?x-oss-process=image/resize,h_200,w_200' : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
               mode="aspectFill"></image>
           </view>
           <view class="item_details">
@@ -35,7 +35,7 @@
           <view :class="'change_box_warp'+index">
             <view class="change_box">
               <view class="change_image_warp">
-                <image class="change_image" :src="item.houseTypeImg?item.houseTypeImg:'https://images.xique51.com/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
+                <image class="change_image" :src="item.houseTypeImg?item.houseTypeImg:'https://images.tospurfang.com/0B1F08D8962944F9843B6AB342168B16-6-2.jpg'" mode=""></image>
               </view>
               <view class="rows">
                 <i class="iconfont iconhuxing"></i><text class="lable">户型</text><text class="text">{{item.houseTypeName?item.houseTypeName:'-'}}</text>

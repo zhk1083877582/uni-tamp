@@ -14,7 +14,7 @@
     </view>
     <!-- 图片 -->
     <view class="img-container">
-      <view class="img" :style="{'background-image':`url(${baseInfo.realImgPath||'https://images.xique51.com/B8A86CAEE12C4158AA9CBE9C7C1E57C3-6-2.jpg'})`}">
+      <view class="img" :style="{'background-image':`url(${baseInfo.realImgPath||'https://images.tospurfang.com/B8A86CAEE12C4158AA9CBE9C7C1E57C3-6-2.jpg'})`}">
       </view>
       <view class="play-flag" v-if="baseInfo.mp4Picture||baseInfo.vrPicture">
         <view class="triangle"></view>

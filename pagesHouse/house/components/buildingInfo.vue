@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       defaultImg:
-        'https://images.xique51.com/0B1F08D8962944F9843B6AB342168B16-6-2.jpg', //默认图片
+        'https://images.tospurfang.com/0B1F08D8962944F9843B6AB342168B16-6-2.jpg', //默认图片
       imgList: [],
       activeNo: 0, //当前轮播的是第几张图片
       mp4Start: 0, //mp4
