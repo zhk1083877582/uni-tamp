@@ -334,11 +334,11 @@ const TOOL = {
     let baseURL = config.baseURL.target,
       url = "";
     switch (baseURL) {
-      case 'https://dtwgwtest.tospurhouse.net':
-        url = 'https://dtwebtest.tospurhouse.net/';
+      case 'https://dtwgwtest.tospur.com':
+        url = 'https://dtwebtest.tospur.com/';
         break;
-      case 'https://dtwgwstag.tospurhouse.net':
-        url = 'https://dtwebstag.tospurhouse.net/';
+      case 'https://dtgwstag.tospurfang.com':
+        url = 'https://dtwebstag.tospurfang.com/';
         break;
       case 'https://dtgw.tospurfang.com':
         url = 'https://dtweb.tospurfang.com/';
