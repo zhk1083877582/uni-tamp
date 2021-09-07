@@ -120,7 +120,6 @@ export default {
     return {
       buildingIdX: '', //app扫码进来，带过来buildingId时
       userId: '',
-      listArr: ['1111', '222', '333'],
       configPicture: '', //楼盘配置图，如果不存在取c-app的封面图
       adviserInfo: {},
       //滑动信息
@@ -164,7 +163,6 @@ export default {
     } else {
       this.userId = option.userId
       this.buildingIdX = option.buildingId || ''
-      this.CustomerTrack.operateCanal = option.operateCanal || ''
       this.share.path =
         '/pagesHouse/adviserCard/index?userId=' +
         this.userId +
@@ -175,18 +173,8 @@ export default {
     this.initUserInfo() //管家信息
     // this.initBaseInfo();//楼盘信息
   },
-  onHide() {
-    console.log('onHide 222')
-    //客户足迹埋点
-    this.CustomerTrack.stayTime = new Date().getTime() - this.beginTime
-    this.addCustomerTrack()
-  },
-  onUnload() {
-    console.log('onUnload 333')
-    //客户足迹埋点
-    this.CustomerTrack.stayTime = new Date().getTime() - this.beginTime
-    // this.addCustomerTrack()
-  },
+  onHide() {},
+  onUnload() {},
   onReady() {
     //设置页面导航条颜色
     uni.setNavigationBarColor({
