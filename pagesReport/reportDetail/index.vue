@@ -1,7 +1,7 @@
 <!-- 专属置业报告 -->
 <template>
   <view class='report_detail'>
-    <view class="title_warp">
+    <!-- <view class="title_warp">
       <u-avatar class="avatarTou" :src="headPortrait?headPortrait:defaultheadPortrait" size='96' mode="circle"></u-avatar>
       <view class="title_content_warp">
         <view class="title_content">
@@ -14,36 +14,37 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
 
     <!-- 锚点 -->
     <view class="scroll-tabs">
-      <u-sticky bg-color='#0A2056' offset-top=0 h5-nav-height='0'>
-        <scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;" class="scroll_view">
-          <view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(item,index)">
-            <view v-if="item.isShow">
-              {{ item.label }}
-              <text class="under_line" :class="{ under_line_active: index === scrollActiveIndex }"></text>
-            </view>
+      <scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;" class="scroll_view">
+        <view v-for="(item, index) in scrollRealTabs" :key="index" :class="{ active: index === scrollActiveIndex }" class="tab-item" @click.stop="changeScrollTabs(item,index)">
+          <view v-if="item.isShow">
+            {{ item.label }}
+            <text class="under_line" :class="{ under_line_active: index === scrollActiveIndex }"></text>
           </view>
-        </scroll-view>
-      </u-sticky>
+        </view>
+      </scroll-view>
     </view>
-    <!-- 置业需求 -->
-    <demand title="置业需求" class="part1" v-if="customerIntention != null&&hideFlag!=1" :resData='customerIntention' :logData='logData'></demand>
-    <!-- 方案推荐 -->
-    <recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
-    <!-- 公共组件 -->
-    <view v-for="(item,index) in articleList" :key="index">
-      <public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
+    <view class="main_content">
+      <!-- 置业需求 -->
+      <demand title="置业需求" class="part1" v-if="false" :resData='customerIntention' :logData='logData'></demand>
+      <!-- 方案推荐 -->
+      <recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
+      <!-- 公共组件 -->
+      <view v-for="(item,index) in articleList" :key="index">
+        <public-page :title="item.ztLabelType" :class="'part'+(index+3)" :resData='item'></public-page>
+      </view>
+      <!-- 置业问答 -->
+      <question class="part99" v-if="questionList!=null&&JSON.stringify(questionList)!='[]'" :resData='questionList'></question>
+      <!-- 置业小贴士 -->
+      <tips-page class="part100"></tips-page>
+      <view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
     </view>
-    <!-- 置业问答 -->
-    <question class="part99" v-if="questionList!=null&&JSON.stringify(questionList)!='[]'" :resData='questionList'></question>
-    <!-- 置业小贴士 -->
-    <tips-page class="part100"></tips-page>
-    <view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
+
     <!-- 管家信息 -->
-    <view :class="isfixed?'fixed_bottom':''">
+    <view class="fixed_bottom">
       <foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId' operateCanal='2'></foot-bottom>
     </view>
   </view>
@@ -75,19 +76,12 @@ export default {
       isShowScrollTabs: false,
       scrollActiveIndex: 0,
       scrollTabs: [
-        { label: '置业需求', cl: 'part1', isShow: false, id: 'demand' },
+        // { label: '置业需求', cl: 'part1', isShow: false, id: 'demand' },
         { label: '方案推荐', cl: 'part2', isShow: false, id: 'recommend' },
         // dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
         { label: '置业问答', cl: 'part99', isShow: false, id: 'question' },
         { label: '置业小贴士', cl: 'part100', isShow: true, id: 'tips' },
       ],
-      // scrollTabs:{
-      // 	demand: { label: '置业需求', cl: 'part1', isShow: false },
-      // 	recommend: { label: '方案推荐', cl: 'part2', isShow: false },
-      // 	// dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
-      // 	question: { label: '置业问答', cl: 'part99', isShow: false },
-      // 	tips: { label: '置业小贴士', cl: 'part100', isShow: true },
-      // }
       isfixed: false,
       hideFlag: 1, //控制置业需求显示隐藏
       customerIntention: null, //置业需求
@@ -349,7 +343,6 @@ export default {
       this.isfixed = false
     }
     let self = this
-
     //监听下面每块内容滚动
     // #ifndef MP-TOUTIAO
     const query = uni.createSelectorQuery().in(this)
@@ -475,13 +468,15 @@ page {
   .scroll-tabs {
     width: 100%;
     /* height: 44px; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
     line-height: 44px;
     white-space: nowrap;
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
     color: rgba(255, 255, 255, 0.5);
     background: linear-gradient(181deg, #0a2056, #0d255f, #0a2056 100%);
-    margin-bottom: 39rpx;
-    /* z-index: 999; */
     .scroll_view {
       background: linear-gradient(181deg, #0a2056, #0d255f, #0a2056 100%);
     }
@@ -546,6 +541,9 @@ page {
     line-height: 30rpx;
     color: rgba(255, 255, 255, 0.28);
     margin: 40rpx 24rpx;
+  }
+  .main_content {
+    margin-top: 100rpx;
   }
 }
 </style>

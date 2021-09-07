@@ -15,7 +15,7 @@ export default {
 	  };
 	},
 	onLoad (option) {
-		// console.log('toMWebpath',this.$cache.getCache('toMWebpath'))
+		console.log('toMWebpath',this.$cache.getCache('toMWebpath'))
 		this.url =this.$cache.getCache('toMWebpath').toMWebpath + '&fromAppName=xcx';
 		console.log('toMWebpath1111',this.url)
 		if(this.url.indexOf('/housePhoto')>-1){

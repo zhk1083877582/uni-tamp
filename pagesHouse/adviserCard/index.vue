@@ -174,25 +174,6 @@ export default {
     }
     this.initUserInfo() //管家信息
     // this.initBaseInfo();//楼盘信息
-
-    if (!this.$cache.getCache('M-Token')) {
-      this.showAuthorize = true
-      this.getPhone()
-      // uni.navigateTo({
-      // 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
-      // });
-    } else {
-      console.log('-------------', this.buildingIdX)
-      if (this.buildingIdX) {
-        let { phone, customerId } =
-          this.$cache.getCache('Login-Data').customerInfo || {}
-        console.log('---phone&&customerId----', phone, customerId)
-        if (phone && customerId) {
-          this.doAddCustorm(phone, customerId)
-        }
-      }
-      this.showAuthorize = false
-    }
   },
   onHide() {
     console.log('onHide 222')
@@ -214,98 +195,6 @@ export default {
     })
   },
   methods: {
-    // 获取jsCode openid session_key
-    getPhone() {
-      const self = this
-      uni.login({
-        success: (res) => {
-          console.log('---jsCode', res)
-          if (res.code) {
-            //微信登录成功 已拿到code
-            self.jsCode = res.code //保存获取到的code
-            let params = {
-              jsCode: res.code,
-            }
-            let api = '/dt-user/noToken/wx/wxAuth'
-            getData(api, params)
-              .then((res) => {
-                console.log('----openid||session_key', res)
-                self.openid = res.openid //openid 用户唯一标识
-                self.session_key = res.session_key //session_key  会话密钥
-              })
-              .catch((err) => {
-                console.log('请求结果报错', err)
-              })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
-        },
-      })
-    },
-    onGetPhoneNumber(e) {
-      console.log('-----login-btn', e)
-      if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-        //用户决绝授权
-        //拒绝授权后弹出一些提示
-      } else {
-        //允许授权
-        let params = {
-          iv: e.detail.iv,
-          encryData: e.detail.encryptedData,
-          sessionKey: this.session_key,
-          openId: this.openid,
-          loginType: 0,
-        }
-        let api = '/dt-user/noToken/wx/wxLogin'
-        getData(api, params)
-          .then((res) => {
-            this.$cache.setCache('M-Token', res['token'])
-            this.$cache.setCache('Login-Data', res)
-            this.showAuthorize = false
-            this.initUserInfo() //管家信息
-            // this.initBaseInfo();//楼盘信息
-            let { phone, customerId } = res.customerInfo || {}
-            console.log('--------授权', res)
-            if (phone && customerId) {
-              this.doAddCustorm(phone, customerId)
-            }
-          })
-          .catch((err) => {
-            console.log('请求结果报错', err)
-          })
-      }
-    },
-
-    // 把当前手机号推进客户池
-    doAddCustorm(phone, customerId) {
-      console.log('------进入到doAddCustorm')
-      let params = {
-        customerId: customerId,
-        phone: phone,
-        buildingId: this.buildingIdX,
-        userId: this.userId,
-      }
-      let api = '/dt-business/homepage/createCustomer'
-      getData(api, params)
-        .then((res) => {
-          console.log('----------success', res)
-          this.getAppletsCustomerIdByPhone()
-          setTimeout(() => {
-            this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-              .customerInfo
-              ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-              : ''
-            this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data')
-              .customerInfo
-              ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-              : ''
-          }, 800)
-        })
-        .catch((err) => {
-          console.log('请求结果报错', err)
-        })
-    },
-
     doChangeSwipe(val) {
       console.log('----swiper', val)
       this.swiperInfo.current = val.detail.current
@@ -337,25 +226,6 @@ export default {
     },
     //获取顾问信息
     initUserInfo() {
-      //埋点
-      this.buryingPoint.modelType = '4' //前端添加modelType = 4 代表管家名片
-      this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-        .customerInfo
-        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-        : ''
-      this.buryingPoint.userId = this.userId
-
-      //客户足迹埋点
-      this.beginTime = new Date().getTime()
-      this.CustomerTrack.buildingId = ''
-      this.CustomerTrack.operateType = '3'
-      this.CustomerTrack.createrId = this.userId
-      this.CustomerTrack.userId = this.userId
-      this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data')
-        .customerInfo
-        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-        : ''
-      this.CustomerTrack.dataId = ''
       let params = {
         userId: this.userId,
         buildingId: this.buildingIdX,
@@ -509,16 +379,7 @@ export default {
         // 手机号
         phoneNumber: value,
         // 成功回调
-        success: (res) => {
-          // console.log('调用成功!')
-          // this.buryingPoint.operationType = '6'
-          // this.buryingPoint.modelType = this.modelType
-          // this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-          // this.buryingPoint.reportId = this.reportId
-          // this.buryingPoint.userId = this.userId
-          // this.ReportLog()
-          // potentialCustomersInfo('',saveParams)
-        },
+        success: (res) => {},
         // 失败回调
         fail: (res) => {
           console.log('调用失败!')

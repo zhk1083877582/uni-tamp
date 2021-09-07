@@ -55,19 +55,6 @@
     <view class="fixed_bottom">
       <foot-bottom :userId='userId' v-if="userId&&buildingId" :buildingId="buildingId"></foot-bottom>
     </view>
-    <u-mask :show="showAuthorize" mask-click-able="false">
-      <view class="showAuthorize_warp" @tap.stop>
-        <view class="authorize_title">
-          授权提醒
-        </view>
-        <view class="authorize_text">
-          您好，为了更好得为您提供服务 请您授权登录
-        </view>
-        <u-button type="default" class="authorize_btn" hover-class="none" plain="true" :hair-line='false' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
-          确定
-        </u-button>
-      </view>
-    </u-mask>
   </view>
 </template>
 
@@ -117,16 +104,6 @@ export default {
     },
 
     toDetail(buildingId) {
-      this.buryingPoint.operationType = '5'
-      this.buryingPoint.modelType = '3'
-      this.buryingPoint.buildingId = buildingId
-      this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-        .customerInfo
-        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-        : ''
-      this.buryingPoint.reportId = this.reportId
-      this.buryingPoint.userId = this.userId
-      this.ReportLog()
       uni.navigateTo({
         url: `/pagesHouse/house/house?buildingId=${buildingId}&userId=${this.userId}`,
       })
@@ -139,75 +116,6 @@ export default {
         newKey = key
       }
       return this.$formatter.switchName('propertyType', newKey)
-    },
-    // 获取jsCode openid session_key
-    getPhone() {
-      const self = this
-      uni.login({
-        success: (res) => {
-          console.log('---jsCode', res)
-          if (res.code) {
-            //微信登录成功 已拿到code
-            self.jsCode = res.code //保存获取到的code
-            let params = {
-              jsCode: res.code,
-            }
-            let api = '/dt-user/noToken/wx/wxAuth'
-            getData(api, params)
-              .then((res) => {
-                console.log('----openid||session_key', res)
-                self.openid = res.openid //openid 用户唯一标识
-                self.session_key = res.session_key //session_key  会话密钥
-              })
-              .catch((err) => {
-                console.log('请求结果报错', err)
-              })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
-        },
-      })
-    },
-    onGetPhoneNumber(e) {
-      console.log('-----login-btn', e)
-      if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-        //用户决绝授权
-        //拒绝授权后弹出一些提示
-      } else {
-        //允许授权
-        let params = {
-          iv: e.detail.iv,
-          encryData: e.detail.encryptedData,
-          sessionKey: this.session_key,
-          openId: this.openid,
-          loginType: 0,
-        }
-        let api = '/dt-user/noToken/wx/wxLogin'
-        getData(api, params)
-          .then((res) => {
-            this.$cache.setCache('M-Token', res['token'])
-            this.$cache.setCache('Login-Data', res)
-            this.showAuthorize = false
-            this.getLogData()
-          })
-          .catch((err) => {
-            console.log('请求结果报错', err)
-          })
-      }
-    },
-    //埋点数据
-    getLogData() {
-      //客户足迹埋点
-      this.beginTime = new Date().getTime()
-      this.CustomerTrack.buildingId = this.buildingId
-      this.CustomerTrack.operateType = '5'
-      this.CustomerTrack.createrId = this.userId
-      this.CustomerTrack.userId = this.userId
-      this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data')
-        .customerInfo
-        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-        : ''
-      this.CustomerTrack.dataId = this.questionId
     },
   },
   onLoad(option) {
@@ -228,28 +136,12 @@ export default {
     }
     this.getBuildingData()
     this.getQuestionData()
-    if (!this.$cache.getCache('M-Token')) {
-      this.showAuthorize = true
-      this.getPhone()
-      // uni.navigateTo({
-      // 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
-      // });
-    } else {
-      this.showAuthorize = false
-      this.getLogData()
-    }
   },
   onHide() {
     console.log('onHide 222')
-    //客户足迹埋点
-    this.CustomerTrack.stayTime = new Date().getTime() - this.beginTime
-    this.addCustomerTrack()
   },
   onUnload() {
     console.log('onUnload 333')
-    //客户足迹埋点
-    this.CustomerTrack.stayTime = new Date().getTime() - this.beginTime
-    this.addCustomerTrack()
   },
   mounted() {},
 }

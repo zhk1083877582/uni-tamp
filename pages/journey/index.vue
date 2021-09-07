@@ -77,20 +77,18 @@
                   <!-- 方案 -->
                   <view class='demand' v-if="item.ishowPlanStatus">
                     <!-- 置业需求 -->
-                    <view class="LX_home" v-if="JSON.stringify(item.customerIntention) != '{}'&& item.customerIntention != null && item.customerIntention.hideFlag != 1">
+                    <!-- <view class="LX_home" v-if="JSON.stringify(item.customerIntention) != '{}'&& item.customerIntention != null && item.customerIntention.hideFlag != 1">
                       <view class="top_title"><i class="shu"></i><text class="span">置业需求</text></view>
                       <view class="rows">
                         <view class="col">
                           <view class="title">置业目的</view>
                           <view class="content_text">
-                            <!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionPurpose)}} -->
                             {{item.customerIntention.intentionPurpose||'不详'}}
                           </view>
                         </view>
                         <view class="col col_L">
                           <view class="title">总价预算</view>
                           <view class="content_text">
-                            <!-- {{resData.totalBudget||'-'}} <text v-if="resData.totalBudget">万元</text> -->
                             {{!item.customerIntention.intentionTotalPrice?'不祥':item.customerIntention.intentionTotalPrice==3?'不限':item.customerIntention.intentionTotalPrice}}
                           </view>
                         </view>
@@ -99,16 +97,12 @@
                         <view class="col">
                           <view class="title">意向区域</view>
                           <view class="content_text">
-                            <!-- {{item.customerIntention.intentionCityRegion}} -->
                             {{!item.customerIntention.intentionRegion?'不祥':item.customerIntention.intentionRegion == 3?'不限':item.customerIntention.intentionRegion}}
                           </view>
                         </view>
                         <view class="col col_L">
                           <view class="title">意向户型</view>
                           <view class="content_text">
-                            <!-- {{$formatter.switchName('intentionPurpose',item.customerIntention.intentionHouseType)}} -->
-                            <!-- {{item.customerIntention.intentionHouseType?$tool.intentionHouseType(item.customerIntention.intentionHouseType):'不限'}} -->
-                            <!-- {{item.customerIntention.intentionHouseType||'不详'}} -->
                             {{!item.customerIntention.intentionHouseType?'不祥':item.customerIntention.intentionHouseType == 3?'不限':item.customerIntention.intentionHouseType}}
                           </view>
                         </view>
@@ -117,7 +111,6 @@
                         <view class="col col_bottom">
                           <view class="title">关注重点</view>
                           <view class="content_text">
-                            <!-- {{item.customerIntention.considerFactor}} -->
                             {{item.customerIntention.attentionFactor?item.customerIntention.attentionFactor:'不祥'}}
                           </view>
                         </view>
@@ -125,7 +118,7 @@
                       <view>
                         <view class="check_all" @click="toIdealHome(item.customerIntention)">查看完整理想家 >></view>
                       </view>
-                    </view>
+                    </view> -->
                     <!-- 方案推荐 -->
                     <view class="recommend_warp" v-if="JSON.stringify(item.recommendation) != '{}'&&item.recommendation!=null">
                       <view class="top_title"><i class="shu"></i><text class="span">看房旅程</text></view>
@@ -160,8 +153,12 @@
                                   <i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text"
                                     style="color: #FE3A07;">{{itemR.houseTotalPrice?itemR.houseTotalPrice+'万元':'待定'}}</text>
                                 </view>
-                                <view class="rows">
+                                <!-- <view class="rows">
                                   <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay?itemR.firstPay+'万元':'待定'}}</text>
+                                </view> -->
+                                <view class="rows calculator_warp">
+                                  <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay?itemR.firstPay+'万元':'待定'}}</text>
+                                  <view class="calculator_btn" @click="toCalculator"><text class="calculator_txt">房贷计算器</text></view>
                                 </view>
                                 <view class="rows">
                                   <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay?itemR.mouthPay+'元':'待定'}}</text>
@@ -338,6 +335,34 @@ export default {
   },
   watch: {},
   methods: {
+    toCalculator() {
+      let routeParams = {}
+      if (this.userId) {
+        routeParams['userId'] = this.userId
+      }
+      this.goWebView(`market/#/`, routeParams)
+    },
+    //去webview
+    goWebView(routeName, routeParams, toPath) {
+      let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
+      let pathParams = '' //获取路由参数
+      routeParams = routeParams || {}
+      Object.keys(routeParams).forEach((keyStr, index) => {
+        pathParams +=
+          index > 0
+            ? `&${keyStr}=${routeParams[keyStr]}`
+            : `${keyStr}=${routeParams[keyStr]}`
+      })
+      if (this.$cache.getCache('toMWebpath')) {
+        this.$cache.removeCache('toMWebpath')
+      }
+      this.$cache.setCache('toMWebpath', {
+        toMWebpath: toPath || `${mWebSite}${routeName}?${pathParams}`,
+      })
+      uni.navigateTo({
+        url: '/pagesHouse/webView/webView',
+      })
+    },
     handlePropertyType(key) {
       if (key == '') return
       // let newKey = ''
@@ -506,16 +531,16 @@ export default {
             })
           res.forEach((itemR, index) => {
             //置业需求
-            if (
-              itemR.customerIntention &&
-              itemR.customerIntention.customerFocus
-            ) {
-              itemR.customerIntention.customerFocusText =
-                this.formatLabelCategory(
-                  this.LabelCategoryList,
-                  itemR.customerIntention.customerFocus
-                )
-            }
+            // if (
+            //   itemR.customerIntention &&
+            //   itemR.customerIntention.customerFocus
+            // ) {
+            //   itemR.customerIntention.customerFocusText =
+            //     this.formatLabelCategory(
+            //       this.LabelCategoryList,
+            //       itemR.customerIntention.customerFocus
+            //     )
+            // }
             console.log(itemR)
             itemR.recommendation &&
               itemR.recommendation.forEach((itemY, indexY) => {
@@ -524,9 +549,8 @@ export default {
               })
 
             //判断是否有方案推荐
+            // JSON.stringify(itemR.customerIntention) == '{}' && itemR.customerIntention == null &&
             if (
-              JSON.stringify(itemR.customerIntention) == '{}' &&
-              itemR.customerIntention == null &&
               JSON.stringify(itemR.recommendation) == '{}' &&
               itemR.recommendation == null &&
               JSON.stringify(itemR.reportData) == '[]' &&
@@ -535,7 +559,6 @@ export default {
               itemR.ishowPlanStatus = false
             } else {
               itemR.ishowPlanStatus = true
-              // this.swiperHeight = '950rpx'
             }
 
             //判断是否有楼盘
@@ -552,22 +575,9 @@ export default {
             this.getDescBox(0)
             this.getDescWarpSwiper(0)
           })
-          //埋点
-          this.buryingPoint.operationType = '4'
-          this.buryingPoint.modelType = '1'
-          this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-            .customerInfo
-            ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-            : ''
-          this.ReportLog()
         })
         .catch((err) => {
           this.ishowbuilding = false
-          // if(err.request.code == 401){
-          // 	this.$cache.removeCache('M-Token');
-          // 	this.$cache.removeCache('Login-Data');
-          // 	this.HasToken =false;
-          // }
           console.log(err, '首页接口报错')
         })
     },
@@ -1250,6 +1260,23 @@ page {
         font-size: 28rpx;
         color: #062471;
         line-height: 44rpx;
+      }
+    }
+  }
+  .calculator_warp {
+    position: relative;
+    .calculator_btn {
+      position: absolute;
+      right: 20rpx;
+      width: 188rpx;
+      height: 64rpx;
+      background: rgba(74, 109, 219, 0.1);
+      border-radius: 8px;
+      top: 10rpx;
+      text-align: center;
+      line-height: 64rpx;
+      .calculator_txt {
+        color: #4a6ddb;
       }
     }
   }

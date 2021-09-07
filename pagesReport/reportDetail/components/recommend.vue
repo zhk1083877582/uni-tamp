@@ -53,11 +53,13 @@
               <view class="rows">
                 <i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice?item.houseTotalPrice+'万元':'待定'}}</text>
               </view>
-              <view class="rows">
+              <view class="rows calculator_warp">
                 <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay?item.firstPay+'万元':'待定'}}</text>
+                <view class="calculator_btn" @click="toCalculator"><text class="calculator_txt">房贷计算器</text></view>
               </view>
               <view class="rows">
                 <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
+
                 <!-- <view class="tool_tip_warp">
 									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
 									<view class="tool_tip" v-show="isShowTooltip">
@@ -127,6 +129,34 @@ export default {
   computed: {},
   watch: {},
   methods: {
+    toCalculator() {
+      let routeParams = {}
+      if (this.userId) {
+        routeParams['userId'] = this.userId
+      }
+      this.goWebView(`market/#/`, routeParams)
+    },
+    //去webview
+    goWebView(routeName, routeParams, toPath) {
+      let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
+      let pathParams = '' //获取路由参数
+      routeParams = routeParams || {}
+      Object.keys(routeParams).forEach((keyStr, index) => {
+        pathParams +=
+          index > 0
+            ? `&${keyStr}=${routeParams[keyStr]}`
+            : `${keyStr}=${routeParams[keyStr]}`
+      })
+      if (this.$cache.getCache('toMWebpath')) {
+        this.$cache.removeCache('toMWebpath')
+      }
+      this.$cache.setCache('toMWebpath', {
+        toMWebpath: toPath || `${mWebSite}${routeName}?${pathParams}`,
+      })
+      uni.navigateTo({
+        url: '/pagesHouse/webView/webView',
+      })
+    },
     changeSwipe(val) {
       this.curr = val.detail.current
       this.current = val.detail.current
@@ -148,16 +178,6 @@ export default {
       this.isShowTooltip = false
     },
     toDetail(buildingId) {
-      this.buryingPoint.operationType = '5'
-      this.buryingPoint.modelType = '3'
-      this.buryingPoint.buildingId = buildingId
-      this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-        .customerInfo
-        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-        : ''
-      this.buryingPoint.reportId = this.reportId
-      this.buryingPoint.userId = this.userId
-      this.ReportLog()
       uni.navigateTo({
         url: `/pagesHouse/house/house?buildingId=${buildingId}&userId=${this.userId}`,
       })
@@ -352,7 +372,7 @@ export default {
         color: #141414;
         line-height: 30rpx;
         margin-left: 55rpx;
-        width: 60%;
+        width: 70%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -441,6 +461,23 @@ export default {
       border-width: 22rpx;
       border-style: solid;
       border-color: transparent transparent #ebeef4 transparent;
+    }
+  }
+  .calculator_warp {
+    position: relative;
+    .calculator_btn {
+      position: absolute;
+      right: 20rpx;
+      width: 188rpx;
+      height: 64rpx;
+      background: rgba(74, 109, 219, 0.1);
+      border-radius: 8px;
+      top: 10rpx;
+      text-align: center;
+      line-height: 64rpx;
+      .calculator_txt {
+        color: #4a6ddb;
+      }
     }
   }
 }
