@@ -152,42 +152,38 @@ export default {
     }
     .keeper_message {
       margin: 8rpx 0;
+	  max-width:260rpx;
       .name {
         font-size: 28rpx;
         color: #141414;
         font-weight: 600;
         line-height: 28rpx;
-        .years {
-          background: linear-gradient(180deg, #e6bb78, #fdedd7);
-          border-radius: 16px 16px 16px 0px;
-          font-size: 18rpx;
-          text-align: center;
-          color: #593b1c;
-          line-height: 18rpx;
-          padding: 2rpx 10rpx;
-          margin-left: 6rpx;
-          font-weight: 400;
-          vertical-align: middle;
-        }
       }
       .num {
         font-size: 24rpx;
         line-height: 24rpx;
         color: #999999;
         margin-top: 8rpx;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
       }
     }
   }
 
   .report_bottom_right {
-	  margin-top: 15rpx;
+	  width: 50%;
+	  margin-top: 8rpx;
+	  display: flex;
+	  justify-content: space-between;
     .consult {
-      width: 50%;
+	  margin: 6rpx 0;
+	  width: 50%;
       height: 60rpx;
       line-height: 60rpx;
       border-radius: 8rpx;
       background: #4a6ddb;
-      font-size: 28rpx;
+      font-size: 30rpx;
       font-weight: 600;
       text-align: center;
       color: #ffffff;
@@ -198,9 +194,6 @@ export default {
       color: #4a6ddb;
       border: 1rpx solid #4a6ddb;
     }
-    width: 400rpx;
-    display: flex;
-    justify-content: space-between;
   }
 }
 </style>

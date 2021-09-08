@@ -575,6 +575,14 @@ export default {
             this.getDescBox(0)
             this.getDescWarpSwiper(0)
           })
+          //埋点
+          this.buryingPoint.operationType = '4'
+          this.buryingPoint.modelType = '1'
+          this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
+            .customerInfo
+            ? this.$tool.getStorage('Login-Data').customerInfo.customerId
+            : ''
+          this.ReportLog()
         })
         .catch((err) => {
           this.ishowbuilding = false

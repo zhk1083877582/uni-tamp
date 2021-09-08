@@ -17,7 +17,7 @@
 	"subPackages": [
 		{
 			"root": "pagesReport",
-			"pages":[
+			"pages": [
 				{
 					"path": "reportDetail/index",
 					"style": {
@@ -26,7 +26,6 @@
 							"titleNView": false,
 							"bounce": "none"
 						}
-				
 					}
 				},
 				{
@@ -37,7 +36,6 @@
 							"titleNView": false,
 							"bounce": "none"
 						}
-				
 					}
 				},
 				{
@@ -56,14 +54,13 @@
 			"root": "pagesHouse",
 			"pages": [
 				{
-				    "path" : "adviserCard/index",
-				    "style" :                                                                                    
-						{
-							"navigationBarTitleText": "顾问主页",
-							"navigationBarTextStyle": "black",
-							"navigationBarBackgroundColor": "#ffffff",
-							"enablePullDownRefresh": false
-						}
+					"path": "adviserCard/index",
+					"style": {
+						"navigationBarTitleText": "顾问主页",
+						"navigationBarTextStyle": "black",
+						"navigationBarBackgroundColor": "#ffffff",
+						"enablePullDownRefresh": false
+					}
 				},
 				{
 					"path": "house/house",
@@ -74,7 +71,8 @@
 							"bounce": "none"
 						}
 					}
-				},{
+				},
+				{
 					"path": "webView/webView",
 					"style": {
 						"navigationBarTitleText": "",
@@ -148,22 +146,21 @@
 				// 		}
 				// 	}
 				// }
-            ]
+			]
 		},
 		{
 			"root": "pagesUser",
-			"pages":[
+			"pages": [
 				{
-                    "path" : "login/login",
-                    "style" : {
+					"path": "login/login",
+					"style": {
 						"navigationBarTitleText": "登录置业笔记",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
 						}
-					}                                                                                   
-                
-                },
+					}
+				},
 				{
 					"path": "login/telLogin",
 					"style": {
@@ -205,27 +202,16 @@
 					}
 				},
 				{
-					"path": "reportPage/reportdetail/index",
+					"path": "signIn/index",
 					"style": {
-						"navigationBarTitleText": "扫码签到",
-						"app-plus": {
-						  "titleNView": false,
-						  "bounce": "none"
-						}
-					}
-				},
-				{
-				    "path" : "signIn/index",
-				    "style" : {
 						"navigationBarTitleText": "扫码签到",
 						"app-plus": {
 							"titleNView": false,
 							"bounce": "none"
 						}
-					}                                                                                   
-				
+					}
 				}
-            ]
+			]
 		}
 	],
 	"globalStyle": {

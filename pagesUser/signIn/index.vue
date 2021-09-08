@@ -273,16 +273,7 @@ export default {
         // 手机号
         phoneNumber: value,
         // 成功回调
-        success: (res) => {
-          // console.log('调用成功!')
-          // this.buryingPoint.operationType = '6'
-          // this.buryingPoint.modelType = this.modelType
-          // this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-          // this.buryingPoint.reportId = this.reportId
-          // this.buryingPoint.userId = this.userId
-          // this.ReportLog()
-          // potentialCustomersInfo('',saveParams)
-        },
+        success: (res) => {},
         // 失败回调
         fail: (res) => {
           console.log('调用失败!')
@@ -291,19 +282,6 @@ export default {
     },
     //获取顾问信息
     initUserInfo() {
-      //埋点
-      // this.buryingPoint.modelType = '4'//前端添加modelType = 4 代表管家名片
-      // this.buryingPoint.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-      // this.buryingPoint.userId = this.userId
-
-      //客户足迹埋点
-      // this.beginTime = (new Date()).getTime()
-      // this.CustomerTrack.buildingId = ''
-      // this.CustomerTrack.operateType = '3'
-      // this.CustomerTrack.createrId = this.userId
-      // this.CustomerTrack.userId = this.userId
-      // this.CustomerTrack.customerId = this.$tool.getStorage('Login-Data').customerInfo?this.$tool.getStorage('Login-Data').customerInfo.customerId:''
-      // this.CustomerTrack.dataId = ''
       let params = {
         userId: this.userId,
         buildingId: this.buildingIdX,
