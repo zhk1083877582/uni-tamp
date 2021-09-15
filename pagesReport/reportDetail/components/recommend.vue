@@ -1,6 +1,6 @@
 <!-- 方案推荐 -->
 <template>
-  <view class='recommend' @click.stop="handleBodyClick">
+  <view class='recommend'>
     <card title="方案推荐">
       <view class="list_item" @click="toDetail(baseInfo.buildingId)">
         <view class="list_item_warp">
@@ -58,16 +58,6 @@
               </view>
               <view class="rows">
                 <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
-
-                <!-- <view class="tool_tip_warp">
-									<i class="iconfont iconwenhao question" @click.stop="showTooltip()"></i>
-									<view class="tool_tip" v-show="isShowTooltip">
-										<i class="sanJ"></i>
-										<view>
-											根据首付35%，4.65%LPR，30年期限等额本息计算所得。
-										</view>
-									</view>
-								</view> -->
               </view>
             </view>
 
@@ -96,7 +86,6 @@ export default {
   data() {
     return {
       current: 0,
-      isShowTooltip: false,
       swiperHeight: '0',
       indicatorDots: false,
       autoplay: false,
@@ -159,22 +148,12 @@ export default {
     changeSwipe(val) {
       this.curr = val.detail.current
       this.current = val.detail.current
-      this.isShowTooltip = false
       this.getDescBox(val.detail.current)
     },
     change(index) {
       this.current = index
       this.curr = index
-      this.isShowTooltip = false
       this.getDescBox(val.detail.current)
-    },
-    //气泡显示
-    showTooltip() {
-      this.isShowTooltip = !this.isShowTooltip
-    },
-    //点击body
-    handleBodyClick() {
-      this.isShowTooltip = false
     },
     toDetail(buildingId) {
       uni.navigateTo({

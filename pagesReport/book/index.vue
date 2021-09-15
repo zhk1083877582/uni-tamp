@@ -25,7 +25,7 @@
           <u-button type="default" hover-class='none' class="btn" v-if="showAuthorize" @click="toreport">
             尊享开启
           </u-button>
-          <u-button type="default" hover-class='none' class="btn" v-else open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
+          <u-button type="default" hover-class='none' class="btn" v-else @click="onGetUserInfo">
             尊享开启
           </u-button>
           <view class="bottom_text">
@@ -45,89 +45,23 @@ export default {
     return {
       jsCode: '',
       openid: '',
-      session_key: '',
-
       buildingName: '',
       userName: '',
       windowTitle: '', //客户姓名
       reportId: '',
-
       showAuthorize: false,
     }
   },
   computed: {},
   watch: {},
   methods: {
-    onGetPhoneNumber(e) {
-      console.log(e, 1)
-      if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-        //用户决绝授权
-        //拒绝授权后弹出一些提示
-      } else {
-        //允许授权
-        let params = {
-          iv: e.detail.iv,
-          encryData: e.detail.encryptedData,
-          sessionKey: this.session_key,
-          openId: this.openid,
-          loginType: 0,
-          registerCity: this.$cache.getCache('storageCity') || '',
-        }
-        let api = '/dt-user/noToken/wx/wxLogin'
-        getData(api, params)
-          .then((res) => {
-            console.log(res)
-            this.$cache.setCache('M-Token', res['token'])
-            this.$cache.setCache('Login-Data', res)
-            this.$cache.setCache('loginFlag', true)
-            this.$cache.setCache('loginFlag1', true)
-            uni.reLaunch({
-              url: '../reportDetail/index?reportId=' + this.reportId,
-            })
-            // if(this.$cache.getCache('LoginTopath')){
-            // 	uni.reLaunch({
-            // 		url:'/'+this.$cache.getCache('LoginTopath')
-            // 	});
-            // }else{
-            // 	uni.navigateBack()
-            // }
-          })
-          .catch((err) => {
-            console.log('请求结果报错/dt-user/noToken/wx/wxLogin', params, err)
-          })
-      }
-    },
-    getPhone() {
-      console.log(11111111)
-      const self = this
-      uni.login({
+    onGetUserInfo(e) {
+      uni.getUserProfile({
+        desc: 'Wexin', // 这个参数是必须的
         success: (res) => {
-          console.log(res, 123)
-          if (res.code) {
-            //微信登录成功 已拿到code
-            self.jsCode = res.code //保存获取到的code
-            console.log(self.jsCode, 456)
-            let params = {
-              jsCode: res.code,
-            }
-            let api = '/dt-user/noToken/wx/wxAuth'
-            getData(api, params)
-              .then((res) => {
-                console.log(res, 111111)
-                self.openid = res.openid //openid 用户唯一标识
-                self.session_key = res.session_key //session_key  会话密钥
-                console.log(self.openid, 12)
-              })
-              .catch((err) => {
-                console.log(
-                  '请求结果报错/dt-user/noToken/wx/wxAuth',
-                  params,
-                  err
-                )
-              })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
+          console.log('用户信息', res)
+          this.$cache.setCache('customerWXInfo', res)
+          this.toreport()
         },
       })
     },
@@ -168,21 +102,6 @@ export default {
           console.log(err)
         })
     },
-    //获取顾问名字
-    // getUserInfo(){
-    // 	let params = {
-    // 		userId: this.userId
-    // 	};
-    // 	let self =this;
-    // 	getData('/dt-business/user/getUserCardDetail', params)
-    // 		.then(res => {
-    // 			console.log('管家信息',res)
-    // 			this.userName = res.userName
-    // 		})
-    // 		.catch(err => {
-    // 			console.log('管家信息', err);
-    // 		});
-    // }
   },
   onLoad(option) {
     console.log(option, '传过来的置业报告ID')
@@ -198,9 +117,9 @@ export default {
       this.reportId = option.reportId
     }
 
-    this.getPhone()
+    // this.getPhone()
     this.getReportData(option.reportId)
-    if (this.$cache.getCache('M-Token')) {
+    if (this.$cache.getCache('customerWXInfo')) {
       this.showAuthorize = true
     } else {
       this.showAuthorize = false

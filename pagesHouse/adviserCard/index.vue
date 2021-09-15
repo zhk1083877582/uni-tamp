@@ -69,7 +69,7 @@
           :indicator-dots="swiperInfo.indicatorDots" :autoplay="swiperInfo.autoplay" :effect3d="true" circular='true' @change="doChangeSwipe">
           <swiper-item v-for="(item,index) in baseInfo" :key="index">
             <view class="building-item uni-bg-red" :class="index!=swiperInfo.current?'scale_swiper':''">
-              <buildingCard :baseInfo="item" :userId="userId" :buildingId="item.buildingId">
+              <buildingCard :baseInfo="item" :userId="userId" :buildingId="item.buildingId" @showAuthorizefun='showAuthorizefun'>
               </buildingCard>
             </view>
           </swiper-item>
@@ -92,8 +92,8 @@
         <view class="authorize_text">
           您好，为了更好得为您提供服务 请您授权登录
         </view>
-        <u-button type="default" class="authorize_btn" hover-class="none" plain="true" :hair-line='false' open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
-          确定
+        <u-button type="default" hover-class='none' class="authorize_btn" :hair-line='false' @click="onGetUserInfo">
+          微信授权登录
         </u-button>
       </view>
     </u-mask>
@@ -108,14 +108,12 @@ import { getData } from '@/request/api'
 import buildingCard from '@/pagesHouse/adviserCard/components/buildingCard.vue'
 import footBottom from '@/components/footer/index.vue'
 import rCanvas from '@/components/r-canvas/r-canvas.vue'
-// import myCanvas from "@/components/my-canvas/index.js"
 export default {
   components: {
     buildingCard,
     footBottom,
     rCanvas,
   },
-  // mixins:[myCanvas],
   data() {
     return {
       buildingIdX: '', //app扫码进来，带过来buildingId时
@@ -139,6 +137,7 @@ export default {
 					您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
 				`,
       canvasImg: '',
+      cardData: {},
     }
   },
   onLoad(option) {
@@ -151,8 +150,8 @@ export default {
         const key = item.split('=')[0]
         obj[key] = item.split('=')[1]
       })
-      this.userId = obj.uId
-      this.buildingIdX = obj.bId
+      this.userId = obj.uId || ''
+      this.buildingIdX = obj.bId || ''
       this.CustomerTrack.operateCanal = obj.type
       this.share.path =
         '/pagesHouse/adviserCard/index?userId=' +
@@ -161,7 +160,7 @@ export default {
         this.buildingIdX +
         '&operateCanal=3'
     } else {
-      this.userId = option.userId
+      this.userId = option.userId || ''
       this.buildingIdX = option.buildingId || ''
       this.share.path =
         '/pagesHouse/adviserCard/index?userId=' +
@@ -183,6 +182,28 @@ export default {
     })
   },
   methods: {
+    showAuthorizefun(data) {
+      console.log(data)
+      this.cardData = data
+      this.showAuthorize = true
+    },
+    onGetUserInfo() {
+      uni.getUserProfile({
+        desc: 'Wexin', // 这个参数是必须的
+        success: (res) => {
+          console.log('用户信息', res)
+          this.$cache.setCache('customerWXInfo', res)
+          this.showAuthorize = false
+          uni.navigateTo({
+            url:
+              '/pagesHouse/house/house?buildingId=' +
+              this.cardData.buildingId +
+              '&userId=' +
+              this.cardData.userId,
+          })
+        },
+      })
+    },
     doChangeSwipe(val) {
       console.log('----swiper', val)
       this.swiperInfo.current = val.detail.current

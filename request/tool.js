@@ -330,7 +330,7 @@ const TOOL = {
   },
   //得到二级嵌套页面路由
   getOtherWebSite(otherUrl) {
-    console.log(otherUrl, '11111')
+    console.log(otherUrl, 'otherUrl获取域名')
     let baseURL = config.baseURL.target,
       url = "";
     switch (baseURL) {

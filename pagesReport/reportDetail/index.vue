@@ -1,21 +1,6 @@
 <!-- 专属置业报告 -->
 <template>
   <view class='report_detail'>
-    <!-- <view class="title_warp">
-      <u-avatar class="avatarTou" :src="headPortrait?headPortrait:defaultheadPortrait" size='96' mode="circle"></u-avatar>
-      <view class="title_content_warp">
-        <view class="title_content">
-          <view class="sanJ"></view>
-          <view class="lable">
-            亲爱的{{windowTitle}}：
-          </view>
-          <view class="text">
-            您好！感谢您来访【{{buildingInfo.buildingAlias||'-'}}】销售中心，我是您的置业顾问【{{userName||'-'}}】
-          </view>
-        </view>
-      </view>
-    </view> -->
-
     <!-- 锚点 -->
     <view class="scroll-tabs">
       <scroll-view scroll-x="true" :scroll-left="scrollActiveIndex * 60" show-scrollbar="true" scroll-with-animation="true" style="height: 100%;" class="scroll_view">
@@ -28,8 +13,6 @@
       </scroll-view>
     </view>
     <view class="main_content">
-      <!-- 置业需求 -->
-      <demand title="置业需求" class="part1" v-if="false" :resData='customerIntention' :logData='logData'></demand>
       <!-- 方案推荐 -->
       <recommend class="part2" v-if="recommendation!=null&&buildingInfo!=null" :resData='recommendation' :baseInfo='buildingInfo' :userId='userId' :reportId='reportId'></recommend>
       <!-- 公共组件 -->
@@ -42,7 +25,6 @@
       <tips-page class="part100"></tips-page>
       <view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
     </view>
-
     <!-- 管家信息 -->
     <view class="fixed_bottom">
       <foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId' operateCanal='2'></foot-bottom>
@@ -51,7 +33,6 @@
 </template>
 
 <script>
-import demand from './components/demand.vue'
 import recommend from './components/recommend.vue'
 import publicPage from './components/publicPage.vue'
 import question from './components/question.vue'
@@ -60,7 +41,6 @@ import footBottom from '@/components/footer/index.vue'
 import { getData } from '@/request/api'
 export default {
   components: {
-    demand, //置业需求
     recommend, //方案推荐
     publicPage, //样式相同的组件
     question, //置业问答
@@ -76,9 +56,7 @@ export default {
       isShowScrollTabs: false,
       scrollActiveIndex: 0,
       scrollTabs: [
-        // { label: '置业需求', cl: 'part1', isShow: false, id: 'demand' },
         { label: '方案推荐', cl: 'part2', isShow: false, id: 'recommend' },
-        // dynamic: { label: '区域介绍', cl: 'part3', isShow: false },
         { label: '置业问答', cl: 'part99', isShow: false, id: 'question' },
         { label: '置业小贴士', cl: 'part100', isShow: true, id: 'tips' },
       ],
@@ -90,12 +68,10 @@ export default {
       recommendation: null, //推荐方案
       buildingInfo: null,
       LabelCategoryList: [], //关注重点字典
-
       userName: '',
       userId: '', //顾问ID
       windowTitle: '', //客户姓名  客户性别
       buildingId: '', //楼盘ID
-
       reportId: '',
       beginTime: '', //进入页面时间戳
       endTime: '', //离开页面时间戳
@@ -150,21 +126,13 @@ export default {
     getReportData(reportId) {
       let params = {
         reportId,
+        openid: this.$cache.getCache('customerWXId').openid,
+        unionid: this.$cache.getCache('customerWXId').unionid,
       }
       getData('/dt-business/noToken/report/reportDetail', params)
         .then((res) => {
           console.log('置业报告详情数据', res)
           let self = this
-          //置业需求
-          // if(res.customerIntention&&res.customerIntention.customerFocus){
-          // 	res.customerIntention.customerFocusText = this.formatLabelCategory(this.LabelCategoryList,res.customerIntention.customerFocus)
-          // }
-          this.customerIntention = res.customerIntention
-          this.hideFlag = res.businessReport ? res.businessReport.hideFlag : 1
-          let isShowDemand =
-            res.customerIntention != null && this.hideFlag != 1 ? true : false
-          this.changeScrollTabsShow('demand', isShowDemand)
-
           //推荐方案
           this.recommendation =
             res.recommendation != null ? res.recommendation : null
@@ -262,6 +230,14 @@ export default {
             ? this.$tool.getStorage('Login-Data').customerInfo.customerId
             : ''
           this.CustomerTrack.dataId = this.reportId
+          this.CustomerTrack.wxAvatarUrl =
+            this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl //头像
+          this.CustomerTrack.wxNickname =
+            this.$tool.getStorage('customerWXInfo').userInfo.nickName //微信昵称
+          this.CustomerTrack.wxOpenId =
+            this.$tool.getStorage('customerWXId').openid
+          this.CustomerTrack.wxUnionId =
+            this.$tool.getStorage('customerWXId').wxUnionId
         })
         .catch((err) => {
           console.log(err)
@@ -275,12 +251,13 @@ export default {
     //客户查看置业报告埋点接口
     getCustomerLookReportLog() {
       let params = {
-        customerId: this.$tool.getStorage('Login-Data').customerInfo
-          ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-          : '', //客户id
         reportId: this.reportId, //置业报告id
         lookTime: this.lookTime, //阅读时间
         readTime: this.endTime - this.beginTime, //阅读时长
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+        wxOpenId: this.$tool.getStorage('customerWXId').openid,
+        wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
       }
       getData('/dt-business/noToken/report/customerLookReportLog', params)
         .then((res) => {})
@@ -288,48 +265,11 @@ export default {
           console.log(err)
         })
     },
-    //关注重点
-    getLabelCategory() {
-      getData('/dt-business/customer/getLabelCategory')
-        .then((res) => {
-          this.LabelCategoryList = res.list
-          console.log('关注重点', res)
-        })
-        .catch((err) => {
-          console.log('关注重点', err)
-        })
-    },
-    //关注重点转换
-    formatLabelCategory(list, key) {
-      if (!key) return '-'
-      let keyArr = [],
-        arr = []
-      if (key.length > 1) {
-        keyArr = key.split(',')
-        list.forEach((item, index) => {
-          keyArr.forEach((itemT, indexT) => {
-            if (itemT == item.labelId) arr.push(item.ztLabelType)
-          })
-        })
-      } else {
-        list.forEach((item, index) => {
-          if (key == item.labelId) {
-            arr.push(item.ztLabelType)
-          }
-        })
-      }
-      return arr.join('、')
-    },
   },
   created() {},
-  mounted() {
-    console.log(this.buryingPoint, 'this.buryingPointthis.buryingPoint')
-    //埋点
-    // this.buryingPoint.operationType = '4'
-  },
+  mounted() {},
   onLoad(option) {
     console.log(option, '传过来的置业报告ID')
-    // this.getLabelCategory();
     this.reportId = option.reportId
     this.getReportData(option.reportId)
     this.beginTime = new Date().getTime()
@@ -364,28 +304,32 @@ export default {
         .exec()
     }
   },
-  onShow() {
-    console.log('onShow 111')
-    console.log(this.$tool.getStorage('Login-Data'), 'customerInfocustomerInfo')
-  },
+  onShow() {},
   onHide() {
     console.log('onHide 222')
     this.endTime = new Date().getTime()
-    this.buryingPoint.beginTime = this.beginTime
-    this.buryingPoint.endTime = this.endTime
-    this.buryingPoint.operationType = '3'
-    this.buryingPoint.modelType = '3'
-    this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-      .customerInfo
-      ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-      : ''
-    this.buryingPoint.reportId = this.reportId
-    this.buryingPoint.userId = this.userId
-    this.ReportLog()
+    let ReportLogparams = {
+      beginTime: this.beginTime,
+      endTime: this.endTime,
+      operationType: '3',
+      customerId: '',
+      reportId: this.reportId,
+      userId: this.userId,
+      wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
+      wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+      wxOpenId: this.$tool.getStorage('customerWXId').openid,
+      wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+    }
+    this.ReportLog(ReportLogparams)
 
-    //客户足迹埋点
-    this.CustomerTrack.stayTime = new Date().getTime() - this.beginTime
-    this.addCustomerTrack()
+    let addCustomerTrackparams = {
+      wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
+      wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+      wxOpenId: this.$tool.getStorage('customerWXId').openid,
+      wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+      stayTime: new Date().getTime() - this.beginTime,
+    }
+    this.addCustomerTrack(addCustomerTrackparams)
 
     //客户查看置业报告埋点接口
     this.getCustomerLookReportLog()
@@ -393,21 +337,30 @@ export default {
   onUnload() {
     console.log('onUnload 333')
     this.endTime = new Date().getTime()
-    this.buryingPoint.beginTime = this.beginTime
-    this.buryingPoint.endTime = this.endTime
-    this.buryingPoint.operationType = '3'
-    this.buryingPoint.modelType = '3'
-    this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-      .customerInfo
-      ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-      : ''
-    this.buryingPoint.reportId = this.reportId
-    this.buryingPoint.userId = this.userId
-    this.ReportLog()
+    let ReportLogparams = {
+      beginTime: this.beginTime,
+      endTime: this.endTime,
+      operationType: '3',
+      modelType: '3',
+      customerId: '',
+      reportId: this.reportId,
+      userId: this.userId,
+      wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
+      wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+      wxOpenId: this.$tool.getStorage('customerWXId').openid,
+      wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+    }
+    this.ReportLog(ReportLogparams)
 
     //客户足迹埋点
-    this.CustomerTrack.stayTime = new Date().getTime() - this.beginTime
-    this.addCustomerTrack()
+    let addCustomerTrackparams = {
+      wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
+      wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+      wxOpenId: this.$tool.getStorage('customerWXId').openid,
+      wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+      stayTime: new Date().getTime() - this.beginTime,
+    }
+    this.addCustomerTrack(addCustomerTrackparams)
 
     //客户查看置业报告埋点接口
     this.getCustomerLookReportLog()
@@ -543,7 +496,7 @@ page {
     margin: 40rpx 24rpx;
   }
   .main_content {
-    margin-top: 100rpx;
+    padding-top: 120rpx;
   }
 }
 </style>

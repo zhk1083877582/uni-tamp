@@ -54,8 +54,13 @@
           </view>
         </view>
         <view class="other-address">
-          楼盘地址:<view class="MR_R detail_address"><text>{{baseInfo.cityName}}</text><text v-if="baseInfo.cityName&&baseInfo.areaName">-</text><text>{{baseInfo.areaName}}</text><text
-              class="MR_R detail_address">{{baseInfo.detailAddress}}</text></view>
+          楼盘地址:
+          <view class="MR_R detail_address">
+            <text v-if="baseInfo.cityName">{{baseInfo.cityName}}</text>
+            <text v-if="baseInfo.cityName&&baseInfo.areaName">-</text>
+            <text v-if="baseInfo.areaName">{{baseInfo.areaName}}</text>
+            <text class="MR_R detail_address">{{baseInfo.detailAddress}}</text>
+          </view>
         </view>
       </view>
 
@@ -101,13 +106,22 @@ export default {
   methods: {
     //跳转楼盘详情
     doToBulidingInfo() {
-      uni.navigateTo({
-        url:
-          '/pagesHouse/house/house?buildingId=' +
-          this.buildingId +
-          '&userId=' +
-          this.userId,
-      })
+      let HasToken = this.$cache.getCache('customerWXInfo') ? true : false
+      if (HasToken) {
+        uni.navigateTo({
+          url:
+            '/pagesHouse/house/house?buildingId=' +
+            this.buildingId +
+            '&userId=' +
+            this.userId,
+        })
+      } else {
+        let data = {
+          buildingId: this.buildingId,
+          userId: this.userId,
+        }
+        this.$emit('showAuthorizefun', data)
+      }
     },
     doFormatAveragePrice(type, averagePriceMin, averagePriceMax) {
       //均价格式化
