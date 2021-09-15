@@ -213,12 +213,15 @@ export default {
           this.buryingPoint.endTime = ''
           this.buryingPoint.operationType = '2'
           this.buryingPoint.modelType = '3'
-          this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
-            .customerInfo
-            ? this.$tool.getStorage('Login-Data').customerInfo.customerId
-            : ''
+          this.buryingPoint.wxOpenId =
+            this.$tool.getStorage('customerWXId').openid
+          this.buryingPoint.wxUnionId =
+            this.$tool.getStorage('customerWXId').unionid
           this.buryingPoint.reportId = reportId
           this.buryingPoint.userId = this.userId
+          this.buryingPoint.customerId = this.$tool.getStorage('Login-Data')
+            ? this.$tool.getStorage('Login-Data').customerInfo.customerId
+            : ''
           this.ReportLog()
 
           //客户足迹埋点
@@ -312,13 +315,15 @@ export default {
       beginTime: this.beginTime,
       endTime: this.endTime,
       operationType: '3',
-      customerId: '',
+      customerId: this.$tool.getStorage('Login-Data')
+        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
+        : '',
       reportId: this.reportId,
       userId: this.userId,
       wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
       wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
       wxOpenId: this.$tool.getStorage('customerWXId').openid,
-      wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+      wxUnionId: this.$tool.getStorage('customerWXId').unionid,
     }
     this.ReportLog(ReportLogparams)
 
@@ -342,13 +347,15 @@ export default {
       endTime: this.endTime,
       operationType: '3',
       modelType: '3',
-      customerId: '',
+      customerId: this.$tool.getStorage('Login-Data')
+        ? this.$tool.getStorage('Login-Data').customerInfo.customerId
+        : '',
       reportId: this.reportId,
       userId: this.userId,
       wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
       wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
       wxOpenId: this.$tool.getStorage('customerWXId').openid,
-      wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+      wxUnionId: this.$tool.getStorage('customerWXId').unionid,
     }
     this.ReportLog(ReportLogparams)
 
