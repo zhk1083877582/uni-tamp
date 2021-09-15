@@ -84,7 +84,7 @@
 				color: #999999;
 			}
 		}
-		/deep/.u-indicator-item-rect-active{
+		::v-deep .u-indicator-item-rect-active{
 			background-color: #225CD3;
 		}
 	}

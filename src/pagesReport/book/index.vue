@@ -136,7 +136,7 @@ export default {
   width: 100%;
   padding-top: 16%;
   .btn {
-    /deep/.u-btn {
+    ::v-deep .u-btn {
       background: linear-gradient(180deg, #ffeda8, #ffce89);
       border-radius: 49rpx;
       width: 443rpx;
@@ -240,7 +240,7 @@ export default {
       }
     }
   }
-  /deep/.u-hairline-border:after {
+  ::v-deep .u-hairline-border:after {
     border: 0;
   }
 }

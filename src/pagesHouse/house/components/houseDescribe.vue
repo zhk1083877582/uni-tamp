@@ -57,14 +57,14 @@ export default {
   .des {
     margin-top: 28rpx;
   }
-  /deep/.u-icon__icon {
+  ::v-deep .u-icon__icon {
     display: none;
   }
-  /deep/.u-content__showmore-wrap {
+  ::v-deep .u-content__showmore-wrap {
     justify-content: left;
   }
 }
-/deep/.u-content {
+::v-deep .u-content {
   line-height: 1.9;
 }
 </style>

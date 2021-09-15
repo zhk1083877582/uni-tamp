@@ -130,7 +130,7 @@ export default {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    /deep/.M-movable-area {
+    ::v-deep .M-movable-area {
       width: 100%;
       height: 100%;
     }

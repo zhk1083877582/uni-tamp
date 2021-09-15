@@ -63,6 +63,7 @@
     "@dcloudio/uni-quickapp-webview": "^2.0.0-32220210818002",
     "@dcloudio/uni-stat": "^2.0.0-32220210818002",
     "@dt/dt": "1.1.5",
+    "@vue/babel-preset-app": "^4.5.13",
     "@vue/shared": "^3.0.0",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
@@ -98,6 +99,7 @@
     "jest": "^25.4.0",
     "mini-types": "*",
     "miniprogram-api-typings": "*",
+    "miniprogram-ci": "^1.6.1",
     "postcss-comment": "^2.0.0",
     "vue-template-compiler": "^2.6.11"
   },

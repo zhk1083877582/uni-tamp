@@ -423,7 +423,7 @@ export default {
 		padding-bottom: 20px;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-		/deep/.van-cell::after {
+		::v-deep .van-cell::after {
 			border-bottom: 0px;
 		}
 

@@ -324,7 +324,7 @@ export default {
       width: 100%;
       height: 100%;
     }
-    /deep/uni-image {
+    ::v-deep uni-image {
       display: block;
     }
     .rows {

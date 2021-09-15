@@ -237,7 +237,7 @@ export default {
 							height: 100%;
 							flex: 1;
 						}
-						/deep/.In_H{
+						::v-deep .In_H{
 							input{
 								font-size: 34rpx;
 								color: #333333;
@@ -250,7 +250,7 @@ export default {
 						
 					}
 		            .log_YZM{
-						/deep/.u-btn{
+						::v-deep .u-btn{
 							height: 100%;
 							padding: 0;
 							padding-left: 40rpx;
@@ -268,7 +268,7 @@ export default {
 					   }
 				   }
 				   .submitBtn{
-						/deep/.u-btn--primary--disabled{
+						::v-deep .u-btn--primary--disabled{
 							background-color: #C1C1C1 !important;
 						}
 				   }

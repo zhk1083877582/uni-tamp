@@ -74,7 +74,7 @@ $uni-color-subtitle: #555555; // 二级标题颜色
 $uni-font-size-subtitle: 36rpx;
 $uni-color-paragraph: #3f536e; // 文章段落颜色
 $uni-font-size-paragraph: 30rpx;
-/deep/.uni-scroll-view ::-webkit-scrollbar {
+::v-deep .uni-scroll-view ::-webkit-scrollbar {
 	/* 隐藏滚动条，但依旧具备可以滚动的功能 */
 	display: none;
 	width: 0;
@@ -82,17 +82,17 @@ $uni-font-size-paragraph: 30rpx;
 	color: transparent;
 	background: transparent;
 }
-/deep/::-webkit-scrollbar {
+::v-deep ::-webkit-scrollbar {
 	display: none;
 	width: 0;
 	height: 0;
 	color: transparent;
 	background: transparent;
 }
-    /deep/.u-content{
+    ::v-deep .u-content{
 		line-height: 1.9 !important;
 	}
-	/deep/.u-content__showmore-wrap{
+	::v-deep .u-content__showmore-wrap{
 		justify-content: left !important;
 		background-image: none !important;
 	} 
@@ -141,7 +141,7 @@ page{
 		// margin-bottom: 10rpx;
 	}
 	.authorize_btn{
-		/deep/button {
+		::v-deep button {
 			border: 0 !important;
 			background-color: transparent !important;
 			color: #062471 !important;

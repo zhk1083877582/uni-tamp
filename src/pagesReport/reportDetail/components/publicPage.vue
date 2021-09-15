@@ -61,19 +61,19 @@ export default {
     line-height: 52rpx;
     margin-top: 17rpx;
   }
-  /deep/video {
+  ::v-deep video {
     width: 100% !important;
     display: block;
   }
-  /deep/img {
+  ::v-deep img {
     width: 100% !important;
     display: block;
   }
-  /deep/video {
+  ::v-deep video {
     width: 100% !important;
     display: block;
   }
-  /deep/iframe {
+  ::v-deep iframe {
     width: 100% !important;
     height: 100% !important;
   }

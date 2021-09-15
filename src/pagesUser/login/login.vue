@@ -160,7 +160,7 @@ export default {
     bottom: 331rpx;
     width: 100%;
 
-    /deep/button {
+    ::v-deep button {
       font-size: 36rpx;
       height: 98rpx;
       line-height: 98rpx;
@@ -172,7 +172,7 @@ export default {
       margin-bottom: 34rpx;
       display: block;
 
-      /deep/button {
+      ::v-deep button {
         background: #062471;
         color: #ffffff;
       }

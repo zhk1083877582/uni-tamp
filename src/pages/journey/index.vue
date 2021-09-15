@@ -549,7 +549,7 @@ page {
       justify-content: center;
       padding-top: 72rpx;
       background: transparen;
-      /deep/.u-btn {
+      ::v-deep .u-btn {
         background: linear-gradient(180deg, #ffeda8, #ffce89);
         padding: 31rpx 113rpx;
         color: #062471;
@@ -853,7 +853,7 @@ page {
             height: 100%;
             display: block;
           }
-          /deep/uni-image {
+          ::v-deep uni-image {
             display: block;
           }
           .rows {

@@ -165,7 +165,7 @@ export default {
 		    -webkit-transform: rotate(0deg);
 		    -moz-transform: rotate(0deg);
 		}
-		/deep/.upDown .up{
+		::v-deep .upDown .up{
 			transform: rotate(360deg) !important;
 			-webkit-transform: rotate(360deg) !important;
 			-moz-transform: rotate(360deg) !important;

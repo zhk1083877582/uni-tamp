@@ -202,7 +202,7 @@ export default {
     font-size: 28rpx;
     font-weight: 600;
   }
-  /deep/.btn:after {
+  ::v-deep .btn:after {
     border: 0;
   }
   .houseStyleMess {
