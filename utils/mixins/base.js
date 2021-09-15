@@ -14,6 +14,8 @@ export default {
         beginTime: '', //打开时间
         endTime: '', //关闭时间
         buildingId: '',
+        wxOpenId: '',
+        wxUnionId: '',
       },
       //客户足迹埋点
       CustomerTrack: {
