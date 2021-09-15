@@ -748,7 +748,7 @@ page {
         /* margin-top: 70rpx; */
         padding: 56rpx 0;
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         .span {
           color: #062471;
           -webkit-background-clip: text;

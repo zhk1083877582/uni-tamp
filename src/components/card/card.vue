@@ -69,7 +69,7 @@ export default {
 			/* margin-top: 70rpx; */
 			margin-bottom: 32rpx;
 			display: flex;
-			justify-content: start;
+			justify-content: flex-start;
 			.span{
 				color: #062471;
 				-webkit-background-clip: text;

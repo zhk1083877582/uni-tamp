@@ -54,7 +54,6 @@ axios.defaults.adapter = function(config) {
 }
 App.mpType = 'app'
 
-
 const app = new Vue({
 	...App,
 	 store

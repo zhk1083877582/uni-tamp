@@ -1135,6 +1135,16 @@
     merge "^1.2.1"
     strip-json-comments "^2.0.1"
 
+"@dt/dt@1.1.5":
+  version "1.1.5"
+  resolved "http://172.16.1.129:4873/@dt%2fdt/-/dt-1.1.5.tgz#41ac416422ddbb4982a749e7682a5fbf5e06611e"
+  integrity sha512-Y7V5XfXKq5RVtSbq2dVY6seo3GdU2yiqbkfne+DBFuMEiZ3hSM3yzNmzoFvy2B+ppqINaSwdXYDCVJuXg0PtAQ==
+
+"@dt/loader@2.0.0":
+  version "2.0.0"
+  resolved "http://172.16.1.129:4873/@dt%2floader/-/loader-2.0.0.tgz#19c6277a3d31bd3e1a900a330d9e3334a32e62f9"
+  integrity sha512-VpAhuDXpW0/UmHH0XbfQPTWmDYai9FLD6FREjtisIuddsauwtF77CFgkqmL67SjTzLNS2qWecjAF8F5Y+TGKAA==
+
 "@hap-toolkit/aaptjs@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@hap-toolkit/aaptjs/-/aaptjs-1.0.0.tgz#460d45a846c0b786a421c82ce25fcd9fff0928e6"
