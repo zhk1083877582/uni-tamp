@@ -140,6 +140,13 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+.report_bottom_warp {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #e2e2e2;
+}
 .report_bottom {
   background-color: #ffffff;
   padding: 10rpx 24rpx;
@@ -152,7 +159,7 @@ export default {
     }
     .keeper_message {
       margin: 8rpx 0;
-	  max-width:260rpx;
+      max-width: 260rpx;
       .name {
         font-size: 28rpx;
         color: #141414;
@@ -164,21 +171,21 @@ export default {
         line-height: 24rpx;
         color: #999999;
         margin-top: 8rpx;
-		overflow:hidden;
-		text-overflow:ellipsis;
-		white-space:nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
 
   .report_bottom_right {
-	  width: 50%;
-	  margin-top: 8rpx;
-	  display: flex;
-	  justify-content: space-between;
+    width: 50%;
+    margin-top: 8rpx;
+    display: flex;
+    justify-content: space-between;
     .consult {
-	  margin: 6rpx 0;
-	  width: 50%;
+      margin: 6rpx 0;
+      width: 50%;
       height: 60rpx;
       line-height: 60rpx;
       border-radius: 8rpx;
