@@ -1391,10 +1391,10 @@
   resolved "http://172.16.1.129:4873/@dt%2fdt/-/dt-1.1.5.tgz#41ac416422ddbb4982a749e7682a5fbf5e06611e"
   integrity sha512-Y7V5XfXKq5RVtSbq2dVY6seo3GdU2yiqbkfne+DBFuMEiZ3hSM3yzNmzoFvy2B+ppqINaSwdXYDCVJuXg0PtAQ==
 
-"@dt/loader@2.0.0":
-  version "2.0.0"
-  resolved "http://172.16.1.129:4873/@dt%2floader/-/loader-2.0.0.tgz#19c6277a3d31bd3e1a900a330d9e3334a32e62f9"
-  integrity sha512-VpAhuDXpW0/UmHH0XbfQPTWmDYai9FLD6FREjtisIuddsauwtF77CFgkqmL67SjTzLNS2qWecjAF8F5Y+TGKAA==
+"@dt/loader@2.0.1":
+  version "2.0.1"
+  resolved "http://172.16.1.129:4873/@dt%2floader/-/loader-2.0.1.tgz#559eda7c2b5dd6df7fbc86f239c31ce53f2805ef"
+  integrity sha512-GGI+xYn4T5uo66jnt0bAFYG71Oi1GFGYYvG8VG/dGnECHwqtSi/c+e5/1RxiH4UWHCUYuzGjhSdi9FYO8dGxgA==
 
 "@hap-toolkit/aaptjs@^1.0.0":
   version "1.0.0"
