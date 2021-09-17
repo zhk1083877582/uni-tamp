@@ -529,12 +529,12 @@ export default {
 </script>
 <style lang='scss'>
 page {
-  background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
+  background: #0a2056;
 }
 </style>
 <style lang='scss' scoped>
 .journey_ownership_warp {
-  background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
+  // background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
   height: 100%;
   .home_banner {
     /* height: 813rpx; */
