@@ -22,6 +22,8 @@ if (process.env.NODE_ENV == 'development') {
   // config.dtUrl = 'http://172.16.1.126:8100'
 }
 
+let dev = {}
+
 let test = {
   dtUrl: 'https://dtwgwtest.tospur.com',
 }
@@ -37,4 +39,3 @@ let prod = {
 Object.assign(config, __env__)
 Object.assign(dt.env, config)
 
-console.log(dt)

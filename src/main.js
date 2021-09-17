@@ -1,6 +1,11 @@
 
 import Vue from 'vue'
 import App from './App'
+
+import config from 'config'
+config.init(Vue)
+
+
 import './static/icon/iconfont.css'
 import axios from 'axios'
 import uView from "uview-ui";
