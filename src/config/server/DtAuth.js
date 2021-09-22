@@ -11,17 +11,17 @@ import dt from '@dt/dt';
 class DtAuth extends Auth {
   constructor(delegate) {
     super('dt_auth', delegate)
-    this.info = dt.session.get(this.authKey)
+    this.info = dt.storage.get(this.authKey)
   }
 
   setInfo(info) {
     this.info = info
-    dt.session.set(this.authKey, info)
+    dt.storage.set(this.authKey, info)
   }
 
   clear() {
     this.info = null
-    dt.session.remove(this.authKey)
+    dt.storage.remove(this.authKey)
   }
 
   header(path, need) {

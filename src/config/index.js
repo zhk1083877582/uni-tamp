@@ -1,4 +1,5 @@
 import './env'
+import './server'
 import '@dt/dt/uni'
 import dt from '@dt/dt'
 
