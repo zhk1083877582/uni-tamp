@@ -7,7 +7,7 @@ function resolve(dir) {
 let env = {
   loader: path.resolve('./node_modules/@dt/loader/load/env'),
   options: {
-    env: process.env.server_env || 'dev',
+    env: process.env.dt_env || 'dev',
   }
 }
 
