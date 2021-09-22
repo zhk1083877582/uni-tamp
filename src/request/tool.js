@@ -1,4 +1,5 @@
 import config from './config'
+import dt from '@dt/dt';
 import cache from './cache.js'
 Function.prototype.method = function (name, fn) {
   this.prototype[name] = fn;
@@ -315,23 +316,10 @@ const TOOL = {
       }, delay);
     };
   },
-  returnWebviewUrl() {
-    let baseURL = config.baseURL.target,
-      url = "";
-    baseURL.indexOf("https://tcwgwtest.tospur.com") > -1 ?
-      url = "https://mtest.tospur.com/" :
-      baseURL.indexOf("https://tcwgwstag.tospur.com") > -1 ?
-      url = "https://mstag.tospur.com/" :
-      baseURL.indexOf("https://tcwgwprod.tospurhf.com") > -1 ?
-      url = "https://m.tongcehaofang.com/" :
-      '';
-    console.log(url)
-    return url;
-  },
   //得到二级嵌套页面路由
   getOtherWebSite(otherUrl) {
     console.log(otherUrl, 'otherUrl获取域名')
-    let baseURL = config.baseURL.target,
+    let baseURL = dt.env.dtUrl,
       url = "";
     switch (baseURL) {
       case 'https://dtwgwtest.tospur.com':
