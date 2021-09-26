@@ -11,10 +11,10 @@ function resolve(dir) {
 
 let css = {
   loaderOptions: {
-    less: {
-      globalVars: {
-        "hack": `true; @import "${resolve('src/style/main.less')}"`
-      }
+    sass: {
+      // data: `@import '${resolve('src/style/main.scss')}'`,
+      prependData: `@import '${resolve('src/style/main.scss')}'`,
+      // additionalData: `@import '${resolve('src/style/main.scss')}'`
     }
   }
 }
