@@ -3,7 +3,7 @@
 node_modules
 unpackage
 /dist
-pages_common
+pages_com
 __com
 
 # local env files

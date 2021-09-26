@@ -14,7 +14,29 @@
 			}
 		}
 	],
-	"subPackages": [
+	"subPackages": [{
+			"root": "pages_com",
+			"pages": [
+				{
+					"path": "loan/index",
+					"style": {
+						"navigationBarTitleText": "贷款计算器"
+					}
+				},
+				{
+					"path": "loan/result",
+					"style": {
+						"navigationBarTitleText": "贷款计算结果"
+					}
+				},
+				{
+					"path": "integral/index",
+					"style": {
+						"navigationBarTitleText": "上海买房积分计算器"
+					}
+				}
+			]
+		},
 		{
 			"root": "pagesReport",
 			"pages": [

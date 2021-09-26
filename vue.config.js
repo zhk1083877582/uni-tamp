@@ -1,7 +1,29 @@
+const pageLoader = require('./node_modules/@dt/loader/load/page.js')
+const dirs = ['pages_com']
+pageLoader.loadComponents(dirs)
+pageLoader.loadPages(['loan', 'integral'])
+
 const path = require('path')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
+}
+
+let css = {
+  loaderOptions: {
+    less: {
+      globalVars: {
+        "hack": `true; @import "${resolve('src/style/main.less')}"`
+      }
+    }
+  }
+}
+
+let dt_path = {
+  loader: path.resolve('./node_modules/@dt/loader/load/path'),
+  options: {
+    dirs
+  }
 }
 
 let env = {
@@ -16,8 +38,24 @@ module.exports = {
   lintOnSave: true,
   configureWebpack: config => {
     config.module.rules.push({
+      test: /\.js$/,
+      include: [path.resolve('./node_modules/@dt')],
+      use: [
+        'babel-loader'
+      ]
+    })
+    config.module.rules.push({
+      test: /\.js$/,
+      include: [
+        path.resolve('./src'),
+        path.resolve('./node_modules/@dt')
+      ],
+      use: [dt_path]
+    })
+    config.module.rules.push({
       test: path.resolve('./src/config/env.js'),
       use: [env]
     })
   },
+  css
 }
