@@ -5,7 +5,6 @@
       <view class="list_item" @click="toDetail(baseInfo.buildingId)">
         <view class="list_item_warp">
           <view class="img_warp">
-            <!-- <image class="tospur-image" src="/static/pic_default_small@2x.png"></image> -->
             <image class="tospur-image" :src="baseInfo.albumCoverPicture ? baseInfo.albumCoverPicture : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'" mode="aspectFill">
             </image>
           </view>
@@ -60,7 +59,6 @@
                 <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
               </view>
             </view>
-
             <view class="reason" v-if="item.content">
               <view class="sanJ"></view>
               <view class="reason_title">
@@ -76,7 +74,6 @@
     </card>
   </view>
 </template>
-
 <script>
 import card from '@/components/card/card.vue'
 export default {
@@ -114,35 +111,12 @@ export default {
       default: '',
     },
   },
-  computed: {},
-  watch: {},
   methods: {
     toCalculator() {
-      let routeParams = {}
-      if (this.userId) {
-        routeParams['userId'] = this.userId
-      }
-      this.goWebView(`market/#/`, routeParams)
-    },
-    //去webview
-    goWebView(routeName, routeParams, toPath) {
-      let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
-      let pathParams = '' //获取路由参数
-      routeParams = routeParams || {}
-      Object.keys(routeParams).forEach((keyStr, index) => {
-        pathParams +=
-          index > 0
-            ? `&${keyStr}=${routeParams[keyStr]}`
-            : `${keyStr}=${routeParams[keyStr]}`
-      })
-      if (this.$cache.getCache('toMWebpath')) {
-        this.$cache.removeCache('toMWebpath')
-      }
-      this.$cache.setCache('toMWebpath', {
-        toMWebpath: toPath || `${mWebSite}${routeName}?${pathParams}`,
-      })
+      let userId = this.userId,
+        buildingId = this.baseInfo.buildingId
       uni.navigateTo({
-        url: '/pagesHouse/webView/webView',
+        url: `/pages_com/loan/index?userId=${userId}&buildingId=${buildingId}`,
       })
     },
     changeSwipe(val) {
@@ -163,12 +137,6 @@ export default {
     handlePropertyType(key) {
       let newKey = ''
       if (!key) return
-      // let newKey = ''
-      // if(key.length>1){
-      // 	newKey = key.substring(0,1)
-      // }else{
-      // 	newKey = key
-      // }
       return this.$formatter.switchName('propertyType', key)
     },
     getDescBox(len) {
