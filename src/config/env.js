@@ -38,4 +38,3 @@ let prod = {
 
 Object.assign(config, __env__)
 Object.assign(dt.env, config)
-
