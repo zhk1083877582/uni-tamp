@@ -1,7 +1,7 @@
 const pageLoader = require('./node_modules/@dt/loader/load/page.js')
 const dirs = ['pages_com']
-pageLoader.loadComponents(dirs)
 pageLoader.loadPages(['loan', 'integral'])
+pageLoader.loadComponents(dirs)
 
 const path = require('path')
 
