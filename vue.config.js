@@ -11,10 +11,8 @@ function resolve(dir) {
 
 let css = {
   loaderOptions: {
-    sass: {
-      // data: `@import '${resolve('src/style/main.scss')}'`,
-      prependData: `@import '${resolve('src/style/main.scss')}'`,
-      // additionalData: `@import '${resolve('src/style/main.scss')}'`
+    scss: {
+      prependData: `@import '${resolve('src/style/main.scss')}';`,
     }
   }
 }
