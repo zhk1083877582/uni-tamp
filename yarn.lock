@@ -1386,10 +1386,10 @@
     merge "^1.2.1"
     strip-json-comments "^2.0.1"
 
-"@dt/component@2.0.4":
-  version "2.0.4"
-  resolved "http://172.16.1.129:4873/@dt%2fcomponent/-/component-2.0.4.tgz#a9a29c18376cfe79e009b3470c8b0fe1f7275480"
-  integrity sha512-1uF9FGQSMuqwy52aBjZekV80R5fMamnmEtPOa04elWU2MWDvKJEVSiXjx3ueq7w50/nRNwBZZBWj90OrXc5UkA==
+"@dt/component@2.0.5":
+  version "2.0.5"
+  resolved "http://172.16.1.129:4873/@dt%2fcomponent/-/component-2.0.5.tgz#4c648b6a0648ab7d9fca89fc8b78787c47ab051a"
+  integrity sha512-aK9aygtteWIPuvNm+H22gEZhpawRKM3FVNAZOgmEc4WziXeSOQWlQgWb46Wy/CFFk8Qx1SxS1pJ5/awFaGcglw==
 
 "@dt/dt@1.1.7":
   version "1.1.7"
