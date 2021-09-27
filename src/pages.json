@@ -251,7 +251,12 @@
         "name": "loan",
         "path": "pages_com/loan/index",
         "query": "userId=12702&buildingId=80724"
-      }
+      },
+      {
+          "name": "integral",
+          "path": "pages_com/integral/index",
+          "query": "userId=12702&buildingId=80724"
+        }
     ]
   }
 }

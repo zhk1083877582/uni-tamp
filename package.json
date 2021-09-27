@@ -91,8 +91,8 @@
     "@dcloudio/vue-cli-plugin-uni-optimize": "^2.0.0-32220210818002",
     "@dcloudio/webpack-uni-mp-loader": "^2.0.0-32220210818002",
     "@dcloudio/webpack-uni-pages-loader": "^2.0.0-32220210818002",
-    "@dt/loader": "2.0.6",
-    "@dt/page": "2.0.1",
+    "@dt/loader": "2.0.9",
+    "@dt/page": "2.0.2",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-plugin-import": "^1.11.0",
@@ -127,25 +127,7 @@
           "UNI_PLATFORM": "mp-weixin"
         },
         "define": {
-          "MP-PRO": true
-        }
-      },
-      "mp-uat": {
-        "title": "小程序-uat",
-        "env": {
-          "UNI_PLATFORM": "mp-weixin"
-        },
-        "define": {
-          "MP-UAT": true
-        }
-      },
-      "mp-test": {
-        "title": "小程序-测试",
-        "env": {
-          "UNI_PLATFORM": "mp-weixin"
-        },
-        "define": {
-          "MP-TEST": true
+          "MP-PROD": true
         }
       }
     }

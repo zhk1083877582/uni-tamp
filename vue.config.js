@@ -1,7 +1,7 @@
 const pageLoader = require('./node_modules/@dt/loader/load/page.js')
 const dirs = ['pages_com']
-pageLoader.loadPages(['loan', 'integral'])
-pageLoader.loadComponents(dirs)
+const pages = ['loan', 'integral']
+pageLoader.load(pages, dirs, process.env.NODE_ENV == 'production' || process.env.dt_type == 'package')
 
 const path = require('path')
 
