@@ -59,7 +59,6 @@
       <u-loadmore :status="status" margin-top='30' />
     </view>
 
-    <u-toast ref="uToast" />
     <consultation-foot :mess="mess"></consultation-foot>
 
   </view>

@@ -97,7 +97,7 @@
         </u-button>
       </view>
     </u-mask>
-    <u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal>
+    <!-- <u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal> -->
 
   </view>
 </template>
@@ -132,7 +132,7 @@ export default {
       beginTime: '',
       showAuthorize: false,
       buildingId: '',
-      showModal: false,
+      // showModal: false,
       modalContent: `
 					您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
 				`,
@@ -362,14 +362,14 @@ export default {
       let self = this
       uni.setClipboardData({
         data: value,
-        success: function () {
-          uni.hideToast()
-          // uni.showToast({
-          // 	title: "已复制微信号到剪贴板",
-          // 	icon: "none"
-          // });
-          self.showModal = true
-        },
+        // success: function () {
+        //   uni.hideToast()
+        //   // uni.showToast({
+        //   // 	title: "已复制微信号到剪贴板",
+        //   // 	icon: "none"
+        //   // });
+        //   self.showModal = true
+        // },
       })
     },
     //拨打电话

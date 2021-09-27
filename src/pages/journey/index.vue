@@ -26,7 +26,7 @@
             </view>
           </view>
         </view>
-        <view class="get_out" @click="showGetOut = true">
+        <view class="get_out" @click="onLogout">
           退出登录
         </view>
       </view>
@@ -191,11 +191,7 @@
           </view>
         </view>
       </view>
-      <u-modal v-model="showGetOut" :content="GetOutcontent" :mask-close-able="true" title='确定退出？' :show-cancel-button="true" confirm-color="#062471" :title-style="GetOutTitleStyle"
-        :content-style="GetOutContentStyle" :confirm-style="GetOutConfirmStyle" @confirm="GetOutClick">
-      </u-modal>
     </view>
-    <u-toast ref="uToast" />
   </view>
 </template>
 
@@ -226,9 +222,6 @@ export default {
       currPlan: 0,
       userPhone: '',
       userInfo: {},
-      //退出登录参数
-      showGetOut: false,
-      GetOutcontent: '退出登录后将无法查看订单，重新登录即可查看',
       GetOutTitleStyle: {
         fontWeight: '700',
         color: '#141414',
@@ -268,6 +261,25 @@ export default {
   },
   watch: {},
   methods: {
+    onLogout() {
+      let _this = this
+      uni.showModal({
+          title: '确定退出？',
+          content: '退出登录后将无法查看订单，重新登录即可查看',
+          success(res) {
+              if (res.confirm) {
+                _this.$cache.removeCache('customerWXInfo')
+                _this.$cache.removeCache('customerWXId')
+                _this.$cache.removeCache('M-Token')
+                _this.$cache.removeCache('Login-Data')
+                _this.HasToken = false
+              }
+          }
+      });
+        // confirm-color="#062471" :title-style="GetOutTitleStyle"
+        // :content-style="GetOutContentStyle" :confirm-style="GetOutConfirmStyle"
+    },
+    
     //去webview
     goWebView(routeName, routeParams, toPath) {
       let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
@@ -298,14 +310,6 @@ export default {
       uni.navigateTo({
         url: '/pagesUser/login/login?topath=pages/journey/index',
       })
-    },
-    // 退出登录
-    GetOutClick() {
-      this.$cache.removeCache('customerWXInfo')
-      this.$cache.removeCache('customerWXId')
-      this.$cache.removeCache('M-Token')
-      this.$cache.removeCache('Login-Data')
-      this.HasToken = false
     },
     // 跳转楼盘详情
     toDetail(buildingId, userId, reportData, flag) {

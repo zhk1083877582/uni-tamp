@@ -21,7 +21,6 @@
       </view>
     </view>
     <view class="btm_text">仅限接受线下置业顾问服务的用户使用</view>
-    <u-toast ref="uToast" />
   </view>
 </template>
 

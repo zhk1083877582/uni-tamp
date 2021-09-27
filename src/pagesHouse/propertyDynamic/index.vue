@@ -21,7 +21,6 @@
 		</view>
 
 
-	<u-toast ref="uToast" />
 	<consultation-foot :mess="mess"></consultation-foot>
 	</view>
 </template>
@@ -87,9 +86,10 @@
 							console.log(res)
 							this.isCollection = !this.isCollection;
 							this.$cache.setCache('isCollection',this.isCollection);
-							this.$refs.uToast.show({
-								title: this.isCollection ? '已收藏' : '您已取消收藏',
-							})
+              uni.showToast({
+                  title: this.isCollection ? '已收藏' : '您已取消收藏',
+                  icon: 'none'
+              });
 						})
 					})
 					.catch(err => {

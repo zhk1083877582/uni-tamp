@@ -16,7 +16,6 @@
 			<view class="online" @click="onlineConsultation()">在线咨询</view>
 			<view class="myOnline" @click="callPhone">电话咨询</view>
 		</view>
-		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -144,10 +143,13 @@ export default {
 				userName = this.keepList[0] ? this.keepList[0].userName : '';
 			}
 			console.log(666222, imBaseUserId);
-			if (!imBaseUserId)
-				return this.$refs.uToast.show({
-					title: '没有管家 请核对'
-			});
+			if (!imBaseUserId) {
+        uni.showToast({
+            title: '没有管家 请核对',
+            icon: 'none'
+        });
+        return
+      }
 			if (this.messList.type == 'houseType') {
 				let { buildingName, totalPrice, areaName, streetName, constructionArea } = this.messList;
 				this.messList.buildingAlias = buildingName;
@@ -206,9 +208,10 @@ export default {
 					getData(url, params).then(res => {
 						this.isCollectionFlag = !this.isCollectionFlag;
 						this.$emit('changeCollectionStatus', { isCollectionFlag: this.isCollectionFlag, from: 'consultationFoot' });
-						this.$refs.uToast.show({
-							title: this.isCollectionFlag ? '已收藏' : '您已取消收藏'
-						});
+            uni.showToast({
+                title: this.isCollectionFlag ? '已收藏' : '您已取消收藏',
+                icon: 'none'
+            });
 						if (this.messList.type != 'houseType') {
 							this.$store.dispatch('saveCollection', this.isCollectionFlag);
 						}
@@ -260,9 +263,10 @@ export default {
 			if (this.tel) {
 				this.getMaj(this.tel);
 			} else {
-				this.$refs.uToast.show({
-					title: '暂无管家电话'
-				});
+        uni.showToast({
+            title: '暂无管家电话',
+            icon: 'none'
+        });
 			}
 		},
 		//是从B-app分享过来时-拨打电话|im聊天
@@ -288,17 +292,19 @@ export default {
 						});
 						return 
 					}else if(type==='tel'&&!phone){
-						this.$refs.uToast.show({
-							title:  '未查询到电话'
-						});
+            uni.showToast({
+                title: '未查询到电话',
+                icon: 'none'
+            });
 						return 
 					}
 					// im咨询
 					let imBaseUserId = 'C2C' + imAccount;
 					if(!imAccount){
-						this.$refs.uToast.show({
-							title:  '暂无管家'
-						});
+            uni.showToast({
+                title: '暂无管家',
+                icon: 'none'
+            });
 						return 
 					}
 					this.messList.annexs = [];

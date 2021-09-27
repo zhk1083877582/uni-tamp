@@ -58,7 +58,6 @@
 			</view>
 		</view>
 		<view class="btm_text">仅限接受线下置业顾问服务的用户使用</view>
-		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -110,9 +109,10 @@ export default {
 				}		
 			}).catch(error=>{
 				this.submitBtn = false
-				this.$refs.uToast.show({
-					title: `${error.msg}`,
-				})
+        uni.showToast({
+            title: `${error.msg}`,
+            icon: 'none'
+        });
 			})
 		},
 		validatorPhoneNum(){
@@ -179,9 +179,10 @@ export default {
 			getData('/dt-user/noToken/wx/sendMessage',params).then((res)=>{
 				console.log('----tel',res)
 			}).catch(error=>{
-				this.$refs.uToast.show({
-					title: `${error.msg}`,
-				})
+        uni.showToast({
+            title: `${error.msg}`,
+            icon: 'none'
+        });
 			})
 		},
 		toAgreement(){
