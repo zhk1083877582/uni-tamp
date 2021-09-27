@@ -12,7 +12,7 @@ function resolve(dir) {
 let css = {
   loaderOptions: {
     scss: {
-      prependData: `@import '${resolve('src/style/main.scss')}';`,
+      prependData: `@import "./src/style/main.scss";`,
     }
   }
 }
