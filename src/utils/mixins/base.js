@@ -16,7 +16,7 @@ export default {
         buildingId: '',
         wxOpenId: '',
         wxUnionId: '',
-        updateTransmitCountFlag: 1
+        updateTransmitCountFlag: 1, //是否更新置业计划书转发次数： 0 不更新， 1 更新
       },
       //客户足迹埋点
       CustomerTrack: {
