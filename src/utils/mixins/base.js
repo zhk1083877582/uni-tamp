@@ -16,6 +16,7 @@ export default {
         buildingId: '',
         wxOpenId: '',
         wxUnionId: '',
+        updateTransmitCountFlag: 1
       },
       //客户足迹埋点
       CustomerTrack: {
@@ -130,10 +131,10 @@ export default {
       this.addCustomerTrack({
         shareType: CustomerTrackShareType,
         operateCanal: CustomerOperateCanal,
-		wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
-		wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
-		wxOpenId: this.$tool.getStorage('customerWXId').openid,
-		wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+        wxOpenId: this.$tool.getStorage('customerWXId').openid,
+        wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
       })
     }
     if (this.CustomerTrack.operateType == '2') {
