@@ -161,10 +161,10 @@ export default {
             this.$cache.setCache('loginFlag1', true)
             this.showAuthorize = true
             // this.initBaseInfo();//楼盘信息
-            let { phone, customerId } = res.customerInfo || {}
+            let { phone } = res.customerInfo || {}
             console.log('--------授权', res)
-            if (phone && customerId) {
-              this.doAddCustorm(phone, customerId)
+            if (phone) {
+              this.doAddCustorm(phone)
             }
           })
           .catch((err) => {
@@ -291,7 +291,7 @@ export default {
         })
     },
     // 把当前手机号推进客户池
-    doAddCustorm(phone, customerId) {
+    doAddCustorm(phone) {
       let params = {
         phone: phone,
         buildingId: this.buildingIdX,
@@ -301,7 +301,7 @@ export default {
       getData(api, params)
         .then((res) => {
           console.log('创建客户success', res)
-          this.getAppletsCustomerIdByPhone()
+          // this.getAppletsCustomerIdByPhone()
           this.CheckInCustorm(res)
         })
         .catch((err) => {
@@ -350,10 +350,9 @@ export default {
       this.getPhone()
     } else {
       if (this.buildingIdX) {
-        let { phone, customerId } =
-          this.$cache.getCache('Login-Data').customerInfo || {}
-        if (phone && customerId) {
-          this.doAddCustorm(phone, customerId)
+        let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
+        if (phone) {
+          this.doAddCustorm(phone)
         }
       }
       this.showAuthorize = true
