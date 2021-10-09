@@ -84,7 +84,6 @@
             <view class="item_warp" style="border-right: 0;">
               <view class="num">
                 {{adviserInfo.workExperienceDesc||'--'}}
-                <!-- <text class="unit">年</text> -->
               </view>
               <view class="item_title">
                 从业年限
@@ -96,14 +95,11 @@
     </view>
     <view class="bottom_main">
       <view class="bottom_bg">
-        <!-- https://images.tospurfang.com/26CDF733F70A4F0A9898559F17EF7995-6-2.jpg -->
         <view class="HDJ">
           <button type="default" hover-class='none' class="btn" v-if="showAuthorize" @click="downloadUserImg">
-            <!-- {{showAuthorize?'保存顾问名片':'立即开启服务'}} -->
             保存顾问名片
           </button>
           <button type="default" hover-class='none' class="btn" v-else open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">
-            <!-- {{showAuthorize?'保存顾问名片':'立即开启服务'}}  -->
             立即开启服务
           </button>
           <view class="bottom_text">
@@ -112,7 +108,6 @@
         </view>
       </view>
     </view>
-    <!-- <u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal> -->
   </view>
 </template>
 
@@ -178,7 +173,6 @@ export default {
       }
     },
     getPhone() {
-      console.log(11111111)
       const self = this
       uni.login({
         success: (res) => {
@@ -186,20 +180,18 @@ export default {
           if (res.code) {
             //微信登录成功 已拿到code
             self.jsCode = res.code //保存获取到的code
-            console.log(self.jsCode, 456)
             let params = {
               jsCode: res.code,
             }
             let api = '/dt-user/noToken/wx/wxAuth'
             getData(api, params)
               .then((res) => {
-                console.log(res, 111111)
                 self.openid = res.openid //openid 用户唯一标识
                 self.session_key = res.session_key //session_key  会话密钥
                 console.log(self.openid, 12)
               })
               .catch((err) => {
-                console.log('请求结果报错', err)
+                console.log('微信登录报错', err)
               })
           } else {
             console.log('登录失败！' + res.errMsg)
@@ -230,7 +222,6 @@ export default {
       }
       getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
         .then((res) => {
-          // console.log(res,'获取小程序二维码')
           this.wxcodeCard = res
           setTimeout(() => {
             self.createImg()
@@ -240,20 +231,11 @@ export default {
           console.log('获取小程序二维码', err)
         })
     },
-
     //复制微信号
     copyNumber(value) {
       let self = this
       uni.setClipboardData({
         data: value,
-        // success: function () {
-        //   uni.hideToast()
-        //   // uni.showToast({
-        //   // 	title: "已复制微信号到剪贴板",
-        //   // 	icon: "none"
-        //   // });
-        //   self.showModal = true
-        // },
       })
     },
     //拨打电话
@@ -289,7 +271,6 @@ export default {
       getData('/dt-business/noToken/user/getUserCardDetail', params)
         .then(async (res) => {
           console.log('管家信息', res)
-          // this.share.title = `置业顾问【${res.userName?res.userName:'-'}】`
           let { expertiseFields = [], buildingInfos = [] } = res
           res.expertiseFields = expertiseFields
           if (res.servedPeopleNum != null || res.servedPeopleNum != '') {
@@ -303,7 +284,6 @@ export default {
           let buildingIds = buildingInfos.map((item1) => {
             return item1.buildingId
           })
-          // self.initBaseInfo(buildingIds)
           await self.getwxCodeUserCard() //获取小程序二维码
         })
         .catch((err) => {
@@ -313,44 +293,38 @@ export default {
     // 把当前手机号推进客户池
     doAddCustorm(phone, customerId) {
       let params = {
-        // customerId: customerId,
         phone: phone,
         buildingId: this.buildingIdX,
         userId: this.userId,
       }
-      let api = '/dt-business/homepage/createCustomer'
+      let api = '/dt-business/homepage/noToken/createCustomer'
       getData(api, params)
         .then((res) => {
-          console.log('----------success', res)
+          console.log('创建客户success', res)
           this.getAppletsCustomerIdByPhone()
           this.CheckInCustorm(res)
         })
         .catch((err) => {
-          console.log('请求结果报错', err)
+          console.log('创建客户报错', err)
         })
     },
     // 扫码签到
     CheckInCustorm(obj) {
-      console.log(obj, '------进入到doAddCustorm')
-      let { phone, customerId } =
-        this.$cache.getCache('Login-Data').customerInfo || {}
+      let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
       let params = {
-        // customerId:customerId,
         customerPhone: phone,
         buildingId: parseInt(this.buildingIdX),
         checkInType: 1,
         userId: parseInt(this.userId),
         userName: obj.userName,
       }
-      console.log('==========', params)
-      let api = '/dt-business/checkIn/customerCheckIn'
+      let api = '/dt-business/checkIn/noToken/customerCheckIn'
       getData(api, params)
         .then((res) => {
-          console.log('----------success', res)
-          // this.getAppletsCustomerIdByPhone();
+          console.log('扫码签到success', res)
         })
         .catch((err) => {
-          console.log('请求结果报错', err)
+          console.log('扫码签到报错', err)
         })
     },
   },
@@ -371,20 +345,13 @@ export default {
       this.buildingIdX = option.buildingId
     }
     this.initUserInfo() //管家信息
-    // this.initBaseInfo();//楼盘信息
-
     if (!this.$cache.getCache('M-Token')) {
       this.showAuthorize = false
       this.getPhone()
-      // uni.navigateTo({
-      // 	url: '/pagesUser/login/login?topath=pagesUser/article/article&articleId=' + option.articleId + '&userId=' + option.userId
-      // });
     } else {
-      // console.log('-------------',this.buildingIdX)
       if (this.buildingIdX) {
         let { phone, customerId } =
           this.$cache.getCache('Login-Data').customerInfo || {}
-        // console.log('---phone&&customerId----',phone,customerId)
         if (phone && customerId) {
           this.doAddCustorm(phone, customerId)
         }
