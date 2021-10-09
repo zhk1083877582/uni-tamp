@@ -248,6 +248,10 @@
   "condition": {
     "current": 0,
     "list": [{
+        "name": "report",
+        "path": "pagesReport/reportDetail/index",
+        "query": "reportId=17"
+      },{
         "name": "loan",
         "path": "pages_com/loan/index",
         "query": "userId=12702&buildingId=80724"

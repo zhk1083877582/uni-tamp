@@ -26,9 +26,11 @@
       <view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
     </view>
     <!-- 管家信息 -->
-    <view class="fixed_bottom">
+    <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
+    
+    <!-- <view class="fixed_bottom">
       <foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId' operateCanal='2'></foot-bottom>
-    </view>
+    </view> -->
   </view>
 </template>
 
@@ -37,7 +39,8 @@ import recommend from './components/recommend.vue'
 import publicPage from './components/publicPage.vue'
 import question from './components/question.vue'
 import tipsPage from './components/tipsPage.vue'
-import footBottom from '@/components/footer/index.vue'
+import consultantCard from '__com/consultant/card.vue'
+// import footBottom from '@/components/footer/index.vue'
 import { getData } from '@/request/api'
 export default {
   components: {
@@ -45,7 +48,8 @@ export default {
     publicPage, //样式相同的组件
     question, //置业问答
     tipsPage,
-    footBottom,
+    // footBottom,
+    consultantCard
   },
   data() {
     return {
