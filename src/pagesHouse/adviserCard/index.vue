@@ -84,21 +84,6 @@
         <i class='iconfont iconicon_phone'></i>联系顾问
       </button>
     </view>
-    <u-mask :show="showAuthorize" mask-click-able="false">
-      <view class="showAuthorize_warp" @tap.stop>
-        <view class="authorize_title">
-          授权提醒
-        </view>
-        <view class="authorize_text">
-          您好，为了更好得为您提供服务 请您授权登录
-        </view>
-        <u-button type="default" hover-class='none' class="authorize_btn" :hair-line='false' @click="onGetUserInfo">
-          微信授权登录
-        </u-button>
-      </view>
-    </u-mask>
-    <!-- <u-modal v-model="showModal" :content="modalContent" title='微信号复制成功！' z-index="100000" confirm-text="我知道了"></u-modal> -->
-
   </view>
 </template>
 
@@ -184,8 +169,9 @@ export default {
   methods: {
     showAuthorizefun(data) {
       console.log(data)
-      this.cardData = data
-      this.showAuthorize = true
+      // this.cardData = data
+      // this.showAuthorize = true
+	  this.onGetUserInfo()
     },
     onGetUserInfo() {
       uni.getUserProfile({
