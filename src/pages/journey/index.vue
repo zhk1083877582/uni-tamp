@@ -109,14 +109,22 @@
                                   <i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text"
                                     style="color: #FE3A07;">{{itemR.houseTotalPrice?itemR.houseTotalPrice+'万元':'待定'}}</text>
                                 </view>
-                                <view class="rows calculator_warp">
-                                  <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay?itemR.firstPay+'万元':'待定'}}</text>
-                                </view>
-                                <view class="rows">
-                                  <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay?itemR.mouthPay+'元':'待定'}}</text>
+                                <view v-if="itemR.loanPlanShow =='1'">
+                                  <view class="rows calculator_warp">
+                                    <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{itemR.firstPay?itemR.firstPay+'万元':'待定'}}</text>
+                                    <view class="calculator_btn" @click="toCalculator"><text class="calculator_txt">房贷计算器</text></view>
+                                  </view>
+                                  <view>
+                                    <view class="rows" v-if="repayType == '1'">
+                                      <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay?itemR.mouthPay+'元':'待定'}}</text>
+                                    </view>
+                                    <view class="rows" v-else>
+                                      <i class="iconfont iconyuegong"></i><text class="lable">首月</text><text
+                                        class="text">{{itemR.mouthPay?`${itemR.mouthPay}（每月递减${itemR.monthDecline}）'元'`:'待定'}}</text>
+                                    </view>
+                                  </view>
                                 </view>
                               </view>
-
                               <view class="reason" v-if="itemR.content">
                                 <view class="sanJ"></view>
                                 <view class="reason_title">
@@ -264,22 +272,22 @@ export default {
     onLogout() {
       let _this = this
       uni.showModal({
-          title: '确定退出？',
-          content: '退出登录后将无法查看订单，重新登录即可查看',
-          success(res) {
-              if (res.confirm) {
-                _this.$cache.removeCache('customerWXInfo')
-                _this.$cache.removeCache('customerWXId')
-                _this.$cache.removeCache('M-Token')
-                _this.$cache.removeCache('Login-Data')
-                _this.HasToken = false
-              }
+        title: '确定退出？',
+        content: '退出登录后将无法查看订单，重新登录即可查看',
+        success(res) {
+          if (res.confirm) {
+            _this.$cache.removeCache('customerWXInfo')
+            _this.$cache.removeCache('customerWXId')
+            _this.$cache.removeCache('M-Token')
+            _this.$cache.removeCache('Login-Data')
+            _this.HasToken = false
           }
-      });
-        // confirm-color="#062471" :title-style="GetOutTitleStyle"
-        // :content-style="GetOutContentStyle" :confirm-style="GetOutConfirmStyle"
+        },
+      })
+      // confirm-color="#062471" :title-style="GetOutTitleStyle"
+      // :content-style="GetOutContentStyle" :confirm-style="GetOutConfirmStyle"
     },
-    
+
     //去webview
     goWebView(routeName, routeParams, toPath) {
       let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
