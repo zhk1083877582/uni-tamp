@@ -372,7 +372,7 @@ export default {
           ? obj.$orig.reportBuildingIntro.buildingId
           : '',
       }
-      getData('dt-user/v1/aggs/user/noToken/get', params)
+      getData('/dt-user/v1/aggs/user/noToken/get', params)
         .then((res) => {
           console.log('管家信息', res)
           self.userInfo = res
