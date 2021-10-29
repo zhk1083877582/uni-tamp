@@ -115,7 +115,7 @@
                                     <view class="calculator_btn" @click="toCalculator"><text class="calculator_txt">房贷计算器</text></view>
                                   </view>
                                   <view>
-                                    <view class="rows" v-if="repayType == '1'">
+                                    <view class="rows" v-if="itemR.repayType == '1'">
                                       <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay?itemR.mouthPay+'元':'待定'}}</text>
                                     </view>
                                     <view class="rows" v-else>
