@@ -264,10 +264,7 @@ export default {
         buildingIds: buildingIds,
       }
       let self = this
-      getBuildingBaseInfo(
-        '/dt-business/noToken/home/userServedBuilding',
-        params
-      )
+      getBuildingBaseInfo('/dt-building/v1/agg/building/served', params)
         .then((res) => {
           console.log('----楼盘信息--', res)
 
