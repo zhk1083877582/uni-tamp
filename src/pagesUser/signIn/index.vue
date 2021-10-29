@@ -268,7 +268,7 @@ export default {
         buildingId: this.buildingIdX,
       }
       let self = this
-      getData('/dt-business/noToken/user/getUserCardDetail', params)
+      getData('dt-user/v1/aggs/user/noToken/get', params)
         .then(async (res) => {
           console.log('管家信息', res)
           let { expertiseFields = [], buildingInfos = [] } = res

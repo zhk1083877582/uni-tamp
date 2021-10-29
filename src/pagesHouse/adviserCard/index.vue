@@ -171,7 +171,7 @@ export default {
       console.log(data)
       // this.cardData = data
       // this.showAuthorize = true
-	  this.onGetUserInfo()
+      this.onGetUserInfo()
     },
     onGetUserInfo() {
       uni.getUserProfile({
@@ -227,7 +227,7 @@ export default {
       }
       console.log('-------params', params)
       let self = this
-      getBuildingBaseInfo('/dt-business/noToken/user/getUserCardDetail', params)
+      getBuildingBaseInfo('dt-user/v1/aggs/user/noToken/get', params)
         .then((res) => {
           console.log('管家信息', res)
           this.share.title = `置业顾问【${res.userName ? res.userName : '-'}】`

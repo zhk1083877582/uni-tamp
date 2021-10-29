@@ -119,8 +119,7 @@
                                       <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{itemR.mouthPay?itemR.mouthPay+'元':'待定'}}</text>
                                     </view>
                                     <view class="rows" v-else>
-                                      <i class="iconfont iconyuegong"></i><text class="lable">首月</text><text
-                                        class="text">{{itemR.mouthPay?`${itemR.mouthPay}（每月递减${itemR.monthDecline}）元`:'待定'}}</text>
+                                      <i class="iconfont iconyuegong"></i><text class="lable">首月</text><text class="text">{{itemR.mouthPay?`${itemR.mouthPay}（每月递减${itemR.monthDecline}）元`:'待定'}}</text>
                                     </view>
                                   </view>
                                 </view>
@@ -373,7 +372,7 @@ export default {
           ? obj.$orig.reportBuildingIntro.buildingId
           : '',
       }
-      getData('/dt-business/noToken/user/getUserCardDetail', params)
+      getData('dt-user/v1/aggs/user/noToken/get', params)
         .then((res) => {
           console.log('管家信息', res)
           self.userInfo = res
