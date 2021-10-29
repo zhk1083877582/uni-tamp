@@ -61,7 +61,7 @@
                     <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
                   </view>
                   <view class="rows" v-else>
-                    <i class="iconfont iconyuegong"></i><text class="lable">首月</text><text class="text">{{item.mouthPay?`${item.mouthPay}（每月递减${item.monthDecline}）'元'`:'待定'}}</text>
+                    <i class="iconfont iconyuegong"></i><text class="lable">首月</text><text class="text">{{item.mouthPay?`${item.mouthPay}（每月递减${item.monthDecline}）元`:'待定'}}</text>
                   </view>
                 </view>
               </view>
