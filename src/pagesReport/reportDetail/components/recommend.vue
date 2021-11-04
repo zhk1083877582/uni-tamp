@@ -51,12 +51,19 @@
               <view class="rows">
                 <i class="iconfont iconjiage"></i><text class="lable">价格</text><text class="text" style="color: #FE3A07;">{{item.houseTotalPrice?item.houseTotalPrice+'万元':'待定'}}</text>
               </view>
-              <view class="rows calculator_warp">
-                <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay?item.firstPay+'万元':'待定'}}</text>
-                <view class="calculator_btn" @click="toCalculator"><text class="calculator_txt">房贷计算器</text></view>
-              </view>
-              <view class="rows">
-                <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
+              <view v-if="item.loanPlanShow =='1'">
+                <view class="rows calculator_warp">
+                  <i class="iconfont iconshoufu"></i><text class="lable">首付</text><text class="text">{{item.firstPay?item.firstPay+'万元':'待定'}}</text>
+                  <view class="calculator_btn" @click="toCalculator"><text class="calculator_txt">房贷计算器</text></view>
+                </view>
+                <view>
+                  <view class="rows" v-if="item.repayType == '1'">
+                    <i class="iconfont iconyuegong"></i><text class="lable">月供</text><text class="text">{{item.mouthPay?item.mouthPay+'元':'待定'}}</text>
+                  </view>
+                  <view class="rows" v-else>
+                    <i class="iconfont iconyuegong"></i><text class="lable">首月</text><text class="text">{{item.mouthPay?`${item.mouthPay}（每月递减${item.monthDecline}）元`:'待定'}}</text>
+                  </view>
+                </view>
               </view>
             </view>
             <view class="reason" v-if="item.content">

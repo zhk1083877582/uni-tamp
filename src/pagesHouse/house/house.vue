@@ -223,7 +223,7 @@ export default {
         buildingId: this.buildingId,
       }
       let self = this
-      getData('/dt-business/noToken/user/getUserCardDetail', params)
+      getData('/dt-user/v1/aggs/user/noToken/get', params)
         .then((res) => {
           console.log('------管家信息', res)
           this.fourPhone = res.phone || ''
