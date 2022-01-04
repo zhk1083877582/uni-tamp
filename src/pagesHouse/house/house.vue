@@ -388,7 +388,7 @@
           buildingId: this.buildingId,
         }
         let self = this
-        getBuildingAnnex('//dt-building/v1/annex/noToken/list', params)
+        getBuildingAnnex('/dt-building/v1/annex/noToken/list', params)
           .then((res) => {
             console.log('----楼盘相册', res)
             let albumCoverPictureItem = (res.list || []).filter((item) => {
