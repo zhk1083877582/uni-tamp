@@ -38,7 +38,6 @@ export default {
       openid: '',
       unionid: '',
       session_key: '',
-      isExamine: '',
     }
   },
   computed: {},
@@ -70,18 +69,6 @@ export default {
           }
         },
       })
-    },
-    //微信审核标识
-    getWXAudit() {
-      console.log(123)
-      getData('/dt-business/noToken/home/WXAudit')
-        .then((res) => {
-          console.log(res)
-          this.isExamine = res
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     },
     getWXId() {
       const self = this
@@ -128,7 +115,6 @@ export default {
       console.log('LoginTopath', this.pinWx)
     }, 400)
     this.getWXId()
-    // this.getWXAudit()
   },
 }
 </script>

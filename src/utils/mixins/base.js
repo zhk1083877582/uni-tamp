@@ -86,22 +86,6 @@ export default {
       return hours + ":" + minutes + ":" + seconds;
 
     },
-    //重新获取customerId
-    getAppletsCustomerIdByPhone() {
-      if (this.$cache.getCache('Login-Data').customerInfo.phone) {
-        let params = {
-          phone: this.$cache.getCache('Login-Data').customerInfo.phone,
-        }
-        let api = '/dt-business/customer/manager/noToken/getAppletsCustomerIdByPhone'
-        getData(api, params).then((res) => {
-          if (res.customerInfo.phone) {
-            this.$cache.setCache('Login-Data', res);
-          }
-        }).catch(error => {
-          console.log(error, '小程序使用根据手机号码查询客户id')
-        })
-      }
-    }
   },
   mounted() {
 

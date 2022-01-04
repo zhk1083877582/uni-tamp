@@ -125,7 +125,6 @@ export default {
       modalContent: `
 				您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
 			`,
-      // showModal: false,
       adviserInfo: {},
       userId: '',
       buildingIdX: '', //app扫码进来，带过来buildingId时
@@ -134,13 +133,9 @@ export default {
       flagDownloadImg: true, //控制下载按钮
     }
   },
-  computed: {},
-  watch: {},
   methods: {
     onGetPhoneNumber(e) {
       if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-        //用户决绝授权
-        //拒绝授权后弹出一些提示
       } else {
         //允许授权
         let params = {
@@ -160,9 +155,7 @@ export default {
             this.$cache.setCache('loginFlag', true)
             this.$cache.setCache('loginFlag1', true)
             this.showAuthorize = true
-            // this.initBaseInfo();//楼盘信息
             let { phone } = res.customerInfo || {}
-            console.log('--------授权', res)
             if (phone) {
               this.doAddCustorm(phone)
             }
@@ -249,13 +242,9 @@ export default {
         })
         return
       }
-
       uni.makePhoneCall({
-        // 手机号
         phoneNumber: value,
-        // 成功回调
         success: (res) => {},
-        // 失败回调
         fail: (res) => {
           console.log('调用失败!')
         },
@@ -280,7 +269,6 @@ export default {
           }
           self.adviserInfo = res
           this.titleName = `将由顾问【${self.adviserInfo.userName}】为您服务`
-          //获取buildingIds
           let buildingIds = buildingInfos.map((item1) => {
             return item1.buildingId
           })
@@ -293,38 +281,17 @@ export default {
     // 把当前手机号推进客户池
     doAddCustorm(phone) {
       let params = {
-        phone: phone,
+        customerPhone: phone,
         buildingId: this.buildingIdX,
         userId: this.userId,
+		checkInType:1//到类型: 1扫码签到 2手动签到 3新增客户签到
       }
-      let api = '/dt-business/homepage/noToken/createCustomer'
+      let api = '/dt-customer/checkIn/noToken/customerCheckIn'
       getData(api, params)
         .then((res) => {
-          console.log('创建客户success', res)
-          // this.getAppletsCustomerIdByPhone()
-          this.CheckInCustorm(res)
         })
         .catch((err) => {
           console.log('创建客户报错', err)
-        })
-    },
-    // 扫码签到
-    CheckInCustorm(obj) {
-      let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
-      let params = {
-        customerPhone: phone,
-        buildingId: parseInt(this.buildingIdX),
-        checkInType: 1,
-        userId: parseInt(this.userId),
-        userName: obj.userName,
-      }
-      let api = '/dt-business/checkIn/noToken/customerCheckIn'
-      getData(api, params)
-        .then((res) => {
-          console.log('扫码签到success', res)
-        })
-        .catch((err) => {
-          console.log('扫码签到报错', err)
         })
     },
   },

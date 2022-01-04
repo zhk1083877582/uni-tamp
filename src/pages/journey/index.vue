@@ -466,7 +466,7 @@
           unionid,
           customerId,
         }
-        getData('dt-user/v1/user/report/noToken/cAppHom', params)
+        getData('/dt-user/v1/user/report/noToken/cAppHome', params)
           .then((res) => {
             if (JSON.stringify(res) == '[]') {
               this.ishowbuilding = false
