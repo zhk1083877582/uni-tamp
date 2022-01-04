@@ -25,7 +25,7 @@ export const getBuildingBaseInfo = (url,params)=>{
 };
 // 图片视频vr 附件
 export const getBuildingAnnex = (url,params)=>{
-	url=url||'/dt-business/building/buildingAnnex';
+	url=url||'/dt-building/v1/annex/noToken/list';
     return apiRequestList.$post(url,params)
 };
 

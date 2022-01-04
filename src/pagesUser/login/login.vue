@@ -128,7 +128,7 @@ export default {
       console.log('LoginTopath', this.pinWx)
     }, 400)
     this.getWXId()
-    this.getWXAudit()
+    // this.getWXAudit()
   },
 }
 </script>

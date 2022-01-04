@@ -63,7 +63,7 @@ export default {
       let params = Object.assign({}, this.CustomerTrack, data);
       params.stayTime = params.stayTime ? this.formatDuring(params.stayTime) : ''
       console.log('客户足迹埋点', params)
-      getData('/dt-business/customerTrack/noToken/shareCard', params).then((res) => {
+      getData('/dt-customer/customerTrack/noToken/shareCard', params).then((res) => {
         // console.log('埋点接口',res)
       }).catch((err) => {
         console.log('埋点接口', err)
