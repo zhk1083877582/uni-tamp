@@ -415,8 +415,8 @@
         let self = this
         let params = {
           userId: e.currentTarget.id,
-          buildingId: obj.$orig.reportBuildingIntro ?
-            obj.$orig.reportBuildingIntro.buildingId : '',
+          buildingId: obj.reportBuildingIntro ?
+            obj.reportBuildingIntro.buildingId : '',
         }
         getData('/dt-user/v1/aggs/user/noToken/get', params)
           .then((res) => {
