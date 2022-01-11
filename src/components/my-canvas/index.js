@@ -100,7 +100,7 @@ export default {
         })
         // 画楼盘亮点
         await this.$refs.rCanvas.drawText({
-          text: self.adviserInfo.buildingInfos[0].buildingBrightSpot,
+          text: self.adviserInfo.buildingInfos[0].buildingBrightSpot?self.adviserInfo.buildingInfos[0].buildingBrightSpot:'-',
           max_width: 300,
           x: 32,
           y: 217,
