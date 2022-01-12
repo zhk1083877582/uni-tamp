@@ -273,7 +273,7 @@
           wxOpenId: this.$tool.getStorage('customerWXId').openid,
           wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
         }
-        getData('/dt-user/v1/report/log/noToken/customerLookReportLog', params)
+        getData('/dt-user/v1/user/report/noToken/customerLookReportLog', params)
           .then((res) => {})
           .catch((err) => {
             console.log(err)
