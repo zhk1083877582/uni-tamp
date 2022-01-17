@@ -181,7 +181,7 @@ export default {
               .then((res) => {
                 self.openid = res.openid //openid 用户唯一标识
                 self.session_key = res.session_key //session_key  会话密钥
-                console.log(self.openid, 12)
+                console.log(res, 12)
               })
               .catch((err) => {
                 console.log('微信登录报错', err)
