@@ -297,6 +297,7 @@
       },
       // 把当前手机号推进客户池
       doAddCustorm(phone) {
+		  console.log('进入推进客户池', phone,this.buildingIdX,this.userId)
         let params = {
           customerPhone: phone,
           buildingId: this.buildingIdX,
@@ -305,7 +306,9 @@
         }
         let api = '/dt-customer/checkIn/noToken/customerCheckIn'
         getData(api, params)
-          .then((res) => {})
+          .then((res) => {
+			  console.log('推进客户池成功', res)
+		  })
           .catch((err) => {
             console.log('创建客户报错', err)
           })
@@ -332,6 +335,7 @@
         this.showAuthorize = false
         this.getPhone()
       } else {
+		  console.log('userId&&&buildingIdX', this.userId,this.buildingIdX)
         if (this.buildingIdX) {
           let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
           if (phone) {
