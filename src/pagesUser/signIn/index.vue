@@ -338,6 +338,7 @@
 		  console.log('userId&&&buildingIdX', this.userId,this.buildingIdX)
         if (this.buildingIdX) {
           let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
+		  console.log('手机号是否存在', phone)
           if (phone) {
             this.doAddCustorm(phone)
           }
