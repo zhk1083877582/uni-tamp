@@ -21,10 +21,7 @@ export default {
           h: 113,
           border_radius: 53
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画头像',err_msg)
         })
         // 名字
         await this.$refs.rCanvas.drawText({
@@ -35,10 +32,7 @@ export default {
           font_color: "rgba(0,0,0,1)",
           font_size: 23
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('名字',err_msg)
         })
         // 画手机图标
         await this.$refs.rCanvas.drawImage({
@@ -48,10 +42,7 @@ export default {
           w: 17,
           h: 17,
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画手机图标报错',err_msg)
         })
         // 手机号
         await this.$refs.rCanvas.drawText({
@@ -62,10 +53,7 @@ export default {
           font_color: "rgba(0,0,0,1)",
           font_size: 15
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('手机号报错',err_msg)
         })
         // 画微信图标
         await this.$refs.rCanvas.drawImage({
@@ -75,10 +63,7 @@ export default {
           w: 20,
           h: 16,
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画微信图标报错',err_msg)
         })
         // 微信
         await this.$refs.rCanvas.drawText({
@@ -89,10 +74,7 @@ export default {
           font_color: "rgba(102,102,102,1)",
           font_size: 15
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画微信报错',err_msg)
         })
         // 画楼盘图标
         await this.$refs.rCanvas.drawImage({
@@ -102,10 +84,7 @@ export default {
           w: 23,
           h: 22,
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画楼盘图标报错',err_msg)
         })
         // 画楼盘名称
         await this.$refs.rCanvas.drawText({
@@ -117,14 +96,11 @@ export default {
           font_size: 19,
           font_weight: 600
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画楼盘名称报错',err_msg)
         })
         // 画楼盘亮点
         await this.$refs.rCanvas.drawText({
-          text: self.adviserInfo.buildingInfos[0].buildingBrightSpot,
+          text: self.adviserInfo.buildingInfos[0].buildingBrightSpot?self.adviserInfo.buildingInfos[0].buildingBrightSpot:'-',
           max_width: 300,
           x: 32,
           y: 217,
@@ -133,10 +109,7 @@ export default {
           line_clamp: 1,
           line_clamp_hint: '...',
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('画楼盘亮点报错',err_msg)
         })
         //楼盘亮点下的横线
         await this.$refs.rCanvas.drawRect({
@@ -206,10 +179,7 @@ export default {
           font_color: "rgba(102,102,102,1)",
           font_size: 12
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('服务人数报错',err_msg)
         })
         //客户满意度
         await this.$refs.rCanvas.drawSpecialText({
@@ -229,7 +199,6 @@ export default {
             },
           ]
         }).catch(err => {
-          this.error(err)
         })
         await this.$refs.rCanvas.drawText({
           text: '客户满意度',
@@ -239,10 +208,7 @@ export default {
           font_color: "rgba(102,102,102,1)",
           font_size: 12
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('客户满意度报错',err_msg)
         })
         //从业年限
         await this.$refs.rCanvas.drawSpecialText({
@@ -266,10 +232,7 @@ export default {
           font_color: "rgba(102,102,102,1)",
           font_size: 12
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('从业年限报错',err_msg)
         })
         //底部小程序二维码
         await this.$refs.rCanvas.drawText({
@@ -280,10 +243,7 @@ export default {
           font_color: "rgba(153,153,153,1)",
           font_size: 15
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('扫一扫或长按识别二维码报错',err_msg)
         })
         await this.$refs.rCanvas.drawText({
           text: '期待您的咨询',
@@ -293,10 +253,7 @@ export default {
           font_color: "rgba(153,153,153,1)",
           font_size: 15
         }).catch(err_msg => {
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+			console.log('期待您的咨询报错',err_msg)
         })
         // 画微信二维码
         await this.$refs.rCanvas.drawImage({
@@ -306,11 +263,7 @@ export default {
           w: 72,
           h: 72,
         }).catch(err_msg => {
-          console.log(err_msg, 2222)
-          uni.showToast({
-            title: err_msg,
-            icon: "none"
-          })
+		  console.log('画微信二维码报错',err_msg)
         })
 
         // 生成海报

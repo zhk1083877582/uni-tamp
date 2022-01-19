@@ -63,7 +63,7 @@ export default {
       let params = Object.assign({}, this.CustomerTrack, data);
       params.stayTime = params.stayTime ? this.formatDuring(params.stayTime) : ''
       console.log('客户足迹埋点', params)
-      getData('/dt-business/customerTrack/noToken/shareCard', params).then((res) => {
+      getData('/dt-customer/customerTrack/noToken/shareCard', params).then((res) => {
         // console.log('埋点接口',res)
       }).catch((err) => {
         console.log('埋点接口', err)
@@ -86,22 +86,6 @@ export default {
       return hours + ":" + minutes + ":" + seconds;
 
     },
-    //重新获取customerId
-    getAppletsCustomerIdByPhone() {
-      if (this.$cache.getCache('Login-Data').customerInfo.phone) {
-        let params = {
-          phone: this.$cache.getCache('Login-Data').customerInfo.phone,
-        }
-        let api = '/dt-business/customer/manager/noToken/getAppletsCustomerIdByPhone'
-        getData(api, params).then((res) => {
-          if (res.customerInfo.phone) {
-            this.$cache.setCache('Login-Data', res);
-          }
-        }).catch(error => {
-          console.log(error, '小程序使用根据手机号码查询客户id')
-        })
-      }
-    }
   },
   mounted() {
 
@@ -131,8 +115,8 @@ export default {
       this.addCustomerTrack({
         shareType: CustomerTrackShareType,
         operateCanal: CustomerOperateCanal,
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl, //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo').userInfo.nickName, //微信昵称
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
         wxOpenId: this.$tool.getStorage('customerWXId').openid,
         wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
       })

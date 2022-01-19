@@ -23,9 +23,9 @@ import encryptList from "@/request/encrypt.js"
 
         // Tip: 2
         if (tool.getToken()) {
-            config.headers['token'] = tool.getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+            // config.headers['token'] = tool.getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
 			// config.headers['appId'] = tool.getStorage('Login-Data').customerInfo.appId||'36'
-			console.log(tool.getToken(),'token  token')
+			// console.log(tool.getToken(),'token  token')
         } else {
             // 重定向到登录页面
         }

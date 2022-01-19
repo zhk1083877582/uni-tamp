@@ -10,7 +10,6 @@
               置业目的：
             </view>
             <view class="content">
-              <!-- {{$formatter.switchName('intentionPurpose',resData.intentionPurpose)}} -->
               {{resData.intentionPurpose||'不详'}}
             </view>
           </view>
@@ -23,7 +22,6 @@
             </view>
             <view class="content">
               {{resData.buyHouseQualification||'不详'}}
-              <!-- {{resData.buyHouseQualification==1?'有':resData.buyHouseQualification==2?'无':'不详'}} -->
             </view>
           </view>
           <view class="box">
@@ -31,7 +29,6 @@
               贷款资质：
             </view>
             <view class="content">
-              <!-- {{getformatloanCondition(resData.loanCondition)}} -->
               {{resData.loansQualification||'不详'}}
             </view>
           </view>
@@ -74,18 +71,13 @@
               <view class="item_view">
                 <view class="second_label">区域</view>
                 <view class="right_text">
-                  <!-- {{resData.intentionRegion || '不详'}} -->
                   {{!resData.intentionRegion?'不祥':resData.intentionRegion == 3?'不限':resData.intentionRegion}}
                 </view>
               </view>
               <view class="item_view">
                 <view class="second_label">环线</view>
                 <view class="right_text">
-                  <!-- <text v-for="(item,index) in Loopline" :key="index">
-									{{item}}
-								</text> -->
                   <text>
-                    <!-- {{resData.intentionLoopLine||'不详'}} -->
                     {{!resData.intentionLoopLine?'不祥':resData.intentionLoopLine == 3?'不限':resData.intentionLoopLine}}
                   </text>
                 </view>
@@ -93,21 +85,11 @@
               <view class="item_view">
                 <view class="second_label">地铁</view>
                 <view class="right_text">
-                  <!-- <text v-for="(item,index) in metroList" :key="index">
-									{{item}}
-								</text> -->
                   <text>
-                    <!-- {{resData.intentionSubway||'不详'}} -->
                     {{!resData.intentionSubway?'不祥':resData.intentionSubway == 3?'不限':resData.intentionSubway}}
                   </text>
                 </view>
               </view>
-              <!-- <view class="item_view">
-							<view class="second_label">学区</view><view class="right_text"><text>{{resData.intentionSchoolDistrict || '不限'}}</text></view>
-						</view>
-						<view class="item_view">
-							<view class="second_label">配套</view><view class="right_text"><text>{{resData.intentionSet || '不限'}}</text></view>
-						</view> -->
               <view class="item_view">
                 <view class="second_label">面积</view>
                 <view class="right_text">
@@ -120,14 +102,10 @@
                 <view class="second_label">户型</view>
                 <view class="right_text">
                   <text>
-                    <!-- {{resData.intentionHouseType?$tool.intentionHouseType(resData.intentionHouseType):'-'}} -->
                     {{!resData.intentionHouseType?'不祥':resData.intentionHouseType == 3?'不限':resData.intentionHouseType}}
                   </text>
                 </view>
               </view>
-              <!-- <view class="item_view">
-							<view class="second_label">关注</view><view class="right_text"><text>{{resData.customerFocusText?resData.customerFocusText:'-'}}</text></view>
-						</view> -->
             </view>
           </view>
         </view>
@@ -155,8 +133,6 @@ export default {
       headPortrait:
         'https://images.tospurfang.com/BA7EDA2214C144AD9C94228999EEB579-6-2.png',
       resData: {},
-      metroList: [],
-      Loopline: [],
     }
   },
   computed: {},
@@ -183,67 +159,6 @@ export default {
       }
       return loanConditionStr
     },
-
-    //获取环线详情
-    getloopline(id) {
-      let params = {
-        loopLineId: id,
-      }
-      let self = this
-      getData('/dt-business/noToken/base/loopline/getById', params)
-        .then((res) => {
-          console.log('获取环线详情', res)
-          this.Loopline.push(res.loopLineName)
-        })
-        .catch((err) => {
-          console.log('获取环线详情', err)
-        })
-    },
-
-    //环线 转换
-    formatLoopline(key) {
-      if (!key) return '-'
-      let keyArr = [],
-        arr = []
-      if (key.length > 1) {
-        keyArr = key.split(',')
-      } else {
-        keyArr.push(key)
-      }
-      keyArr.forEach((itemT, indexT) => {
-        console.log(itemT)
-        this.getloopline(itemT)
-      })
-    },
-    //获取地铁详情
-    getmetro(id) {
-      let params = {
-        metroId: id,
-      }
-      let self = this
-      getData('/dt-business/noToken/base/metro/get', params)
-        .then((res) => {
-          console.log('获取地铁详情', res)
-          this.metroList.push(res.metroName)
-        })
-        .catch((err) => {
-          console.log('获取地铁详情', err)
-        })
-    },
-    //地铁 转换
-    formatMetro(key) {
-      if (!key) return '-'
-      let keyArr = [],
-        arr = []
-      if (key.length > 1) {
-        keyArr = key.split(',')
-      } else {
-        keyArr.push(key)
-      }
-      keyArr.forEach((itemT, indexT) => {
-        this.getmetro(itemT)
-      })
-    },
     changeArrayDownPayment(str) {
       if (str == null || str == '') return '不详'
       if (str == '3') return '不限'
@@ -257,12 +172,6 @@ export default {
       }
     },
   },
-  created() {},
-  mounted() {
-    // this.formatMetro(this.resData.intentionSubway)
-    // this.formatLoopline(this.resData.intentionLoopLine)
-    // this.resData.intentionLoopLineText = this.formatLoopline(this.resData.intentionLoopLine)
-  },
   onLoad(option) {
     this.resData = JSON.parse(option.resData)
   },
@@ -275,19 +184,12 @@ page {
 </style>
 <style lang='scss' scoped>
 .ideal_home_warp {
-  /* background-color: #062471; */
-  /* position: relative; */
   background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
   width: 100%;
   display: flex;
   justify-content: center;
-  /* height: 100%; */
   padding: 56rpx 0;
   .ideal_home {
-    /* position: absolute;
-		top: 6%;
-		left: 50%;
-		transform: translate(-50%); */
     width: 91%;
     background-color: #ffffff;
     border-radius: 20rpx;
@@ -296,7 +198,6 @@ page {
       text-align: left;
       color: #062471;
       padding: 48rpx 0 0 32rpx;
-      /* margin-top: 70rpx; */
       margin-bottom: 64rpx;
       display: flex;
       justify-content: flex-start;
@@ -326,7 +227,6 @@ page {
 
     .main {
       padding: 0 52rpx;
-      /* padding-bottom: 14rpx; */
       .main_content {
         display: flex;
         justify-content: space-between;
