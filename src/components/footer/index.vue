@@ -104,11 +104,7 @@ export default {
     tohouseKeeper() {
       if (!this.istoDetail) return
       uni.navigateTo({
-        url:
-          '/pagesHouse/adviserCard/index?userId=' +
-          this.userInfo.userId +
-          '&operateCanal=' +
-          this.operateCanal,
+        url: `/pagesHouse/adviserCard/index?userId=${this.userInfo.userId}&operateCanal=${this.operateCanal}&buildingId=${this.buildingId}`
       })
     },
     getUserInfo() {

@@ -34,12 +34,12 @@
       <view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
     </view>
     <!-- 管家信息 -->
-	<view v-if='userId&&buildingId'>
-		<consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
-	</view>
-    <!-- <view class="fixed_bottom">
-      <foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId' operateCanal='2'></foot-bottom>
-    </view> -->
+    <view v-if='userId && buildingId'>
+      <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
+    </view>
+    
+    <auth-phone scene='book' :userId='userId' ref='auth'></auth-phone>
+    
   </view>
 </template>
 
@@ -49,6 +49,7 @@
   import question from './components/question.vue'
   import tipsPage from './components/tipsPage.vue'
   import consultantCard from '__com/consultant/card.vue'
+  import authPhone from '__com/auth/phone.vue'
   // import footBottom from '@/components/footer/index.vue'
   import { getData } from '@/request/api'
   export default {
@@ -58,7 +59,8 @@
       question, //置业问答
       tipsPage,
       // footBottom,
-      consultantCard
+      consultantCard,
+      authPhone
     },
     data() {
       return {
@@ -190,7 +192,7 @@
             this.userId = res.customerIntention ?
               res.customerIntention.userId :
               ''
-
+            
             let customerGender = res.customerIntention ?
               res.customerIntention.gender :
               ''
@@ -246,9 +248,11 @@
               ''
             this.CustomerTrack.dataId = this.reportId
             this.CustomerTrack.wxAvatarUrl =
-              this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'' //头像
+              this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+                'customerWXInfo').userInfo.avatarUrl : '' //头像
             this.CustomerTrack.wxNickname =
-              this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'' //微信昵称
+              this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+                'customerWXInfo').userInfo.nickName : '' //微信昵称
             this.CustomerTrack.wxOpenId =
               this.$tool.getStorage('customerWXId').openid
             this.CustomerTrack.wxUnionId =
@@ -269,8 +273,10 @@
           reportId: this.reportId, //置业报告id
           lookTime: this.lookTime, //阅读时间
           readTime: this.endTime - this.beginTime, //阅读时长
-          wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-          wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
+          wxAvatarUrl: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+            'customerWXInfo').userInfo.avatarUrl : '', //头像
+          wxNickname: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+            'customerWXInfo').userInfo.nickName : '', //微信昵称
           wxOpenId: this.$tool.getStorage('customerWXId').openid,
           wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
         }
@@ -290,6 +296,8 @@
       this.beginTime = new Date().getTime()
       this.lookTime = this.$tool.DateFormat('yyyy-MM-dd hh:mm:ss', new Date())
       this.share.path = '/pagesReport/book/index?reportId=' + this.reportId
+      
+      this.$refs.auth.start()
     },
     onPageScroll(e) {
       if (e.scrollTop > 150) {
@@ -331,16 +339,20 @@
           this.$tool.getStorage('Login-Data').customerInfo.customerId : '',
         reportId: this.reportId,
         userId: this.userId,
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.nickName : '', //微信昵称
         wxOpenId: this.$tool.getStorage('customerWXId').openid,
         wxUnionId: this.$tool.getStorage('customerWXId').unionid,
       }
       this.ReportLog(ReportLogparams)
 
       let addCustomerTrackparams = {
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.nickName : '', //微信昵称
         wxOpenId: this.$tool.getStorage('customerWXId').openid,
         wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
         stayTime: new Date().getTime() - this.beginTime,
@@ -362,8 +374,10 @@
           this.$tool.getStorage('Login-Data').customerInfo.customerId : '',
         reportId: this.reportId,
         userId: this.userId,
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.nickName : '', //微信昵称
         wxOpenId: this.$tool.getStorage('customerWXId').openid,
         wxUnionId: this.$tool.getStorage('customerWXId').unionid,
       }
@@ -371,8 +385,10 @@
 
       //客户足迹埋点
       let addCustomerTrackparams = {
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
+        wxAvatarUrl: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('customerWXInfo') ? this.$tool.getStorage(
+          'customerWXInfo').userInfo.nickName : '', //微信昵称
         wxOpenId: this.$tool.getStorage('customerWXId').openid,
         wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
         stayTime: new Date().getTime() - this.beginTime,

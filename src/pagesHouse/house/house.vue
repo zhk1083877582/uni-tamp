@@ -63,6 +63,7 @@
         </u-button>
       </view>
     </u-mask>
+    <auth-phone scene='building' :userId='userId' ref='auth'></auth-phone>
   </view>
 </template>
 
@@ -78,6 +79,7 @@
   import houseHighlights from './components/houseHighlights.vue' //楼盘亮点
   import houseDisclaimer from './components/houseDisclaimer.vue' //免责声明
   import footBottom from '@/components/footer/index.vue'
+  import authPhone from '__com/auth/phone.vue'
   export default {
     components: {
       buildingInfo,
@@ -89,6 +91,7 @@
       houseHighlights,
       houseDisclaimer,
       footBottom,
+      authPhone
     },
     data() {
       return {
@@ -169,6 +172,7 @@
       if (this.userId) {
         this.getUserInfo()
       }
+      this.$refs.auth.start()
     },
     onHide() {},
     onUnload() {},

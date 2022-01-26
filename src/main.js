@@ -4,7 +4,7 @@ import App from './App'
 
 import config from 'config'
 config.init(Vue)
-
+import 'biz'
 
 import './static/icon/iconfont.css'
 import axios from 'axios'
