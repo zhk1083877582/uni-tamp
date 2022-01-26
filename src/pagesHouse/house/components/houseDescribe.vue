@@ -57,9 +57,9 @@ export default {
   .des {
     margin-top: 28rpx;
   }
-  ::v-deep .u-icon__icon {
-    display: none;
-  }
+  // ::v-deep .u-icon__icon {
+  //   display: none;
+  // }
   ::v-deep .u-content__showmore-wrap {
     justify-content: left;
   }

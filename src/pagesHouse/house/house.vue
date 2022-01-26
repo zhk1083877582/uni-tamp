@@ -45,10 +45,6 @@
     </house-highlights>
     <!-- 免责声明 -->
     <house-disclaimer></house-disclaimer>
-    <view class="pageHouse-bottom">
-      <footBottom v-if="userId" :userId='userId' modelType='2' :buildingId='buildingId'>
-      </footBottom>
-    </view>
     <u-mask :show="showAuthorize" mask-click-able="false">
       <view class="showAuthorize_warp" @tap.stop>
         <view class="authorize_title">
@@ -63,6 +59,9 @@
         </u-button>
       </view>
     </u-mask>
+    <view v-if='userId && buildingId'>
+      <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
+    </view>
     <auth-phone scene='building' :userId='userId' ref='auth'></auth-phone>
   </view>
 </template>
@@ -78,8 +77,8 @@
   import housePeriphery from './components/housePeriphery.vue' //周边配套
   import houseHighlights from './components/houseHighlights.vue' //楼盘亮点
   import houseDisclaimer from './components/houseDisclaimer.vue' //免责声明
-  import footBottom from '@/components/footer/index.vue'
   import authPhone from '__com/auth/phone.vue'
+  import consultantCard from '__com/consultant/card.vue'
   export default {
     components: {
       buildingInfo,
@@ -90,7 +89,7 @@
       housePeriphery,
       houseHighlights,
       houseDisclaimer,
-      footBottom,
+      consultantCard,
       authPhone
     },
     data() {

@@ -101,13 +101,11 @@
   import { getBuildingBaseInfo } from '@/request/api'
   import { getData } from '@/request/api'
   import buildingCard from '@/pagesHouse/adviserCard/components/buildingCard.vue'
-  import footBottom from '@/components/footer/index.vue'
   import rCanvas from '@/components/r-canvas/r-canvas.vue'
   import authPhone from '__com/auth/phone.vue'
   export default {
     components: {
       buildingCard,
-      footBottom,
       rCanvas,
       authPhone
     },

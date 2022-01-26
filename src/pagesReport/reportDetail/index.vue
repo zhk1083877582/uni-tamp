@@ -50,7 +50,6 @@
   import tipsPage from './components/tipsPage.vue'
   import consultantCard from '__com/consultant/card.vue'
   import authPhone from '__com/auth/phone.vue'
-  // import footBottom from '@/components/footer/index.vue'
   import { getData } from '@/request/api'
   export default {
     components: {
@@ -58,7 +57,6 @@
       publicPage, //样式相同的组件
       question, //置业问答
       tipsPage,
-      // footBottom,
       consultantCard,
       authPhone
     },
