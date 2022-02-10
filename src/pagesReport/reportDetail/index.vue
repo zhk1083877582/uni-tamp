@@ -38,7 +38,7 @@
       <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
     </view>
     
-    <auth-phone scene='book' :userId='userId' ref='auth'></auth-phone>
+    <auth-phone scene='book' :userId='userId' :buildingId='buildingId' ref='auth'></auth-phone>
     
   </view>
 </template>

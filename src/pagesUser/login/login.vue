@@ -55,19 +55,15 @@ export default {
       })
     },
     onGetUserInfo(e) {
-      uni.getUserProfile({
-        desc: 'Wexin', // 这个参数是必须的
-        success: (res) => {
-          console.log('用户信息', res)
-          this.$cache.setCache('customerWXInfo', res)
-          if (this.$cache.getCache('LoginTopath')) {
-            uni.reLaunch({
-              url: '/' + this.$cache.getCache('LoginTopath'),
-            })
-          } else {
-            uni.navigateBack()
-          }
-        },
+      this.$dt.biz.auth.update().then(res => {
+        this.$cache.setCache('customerWXInfo', res)
+        if (this.$cache.getCache('LoginTopath')) {
+          uni.reLaunch({
+            url: '/' + this.$cache.getCache('LoginTopath'),
+          })
+        } else {
+          uni.navigateBack()
+        }
       })
     },
     getWXId() {

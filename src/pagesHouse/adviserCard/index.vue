@@ -93,7 +93,7 @@
         <i class='iconfont iconicon_phone'></i>联系顾问
       </button>
     </view>
-    <auth-phone scene='card' :userId='userId'></auth-phone>
+    <auth-phone scene='card' :userId='userId' :buildingId='buildingId'></auth-phone>
   </view>
 </template>
 
@@ -111,7 +111,7 @@
     },
     data() {
       return {
-        buildingIdX: '', //app扫码进来，带过来buildingId时
+        buildingId: '', //app扫码进来，带过来buildingId时
         userId: '',
         configPicture: '', //楼盘配置图，如果不存在取c-app的封面图
         adviserInfo: {},
@@ -126,7 +126,6 @@
         baseInfo: [],
         beginTime: '',
         showAuthorize: false,
-        buildingId: '',
         // showModal: false,
         modalContent: `
 					您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
@@ -146,22 +145,22 @@
           obj[key] = item.split('=')[1]
         })
         this.userId = obj.uId || ''
-        this.buildingIdX = obj.bId || ''
+        this.buildingId = obj.bId || ''
         this.CustomerTrack.operateCanal = obj.type
         this.share.path =
           '/pagesHouse/adviserCard/index?userId=' +
           this.userId +
           '&buildingId=' +
-          this.buildingIdX +
+          this.buildingId +
           '&operateCanal=3'
       } else {
         this.userId = option.userId || ''
-        this.buildingIdX = option.buildingId || ''
+        this.buildingId = option.buildingId || ''
         this.share.path =
           '/pagesHouse/adviserCard/index?userId=' +
           this.userId +
           '&buildingId=' +
-          this.buildingIdX +
+          this.buildingId +
           '&operateCanal=3'
       }
       this.initUserInfo() //管家信息
@@ -184,19 +183,15 @@
         this.onGetUserInfo()
       },
       onGetUserInfo() {
-        uni.getUserProfile({
-          desc: 'Wexin', // 这个参数是必须的
-          success: (res) => {
-            console.log('用户信息', res)
-            this.$cache.setCache('customerWXInfo', res)
-            this.showAuthorize = false
-            uni.navigateTo({
-              url: '/pagesHouse/house/house?buildingId=' +
-                this.cardData.buildingId +
-                '&userId=' +
-                this.cardData.userId,
-            })
-          },
+        this.$dt.biz.auth.update().then(res => {
+          this.$cache.setCache('customerWXInfo', res)
+          this.showAuthorize = false
+          uni.navigateTo({
+            url: '/pagesHouse/house/house?buildingId=' +
+              this.cardData.buildingId +
+              '&userId=' +
+              this.cardData.userId,
+          })
         })
       },
       doChangeSwipe(val) {
@@ -204,7 +199,6 @@
         this.swiperInfo.current = val.detail.current
         this.currentPlan = 0
         let item = this.baseInfo[val.detail.current]
-        this.buildingId = item.buildingId
         //设置标题
         // uni.setNavigationBarTitle({
         // 	// title: item.buildingAlias||item.buildingName,
@@ -217,7 +211,7 @@
       getwxCodeUserCard() {
         let params = {
           userId: this.userId,
-          buildingId: this.buildingIdX,
+          buildingId: this.buildingId,
         }
         getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
           .then((res) => {
@@ -232,7 +226,7 @@
       initUserInfo() {
         let params = {
           userId: this.userId,
-          buildingId: this.buildingIdX,
+          buildingId: this.buildingId,
         }
         console.log('-------params', params)
         let self = this
@@ -253,11 +247,7 @@
               // title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
               title: res.userName ? `${res.userName}的个人主页` : '顾问主页',
             })
-            //获取buildingIds
-            let buildingIds = buildingInfos.map((item1) => {
-              return item1.buildingId
-            })
-            self.initBaseInfo(buildingIds)
+            self.initBaseInfo()
             // self.getwxCodeUserCard();
             // setTimeout(()=>{
             // 	self.createImg()
@@ -268,9 +258,9 @@
           })
       },
       // 楼盘-图片信息|基本信息
-      initBaseInfo(buildingIds) {
+      initBaseInfo() {
         let params = {
-          buildingIds: buildingIds,
+          buildingIds: [this.buildingId],
         }
         let self = this
         getBuildingBaseInfo('/dt-building/v1/agg/building/noToken/served', params)
@@ -330,17 +320,8 @@
             })
 
             self.baseInfo = arr
-            // console.log('----楼盘信息1',arr)
-            ;
-            (self.buildingId =
-              arr.length > 1 ?
-              arr[1].buildingId :
-              arr.length == 0 ?
-              arr[0].buildingId :
-              ''),
             //封面图
-            (self.configPicture =
-              arr.length > 1 ? arr[1].backgroundUrl : arr[0].backgroundUrl)
+            self.configPicture = arr[0].backgroundUrl
           })
           .catch((err) => {
             console.log('基本信息-err', err)

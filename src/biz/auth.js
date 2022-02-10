@@ -3,7 +3,8 @@ import server from '@dt/server/dt';
 
 let api = {
   phone: server.api().post("/dt-user/noToken/wx/wxLogin"),
-  login: server.api().post("/dt-user/noToken/wx/wxAuth")
+  login: server.api().post("/dt-user/noToken/wx/wxAuth"),
+  clue: server.api().post("/dt-user/noToken/wx/addCustomerCl"),// 线索
 }
 
 let infoKey = 'dt_wx_auth'
@@ -24,7 +25,7 @@ function phone(iv, encryData) {
     }).then(res => {
       info.phone = res.customerInfo.phone
       dt.storage.set(infoKey, info)
-      return res
+      return info
     })
   }
 }
@@ -51,6 +52,25 @@ function login() {
   })
 }
 
+function update() {
+  if (!info) {
+    return login().then(res => {
+      return update()
+    })
+  } else {
+    return new Promise((resolve, reject) => {
+      uni.getUserProfile({
+        desc: '用于个性化展示',
+        success: (res) => {
+          info.userInfo = res.userInfo
+          dt.storage.set(infoKey, info)
+          resolve(info)
+        },
+      })
+    })
+  }
+}
+
 function getInfo() {
   if (info) {
     return Promise.resolve(info)
@@ -62,5 +82,6 @@ function getInfo() {
 export default {
   phone,
   login,
-  getInfo
+  getInfo,
+  update
 }

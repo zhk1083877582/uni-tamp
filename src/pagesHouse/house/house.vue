@@ -62,7 +62,7 @@
     <view v-if='userId && buildingId'>
       <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
     </view>
-    <auth-phone scene='building' :userId='userId' ref='auth'></auth-phone>
+    <auth-phone scene='building' :buildingId='buildingId' :userId='userId' ref='auth'></auth-phone>
   </view>
 </template>
 
