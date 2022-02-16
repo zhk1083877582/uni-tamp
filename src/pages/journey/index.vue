@@ -323,9 +323,8 @@
           content: '退出登录后将无法查看订单，重新登录即可查看',
           success(res) {
             if (res.confirm) {
-              _this.$cache.removeCache('customerWXInfo')
-              _this.$cache.removeCache('customerWXId')
-              _this.$cache.removeCache('M-Token')
+              _this.$cache.removeCache('dt_wx_auth')
+              _this.$cache.removeCache('isPhoneLogin')
               _this.$cache.removeCache('Login-Data')
               _this.HasToken = false
             }
@@ -553,7 +552,7 @@
     created() {},
 
     onLoad(option) {
-      console.log('-----首页', this.$cache.getCache('customerWXInfo'))
+      console.log('-----首页', this.$cache.getCache('dt_wx_auth'))
       // this.getUserInfo();
       let customerId = this.$cache.getCache('Login-Data').customerInfo ?
         this.$cache.getCache('Login-Data').customerInfo.customerId :
@@ -561,14 +560,14 @@
       // this.userPhone = this.$cache.getCache('Login-Data').customerInfo
       //   ? this.$cache.getCache('Login-Data').customerInfo.phone
       //   : ''
-      let openid = this.$cache.getCache('customerWXId').openid ?
-        this.$cache.getCache('customerWXId').openid :
+      let openid = this.$cache.getCache('dt_wx_auth').openid ?
+        this.$cache.getCache('dt_wx_auth').openid :
         ''
-      let unionid = this.$cache.getCache('customerWXId').unionid ?
-        this.$cache.getCache('customerWXId').unionid :
+      let unionid = this.$cache.getCache('dt_wx_auth').unionid ?
+        this.$cache.getCache('dt_wx_auth').unionid :
         ''
       this.HasToken =
-        this.$cache.getCache('customerWXInfo') ||
+        this.$cache.getCache('dt_wx_auth') ||
         this.$cache.getCache('Login-Data').customerInfo ?
         true :
         false

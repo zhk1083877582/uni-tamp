@@ -59,7 +59,6 @@
     methods: {
       onGetUserInfo(e) {
         this.$dt.biz.auth.update().then(res => {
-          this.$cache.setCache('customerWXInfo', res)
           this.toreport()
         })
       },
@@ -117,7 +116,7 @@
 
       // this.getPhone()
       this.getReportData(option.reportId)
-      if (this.$cache.getCache('customerWXInfo')) {
+      if (this.$cache.getCache('dt_wx_auth')) {
         this.showAuthorize = true
       } else {
         this.showAuthorize = false

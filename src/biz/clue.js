@@ -3,6 +3,7 @@ import server from '@dt/server/dt';
 
 let api = {
   add: server.api().post("/dt-user/noToken/wx/addCustomerCl"),
+  shortArticle: server.api().post('/dt-marketing/noToken/shortArticle/scanPicture')
 }
 
 function add(clueChannelId, userId, buildingId) {
@@ -18,6 +19,15 @@ function add(clueChannelId, userId, buildingId) {
   })
 }
 
+function shortArticle(shortArticleId, consultantName, buildName) {
+  return api.shortArticle.fetch({
+    shortArticleId,
+    consultantName,
+    buildName,
+  })
+}
+
 export default {
-  add
+  add,
+  shortArticle
 }

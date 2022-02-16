@@ -173,7 +173,7 @@ export default {
 			}
 			
 			imBaseUserId = 'C2C' + imBaseUserId;
-			if (!this.$cache.getCache('M-Token')) {
+			if (!this.$cache.getCache('isPhoneLogin')) {
 				uni.navigateTo({
 					url: `/pagesUser/login/login?topath=pagesChat/chatDetail/chatDetail&id=${imBaseUserId}&title=${userName}`
 				});
@@ -185,8 +185,8 @@ export default {
 		},
 		changeCollection() {
 			getData('/tospurWeb/pclogin/checkLogin', {
-				// token: this.$tool.getToken()
-				token: this.$cache.getCache('M-Token')
+				// token: this.$tool.isPhoneLogin()
+				token: this.$cache.getCache('isPhoneLogin')
 			})
 				.then(res => {
 					let params, url;
@@ -309,7 +309,7 @@ export default {
 					}
 					this.messList.annexs = [];
 					uni.setStorageSync('showSentBuild', JSON.stringify(this.messList));
-					if (!this.$cache.getCache('M-Token')) {
+					if (!this.$cache.getCache('isPhoneLogin')) {
 						uni.navigateTo({
 							url: `/pagesUser/login/login?topath=pagesChat/chatDetail/chatDetail&id=${imBaseUserId}&title=${userName}`
 						});
@@ -336,7 +336,7 @@ export default {
 					 // #ifdef  MP-TOUTIAO
 					  params.source = 25;
 					   // #endif
-				if (this.$tool.getToken()) {
+				if (this.$tool.isPhoneLogin()) {
 					console.log('登录了')
 					console.log(val)
 					getData("/tospurWeb/api/capp/v1/user/getUserPhone", params)

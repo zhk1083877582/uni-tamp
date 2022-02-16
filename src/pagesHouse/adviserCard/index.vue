@@ -113,6 +113,7 @@
       return {
         buildingId: '', //app扫码进来，带过来buildingId时
         userId: '',
+        articleId: null,
         configPicture: '', //楼盘配置图，如果不存在取c-app的封面图
         adviserInfo: {},
         //滑动信息
@@ -146,7 +147,8 @@
         })
         this.userId = obj.uId || ''
         this.buildingId = obj.bId || ''
-        this.CustomerTrack.operateCanal = obj.type
+        this.articleId = obj.a
+        this.CustomerTrack.operateCanal = obj.type || 1
         this.share.path =
           '/pagesHouse/adviserCard/index?userId=' +
           this.userId +
@@ -184,7 +186,6 @@
       },
       onGetUserInfo() {
         this.$dt.biz.auth.update().then(res => {
-          this.$cache.setCache('customerWXInfo', res)
           this.showAuthorize = false
           uni.navigateTo({
             url: '/pagesHouse/house/house?buildingId=' +
@@ -322,6 +323,11 @@
             self.baseInfo = arr
             //封面图
             self.configPicture = arr[0].backgroundUrl
+            
+            console.log(this.adviserInfo.userName, arr[0].buildingAlias)
+            if (this.articleId) {
+              this.$dt.biz.clue.shortArticle(this.articleId, this.adviserInfo.userName, arr[0].buildingAlias)
+            }
           })
           .catch((err) => {
             console.log('基本信息-err', err)

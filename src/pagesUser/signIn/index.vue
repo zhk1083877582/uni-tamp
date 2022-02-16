@@ -154,60 +154,22 @@
     },
     methods: {
       onGetPhoneNumber(e) {
-        if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {} else {
-          //允许授权
-          let params = {
-            iv: e.detail.iv,
-            encryData: e.detail.encryptedData,
-            sessionKey: this.session_key,
-            openId: this.openid,
-            loginType: 0,
-            registerCity: this.$cache.getCache('storageCity') || '',
-          }
-          let api = '/dt-user/noToken/wx/wxLogin'
-          getData(api, params)
-            .then((res) => {
-              console.log(res)
-              this.$cache.setCache('M-Token', res['token'])
-              this.$cache.setCache('Login-Data', res)
-              this.$cache.setCache('loginFlag', true)
-              this.$cache.setCache('loginFlag1', true)
-              this.showAuthorize = true
-              let { phone } = res.customerInfo || {}
-              if (phone) {
-                this.doAddCustorm(phone)
-              }
-            })
-            .catch((err) => {
-              console.log('请求结果报错', err)
-            })
-        }
-      },
-      getPhone() {
-        const self = this
-        uni.login({
-          success: (res) => {
-            console.log(res, 123)
-            if (res.code) {
-              //微信登录成功 已拿到code
-              self.jsCode = res.code //保存获取到的code
-              let params = {
-                jsCode: res.code,
-              }
-              let api = '/dt-user/noToken/wx/wxAuth'
-              getData(api, params)
-                .then((res) => {
-                  self.openid = res.openid //openid 用户唯一标识
-                  self.session_key = res.session_key //session_key  会话密钥
-                })
-                .catch((err) => {
-                  console.log('微信登录报错', err)
-                })
-            } else {
-              console.log('登录失败！' + res.errMsg)
+        let res = e.detail
+        if (res.errMsg.indexOf(':ok') >= 0) {
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData).then(res => {
+            this.$cache.setCache('isPhoneLogin', true)
+            this.$cache.setCache('Login-Data', res.login)
+            this.$cache.setCache('loginFlag', true)
+            this.$cache.setCache('loginFlag1', true)
+            this.showAuthorize = true
+            let { phone } = res.customerInfo || {}
+            if (phone) {
+              this.doAddCustorm(phone)
             }
-          },
-        })
+          })
+        } else {
+          console.warn(res.errMsg)
+        }
       },
       //保存顾问名片
       downloadUserImg(url) {
@@ -331,9 +293,8 @@
         this.buildingIdX = option.buildingId
       }
       this.initUserInfo() //管家信息
-      if (!this.$cache.getCache('M-Token')) {
+      if (!this.$cache.getCache('isPhoneLogin')) {
         this.showAuthorize = false
-        this.getPhone()
       } else {
 		  console.log('userId&&&buildingIdX', this.userId,this.buildingIdX)
         if (this.buildingIdX) {

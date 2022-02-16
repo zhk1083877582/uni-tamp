@@ -81,7 +81,7 @@
         let api = '/dt-user/noToken/wx/wxLogin'
         getData(api, params).then((res) => {
           console.log('---telLogin', res)
-          this.$cache.setCache('M-Token', res['token']);
+          this.$cache.setCache('isPhoneLogin', res['token']);
           this.$cache.setCache('Login-Data', res);
           console.log(this.$cache.getCache('LoginTopath'), '电话登录')
           if (this.$cache.getCache('LoginTopath')) {

@@ -62,7 +62,8 @@
     <view v-if='userId && buildingId'>
       <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
     </view>
-    <auth-phone scene='building' :buildingId='buildingId' :userId='userId' ref='auth'></auth-phone>
+    <auth-phone scene='building' :buildingId='buildingId' :userId='userId' ref='auth'>
+    </auth-phone>
   </view>
 </template>
 
@@ -247,59 +248,17 @@
             console.log('管家信息', err)
           })
       },
-      // 获取jsCode openid session_key
-      getPhone() {
-        const self = this
-        uni.login({
-          success: (res) => {
-            console.log('---jsCode', res)
-            if (res.code) {
-              //微信登录成功 已拿到code
-              self.jsCode = res.code //保存获取到的code
-              let params = {
-                jsCode: res.code,
-              }
-              let api = '/dt-user/noToken/wx/wxAuth'
-              getData(api, params)
-                .then((res) => {
-                  console.log('----openid||session_key', res)
-                  self.openid = res.openid //openid 用户唯一标识
-                  self.session_key = res.session_key //session_key  会话密钥
-                })
-                .catch((err) => {
-                  console.log('请求结果报错', err)
-                })
-            } else {
-              console.log('登录失败！' + res.errMsg)
-            }
-          },
-        })
-      },
       onGetPhoneNumber(e) {
-        console.log('-----login-btn', e)
-        if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-          //用户决绝授权
-          //拒绝授权后弹出一些提示
+        let res = e.detail
+        if (res.errMsg.indexOf(':ok') >= 0) {
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData).then(res => {
+            this.$cache.setCache('isPhoneLogin', true)
+            this.$cache.setCache('Login-Data', res.login)
+            this.showAuthorize = false
+            this.initBaseInfo()
+          })
         } else {
-          //允许授权
-          let params = {
-            iv: e.detail.iv,
-            encryData: e.detail.encryptedData,
-            sessionKey: this.session_key,
-            openId: this.openid,
-            loginType: 0,
-          }
-          let api = '/dt-user/noToken/wx/wxLogin'
-          getData(api, params)
-            .then((res) => {
-              this.$cache.setCache('M-Token', res['token'])
-              this.$cache.setCache('Login-Data', res)
-              this.showAuthorize = false
-              this.initBaseInfo()
-            })
-            .catch((err) => {
-              console.log('请求结果报错', err)
-            })
+          console.warn(res.errMsg)
         }
       },
       // srcoll-tabs切换

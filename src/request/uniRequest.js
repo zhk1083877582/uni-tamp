@@ -22,10 +22,10 @@ import encryptList from "@/request/encrypt.js"
         // 请求开始的时候可以结合 vuex 开启全屏的 loading 动画
 
         // Tip: 2
-        if (tool.getToken()) {
-            // config.headers['token'] = tool.getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+        if (tool.isPhoneLogin()) {
+            // config.headers['token'] = tool.isPhoneLogin() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
 			// config.headers['appId'] = tool.getStorage('Login-Data').customerInfo.appId||'36'
-			// console.log(tool.getToken(),'token  token')
+			// console.log(tool.isPhoneLogin(),'token  token')
         } else {
             // 重定向到登录页面
         }
@@ -124,7 +124,7 @@ import encryptList from "@/request/encrypt.js"
 							// 	url: '/pages/journey/index'
 							// });
 							// showToast("未授权，请登录");
-				cache.removeCache('M-Token');
+				cache.removeCache('isPhoneLogin');
 				cache.removeCache('Login-Data');
 				return Promise.reject(err.response) // 返回接口返回的错误信息
               err.message = false;

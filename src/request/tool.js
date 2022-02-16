@@ -123,8 +123,8 @@ const TOOL = {
     }
     return decryptValue
   },
-  getToken() {
-    return uni.getStorageSync("M-Token") || ''
+  isPhoneLogin() {
+    return uni.getStorageSync("isPhoneLogin") || false
   },
   getCookie: function (name) {
     var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");

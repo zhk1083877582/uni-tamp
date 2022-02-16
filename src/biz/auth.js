@@ -24,6 +24,7 @@ function phone(iv, encryData) {
       loginType: 0
     }).then(res => {
       info.phone = res.customerInfo.phone
+      info.login = res
       dt.storage.set(infoKey, info)
       return info
     })

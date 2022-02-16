@@ -34,7 +34,6 @@ export default {
       option: '',
       pin: '',
       pinWx: '',
-      jsCode: '',
       openid: '',
       unionid: '',
       session_key: '',
@@ -56,7 +55,6 @@ export default {
     },
     onGetUserInfo(e) {
       this.$dt.biz.auth.update().then(res => {
-        this.$cache.setCache('customerWXInfo', res)
         if (this.$cache.getCache('LoginTopath')) {
           uni.reLaunch({
             url: '/' + this.$cache.getCache('LoginTopath'),
@@ -65,30 +63,7 @@ export default {
           uni.navigateBack()
         }
       })
-    },
-    getWXId() {
-      const self = this
-      uni.login({
-        success: (res) => {
-          if (res.code) {
-            self.jsCode = res.code //保存获取到的code
-            let params = {
-              jsCode: res.code,
-            }
-            let api = '/dt-user/noToken/wx/wxAuth'
-            getData(api, params)
-              .then((res) => {
-                this.$cache.setCache('customerWXId', res)
-              })
-              .catch((err) => {
-                console.log('请求结果报错', err)
-              })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
-        },
-      })
-    },
+    }
   },
   onLoad(option) {
     let pinStr1 = '',
@@ -110,7 +85,6 @@ export default {
       this.$cache.setCache('LoginTopath', this.pinWx)
       console.log('LoginTopath', this.pinWx)
     }, 400)
-    this.getWXId()
   },
 }
 </script>
