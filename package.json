@@ -102,7 +102,7 @@
 		"less-loader": "4.1.0",
 		"mini-types": "*",
 		"miniprogram-api-typings": "*",
-		"miniprogram-ci": "^1.6.1",
+		"miniprogram-ci": "^1.8.0",
 		"postcss-comment": "^2.0.0",
 		"sass": "^1.42.1",
 		"sass-loader": "8.0.0",
