@@ -251,7 +251,7 @@
       onGetPhoneNumber(e) {
         let res = e.detail
         if (res.errMsg.indexOf(':ok') >= 0) {
-          this.$dt.biz.auth.phone(res.iv, res.encryptedData).then(res => {
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId).then(res => {
             this.$cache.setCache('isPhoneLogin', true)
             this.$cache.setCache('Login-Data', res.login)
             this.showAuthorize = false

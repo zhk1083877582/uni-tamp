@@ -4,19 +4,22 @@ import server from '@dt/server/dt';
 let api = {
   phone: server.api().post("/dt-user/noToken/wx/wxLogin"),
   login: server.api().post("/dt-user/noToken/wx/wxAuth"),
-  clue: server.api().post("/dt-user/noToken/wx/addCustomerCl"),// 线索
+  clue: server.api().post("/dt-user/noToken/wx/addCustomerCl"), // 线索
+  authPhone: server.api().get(
+  "/dt-customer/customer/xcxClue/noToken/findByUserIdAndCustomerPhone").auth(false), // 顾问是否授权手机号
 }
 
 let infoKey = 'dt_wx_auth'
 let info = dt.storage.get(infoKey)
 
-function phone(iv, encryData) {
+function phone(iv, encryData, userId) {
   if (!info) {
     return login().then(res => {
       return phone(iv, encryData)
     })
   } else {
     return api.phone.fetch({
+      userId,
       iv,
       encryData,
       sessionKey: info.session_key,
@@ -45,7 +48,7 @@ function login() {
             dt.storage.set(infoKey, info) //openid session_key
             resolve(info)
           }, reject)
-        } else { 
+        } else {
           reject(res.errMsg)
         }
       }
@@ -80,9 +83,24 @@ function getInfo() {
   }
 }
 
+function authPhone(userId) {
+  return getInfo().then(res => {
+    let customerPhone = res.phone
+    if (customerPhone) {
+      return api.authPhone.fetch({
+        userId,
+        customerPhone
+      })
+    } else {
+      return false
+    }
+  })
+}
+
 export default {
   phone,
   login,
   getInfo,
-  update
+  update,
+  authPhone
 }
