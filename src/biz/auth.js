@@ -13,11 +13,14 @@ let infoKey = 'dt_wx_auth'
 let info = dt.storage.get(infoKey)
 
 function phone(iv, encryData, userId) {
+  let info = dt.storage.get(infoKey)
+  console.log('phone start')
   if (!info) {
     return login().then(res => {
       return phone(iv, encryData)
     })
   } else {
+    console.log('发起请求 wxLogin')
     return api.phone.fetch({
       userId,
       iv,
@@ -35,6 +38,7 @@ function phone(iv, encryData, userId) {
 }
 
 function login() {
+  let info = dt.storage.get(infoKey)
   return new Promise((resolve, reject) => {
     uni.login({
       success: (res) => {
@@ -57,6 +61,7 @@ function login() {
 }
 
 function update() {
+  let info = dt.storage.get(infoKey)
   if (!info) {
     return login().then(res => {
       return update()
@@ -76,6 +81,8 @@ function update() {
 }
 
 function getInfo() {
+  let info = dt.storage.get(infoKey)
+  console.log(info)
   if (info) {
     return Promise.resolve(info)
   } else {
