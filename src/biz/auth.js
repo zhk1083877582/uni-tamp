@@ -6,7 +6,7 @@ let api = {
   login: server.api().post("/dt-user/noToken/wx/wxAuth"),
   clue: server.api().post("/dt-user/noToken/wx/addCustomerCl"), // 线索
   authPhone: server.api().get(
-  "/dt-customer/customer/xcxClue/noToken/findByUserIdAndCustomerPhone").auth(false), // 顾问是否授权手机号
+  "/dt-customer/customer/xcxClue/noToken/findByUserIdAndCustomerPhone"), // 顾问是否授权手机号
 }
 
 let infoKey = 'dt_wx_auth'
