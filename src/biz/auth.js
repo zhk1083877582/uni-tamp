@@ -12,7 +12,7 @@ let api = {
 let infoKey = 'dt_wx_auth'
 let info = dt.storage.get(infoKey)
 
-function phone(iv, encryData, userId) {
+function phone(iv, encryData, userId, buildingId) {
   let info = dt.storage.get(infoKey)
   console.log('phone start')
   if (!info) {
@@ -22,6 +22,7 @@ function phone(iv, encryData, userId) {
   } else {
     console.log('发起请求 wxLogin')
     return api.phone.fetch({
+      buildingId,
       userId,
       iv,
       encryData,
@@ -51,7 +52,13 @@ function login() {
             }
             dt.storage.set(infoKey, info) //openid session_key
             resolve(info)
-          }, reject)
+          }).catch(err => {
+            uni.showToast({
+              icon: 'none',
+              title: '登录失败'
+            })
+            reject(err)
+          })
         } else {
           reject(res.errMsg)
         }
@@ -90,12 +97,13 @@ function getInfo() {
   }
 }
 
-function authPhone(userId) {
+function authPhone(userId, buildingId) {
   return getInfo().then(res => {
     let customerPhone = res.phone
     if (customerPhone) {
       return api.authPhone.fetch({
         userId,
+        buildingId,
         customerPhone
       })
     } else {

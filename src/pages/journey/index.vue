@@ -405,7 +405,7 @@
       tohouseKeeper(e, item) {
         console.log(e, item)
         uni.navigateTo({
-          url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id,
+          url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id + '&buildingId=' + item.buildingId,
         })
       },
       // 拨打电话

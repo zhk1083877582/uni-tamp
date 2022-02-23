@@ -146,7 +146,7 @@
 			`,
         adviserInfo: {},
         userId: '',
-        buildingIdX: '', //app扫码进来，带过来buildingId时
+        buildingId: '', //app扫码进来，带过来buildingId时
         wxcodeCard: '',
         canvasImg: '',
         flagDownloadImg: true, //控制下载按钮
@@ -156,7 +156,7 @@
       onGetPhoneNumber(e) {
         let res = e.detail
         if (res.errMsg.indexOf(':ok') >= 0) {
-          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId).then(res => {
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId).then(res => {
             this.$cache.setCache('isPhoneLogin', true)
             this.$cache.setCache('Login-Data', res.login)
             this.$cache.setCache('loginFlag', true)
@@ -188,7 +188,7 @@
         let self = this
         let params = {
           uId: this.userId,
-          bId: this.buildingIdX,
+          bId: this.buildingId,
           type: 1,
           pageType: 1,
         }
@@ -233,7 +233,7 @@
       initUserInfo() {
         let params = {
           userId: this.userId,
-          buildingId: this.buildingIdX,
+          buildingId: this.buildingId,
         }
         let self = this
         getData('/dt-user/v1/aggs/user/noToken/get', params)
@@ -259,10 +259,10 @@
       },
       // 把当前手机号推进客户池
       doAddCustorm(phone) {
-		  console.log('进入推进客户池', phone,this.buildingIdX,this.userId)
+		  console.log('进入推进客户池', phone,this.buildingId,this.userId)
         let params = {
           customerPhone: phone,
-          buildingId: this.buildingIdX,
+          buildingId: this.buildingId,
           userId: this.userId,
           checkInType: 1 //到类型: 1扫码签到 2手动签到 3新增客户签到
         }
@@ -287,17 +287,17 @@
           obj[key] = item.split('=')[1]
         })
         this.userId = obj.uId
-        this.buildingIdX = obj.bId
+        this.buildingId = obj.bId
       } else {
         this.userId = option.userId
-        this.buildingIdX = option.buildingId
+        this.buildingId = option.buildingId
       }
       this.initUserInfo() //管家信息
       if (!this.$cache.getCache('isPhoneLogin')) {
         this.showAuthorize = false
       } else {
-		  console.log('userId&&&buildingIdX', this.userId,this.buildingIdX)
-        if (this.buildingIdX) {
+		  console.log('userId&&&buildingId', this.userId,this.buildingId)
+        if (this.buildingId) {
           let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
 		  console.log('手机号是否存在', phone)
           if (phone) {
