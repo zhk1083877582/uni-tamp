@@ -17,6 +17,7 @@
       <view class="user_msg">
         <view class="user_msg_left">
           <view class="avatarTou">
+            
             <open-data type="userAvatarUrl"></open-data>
           </view>
           <view class="name_phone">
@@ -420,8 +421,7 @@
         getData('/dt-user/v1/aggs/user/noToken/get', params)
           .then((res) => {
             console.log('管家信息', res)
-            self.userInfo = res
-            if (!self.userInfo.phone) {
+            if (!res.phone) {
               uni.showToast({
                 title: '暂无顾问电话',
                 icon: 'none',
@@ -431,7 +431,7 @@
             }
             uni.makePhoneCall({
               // 手机号
-              phoneNumber: self.userInfo.phone,
+              phoneNumber: res.phone,
               // 成功回调
               success: (res) => {},
               // 失败回调
@@ -553,7 +553,10 @@
 
     onLoad(option) {
       console.log('-----首页', this.$cache.getCache('dt_wx_auth'))
-      // this.getUserInfo();
+      this.$dt.biz.auth.getInfo().then(res => {
+        this.userInfo = res
+        console.log(res)
+      })
       let customerId = this.$cache.getCache('Login-Data').customerInfo ?
         this.$cache.getCache('Login-Data').customerInfo.customerId :
         ''

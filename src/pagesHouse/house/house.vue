@@ -160,8 +160,9 @@
           const key = item.split('=')[0]
           obj[key] = item.split('=')[1]
         })
-        this.userId = obj.userId
-        this.buildingId = obj.buildingId
+        this.userId = obj.uId || ''
+        this.buildingId = obj.bId || ''
+        this.articleId = obj.a
       } else {
         this.buildingId = option.buildingId
         this.userId = option.userId
@@ -169,9 +170,6 @@
       this.initBaseInfo()
       this.initGetAnnex()
       //获取顾问400手机号码
-      if (this.userId) {
-        this.getUserInfo()
-      }
       this.$refs.auth.start()
     },
     onHide() {},
@@ -243,6 +241,10 @@
           .then((res) => {
             console.log('------管家信息', res)
             this.fourPhone = res.phone || ''
+            if (this.articleId) {
+              this.$dt.biz.clue.shortArticle(this.articleId, res.userName, this.baseInfo
+                .buildingAlias)
+            }
           })
           .catch((err) => {
             console.log('管家信息', err)
@@ -251,12 +253,13 @@
       onGetPhoneNumber(e) {
         let res = e.detail
         if (res.errMsg.indexOf(':ok') >= 0) {
-          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId).then(res => {
-            this.$cache.setCache('isPhoneLogin', true)
-            this.$cache.setCache('Login-Data', res.login)
-            this.showAuthorize = false
-            this.initBaseInfo()
-          })
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
+            .then(res => {
+              this.$cache.setCache('isPhoneLogin', true)
+              this.$cache.setCache('Login-Data', res.login)
+              this.showAuthorize = false
+              this.initBaseInfo()
+            })
         } else {
           console.warn(res.errMsg)
         }
@@ -339,6 +342,11 @@
               baseInfo.lat && baseInfo.lng ? true : false
             //楼盘亮点
             self.getBrightSpotList(brightSpot)
+
+            if (this.userId) {
+              this.getUserInfo()
+            }
+
           })
           .catch((err) => {
             console.log('基本信息-err', err)

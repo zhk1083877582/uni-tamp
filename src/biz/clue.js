@@ -1,7 +1,7 @@
 import dt from '@dt/dt';
 import server from '@dt/server/dt';
 
-let api = {
+const api = {
   add: server.api().post("/dt-user/noToken/wx/addCustomerCl"),
   shortArticle: server.api().post('/dt-marketing/noToken/shortArticle/scanPicture')
 }

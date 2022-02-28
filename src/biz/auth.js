@@ -1,7 +1,7 @@
 import dt from '@dt/dt';
 import server from '@dt/server/dt';
 
-let api = {
+const api = {
   phone: server.api().post("/dt-user/noToken/wx/wxLogin"),
   login: server.api().post("/dt-user/noToken/wx/wxAuth"),
   clue: server.api().post("/dt-user/noToken/wx/addCustomerCl"), // 线索
@@ -9,11 +9,10 @@ let api = {
   "/dt-customer/customer/xcxClue/noToken/findByUserIdAndCustomerPhone"), // 顾问是否授权手机号
 }
 
-let infoKey = 'dt_wx_auth'
-let info = dt.storage.get(infoKey)
+const infoKey = 'dt_wx_auth'
 
 function phone(iv, encryData, userId, buildingId) {
-  let info = dt.storage.get(infoKey)
+  let info = getInfoSync()
   console.log('phone start')
   if (!info) {
     return login().then(res => {
@@ -39,7 +38,7 @@ function phone(iv, encryData, userId, buildingId) {
 }
 
 function login() {
-  let info = dt.storage.get(infoKey)
+  let info = getInfoSync()
   return new Promise((resolve, reject) => {
     uni.login({
       success: (res) => {
@@ -68,7 +67,7 @@ function login() {
 }
 
 function update() {
-  let info = dt.storage.get(infoKey)
+  let info = getInfoSync()
   if (!info) {
     return login().then(res => {
       return update()
@@ -87,8 +86,12 @@ function update() {
   }
 }
 
+function getInfoSync() {
+  return dt.storage.get(infoKey)
+}
+
 function getInfo() {
-  let info = dt.storage.get(infoKey)
+  let info = getInfoSync()
   console.log(info)
   if (info) {
     return Promise.resolve(info)
