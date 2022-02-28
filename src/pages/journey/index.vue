@@ -16,13 +16,10 @@
       :style="ishowbuilding?'padding-bottom:97rpx':'background:transparent'" v-else>
       <view class="user_msg">
         <view class="user_msg_left">
-          <view class="avatarTou">
-            
-            <open-data type="userAvatarUrl"></open-data>
-          </view>
+          <image class="avatarTou" :src="userInfo.avatarUrl" mode="widthFix"></image>
           <view class="name_phone">
             <view class="name" v-show="authorize">
-              <open-data type="userNickName"></open-data>
+              {{userInfo.nickName}}
             </view>
             <view class="phone" :class="{'authorize_Y':authorize!=true}">
               {{phoneFormat}}
@@ -406,7 +403,8 @@
       tohouseKeeper(e, item) {
         console.log(e, item)
         uni.navigateTo({
-          url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id + '&buildingId=' + item.buildingId,
+          url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id +
+            '&buildingId=' + item.buildingId,
         })
       },
       // 拨打电话
@@ -554,7 +552,7 @@
     onLoad(option) {
       console.log('-----首页', this.$cache.getCache('dt_wx_auth'))
       this.$dt.biz.auth.getInfo().then(res => {
-        this.userInfo = res
+        this.userInfo = res.userInfo
         console.log(res)
       })
       let customerId = this.$cache.getCache('Login-Data').customerInfo ?
