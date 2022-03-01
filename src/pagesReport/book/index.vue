@@ -58,13 +58,8 @@
     watch: {},
     methods: {
       onGetUserInfo(e) {
-        uni.getUserProfile({
-          desc: 'Wexin', // 这个参数是必须的
-          success: (res) => {
-            console.log('用户信息', res)
-            this.$cache.setCache('customerWXInfo', res)
-            this.toreport()
-          },
+        this.$dt.biz.auth.update().then(res => {
+          this.toreport()
         })
       },
       toreport() {
@@ -121,7 +116,7 @@
 
       // this.getPhone()
       this.getReportData(option.reportId)
-      if (this.$cache.getCache('customerWXInfo')) {
+      if (this.$cache.getCache('dt_wx_auth')) {
         this.showAuthorize = true
       } else {
         this.showAuthorize = false

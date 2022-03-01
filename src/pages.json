@@ -1,246 +1,245 @@
 {
-	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
+  "easycom": {
+    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
     "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue", // 匹配components目录内的vue文件
     "^dt-(.*)-(.*)": "@dt/component/dt/$1/dt-$1-$2.vue",
     "^dt-(.*)": "@dt/component/dt/$1/dt-$1.vue"
-	},
-	"pages": [
-		{
-			"path": "pages/journey/index",
-			"style": {
-				"navigationBarTitleText": "购房旅程",
-				"app-plus": {
-					"titleNView": false,
-					"bounce": "none"
-				}
-			}
-		}
-	],
-	"subPackages": [{
-			"root": "pages_com",
-			"pages": [
-				{
-					"path": "loan/index",
-					"style": {
-						"navigationBarTitleText": "贷款计算器"
-					}
-				},
-				{
-					"path": "loan/result",
-					"style": {
-						"navigationBarTitleText": "贷款计算结果"
-					}
-				},
-				{
-					"path": "integral/index",
-					"style": {
-						"navigationBarTitleText": "上海买房积分计算器"
-					}
-				}
-			]
-		},
-		{
-			"root": "pagesReport",
-			"pages": [
-				{
-					"path": "reportDetail/index",
-					"style": {
-						"navigationBarTitleText": "专属置业计划书",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},
-				{
-					"path": "book/index",
-					"style": {
-						"navigationBarTitleText": "专属置业计划书",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},
-				{
-					"path": "idealHome/index",
-					"style": {
-						"navigationBarTitleText": "我的理想家",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				}
-			]
-		},
-		{
-			"root": "pagesHouse",
-			"pages": [
-				{
-					"path": "adviserCard/index",
-					"style": {
-						"navigationBarTitleText": "顾问主页",
-						"navigationBarTextStyle": "black",
-						"navigationBarBackgroundColor": "#ffffff",
-						"enablePullDownRefresh": false
-					}
-				},
-				{
-					"path": "house/house",
-					"style": {
-						"navigationBarTitleText": "楼盘详情",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},
-				{
-					"path": "webView/webView",
-					"style": {
-						"navigationBarTitleText": "",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				}
-				// ,{
-				// 	"path": "moreBuildDetail/index",
-				// 	"style": {
-				// 		"navigationBarTitleText": "楼盘详情",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// },{
-				// 	"path": "unitBuilding/index",
-				// 	"style": {
-				// 		"navigationBarTitleText": "楼栋",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// },{
-				// 	"path": "majordomoList/index",
-				// 	"style": {
-				// 		"navigationBarTitleText": "优秀管家",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// },{
-				// 	"path": "propertyDynamic/index",
-				// 	"style": {
-				// 		"navigationBarTitleText": "楼盘动态",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// },{
-				// 	"path": "VR/index",
-				// 	"style": {
-				// 		"navigationBarTitleText": "",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// },{
-				// 	"path": "houseTypeList/houseTypeList",
-				// 	"style": {
-				// 		"navigationBarTitleText": "户型列表",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// },{
-				// 	"path": "houseTypeDetails/houseTypeDetails",
-				// 	"style": {
-				// 		"navigationBarTitleText": "户型详情",
-				// 		"app-plus": {
-				// 			"titleNView": false,
-				// 			"bounce": "none"
-				// 		}
-				// 	}
-				// }
-			]
-		},
-		{
-			"root": "pagesUser",
-			"pages": [
-				{
-					"path": "login/login",
-					"style": {
-						"navigationBarTitleText": "登录置业笔记",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},
-				{
-					"path": "login/telLogin",
-					"style": {
-						"navigationBarTitleText": "登录置业笔记",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},
-				{
-					"path": "login/agreement",
-					"style": {
-						"navigationBarTitleText": "置业笔记产品使用协议",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				},
-				{
-					"path": "signIn/index",
-					"style": {
-						"navigationBarTitleText": "扫码签到",
-						"app-plus": {
-							"titleNView": false,
-							"bounce": "none"
-						}
-					}
-				}
-			]
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "置业笔记",
-		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#F8F8F8"
-	},
+  },
+  "pages": [
+  {
+    "path": "pages/journey/index",
+    "style": {
+      "navigationBarTitleText": "购房旅程",
+      "app-plus": {
+        "titleNView": false,
+        "bounce": "none"
+      }
+    }
+  }],
+  "subPackages": [{
+    "root": "pages_com",
+    "pages": [
+    {
+      "path": "loan/index",
+      "style": {
+        "navigationBarTitleText": "贷款计算器"
+      }
+    },
+    {
+      "path": "loan/result",
+      "style": {
+        "navigationBarTitleText": "贷款计算结果"
+      }
+    },
+    {
+      "path": "integral/index",
+      "style": {
+        "navigationBarTitleText": "上海买房积分计算器"
+      }
+    }]
+  },
+  {
+    "root": "pagesReport",
+    "pages": [
+    {
+      "path": "reportDetail/index",
+      "style": {
+        "navigationBarTitleText": "专属置业计划书",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "book/index",
+      "style": {
+        "navigationBarTitleText": "专属置业计划书",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "idealHome/index",
+      "style": {
+        "navigationBarTitleText": "我的理想家",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    }]
+  },
+  {
+    "root": "pagesHouse",
+    "pages": [
+      {
+        "path": "adviserCard/index",
+        "style": {
+          "navigationBarTitleText": "顾问主页",
+          "navigationBarTextStyle": "black",
+          "navigationBarBackgroundColor": "#ffffff",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "house/house",
+        "style": {
+          "navigationBarTitleText": "楼盘详情",
+          "app-plus": {
+            "titleNView": false,
+            "bounce": "none"
+          }
+        }
+      },
+      {
+        "path": "webView/webView",
+        "style": {
+          "navigationBarTitleText": "",
+          "app-plus": {
+            "titleNView": false,
+            "bounce": "none"
+          }
+        }
+      }
+      // ,{
+      // 	"path": "moreBuildDetail/index",
+      // 	"style": {
+      // 		"navigationBarTitleText": "楼盘详情",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // },{
+      // 	"path": "unitBuilding/index",
+      // 	"style": {
+      // 		"navigationBarTitleText": "楼栋",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // },{
+      // 	"path": "majordomoList/index",
+      // 	"style": {
+      // 		"navigationBarTitleText": "优秀管家",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // },{
+      // 	"path": "propertyDynamic/index",
+      // 	"style": {
+      // 		"navigationBarTitleText": "楼盘动态",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // },{
+      // 	"path": "VR/index",
+      // 	"style": {
+      // 		"navigationBarTitleText": "",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // },{
+      // 	"path": "houseTypeList/houseTypeList",
+      // 	"style": {
+      // 		"navigationBarTitleText": "户型列表",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // },{
+      // 	"path": "houseTypeDetails/houseTypeDetails",
+      // 	"style": {
+      // 		"navigationBarTitleText": "户型详情",
+      // 		"app-plus": {
+      // 			"titleNView": false,
+      // 			"bounce": "none"
+      // 		}
+      // 	}
+      // }
+    ]
+  },
+  {
+    "root": "pagesUser",
+    "pages": [
+    {
+      "path": "login/login",
+      "style": {
+        "navigationBarTitleText": "登录置业笔记",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    },
+    // {
+    //   "path": "login/telLogin",
+    //   "style": {
+    //     "navigationBarTitleText": "登录置业笔记",
+    //     "app-plus": {
+    //       "titleNView": false,
+    //       "bounce": "none"
+    //     }
+    //   }
+    // },
+    {
+      "path": "login/agreement",
+      "style": {
+        "navigationBarTitleText": "置业笔记产品使用协议",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "signIn/index",
+      "style": {
+        "navigationBarTitleText": "扫码签到",
+        "app-plus": {
+          "titleNView": false,
+          "bounce": "none"
+        }
+      }
+    }]
+  }],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "置业笔记",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8F8F8"
+  },
   "condition": {
     "current": 0,
     "list": [{
-        "name": "report",
-        "path": "pagesReport/reportDetail/index",
-        "query": "reportId=17"
-      },{
-        "name": "loan",
-        "path": "pages_com/loan/index",
-        "query": "userId=12702&buildingId=80724"
-      },
-      {
-          "name": "integral",
-          "path": "pages_com/integral/index",
-          "query": "userId=12702&buildingId=80724"
-        }
-    ]
+      "name": "report",
+      "path": "pagesReport/reportDetail/index",
+      "query": "reportId=17"
+    }, {
+      "name": "loan",
+      "path": "pages_com/loan/index",
+      "query": "userId=12702&buildingId=80724"
+    },
+    {
+      "name": "integral",
+      "path": "pages_com/integral/index",
+      "query": "userId=12702&buildingId=80724"
+    },
+    {
+      "name": "book",
+      "path": "pagesReport/book/index",
+      "query": "reportId=89465"
+    }]
   }
 }

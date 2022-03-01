@@ -164,8 +164,8 @@ const TOOL = {
     }
     return decryptValue
   },
-  getToken() {
-    return this.getStorage("M-Token") || ''
+  isPhoneLogin() {
+    return this.getStorage("isPhoneLogin") || false
   },
   getCookie: function (name) {
     var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");

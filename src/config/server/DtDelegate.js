@@ -6,6 +6,13 @@ class DtDelegate extends Delegate {
     return Promise.reject(new Error('暂未登录'))
   }
 
+  onSuccess(data, api) {
+    console.info('server-success: ---------------')
+    console.info('server-success:', api.method, api.reqUrl)
+    console.info('server-success:', api.data)
+    console.info('server-success:', data)
+  }
+
   onError(err, api) {
     console.warn('server-err: ---------------')
     console.warn('server-err:', api.method, api.reqUrl)

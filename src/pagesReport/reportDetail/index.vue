@@ -34,12 +34,12 @@
       <view class="reference_txt">*本报告仅供参考，准确信息请以开发商所披露的信息为准，客户需根据自身情况进行购买决策。</view>
     </view>
     <!-- 管家信息 -->
-	<view v-if='userId&&buildingId'>
-		<consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
-	</view>
-    <!-- <view class="fixed_bottom">
-      <foot-bottom :userId='userId' @handelUserName="getUserName" v-if="userId" modelType='3' :reportId='reportId' :buildingId='buildingId' operateCanal='2'></foot-bottom>
-    </view> -->
+    <view v-if='userId && buildingId'>
+      <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
+    </view>
+    
+    <auth-phone scene='book' :userId='userId' :buildingId='buildingId' ref='auth'></auth-phone>
+    
   </view>
 </template>
 
@@ -49,7 +49,7 @@
   import question from './components/question.vue'
   import tipsPage from './components/tipsPage.vue'
   import consultantCard from '__com/consultant/card.vue'
-  // import footBottom from '@/components/footer/index.vue'
+  import authPhone from '__com/auth/phone.vue'
   import { getData } from '@/request/api'
   export default {
     components: {
@@ -57,8 +57,8 @@
       publicPage, //样式相同的组件
       question, //置业问答
       tipsPage,
-      // footBottom,
-      consultantCard
+      consultantCard,
+      authPhone
     },
     data() {
       return {
@@ -138,8 +138,8 @@
       getReportData(reportId) {
         let params = {
           reportId,
-          openid: this.$cache.getCache('customerWXId').openid,
-          unionid: this.$cache.getCache('customerWXId').unionid,
+          openid: this.$cache.getCache('dt_wx_auth').openid,
+          unionid: this.$cache.getCache('dt_wx_auth').unionid,
         }
         getData('/dt-user/v1/user/report/noToken/reportDetail', params)
           .then((res) => {
@@ -190,7 +190,7 @@
             this.userId = res.customerIntention ?
               res.customerIntention.userId :
               ''
-
+            
             let customerGender = res.customerIntention ?
               res.customerIntention.gender :
               ''
@@ -226,9 +226,9 @@
             this.buryingPoint.operationType = '2'
             this.buryingPoint.modelType = '3'
             this.buryingPoint.wxOpenId =
-              this.$tool.getStorage('customerWXId').openid
+              this.$tool.getStorage('dt_wx_auth').openid
             this.buryingPoint.wxUnionId =
-              this.$tool.getStorage('customerWXId').unionid
+              this.$tool.getStorage('dt_wx_auth').unionid
             this.buryingPoint.reportId = reportId
             this.buryingPoint.userId = this.userId
             this.buryingPoint.customerId = this.$tool.getStorage('Login-Data') ?
@@ -246,13 +246,15 @@
               ''
             this.CustomerTrack.dataId = this.reportId
             this.CustomerTrack.wxAvatarUrl =
-              this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'' //头像
+              this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+                'dt_wx_auth').userInfo.avatarUrl : '' //头像
             this.CustomerTrack.wxNickname =
-              this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'' //微信昵称
+              this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+                'dt_wx_auth').userInfo.nickName : '' //微信昵称
             this.CustomerTrack.wxOpenId =
-              this.$tool.getStorage('customerWXId').openid
+              this.$tool.getStorage('dt_wx_auth').openid
             this.CustomerTrack.wxUnionId =
-              this.$tool.getStorage('customerWXId').wxUnionId
+              this.$tool.getStorage('dt_wx_auth').unionid
           })
           .catch((err) => {
             console.log(err)
@@ -269,10 +271,12 @@
           reportId: this.reportId, //置业报告id
           lookTime: this.lookTime, //阅读时间
           readTime: this.endTime - this.beginTime, //阅读时长
-          wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-          wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
-          wxOpenId: this.$tool.getStorage('customerWXId').openid,
-          wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+          wxAvatarUrl: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+            'dt_wx_auth').userInfo.avatarUrl : '', //头像
+          wxNickname: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+            'dt_wx_auth').userInfo.nickName : '', //微信昵称
+          wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
+          wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
         }
         getData('/dt-user/v1/user/report/noToken/customerLookReportLog', params)
           .then((res) => {})
@@ -290,6 +294,8 @@
       this.beginTime = new Date().getTime()
       this.lookTime = this.$tool.DateFormat('yyyy-MM-dd hh:mm:ss', new Date())
       this.share.path = '/pagesReport/book/index?reportId=' + this.reportId
+      
+      this.$refs.auth.start()
     },
     onPageScroll(e) {
       if (e.scrollTop > 150) {
@@ -331,18 +337,22 @@
           this.$tool.getStorage('Login-Data').customerInfo.customerId : '',
         reportId: this.reportId,
         userId: this.userId,
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
-        wxOpenId: this.$tool.getStorage('customerWXId').openid,
-        wxUnionId: this.$tool.getStorage('customerWXId').unionid,
+        wxAvatarUrl: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.nickName : '', //微信昵称
+        wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
+        wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
       }
       this.ReportLog(ReportLogparams)
 
       let addCustomerTrackparams = {
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
-        wxOpenId: this.$tool.getStorage('customerWXId').openid,
-        wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+        wxAvatarUrl: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.nickName : '', //微信昵称
+        wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
+        wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
         stayTime: new Date().getTime() - this.beginTime,
       }
       this.addCustomerTrack(addCustomerTrackparams)
@@ -362,19 +372,23 @@
           this.$tool.getStorage('Login-Data').customerInfo.customerId : '',
         reportId: this.reportId,
         userId: this.userId,
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
-        wxOpenId: this.$tool.getStorage('customerWXId').openid,
-        wxUnionId: this.$tool.getStorage('customerWXId').unionid,
+        wxAvatarUrl: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.nickName : '', //微信昵称
+        wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
+        wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
       }
       this.ReportLog(ReportLogparams)
 
       //客户足迹埋点
       let addCustomerTrackparams = {
-        wxAvatarUrl: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('customerWXInfo')?this.$tool.getStorage('customerWXInfo').userInfo.nickName:'', //微信昵称
-        wxOpenId: this.$tool.getStorage('customerWXId').openid,
-        wxUnionId: this.$tool.getStorage('customerWXId').wxUnionId,
+        wxAvatarUrl: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.avatarUrl : '', //头像
+        wxNickname: this.$tool.getStorage('dt_wx_auth') ? this.$tool.getStorage(
+          'dt_wx_auth').userInfo.nickName : '', //微信昵称
+        wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
+        wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
         stayTime: new Date().getTime() - this.beginTime,
       }
       this.addCustomerTrack(addCustomerTrackparams)
