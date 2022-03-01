@@ -16,12 +16,10 @@
       :style="ishowbuilding?'padding-bottom:97rpx':'background:transparent'" v-else>
       <view class="user_msg">
         <view class="user_msg_left">
-          <view class="avatarTou">
-            <open-data type="userAvatarUrl"></open-data>
-          </view>
+          <image class="avatarTou" :src="userInfo.avatarUrl" mode="widthFix"></image>
           <view class="name_phone">
             <view class="name" v-show="authorize">
-              <open-data type="userNickName"></open-data>
+              {{userInfo.nickName}}
             </view>
             <view class="phone" :class="{'authorize_Y':authorize!=true}">
               {{phoneFormat}}
@@ -323,9 +321,8 @@
           content: '退出登录后将无法查看订单，重新登录即可查看',
           success(res) {
             if (res.confirm) {
-              _this.$cache.removeCache('customerWXInfo')
-              _this.$cache.removeCache('customerWXId')
-              _this.$cache.removeCache('M-Token')
+              _this.$cache.removeCache('dt_wx_auth')
+              _this.$cache.removeCache('isPhoneLogin')
               _this.$cache.removeCache('Login-Data')
               _this.HasToken = false
             }
@@ -406,7 +403,8 @@
       tohouseKeeper(e, item) {
         console.log(e, item)
         uni.navigateTo({
-          url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id,
+          url: '/pagesHouse/adviserCard/index?userId=' + e.currentTarget.id +
+            '&buildingId=' + item.buildingId,
         })
       },
       // 拨打电话
@@ -421,8 +419,7 @@
         getData('/dt-user/v1/aggs/user/noToken/get', params)
           .then((res) => {
             console.log('管家信息', res)
-            self.userInfo = res
-            if (!self.userInfo.phone) {
+            if (!res.phone) {
               uni.showToast({
                 title: '暂无顾问电话',
                 icon: 'none',
@@ -432,7 +429,7 @@
             }
             uni.makePhoneCall({
               // 手机号
-              phoneNumber: self.userInfo.phone,
+              phoneNumber: res.phone,
               // 成功回调
               success: (res) => {},
               // 失败回调
@@ -553,22 +550,25 @@
     created() {},
 
     onLoad(option) {
-      console.log('-----首页', this.$cache.getCache('customerWXInfo'))
-      // this.getUserInfo();
+      console.log('-----首页', this.$cache.getCache('dt_wx_auth'))
+      this.$dt.biz.auth.getInfo().then(res => {
+        this.userInfo = res.userInfo
+        console.log(res)
+      })
       let customerId = this.$cache.getCache('Login-Data').customerInfo ?
         this.$cache.getCache('Login-Data').customerInfo.customerId :
         ''
       // this.userPhone = this.$cache.getCache('Login-Data').customerInfo
       //   ? this.$cache.getCache('Login-Data').customerInfo.phone
       //   : ''
-      let openid = this.$cache.getCache('customerWXId').openid ?
-        this.$cache.getCache('customerWXId').openid :
+      let openid = this.$cache.getCache('dt_wx_auth').openid ?
+        this.$cache.getCache('dt_wx_auth').openid :
         ''
-      let unionid = this.$cache.getCache('customerWXId').unionid ?
-        this.$cache.getCache('customerWXId').unionid :
+      let unionid = this.$cache.getCache('dt_wx_auth').unionid ?
+        this.$cache.getCache('dt_wx_auth').unionid :
         ''
       this.HasToken =
-        this.$cache.getCache('customerWXInfo') ||
+        this.$cache.getCache('dt_wx_auth') ||
         this.$cache.getCache('Login-Data').customerInfo ?
         true :
         false

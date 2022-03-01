@@ -45,10 +45,6 @@
     </house-highlights>
     <!-- 免责声明 -->
     <house-disclaimer></house-disclaimer>
-    <view class="pageHouse-bottom">
-      <footBottom v-if="userId" :userId='userId' modelType='2' :buildingId='buildingId'>
-      </footBottom>
-    </view>
     <u-mask :show="showAuthorize" mask-click-able="false">
       <view class="showAuthorize_warp" @tap.stop>
         <view class="authorize_title">
@@ -63,6 +59,11 @@
         </u-button>
       </view>
     </u-mask>
+    <view v-if='userId && buildingId'>
+      <consultant-card :userId='userId' :buildingId='buildingId'></consultant-card>
+    </view>
+    <auth-phone scene='building' :buildingId='buildingId' :userId='userId' ref='auth'>
+    </auth-phone>
   </view>
 </template>
 
@@ -77,7 +78,8 @@
   import housePeriphery from './components/housePeriphery.vue' //周边配套
   import houseHighlights from './components/houseHighlights.vue' //楼盘亮点
   import houseDisclaimer from './components/houseDisclaimer.vue' //免责声明
-  import footBottom from '@/components/footer/index.vue'
+  import authPhone from '__com/auth/phone.vue'
+  import consultantCard from '__com/consultant/card.vue'
   export default {
     components: {
       buildingInfo,
@@ -88,7 +90,8 @@
       housePeriphery,
       houseHighlights,
       houseDisclaimer,
-      footBottom,
+      consultantCard,
+      authPhone
     },
     data() {
       return {
@@ -157,8 +160,9 @@
           const key = item.split('=')[0]
           obj[key] = item.split('=')[1]
         })
-        this.userId = obj.userId
-        this.buildingId = obj.buildingId
+        this.userId = obj.uId || ''
+        this.buildingId = obj.bId || ''
+        this.articleId = obj.a
       } else {
         this.buildingId = option.buildingId
         this.userId = option.userId
@@ -166,9 +170,7 @@
       this.initBaseInfo()
       this.initGetAnnex()
       //获取顾问400手机号码
-      if (this.userId) {
-        this.getUserInfo()
-      }
+      this.$refs.auth.start()
     },
     onHide() {},
     onUnload() {},
@@ -239,64 +241,27 @@
           .then((res) => {
             console.log('------管家信息', res)
             this.fourPhone = res.phone || ''
+            if (this.articleId) {
+              this.$dt.biz.clue.shortArticle(this.articleId, res.userName, this.baseInfo
+                .buildingAlias)
+            }
           })
           .catch((err) => {
             console.log('管家信息', err)
           })
       },
-      // 获取jsCode openid session_key
-      getPhone() {
-        const self = this
-        uni.login({
-          success: (res) => {
-            console.log('---jsCode', res)
-            if (res.code) {
-              //微信登录成功 已拿到code
-              self.jsCode = res.code //保存获取到的code
-              let params = {
-                jsCode: res.code,
-              }
-              let api = '/dt-user/noToken/wx/wxAuth'
-              getData(api, params)
-                .then((res) => {
-                  console.log('----openid||session_key', res)
-                  self.openid = res.openid //openid 用户唯一标识
-                  self.session_key = res.session_key //session_key  会话密钥
-                })
-                .catch((err) => {
-                  console.log('请求结果报错', err)
-                })
-            } else {
-              console.log('登录失败！' + res.errMsg)
-            }
-          },
-        })
-      },
       onGetPhoneNumber(e) {
-        console.log('-----login-btn', e)
-        if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-          //用户决绝授权
-          //拒绝授权后弹出一些提示
-        } else {
-          //允许授权
-          let params = {
-            iv: e.detail.iv,
-            encryData: e.detail.encryptedData,
-            sessionKey: this.session_key,
-            openId: this.openid,
-            loginType: 0,
-          }
-          let api = '/dt-user/noToken/wx/wxLogin'
-          getData(api, params)
-            .then((res) => {
-              this.$cache.setCache('M-Token', res['token'])
-              this.$cache.setCache('Login-Data', res)
+        let res = e.detail
+        if (res.errMsg.indexOf(':ok') >= 0) {
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
+            .then(res => {
+              this.$cache.setCache('isPhoneLogin', true)
+              this.$cache.setCache('Login-Data', res.login)
               this.showAuthorize = false
               this.initBaseInfo()
             })
-            .catch((err) => {
-              console.log('请求结果报错', err)
-            })
+        } else {
+          console.warn(res.errMsg)
         }
       },
       // srcoll-tabs切换
@@ -377,6 +342,11 @@
               baseInfo.lat && baseInfo.lng ? true : false
             //楼盘亮点
             self.getBrightSpotList(brightSpot)
+
+            if (this.userId) {
+              this.getUserInfo()
+            }
+
           })
           .catch((err) => {
             console.log('基本信息-err', err)

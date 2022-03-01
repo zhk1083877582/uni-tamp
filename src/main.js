@@ -4,9 +4,9 @@ import App from './App'
 
 import config from 'config'
 config.init(Vue)
+import 'biz'
 
-
-import './static/icon/iconfont.css'
+import './static/img/iconfont.css'
 import axios from 'axios'
 import uView from "uview-ui";
 import tool from './request/tool'

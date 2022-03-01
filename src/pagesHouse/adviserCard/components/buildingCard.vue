@@ -106,7 +106,7 @@ export default {
   methods: {
     //跳转楼盘详情
     doToBulidingInfo() {
-      let HasToken = this.$cache.getCache('customerWXInfo') ? true : false
+      let HasToken = this.$cache.getCache('dt_wx_auth') ? true : false
       if (HasToken) {
         uni.navigateTo({
           url:

@@ -1,7 +1,7 @@
 <template>
   <view class="houseTypeDetailsAll">
     <view class="swiperBox" :class="{'swiperBox1': tanFlag}">
-      <u-icon name="close" color="#fff" v-if="tanFlag" size="32" class="tanClose" @click="tanclose"></u-icon>
+      <!-- <u-icon name="close" color="#fff" v-if="tanFlag" size="32" class="tanClose" @click="tanclose"></u-icon> -->
       <view class="swiperNum" v-if="tanFlag">
         {{curr+1}}/{{houseBan.length}}
       </view>

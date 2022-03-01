@@ -9,10 +9,10 @@
         微信授权登录
       </u-button>
       <!-- #endif -->
-      <u-button @click="doTelLogin">
+      <!-- <u-button @click="doTelLogin">
         <i class="iconfont icondenglu-shouji"></i>
         手机号码登录
-      </u-button>
+      </u-button> -->
       <view class="login_agreement">
         登录即同意
         <text class="agreement" @click="toAgreement">
@@ -34,7 +34,6 @@ export default {
       option: '',
       pin: '',
       pinWx: '',
-      jsCode: '',
       openid: '',
       unionid: '',
       session_key: '',
@@ -55,44 +54,16 @@ export default {
       })
     },
     onGetUserInfo(e) {
-      uni.getUserProfile({
-        desc: 'Wexin', // 这个参数是必须的
-        success: (res) => {
-          console.log('用户信息', res)
-          this.$cache.setCache('customerWXInfo', res)
-          if (this.$cache.getCache('LoginTopath')) {
-            uni.reLaunch({
-              url: '/' + this.$cache.getCache('LoginTopath'),
-            })
-          } else {
-            uni.navigateBack()
-          }
-        },
+      this.$dt.biz.auth.update().then(res => {
+        if (this.$cache.getCache('LoginTopath')) {
+          uni.reLaunch({
+            url: '/' + this.$cache.getCache('LoginTopath'),
+          })
+        } else {
+          uni.navigateBack()
+        }
       })
-    },
-    getWXId() {
-      const self = this
-      uni.login({
-        success: (res) => {
-          if (res.code) {
-            self.jsCode = res.code //保存获取到的code
-            let params = {
-              jsCode: res.code,
-            }
-            let api = '/dt-user/noToken/wx/wxAuth'
-            getData(api, params)
-              .then((res) => {
-                this.$cache.setCache('customerWXId', res)
-              })
-              .catch((err) => {
-                console.log('请求结果报错', err)
-              })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
-        },
-      })
-    },
+    }
   },
   onLoad(option) {
     let pinStr1 = '',
@@ -114,7 +85,6 @@ export default {
       this.$cache.setCache('LoginTopath', this.pinWx)
       console.log('LoginTopath', this.pinWx)
     }, 400)
-    this.getWXId()
   },
 }
 </script>

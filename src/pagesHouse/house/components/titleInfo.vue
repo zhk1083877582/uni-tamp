@@ -16,7 +16,7 @@
 		<!-- 右侧更多按钮 -->
 		<view class="btn-text" v-if="btnRightInfo.text" @click.stop="toOtherPage">
 			<text>{{btnRightInfo.text}}</text>
-			<u-icon name="arrow-right" size="28" color="#999999"></u-icon>
+      <image class="arrow" src="https://static.tospurfang.com/com/arrows.png"></image>
 		</view>
 	</view>
 </template>
@@ -126,6 +126,11 @@
 		.btn-text{
 			color: #827870;
 		}
+    
+    .arrow {
+      width: 12rpx;
+      height: 24rpx;
+    }
 		   
 	}
 </style>
