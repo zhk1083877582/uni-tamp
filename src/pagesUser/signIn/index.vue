@@ -162,7 +162,7 @@
             this.$cache.setCache('loginFlag', true)
             this.$cache.setCache('loginFlag1', true)
             this.showAuthorize = true
-            let { phone } = res.customerInfo || {}
+            let { phone } = res || {}
             if (phone) {
               this.doAddCustorm(phone)
             }
