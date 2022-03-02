@@ -19,7 +19,7 @@
           <image class="avatarTou" :src="userInfo.avatarUrl" mode="widthFix"></image>
           <view class="name_phone">
             <view class="name" v-show="authorize">
-              {{userInfo.nickName}}
+              {{userInfo.nickName || '--'}}
             </view>
             <view class="phone" :class="{'authorize_Y':authorize!=true}">
               {{phoneFormat}}
