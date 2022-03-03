@@ -50,7 +50,7 @@ export default {
     ReportLog(data) {
       let params = Object.assign({}, this.buryingPoint, data);
       console.log('大数据埋点数据', params)
-      getData('/dt-user/v1/report/log/noToken/create', params).then((res) => {
+      getData('/dt-marketing/v1/report/log/noToken/create', params).then((res) => {
         // console.log('埋点接口',res)
       }).catch((err) => {
         console.log('埋点接口', err)

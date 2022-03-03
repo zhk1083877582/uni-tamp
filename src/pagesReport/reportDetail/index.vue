@@ -141,7 +141,7 @@
           openid: this.$cache.getCache('dt_wx_auth').openid,
           unionid: this.$cache.getCache('dt_wx_auth').unionid,
         }
-        getData('/dt-user/v1/user/report/noToken/reportDetail', params)
+        getData('/dt-marketing/v1/report/noToken/reportDetail', params)
           .then((res) => {
             console.log('置业报告详情数据', res)
             let self = this
@@ -278,7 +278,7 @@
           wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
           wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
         }
-        getData('/dt-user/v1/user/report/noToken/customerLookReportLog', params)
+        getData('/dt-marketing/v1/report/noToken/customerLookReportLog', params)
           .then((res) => {})
           .catch((err) => {
             console.log(err)

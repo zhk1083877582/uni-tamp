@@ -72,7 +72,7 @@
         let params = {
           reportId,
         }
-        getData('/dt-user/v1/user/report/noToken/reportDetail', params)
+        getData('/dt-marketing/v1/report/noToken/reportDetail', params)
           .then((res) => {
             console.log('置业报告详情数据', res)
             // this.getUserInfo(res.customerIntention.userId);

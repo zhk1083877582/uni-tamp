@@ -463,7 +463,7 @@
           unionid,
           customerId,
         }
-        getData('/dt-user/v1/user/report/noToken/cAppHome', params)
+        getData('/dt-marketing/v1/report/noToken/cAppHome', params)
           .then((res) => {
             if (JSON.stringify(res) == '[]') {
               this.ishowbuilding = false
