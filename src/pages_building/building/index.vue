@@ -18,7 +18,7 @@
     <surround-item />
     
     <view style="width: 140rpx; height: 140rpx; border-radius: 140rpx; position: fixed; right: 22rpx; bottom: 150rpx;">
-      <image src="./images/share.png" style="display: block; width: 100%; height: 100%;"></image>
+      <image src="https://static.tospurfang.com/com/building/share.png" style="display: block; width: 100%; height: 100%;"></image>
     </view>
   </view>
 </template>
@@ -42,21 +42,21 @@
         curTab: 0,
         tabs: [{
           title: '住宅',
-          icon: require('./images/house.png'),
-          checkIcon: require('./images/house_check.png'),
+          icon: 'https://static.tospurfang.com/com/building/house.png',
+          checkIcon: 'https://static.tospurfang.com/com/building/house_check.png',
         }, {
           title: '车位',
-          icon: require('./images/stall.png'),
-          checkIcon: require('./images/stall_check.png'),
+          icon: 'https://static.tospurfang.com/com/building/stall.png',
+          checkIcon: 'https://static.tospurfang.com/com/building/stall_check.png',
         }, {
           title: '商铺',
-          icon: require('./images/shop.png'),
-          checkIcon: require('./images/shop_check.png'),
+          icon: 'https://static.tospurfang.com/com/building/shop.png',
+          checkIcon: 'https://static.tospurfang.com/com/building/shop_check.png',
         }, {
           title: '办公楼',
-          icon: require('./images/office.png'),
-          checkIcon: require('./images/office_check.png'),
-        }]
+          icon: 'https://static.tospurfang.com/com/building/office.png',
+          checkIcon: 'https://static.tospurfang.com/com/building/office_check.png',
+        }],
       }
     },
     watch: {},
@@ -66,7 +66,7 @@
     onShareAppMessage(opt) {},
     methods: {
       getInfo() {
-        buildMgr.info().then(res => {
+        buildMgr.info(108449).then(res => {
           
         })
       },

@@ -11,7 +11,7 @@
         <view class="dt-text-size-30" style="color: #000;">{{ item.title }}</view>
         <view class="image-item">
           <view v-for="(img,imgIndex) in item.images" :key="imgIndex" class="dt-border-radius-10 dt-overflow-hidden dt-bg-color-grey-higherlight" style="height: 158rpx;">
-            <image src="./images/layout.png" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image>
+            <!-- <image src="./images/layout.png" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image> -->
           </view>
         </view>
       </view>

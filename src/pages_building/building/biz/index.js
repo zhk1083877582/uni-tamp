@@ -2,7 +2,7 @@ import dt from '@dt/dt'
 import server from '@dt/server/dt'
 
 let api = {
-  info: server.api().get('/dt-building/houses/info/getBuHousesInfo'),
+  info: server.api().get('/dt-building/houses/info/noToken/getBuHousesInfo'),
 }
 
 function info(housesId) {

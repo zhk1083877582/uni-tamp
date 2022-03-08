@@ -1,7 +1,7 @@
 <template>
   <view class="page container">
     <view class="image">
-      <image src="../images/layout.png" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image>
+      <!-- <image src="../images/layout.png" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image> -->
     </view>
     
     <view class="dt-bg-color-white" style="margin-bottom: 16rpx; padding: 36rpx 32rpx 30rpx;">
@@ -57,7 +57,7 @@
     </view>
     
     <view style="width: 140rpx; height: 140rpx; border-radius: 140rpx; position: fixed; right: 22rpx; bottom: 150rpx;">
-      <image src="../images/share.png" style="display: block; width: 100%; height: 100%;"></image>
+      <!-- <image src="../images/share.png" style="display: block; width: 100%; height: 100%;"></image> -->
     </view>
   </view>
 </template>
