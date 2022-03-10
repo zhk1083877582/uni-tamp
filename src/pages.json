@@ -41,6 +41,18 @@
       "style": {
         "navigationBarTitleText": "专属置业计划书"
       }
+    },
+    {
+      "path": "building/index",
+      "style": {
+        "navigationBarTitleText": "楼盘详情"
+      }
+    },
+    {
+      "path": "building/info",
+      "style": {
+        "navigationBarTitleText": "楼盘信息"
+      }
     }]
   },
   {

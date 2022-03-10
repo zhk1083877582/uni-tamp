@@ -1,11 +1,11 @@
 <template>
   <view class="container">
     <view class="dt-bg-color-white" style="padding: 16rpx 0 16rpx 32rpx; margin-bottom: 16rpx;">
-      <dt-tab :tabs="typeOptions" v-model="typeIndex" @change="(i) => onChange(i, 'type')" isScroll tab-class="dt-btn-tab-class" tab-class-active="dt-btn-tab-class dt-btn-tab-active-class" />
+      <dt-tab :tabs="tabs" v-model="curTab" @change="(i) => onClick(i, 'type')" isScroll tab-class="dt-btn-tab-class" tab-class-active="dt-btn-tab-class dt-btn-tab-active-class" />
     </view>
     
-    <view class="dt-bg-color-white" style="padding: 40rpx 0 16rpx 32rpx;">
-      <dt-tab :tabs="roomOptions" v-model="roomIndex" @change="(i) => onChange(i, 'layout')" isScroll tab-class="dt-text-tab-class" tab-class-active="dt-text-tab-class dt-text-tab-active-class" line-style="display: none;" />
+    <view v-if="type == 'residence'" class="dt-bg-color-white" style="padding: 40rpx 32rpx 0;">
+      <dt-tab :tabs="roomTabs" v-model="curRoom" @change="(i) => onClick(i, 'room')" isScroll tab-class="dt-text-tab-class" tab-class-active="dt-text-tab-class dt-text-tab-active-class" line-style="display: none;" />
     </view>
     
     <view class="dt-bg-color-white" style="padding: 0 32rpx;">
@@ -26,49 +26,22 @@
     },
     data() {
       return {
-        typeIndex: 'residence',
-        typeOptions: [
+        curTab: 0,
+        type: 'residence',
+        tabs: [
           { title: '住宅', key: 'residence' },
           { title: '车位', key: 'stall' },
           { title: '商铺', key: 'shop' },
           { title: '办公楼', key: 'office' }
         ],
-        roomIndex: 0,
-        roomOptions: [
+        curRoom: 0,
+        roomTabs: [
           { title: '全部', key: '1' },
           { title: '四居(2)', key: '2' },
           { title: '三居(2)', key: '3' },
           { title: '二居(2)', key: '4' }
         ],
-        list: [
-          {
-            title: '4室2厅2卫（A户型）',
-            price: '791',
-            status: 1,
-            area: '135',
-            orientation: '南',
-            floor: '2.83',
-            tags: ['南北通透', '动静分离', '衣帽间']
-          },
-          {
-            title: '4室2厅2卫（A户型）',
-            price: '791',
-            status: 2,
-            area: '135',
-            orientation: '南',
-            floor: '2.83',
-            tags: ['南北通透', '动静分离', '衣帽间']
-          },
-          {
-            title: '4室2厅2卫（A户型）',
-            price: '791',
-            status: 3,
-            area: '135',
-            orientation: '南',
-            floor: '2.83',
-            tags: ['南北通透', '动静分离', '衣帽间']
-          }
-        ],
+        list: [],
         housesId: null,
       }
     },
@@ -81,16 +54,52 @@
     methods: {
       getList() {
         buildMgr.layouts({
-          housesId: this.housesId,
-          type: this.typeIndex
+          // housesId: this.housesId,
+          housesId: 18531,
+          type: this.type
         }).then(res => {
-          
+          if (this.type == 'residence') {
+            this.roomTabs = this.groupBy(res)
+            this.list = this.roomTabs[this.curRoom].list
+          } else {
+            this.list = res
+          }
         })
       },
-      onChange(index, flag) {
+      groupBy(data) {
+        let list = data || [],
+            groups = {},
+            arr = []
+        if (list.length) {
+          for (let item of list) {
+            let val = item.bedroom
+            groups[val] = groups[val] || []
+            groups[val].push(item)
+          }
+          for (let key in groups) {
+            arr.push({
+              title: `${key}居(${groups[key].length})`,
+              bedroom: key,
+              list: groups[key]
+            })
+          }
+          arr.sort((a, b) => (b.bedroom - a.bedroom))
+          arr.unshift({
+            title: `全部(${list.length})`,
+            list
+          })
+        }
+        return arr
+      },
+      onClick(index, flag) {
         switch (flag) {
-          case 'type': break;
-          case 'layout': break;
+          case 'type':
+            this.type = this.tabs[index].key;
+            this.getList();
+            break;
+          case 'room':
+            this.list = this.roomTabs[index].list
+            break;
           default: break;
         }
       },

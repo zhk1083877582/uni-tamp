@@ -48,7 +48,10 @@
   export default {
     props: {
       info: Object,
-      type: String
+      type: {
+        type: String,
+        default: 'residence'
+      }
     },
     data() {
       return {

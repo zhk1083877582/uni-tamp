@@ -1,6 +1,8 @@
 <template>
   <view class="layout-item">
-    <view class="image"></view>
+    <view class="image">
+      <image :src="info.houseTypeAnnex" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image>
+    </view>
     
     <view class="dt-flex-1">
       <view class="dt-flex dt-flex-horizontal-between dt-flex-vertical-center">
@@ -34,7 +36,7 @@
       </view>
       
       <view class="dt-flex">
-        <view v-for="(item, index) in info.tags" class="tag" style="color: #666; background-color: #F6F6F8; margin-right: 8rpx;">
+        <view v-for="(item, index) in info.tags" :key="index" class="tag" style="color: #666; background-color: #F6F6F8; margin-right: 8rpx;">
           {{ item }}
         </view>
       </view>
@@ -44,7 +46,6 @@
 
 <script>
   export default {
-    components: {},
     props: {
       info: Object
     },
@@ -52,8 +53,6 @@
       return {}
     },
     watch: {},
-    onLoad(opt) {},
-    onShareAppMessage(opt) {},
     methods: {}
   };
 </script>
@@ -71,6 +70,7 @@
     background-color: #F6F6F8;
     border-radius: 8rpx;
     margin-right: 30rpx;
+    overflow: hidden;
   }
   
   .tag {
