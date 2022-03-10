@@ -7,8 +7,8 @@
     <view class="adviser-info">
       <view class="user_warp">
         <view class="top">
-          <u-avatar class="avatarTou" :src="adviserInfo.avatarUrl" size='160' mode="circle">
-          </u-avatar>
+          <image class="avatarTou" :src="adviserInfo.avatarUrl" mode="aspectFill">
+          </image>
           <view class="user_msg">
             <view class="name">
               {{adviserInfo.userName||'--'}}
@@ -407,6 +407,9 @@
 
           .avatarTou {
             margin-right: 32rpx;
+            width: 160rpx;
+            height: 160rpx;
+            border-radius: 80rpx;
           }
 
           .user_msg {

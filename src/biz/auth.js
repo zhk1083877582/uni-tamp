@@ -119,6 +119,7 @@ export default {
   phone,
   login,
   getInfo,
+  getInfoSync,
   update,
   authPhone
 }

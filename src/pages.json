@@ -36,6 +36,11 @@
       "style": {
         "navigationBarTitleText": "上海买房积分计算器"
       }
+    },{
+      "path": "report/detail",
+      "style": {
+        "navigationBarTitleText": "专属置业计划书"
+      }
     }]
   },
   {
@@ -225,11 +230,11 @@
     "list": [{
       "name": "report",
       "path": "pagesReport/reportDetail/index",
-      "query": "reportId=17"
+      "query": "reportId=56919"
     }, {
-      "name": "loan",
-      "path": "pages_com/loan/index",
-      "query": "userId=12702&buildingId=80724"
+      "name": "card",
+      "path": "pagesHouse/adviserCard/index",
+      "query": "userId=21570&buildingId=105271"
     },
     {
       "name": "integral",

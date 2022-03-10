@@ -448,12 +448,12 @@
       },
       toReportDetail(e, reportId) {
         uni.navigateTo({
-          url: '../../pagesReport/reportDetail/index?reportId=' + e.currentTarget.id,
+          url: '/pages_com/report/detail?reportId=' + e.currentTarget.id,
         })
       },
       toIdealHome(data) {
         uni.navigateTo({
-          url: '../../pagesReport/idealHome/index?resData=' + JSON.stringify(
+          url: '/pagesReport/idealHome/index?resData=' + JSON.stringify(
             data), //+ this.buildingId
         })
       },
