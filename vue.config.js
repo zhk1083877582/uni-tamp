@@ -1,6 +1,6 @@
 const pageLoader = require('./node_modules/@dt/loader/load/page.js')
 const dirs = ['pages_com', 'pagesReport', 'pagesHouse']
-const pages = ['loan', 'integral']
+const pages = ['loan', 'integral', 'building']
 pageLoader.load(pages, dirs, process.env.NODE_ENV == 'production' || process.env.dt_type == 'package')
 
 const path = require('path')

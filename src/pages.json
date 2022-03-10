@@ -36,6 +36,18 @@
       "style": {
         "navigationBarTitleText": "上海买房积分计算器"
       }
+    },
+    {
+      "path": "building/index",
+      "style": {
+        "navigationBarTitleText": "楼盘详情"
+      }
+    },
+    {
+      "path": "building/info",
+      "style": {
+        "navigationBarTitleText": "楼盘信息"
+      }
     }]
   },
   {
