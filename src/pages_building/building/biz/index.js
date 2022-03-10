@@ -3,6 +3,7 @@ import server from '@dt/server/dt'
 
 let api = {
   info: server.api().get('/dt-building/houses/info/noToken/getBuHousesInfo'),
+  layouts: server.api().post('/dt-building/houseType/noToken/selectHouseTypeListOnLine'),
 }
 
 function info(housesId) {
@@ -11,6 +12,13 @@ function info(housesId) {
   })
 }
 
+function layouts(info) {
+  return api.layouts.fetch(info).then(res => {
+    return res
+  })
+}
+
 export default {
-  info
+  info,
+  layouts
 }

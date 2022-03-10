@@ -1,11 +1,11 @@
 <template>
   <view class="container">
     <view class="dt-bg-color-white" style="padding: 16rpx 0 16rpx 32rpx; margin-bottom: 16rpx;">
-      <dt-tab :tabs="typeOptions" v-model="typeIndex" @change="(i) => onChange(i, 'type')" isScroll tab-class="type-tab-class" tab-class-active="type-tab-class type-tab-active-class" />
+      <dt-tab :tabs="typeOptions" v-model="typeIndex" @change="(i) => onChange(i, 'type')" isScroll tab-class="dt-btn-tab-class" tab-class-active="dt-btn-tab-class dt-btn-tab-active-class" />
     </view>
     
     <view class="dt-bg-color-white" style="padding: 40rpx 0 16rpx 32rpx;">
-      <dt-tab :tabs="roomOptions" v-model="roomIndex" @change="(i) => onChange(i, 'layout')" isScroll tab-class="room-tab-class" tab-class-active="room-tab-class room-tab-active-class" line-style="display: none;" />
+      <dt-tab :tabs="roomOptions" v-model="roomIndex" @change="(i) => onChange(i, 'layout')" isScroll tab-class="dt-text-tab-class" tab-class-active="dt-text-tab-class dt-text-tab-active-class" line-style="display: none;" />
     </view>
     
     <view class="dt-bg-color-white" style="padding: 0 32rpx;">
@@ -18,6 +18,7 @@
 
 <script>
   import layoutItem from './components/layout-item.vue'
+  import buildMgr from '../biz/index.js'
   
   export default {
     components: {
@@ -25,12 +26,12 @@
     },
     data() {
       return {
-        typeIndex: 0,
+        typeIndex: 'residence',
         typeOptions: [
-          { title: '住宅', key: 'zz' },
-          { title: '车位', key: 'cw' },
-          { title: '商铺', key: 'sp' },
-          { title: '办公楼', key: 'bgl' }
+          { title: '住宅', key: 'residence' },
+          { title: '车位', key: 'stall' },
+          { title: '商铺', key: 'shop' },
+          { title: '办公楼', key: 'office' }
         ],
         roomIndex: 0,
         roomOptions: [
@@ -67,13 +68,25 @@
             floor: '2.83',
             tags: ['南北通透', '动静分离', '衣帽间']
           }
-        ]
+        ],
+        housesId: null,
       }
     },
     watch: {},
-    onLoad(opt) {},
+    onLoad(opt) {
+      this.housesId = opt.housesId
+      this.getList()
+    },
     onShareAppMessage(opt) {},
     methods: {
+      getList() {
+        buildMgr.layouts({
+          housesId: this.housesId,
+          type: this.typeIndex
+        }).then(res => {
+          
+        })
+      },
       onChange(index, flag) {
         switch (flag) {
           case 'type': break;

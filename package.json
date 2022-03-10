@@ -62,7 +62,7 @@
 		"@dcloudio/uni-quickapp-native": "^2.0.0-32220210818002",
 		"@dcloudio/uni-quickapp-webview": "^2.0.0-32220210818002",
 		"@dcloudio/uni-stat": "^2.0.0-32220210818002",
-		"@dt/component": "2.0.6",
+		"@dt/component": "2.0.8",
 		"@dt/dt": "1.1.7",
 		"@dt/server": "2.2.4",
 		"@vue/babel-preset-app": "^4.5.13",
