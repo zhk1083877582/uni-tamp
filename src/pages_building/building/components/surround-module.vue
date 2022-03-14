@@ -8,7 +8,7 @@
     <view class="map-container"></view>
     
     <view class="dt-bg-color-white" style="margin: 36rpx 0 26rpx;">
-      <dt-tab :tabs="tabs" v-model="current" isScroll tab-class="text-tab-class" tab-class-active="text-tab-class text-tab-active-class" line-style="display: none;" />
+      <dt-tab :tabs="tabs" v-model="current" isScroll tab-class="dt-text-tab-class" tab-class-active="dt-text-tab-class dt-text-tab-active-class" line-style="display: none;" />
     </view>
     
     <view>

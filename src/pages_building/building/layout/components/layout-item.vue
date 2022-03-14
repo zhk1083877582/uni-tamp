@@ -1,5 +1,5 @@
 <template>
-  <view class="layout-item">
+  <view class="layout-item" @click="onClick">
     <view class="image">
       <image :src="info.houseTypeAnnex" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image>
     </view>
@@ -7,35 +7,38 @@
     <view class="dt-flex-1">
       <view class="dt-flex dt-flex-horizontal-between dt-flex-vertical-center">
         <view class="dt-text-size-30" style="color: #333;">{{ info.title }}</view>
-        <view v-if="info.status == '1'" class="tag" style="background-color: #4A6DDB;">在售</view>
-        <view v-if="info.status == '2'" class="tag" style="background-color: #FF8242;">待售</view>
-        <view v-if="info.status == '3'" class="tag" style="background-color: #BBBBBB;">售罄</view>
+        <view class="tag" :style="{ backgroundColor: info.salesStatus == 'onSales' ? '#4A6DDB' : info.salesStatus == 'forSale' ? '#FF8242' : '#BBBBBB' }">
+          {{ info.salesStatusName }}
+        </view>
       </view>
       
       <view style="margin-top: 2rpx;">
         <view class="info">
-          <text>建面{{ info.area }}㎡</text>
-          <text>
-            <text style="color: #EDEDED; margin-right: 16rpx;">|</text>
-            <text>朝向{{ info.orientation }}</text>
-            <!-- <text>层高{{ info.floor }}m</text> -->
+          <text>建面{{ info.floorArea ? `${info.floorArea}㎡` : '待定' }}</text>
+          <text v-if="info.type == 'residence' && info.orientationName">
+            <text style="color: #EDEDED; margin: 0 16rpx;">|</text>
+            <text>朝向{{ info.orientationName }}</text>
+          </text>
+          <text v-if="(info.type == 'shop' || info.type == 'office') && info.storyHeight">
+            <text style="color: #EDEDED; margin: 0 16rpx;">|</text>
+            <text>层高{{ info.storyHeight }}m</text>
           </text>
         </view>
-        <!-- <view class="info">
-          <text>开间5m</text>
-          <text>
-            <text style="color: #EDEDED; margin-right: 16rpx;">|</text>
-            <text>允许搭建二层</text>
-          </text>
-        </view> -->
+        <view class="info" v-if="info.type == 'shop' && (info.facadeWidth || info.layerTwo)">
+          <text>开间{{ info.facadeWidth }}m</text>
+          <text v-if="info.facadeWidth && info.layerTwo" style="color: #EDEDED; margin: 0 16rpx;">|</text>
+          <text>{{ info.layerTwo == '1' ? '允许搭建二层' : '不允许搭建二层' }}</text>
+        </view>
       </view>
       
       <view class="dt-flex dt-flex-vertical-center" style="margin: 6rpx 0;">
-        <text style="font-size: 22rpx; color: #999; margin-right: 6rpx;">约</text>
-        <text style="font-size: 30rpx; color: #F75736;">{{ info.price }}万/套</text>
+        <text v-if="info.totalPrice" style="font-size: 22rpx; color: #999; margin-right: 6rpx;">约</text>
+        <text style="font-size: 30rpx; color: #F75736;">
+          {{ info.totalPrice ? `${info.totalPrice}万/${info.type == 'stall' ? '个' : '套'}` : '待定' }}
+        </text>
       </view>
       
-      <view class="dt-flex">
+      <view class="dt-flex" v-if="info.type != 'shop' && info.tags.length">
         <view v-for="(item, index) in info.tags" :key="index" class="tag" style="color: #666; background-color: #F6F6F8; margin-right: 8rpx;">
           {{ item }}
         </view>
@@ -47,13 +50,19 @@
 <script>
   export default {
     props: {
-      info: Object
+      info: Object,
+      source: Array
     },
     data() {
       return {}
     },
-    watch: {},
-    methods: {}
+    methods: {
+      onClick() {
+        uni.navigateTo({
+          url: './detail?info=' + JSON.stringify(this.info) + '&source=' + JSON.stringify(this.source)
+        })
+      },
+    }
   };
 </script>
 

@@ -31,6 +31,8 @@
     <view style="width: 140rpx; height: 140rpx; border-radius: 140rpx; position: fixed; right: 22rpx; bottom: 150rpx;">
       <image src="https://static.tospurfang.com/com/building/share.png" style="display: block; width: 100%; height: 100%;"></image>
     </view>
+    
+    <!-- <consultant-card :userId='userId' :buildingId='housesId'></consultant-card> -->
   </view>
 </template>
 
@@ -39,6 +41,7 @@
   import infoModule from './components/info-module.vue'
   import layoutModule from './components/layout-module.vue'
   import surroundModule from './components/surround-module.vue'
+  // import consultantCard from '__com/consultant/card.vue'
   import buildMgr from './biz/index.js'
   
   export default {
@@ -46,10 +49,14 @@
       imageModule,
       infoModule,
       layoutModule,
-      surroundModule
+      surroundModule,
+      // consultantCard
     },
     data() {
       return {
+        userId: '',
+        housesId: '',
+        
         current: 'residence',
         tabs: [{
           key: 'residence',
@@ -72,14 +79,13 @@
           icon: 'https://static.tospurfang.com/com/building/office.png',
           checkIcon: 'https://static.tospurfang.com/com/building/office_check.png',
         }],
-        housesId: null,
         info: null,
       }
     },
     watch: {},
     onLoad(opt) {
-      console.log(this.$dt.dictInfo())
-      // this.housesId = opt.housesId
+      this.userId = opt.userId || ''
+      // this.housesId = opt.buildingId || ''
       this.housesId = 18531
       this.getInfo()
     },
@@ -91,13 +97,7 @@
           uni.setNavigationBarTitle({
           	title: res.housesName
           })
-          let addr = []
-          if (res.areaName) addr.push(res.areaName)
-          if (res.streetName) addr.push(res.streetName)
-          this.info = {
-            ...res,
-            addr: addr.join('-') + ' ' + res.signAddress
-          }
+          this.info = { ...res }
         })
       },
       onClick(key) {
@@ -107,7 +107,7 @@
         switch (type) {
           case 'image':
             uni.navigateTo({
-              url: './images?data=' + JSON.stringify(this.info.annexList)
+              url: './images/list?data=' + JSON.stringify(this.info.annexList || [])
             })
             break;
           case 'layout':

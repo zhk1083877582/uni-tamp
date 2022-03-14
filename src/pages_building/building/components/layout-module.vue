@@ -58,6 +58,9 @@
     watch: {
       type(n, o) {
         this.dealData()
+      },
+      info(n, o) {
+        this.dealData()
       }
     },
     methods: {

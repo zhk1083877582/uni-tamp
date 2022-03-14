@@ -290,7 +290,8 @@
       // 楼盘-图片信息|基本信息
       initBaseInfo() {
         let params = {
-          buildingId: this.buildingId,
+          // buildingId: this.buildingId,
+          buildingId: 18531
         }
         let self = this
         getBuildingBaseInfo('/dt-building/v1/agg/building/noToken/info', params)

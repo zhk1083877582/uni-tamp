@@ -10,7 +10,7 @@
       <view @touchmove="onTouchmove" v-for="(item, index) in tabs" :key="index" :id="`item_${index}`" :ref="`item_${index}`" class="dt-margin-b-40 dt-padding-l-30 dt-padding-r-30">
         <view class="dt-text-size-30" style="color: #000;">{{ item.title }}</view>
         <view class="image-item">
-          <view v-for="(img, idx) in item.images" :key="item.attachId" class="dt-border-radius-10 dt-overflow-hidden dt-bg-color-grey-higherlight" style="height: 158rpx;">
+          <view @click="onClick(index, idx)" v-for="(img, idx) in item.images" :key="item.attachId" class="dt-border-radius-10 dt-overflow-hidden dt-bg-color-grey-higherlight" style="height: 158rpx;">
             <image :src="img.attachAddress" mode="aspectFill" style="display: block; width: 100%; height: 100%;"></image>
           </view>
         </view>
@@ -20,8 +20,6 @@
 </template>
 
 <script>
-  import buildMgr from './biz/index.js'
-  
   export default {
     data() {
       return {
@@ -31,17 +29,14 @@
         list: []
       }
     },
-    watch: {},
     onLoad(opt) {
-      // this.list = JSON.parse(opt.data)
-      this.getInfo()
+      this.list = JSON.parse(opt.data)
+      this.groupBy()
     },
-    onShareAppMessage(opt) {},
     methods: {
-      getInfo() {
-        buildMgr.info(18531).then(res => {
-          this.list = res.annexList || []
-          this.groupBy()
+      onClick(tabIndex, current) {
+        uni.navigateTo({
+          url: './preview?tabIndex=' + tabIndex + '&current=' + current + '&tabs=' + JSON.stringify(this.tabs)
         })
       },
       groupBy() {

@@ -7,7 +7,7 @@
     
     <scroll-view class="dt-margin-t-30" style="height: calc(100vh - 130rpx);" @scroll="onScroll" scroll-y
       :scroll-into-view="'item_' + current" scroll-with-animation="true">
-      <view @touchmove="onTouchmove" v-for="(info, index) in infos" :key="index" :id="'item_' + index" :ref="'item_' + index" class="dt-padding-l-30 dt-padding-r-30" style="margin-bottom: 44rpx;">
+      <view @touchmove="onTouchmove" v-for="(info, index) in infos" :key="index" :id="'item_' + index" :ref="'item_' + index" style="padding: 0 30rpx; margin-bottom: 44rpx;">
         <view class="dt-text-size-32" style="color: #333; font-weight: 500; margin-bottom: 26rpx;">
           {{ info.title }}
         </view>
@@ -44,11 +44,9 @@
       }
     },
     onLoad(opt) {
-      console.log(JSON.parse(opt.data))
       this.detail = JSON.parse(opt.data)
       this.setInfos()
     },
-    onShareAppMessage(opt) {},
     methods: {
       setInfos() {
         let infos = [{
@@ -240,20 +238,24 @@
       	this.isclickTab = false;
       },
       onScroll(e) {
-       //  if (this.isclickTab) return
-       //  let _this = this
-       //  let scrollTop = e.detail.scrollTop
-       //  for (let index = 0; index <= _this.infos.length - 1; index ++) {
-       //    console.log(scrollTop)
-       //    console.log(_this.$refs['item_' + index][0].$el.offsetTop)
-       //    console.log(_this.$refs['item_' + (index + 1)][0].$el.offsetTop)
-       //    console.log('----------')
-       //    let offsetTop = _this.$refs['item_' + index][0].$el.offsetTop
-       //    if (scrollTop >= offsetTop && scrollTop < _this.$refs['item_' + (index + 1)][0].$el.offsetTop) {
-       //    	_this.current = index
-       //    	break
-       //    }
-      	// },
+        if (this.isclickTab) return
+        let _this = this
+        let scrollTop = e.detail.scrollTop
+        for (let index = 0; index <= _this.infos.length - 1; index ++) {
+          _this.$nextTick(() => {
+            console.log(_this.$refs.item_0)
+          })
+          // console.log(_this.infos[index])
+          // console.log(scrollTop)
+          // console.log(_this.$refs.item_0)
+          // console.log('----------')
+          // let top = _this.$refs['item_' + index][0].$el.offsetTop,
+          //     idx = index + 1 == _this.infos.length ? index : index + 1,
+          //     topN = _this.$refs['item_' + idx][0].$el.offsetTop
+          // if ((index + 1 < _this.infos.length && scrollTop < topN) || (index + 1 == _this.infos.length && top <= scrollTop)) {
+          //   _this.current = index
+          // }
+        }
       },
       dealData(data, start, end, unit) {
         let str = ''

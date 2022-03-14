@@ -64,6 +64,9 @@
     watch: {
       type(n, o) {
         this.setDetail()
+      },
+      info() {
+        this.setDetail()
       }
     },
     methods: {

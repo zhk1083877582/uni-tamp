@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="page container">
     <view class="dt-bg-color-white" style="padding: 16rpx 0 16rpx 32rpx; margin-bottom: 16rpx;">
       <dt-tab :tabs="tabs" v-model="curTab" @change="(i) => onClick(i, 'type')" isScroll tab-class="dt-btn-tab-class" tab-class-active="dt-btn-tab-class dt-btn-tab-active-class" />
     </view>
@@ -10,7 +10,7 @@
     
     <view class="dt-bg-color-white" style="padding: 0 32rpx;">
       <template v-for="(layout, index) in list">
-        <layout-item :key="index" :info="layout" />
+        <layout-item :key="index" :info="layout" :source="source" />
       </template>
     </view>
   </view>
@@ -35,22 +35,16 @@
           { title: '办公楼', key: 'office' }
         ],
         curRoom: 0,
-        roomTabs: [
-          { title: '全部', key: '1' },
-          { title: '四居(2)', key: '2' },
-          { title: '三居(2)', key: '3' },
-          { title: '二居(2)', key: '4' }
-        ],
+        roomTabs: [],
         list: [],
         housesId: null,
+        source: []
       }
     },
-    watch: {},
     onLoad(opt) {
       this.housesId = opt.housesId
       this.getList()
     },
-    onShareAppMessage(opt) {},
     methods: {
       getList() {
         buildMgr.layouts({
@@ -58,6 +52,7 @@
           housesId: 18531,
           type: this.type
         }).then(res => {
+          this.source = [...res]
           if (this.type == 'residence') {
             this.roomTabs = this.groupBy(res)
             this.list = this.roomTabs[this.curRoom].list
@@ -110,35 +105,5 @@
 <style lang="scss" scoped>
   .container {
     background-color: #F6F6F8;
-  }
-  
-  ::v-deep .type-tab-class {
-  	font-size: 26rpx;
-  	color: #333;
-    height: 56rpx;
-    line-height: 56rpx;
-    padding: 0 38rpx;
-    background-color: #F6F6F8;
-    border-radius: 56rpx;
-    margin-right: 40rpx;
-    transition: all 300ms;
-  }
-  
-  ::v-deep .type-tab-active-class {
-  	color: #fff;
-    background-color: #4A6DDB;
-  }
-  
-  ::v-deep .room-tab-class {
-  	font-size: 32rpx;
-  	color: #666;
-    margin-right: 48rpx;
-    font-weight: 400;
-    transition: all 300ms;
-  }
-  
-  ::v-deep .room-tab-active-class {
-  	color: #4A6DDB;
-    font-weight: 500;
   }
 </style>
