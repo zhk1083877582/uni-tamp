@@ -88,7 +88,7 @@ export default {
         })
         // 画楼盘名称
         await this.$refs.rCanvas.drawText({
-          text: self.adviserInfo.buildingInfos[0].buildingAlias,
+          text: self.adviserInfo.buildingInfos[0].housesName,
           max_width: 0,
           x: 61,
           y: 186,
@@ -100,7 +100,7 @@ export default {
         })
         // 画楼盘亮点
         await this.$refs.rCanvas.drawText({
-          text: self.adviserInfo.buildingInfos[0].buildingBrightSpot?self.adviserInfo.buildingInfos[0].buildingBrightSpot:'-',
+          text: self.adviserInfo.buildingInfos[0].housesLightSpot?self.adviserInfo.buildingInfos[0].housesLightSpot:'-',
           max_width: 300,
           x: 32,
           y: 217,

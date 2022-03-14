@@ -8,10 +8,10 @@
         <view class="building_name"
           :style="showAuthorize?'line-height:80rpx':'line-height:110rpx'"
           v-if="adviserInfo.buildingInfos[0]">
-          {{adviserInfo.buildingInfos[0]?adviserInfo.buildingInfos[0].buildingAlias:'--'}}
+          {{adviserInfo.buildingInfos[0]?adviserInfo.buildingInfos[0].housesName:'--'}}
         </view>
         <view class="introduce" v-if="showAuthorize">
-          {{adviserInfo.buildingInfos[0].buildingBrightSpot||'--'}}</view>
+          {{adviserInfo.buildingInfos[0].housesLightSpot||'--'}}</view>
       </view>
       <view class="building_bg"></view>
 
