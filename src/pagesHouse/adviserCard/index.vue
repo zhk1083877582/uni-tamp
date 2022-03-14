@@ -7,31 +7,31 @@
     <view class="adviser-info">
       <view class="user_warp">
         <view class="top">
-          <image class="avatarTou" :src="adviserInfo.avatarUrl" mode="aspectFill">
+          <image class="avatarTou" :src="consultant.avatarUrl" mode="aspectFill">
           </image>
           <view class="user_msg">
             <view class="name">
-              {{adviserInfo.userName||'--'}}
+              {{consultant.userName||'--'}}
               <!-- <view class="download_btn" @click="downloadUserImg()">
 								<i class='iconfont iconicon_save'></i>保存名片
 							</view> -->
             </view>
             <view class="phone_chat">
               <view>
-                <i class='iconfont iconicon_phone_gray'></i><text>{{adviserInfo.phone}}</text>
+                <i class='iconfont iconicon_phone_gray'></i><text>{{consultant.phone}}</text>
               </view>
               <button class="user_msg_btn" type="default" hover-class='none'
-                @click="tellPhone(adviserInfo.phone)">
+                @click="tellPhone(consultant.phone)">
                 拨打
               </button>
             </view>
             <view class="phone_chat">
               <view>
                 <i
-                  class='iconfont iconicon_wechat_gray'></i><text>{{adviserInfo.wechat}}</text>
+                  class='iconfont iconicon_wechat_gray'></i><text>{{consultant.wechat}}</text>
               </view>
               <button class="user_msg_btn" type="default" hover-class='none'
-                @click="copyNumber(adviserInfo.wechat)">
+                @click="copyNumber(consultant.wechat)">
                 加微信
               </button>
             </view>
@@ -40,7 +40,7 @@
         <view class="bottom_item">
           <view class="item_warp">
             <view class="num">
-              {{adviserInfo.servedPeopleNum||'-'}}<text class="unit">人</text>
+              {{consultant.servedPeopleNum||'-'}}<text class="unit">人</text>
             </view>
             <view class="item_title">
               服务客户
@@ -56,7 +56,7 @@
           </view>
           <view class="item_warp" style="border-right: 0;">
             <view class="num">
-              {{adviserInfo.workExperienceDesc||'--'}}
+              {{consultant.workExperienceDesc||'--'}}
               <!-- <text class="unit">年</text> -->
             </view>
             <view class="item_title">
@@ -69,27 +69,16 @@
     <!-- 服务楼盘 -->
     <view class="adviser-buildingInfo">
       <view class="adviser-building">
-        <swiper class="swiper" :style="{height:swiperInfo.itemHeight}"
-          :next-margin="swiperInfo.swiperMargin" :previous-margin="swiperInfo.swiperMargin"
-          :current="swiperInfo.current" :indicator-dots="swiperInfo.indicatorDots"
-          :autoplay="swiperInfo.autoplay" :effect3d="true" circular='true'
-          @change="doChangeSwipe">
-          <swiper-item v-for="(item,index) in baseInfo" :key="index">
-            <view class="building-item uni-bg-red"
-              :class="index!=swiperInfo.current?'scale_swiper':''">
-              <buildingCard :baseInfo="item" :userId="userId" :buildingId="item.buildingId"
-                @showAuthorizefun='showAuthorizefun'>
-              </buildingCard>
-            </view>
-          </swiper-item>
-        </swiper>
+        <view class="building-item uni-bg-red">
+          <buildingCard :building="building" :userId="userId"/>
+        </view>
       </view>
     </view>
     <view class="adviser-bottom">
       <button class="left_btn bottom_btn" data-name="shareBtn" open-type="share">
         推荐给朋友
       </button>
-      <button class="right_btn bottom_btn" @click="tellPhone(adviserInfo.phone)">
+      <button class="right_btn bottom_btn" @click="tellPhone(consultant.phone)">
         <i class='iconfont iconicon_phone'></i>联系顾问
       </button>
     </view>
@@ -103,6 +92,9 @@
   import buildingCard from '@/pagesHouse/adviserCard/components/buildingCard.vue'
   import rCanvas from '@/components/r-canvas/r-canvas.vue'
   import authPhone from '__com/auth/phone.vue'
+  import buildMgr from '__com/building/index.js'
+  import consultantMgr from '__com/consultant/index.js'
+
   export default {
     components: {
       buildingCard,
@@ -114,8 +106,7 @@
         buildingId: '', //app扫码进来，带过来buildingId时
         userId: '',
         articleId: null,
-        configPicture: '', //楼盘配置图，如果不存在取c-app的封面图
-        adviserInfo: {},
+        consultant: {},
         //滑动信息
         swiperInfo: {
           itemHeight: '1050rpx',
@@ -124,9 +115,8 @@
           indicatorDots: false,
           autoplay: false,
         },
-        baseInfo: [],
+        building: {},
         beginTime: '',
-        showAuthorize: false,
         // showModal: false,
         modalContent: `
 					您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
@@ -165,8 +155,11 @@
           this.buildingId +
           '&operateCanal=3'
       }
-      this.initUserInfo() //管家信息
-      // this.initBaseInfo();//楼盘信息
+      Promise.all([this.getUserInfo(), this.getBuildingInfo()]).then(ress => {
+        if (this.articleId) {
+          this.$dt.biz.clue.shortArticle(this.articleId, this.consultant.userName, this.building.buildingAlias)
+        }
+      })
     },
     onHide() {},
     onUnload() {},
@@ -178,160 +171,39 @@
       })
     },
     methods: {
-      showAuthorizefun(data) {
-        console.log(data)
-        // this.cardData = data
-        // this.showAuthorize = true
-        this.onGetUserInfo()
-      },
-      onGetUserInfo() {
-        this.$dt.biz.auth.update().then(res => {
-          this.showAuthorize = false
-          uni.navigateTo({
-            url: '/pagesHouse/house/house?buildingId=' +
-              this.cardData.buildingId +
-              '&userId=' +
-              this.cardData.userId,
+      //获取顾问信息
+      getUserInfo() {
+        return consultantMgr.detail(this.userId).then(res => {
+          this.share.title = `置业顾问【${res.userName ? res.userName : '-'}】`
+          let { expertiseFields = [], buildingInfos = [] } = res
+          res.expertiseFields = expertiseFields
+          res.servedPeopleNum = parseInt(res.servedPeopleNum) || ''
+          this.consultant = res
+          //设置标题
+          uni.setNavigationBarTitle({
+            title: res.userName ? `${res.userName}的个人主页` : '顾问主页',
           })
+          return res
         })
       },
-      doChangeSwipe(val) {
-        console.log('----swiper', val)
-        this.swiperInfo.current = val.detail.current
-        this.currentPlan = 0
-        let item = this.baseInfo[val.detail.current]
-        //设置标题
-        // uni.setNavigationBarTitle({
-        // 	// title: item.buildingAlias||item.buildingName,
-        // 	title: '我的名片'
-        // });
-        //封面图
-        this.configPicture = item.backgroundUrl
-      },
-      //获取小程序二维码
-      getwxCodeUserCard() {
-        let params = {
-          userId: this.userId,
-          buildingId: this.buildingId,
-        }
-        getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
-          .then((res) => {
-            // console.log(res,'获取小程序二维码')
-            this.wxcodeCard = res
-          })
-          .catch((err) => {
-            console.log('获取小程序二维码', err)
-          })
-      },
-      //获取顾问信息
-      initUserInfo() {
-        let params = {
-          userId: this.userId,
-          buildingId: this.buildingId,
-        }
-        console.log('-------params', params)
-        let self = this
-        getBuildingBaseInfo('/dt-user/v1/aggs/user/noToken/get', params)
-          .then((res) => {
-            console.log('管家信息', res)
-            this.share.title = `置业顾问【${res.userName ? res.userName : '-'}】`
-            let { expertiseFields = [], buildingInfos = [] } = res
-            res.expertiseFields = expertiseFields
-            if (res.servedPeopleNum != null || res.servedPeopleNum != '') {
-              res.servedPeopleNum = parseInt(res.servedPeopleNum)
-            } else {
-              res.servedPeopleNum = ''
-            }
-            self.adviserInfo = res
-            //设置标题
-            uni.setNavigationBarTitle({
-              // title: arr.length>1?arr[1].buildingAlias||arr[1].buildingName:arr[0].buildingAlias||arr[0].buildingName,
-              title: res.userName ? `${res.userName}的个人主页` : '顾问主页',
-            })
-            self.initBaseInfo()
-            // self.getwxCodeUserCard();
-            // setTimeout(()=>{
-            // 	self.createImg()
-            // },1000)
-          })
-          .catch((err) => {
-            console.log('管家信息11', err)
-          })
-      },
       // 楼盘-图片信息|基本信息
-      initBaseInfo() {
-        let params = {
-          buildingIds: [this.buildingId],
-        }
-        let self = this
-        getBuildingBaseInfo('/dt-building/v1/agg/building/noToken/served', params)
-          .then((res) => {
-            console.log('----楼盘信息--', res)
-
-            let arr = (res || []).map((item) => {
-              item.referenceAveragePrice = item.referenceAveragePrice ?
-                parseInt(item.referenceAveragePrice) :
-                item.referenceAveragePrice
-              item.referenceTotalPriceMin = item.referenceTotalPriceMin ?
-                parseInt(item.referenceTotalPriceMin) :
-                item.referenceTotalPriceMin
-              item.referenceTotalPriceMax = item.referenceTotalPriceMax ?
-                parseInt(item.referenceTotalPriceMax) :
-                item.referenceTotalPriceMax
-              item.referenceBuildAreaMin = item.referenceBuildAreaMin ?
-                parseInt(item.referenceBuildAreaMin) :
-                item.referenceBuildAreaMin
-              item.referenceBuildAreaMax = item.referenceBuildAreaMax ?
-                parseInt(item.referenceBuildAreaMax) :
-                item.referenceBuildAreaMax
-
-              let annexVOS = item.annexVOS || []
-              // console.log('====annexVOS',annexVOS)
-              /**
-               * 附件类型(101:效果图 102:样板间 103:环境规划图 104:配套实景图 105:楼盘实景图 106:楼栋分布图 107:户型 108:预售证
-               * 109:视频,110:楼盘VR, 113:首屏周边, 114:楼盘介绍, 115:楼盘logo, 116:pc封面图
-               * 201:预售证管理附件,301:户型图,302户型VR,112:发现主题,304:测评图,305:样板间)
-               */
-              let mp4Arr = annexVOS.filter((item1) => {
-                return item1.annexType == '109'
-              })
-              console.log('存在mp4Arr', mp4Arr)
-              let vrArr = annexVOS.filter((item1) => {
-                return item1.annexType == '110' || item1.annexType == '302'
-              })
-              console.log('存在vrArr', vrArr)
-              let imgArr = annexVOS.filter((item1) => {
-                return (
-                  item1.annexType != '109' &&
-                  item1.annexType != '110' &&
-                  item1.annexType != '302'
-                )
-              })
-              console.log('存在imgArr', imgArr)
-              item.mp4Picture = mp4Arr.length > 0 ? mp4Arr[0].smallAnnexPath : ''
-              item.vrPicture = vrArr.length > 0 ? vrArr[0].smallAnnexPath : ''
-              // item.imgPicture = imgArr.length>0? imgArr[0].annexPath:'';
-              item.imgPicture = item.backgroundUrl || ''
-              console.log(
-                `视频:${item.mp4Picture} ---VR：${item.vrPicture} --图片：${item.imgPicture}`
-              )
-              item.realImgPath =
-                item.mp4Picture || item.vrPicture || item.imgPicture
-              return item
-            })
-
-            self.baseInfo = arr
-            //封面图
-            self.configPicture = arr[0].backgroundUrl
-            
-            console.log(this.adviserInfo.userName, arr[0].buildingAlias)
-            if (this.articleId) {
-              this.$dt.biz.clue.shortArticle(this.articleId, this.adviserInfo.userName, arr[0].buildingAlias)
-            }
-          })
-          .catch((err) => {
-            console.log('基本信息-err', err)
-          })
+      getBuildingInfo() {
+        return buildMgr.info(this.buildingId).then(res => {
+          let annexVOS = res.annexVOS || []
+          /**
+           * 附件类型(101:效果图 102:样板间 103:环境规划图 104:配套实景图 105:楼盘实景图 106:楼栋分布图 107:户型 108:预售证
+           * 109:视频,110:楼盘VR, 113:首屏周边, 114:楼盘介绍, 115:楼盘logo, 116:pc封面图
+           * 201:预售证管理附件,301:户型图,302户型VR,112:发现主题,304:测评图,305:样板间)
+           */
+          let mp4Arr = annexVOS.filter(i => i.annexType == '109')
+          let vrArr = annexVOS.filter(i => i.annexType == '110' || i.annexType == '302')
+          res.mp4Picture = mp4Arr.length > 0 ? mp4Arr[0].smallAnnexPath : ''
+          res.vrPicture = vrArr.length > 0 ? vrArr[0].smallAnnexPath : ''
+          res.imgPicture = res.housesCover || ''
+          res.realImgPath = res.mp4Picture || res.vrPicture || res.imgPicture
+          this.building = res
+          return res
+        })
       },
       //保存顾问名片
       downloadUserImg(url) {
@@ -341,15 +213,7 @@
       copyNumber(value) {
         let self = this
         uni.setClipboardData({
-          data: value,
-          // success: function () {
-          //   uni.hideToast()
-          //   // uni.showToast({
-          //   // 	title: "已复制微信号到剪贴板",
-          //   // 	icon: "none"
-          //   // });
-          //   self.showModal = true
-          // },
+          data: value
         })
       },
       //拨打电话
@@ -506,48 +370,20 @@
       }
     }
 
-    // 楼盘tag
-    .adviser-tag {
-      width: 100%;
-      font-size: 20rpx;
-      color: #000000;
-      display: flex;
-      position: absolute;
-      top: 660rpx;
-      left: 24rpx;
-
-      .adviser-tag_item {
-        flex: 1;
-      }
-
-      .iconfont {
-        font-size: 18rpx;
-        margin-right: 8rpx;
-      }
-    }
-
     // 服务楼盘
     .adviser-buildingInfo {
       width: 100%;
       background: #ffffff;
-
-      //顾问名片-item
-      .adviser-building {
-        margin-top: 6rpx;
-
-        .building-item {
-          display: inline-block;
-          width: 702rpx;
-          border-radius: 10rpx 10rpx;
-          overflow: hidden;
-          // border:1px solid pink;
-          margin: 0 7rpx;
-        }
-      }
-
-      .scale_swiper {
-        // transform:scaleY(0.85);
-        // opacity: 0.5;
+      margin-left: 24rpx;
+      margin-top: 6rpx;
+      
+      .building-item {
+        display: inline-block;
+        width: 702rpx;
+        border-radius: 10rpx 10rpx;
+        overflow: hidden;
+        // border:1px solid pink;
+        margin: 0 7rpx;
       }
     }
 

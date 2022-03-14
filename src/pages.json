@@ -277,12 +277,12 @@
     }, {
       "name": "card",
       "path": "pagesHouse/adviserCard/index",
-      "query": "userId=21570&buildingId=105271"
+      "query": "userId=21570&buildingId=18531"
     },
     {
       "name": "integral",
       "path": "pages_com/integral/index",
-      "query": "userId=12702&buildingId=80724"
+      "query": "userId=12702&buildingId=18531"
     },
     {
       "name": "book",

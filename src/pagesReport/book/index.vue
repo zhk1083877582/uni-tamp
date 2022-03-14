@@ -93,7 +93,7 @@
               : '先生/女士'
           }`
             console.log(this.windowTitle)
-            this.buildingName = res.buildingInfo.buildingAlias
+            this.buildingName = res.buildingInfo.housesName
           })
           .catch((err) => {
             console.log(err)
