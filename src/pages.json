@@ -77,6 +77,12 @@
       "style": {
         "navigationBarTitleText": "户型详情"
       }
+    },
+    {
+      "path": "building/webView/webView",
+      "style": {
+        "navigationBarTitleText": "位置及周边"
+      }
     }]
   },
   {
@@ -254,42 +260,6 @@
         }
       }
     }]
-  },
-  {
-    "root": "pages_building",
-    "pages": [
-      {
-        "path": "building/index",
-        "style": {
-          "navigationBarTitleText": "楼盘详情"
-        }
-      }, {
-        "path": "building/info",
-        "style": {
-          "navigationBarTitleText": "楼盘信息"
-        }
-      }, {
-        "path": "building/images/list",
-        "style": {
-          "navigationBarTitleText": "楼盘相册"
-        }
-      }, {
-        "path": "building/images/preview",
-        "style": {
-          "navigationBarTitleText": "楼盘相册"
-        }
-      }, {
-        "path": "building/layout/list",
-        "style": {
-          "navigationBarTitleText": "户型列表"
-        }
-      }, {
-        "path": "building/layout/detail",
-        "style": {
-          "navigationBarTitleText": "户型详情"
-        }
-      }
-    ]
   }],
   "globalStyle": {
     "navigationBarTextStyle": "black",
@@ -320,7 +290,7 @@
     },
     {
       "name": "building",
-      "path": "pages_building/building/index",
+      "path": "pages_com/building/index",
       "query": "reportId=89465"
     }]
   }
