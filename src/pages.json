@@ -43,7 +43,7 @@
       }
     },
     {
-      "path": "building/index",
+      "path": "building/detail",
       "style": {
         "navigationBarTitleText": "楼盘详情"
       }
@@ -290,7 +290,7 @@
     },
     {
       "name": "building",
-      "path": "pages_com/building/index",
+      "path": "pages_com/building/detail",
       "query": "reportId=89465"
     }]
   }
