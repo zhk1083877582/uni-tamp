@@ -17,69 +17,71 @@
     }
   }],
   "subPackages": [{
-    "root": "pages_com",
-    "pages": [
-    {
-      "path": "loan/index",
+    "root": "pages_com/loan",
+    "pages": [{
+      "path": "index",
       "style": {
         "navigationBarTitleText": "贷款计算器"
       }
-    },
-    {
-      "path": "loan/result",
+    }, {
+      "path": "result",
       "style": {
         "navigationBarTitleText": "贷款计算结果"
       }
-    },
-    {
-      "path": "integral/index",
+    }]
+  },
+  {
+    "root": "pages_com/integral",
+    "pages": [{
+      "path": "index",
       "style": {
         "navigationBarTitleText": "上海买房积分计算器"
       }
-    },{
-      "path": "report/detail",
+    }]
+  },
+  {
+    "root": "pages_com/report",
+    "pages": [{
+      "path": "detail",
       "style": {
         "navigationBarTitleText": "专属置业计划书"
       }
-    },
-    {
-      "path": "building/detail",
+    }]
+  },
+  {
+    "root": "pages_com/building",
+    "pages": [{
+      "path": "detail",
       "style": {
         "navigationBarTitleText": "楼盘详情"
       }
-    },
-    {
-      "path": "building/info",
+    }, {
+      "path": "info",
       "style": {
         "navigationBarTitleText": "楼盘信息"
       }
-    },
-    {
-      "path": "building/images/list",
+    }, {
+      "path": "images/list",
       "style": {
         "navigationBarTitleText": "楼盘相册"
       }
-    },
-    {
-      "path": "building/images/preview",
+    }, {
+      "path": "images/preview",
       "style": {
         "navigationBarTitleText": "楼盘相册"
       }
-    },
-    {
-      "path": "building/layout/list",
+    }, {
+      "path": "layout/list",
       "style": {
         "navigationBarTitleText": "户型列表"
       }
-    },
-    {
-      "path": "building/layout/detail",
+    }, {
+      "path": "layout/detail",
       "style": {
         "navigationBarTitleText": "户型详情"
       }
-    },
-    {
-      "path": "building/webView/webView",
+    }, {
+      "path": "webView/webView",
       "style": {
         "navigationBarTitleText": "位置及周边"
       }
