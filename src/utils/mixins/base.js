@@ -111,14 +111,16 @@ export default {
 
     //客户足迹
     if (this.CustomerTrack.operateType == '1') {
+      let userInfo = this.$dt.biz.auth.getInfoSync()
+      let { avatarUrl, nickName } = userInfo.userInfo || {}
       CustomerTrackShareType = '1'
       this.addCustomerTrack({
         shareType: CustomerTrackShareType,
         operateCanal: CustomerOperateCanal,
-        wxAvatarUrl: this.$tool.getStorage('dt_wx_auth')?this.$tool.getStorage('dt_wx_auth').userInfo.avatarUrl:'', //头像
-        wxNickname: this.$tool.getStorage('dt_wx_auth')?this.$tool.getStorage('dt_wx_auth').userInfo.nickName:'', //微信昵称
-        wxOpenId: this.$tool.getStorage('dt_wx_auth').openid,
-        wxUnionId: this.$tool.getStorage('dt_wx_auth').unionid,
+        wxAvatarUrl: avatarUrl, //头像
+        wxNickname: nickName, //微信昵称
+        wxOpenId: userInfo.openid,
+        wxUnionId: userInfo.unionid,
       })
     }
     if (this.CustomerTrack.operateType == '2') {
