@@ -373,7 +373,7 @@
           userId
 
         uni.navigateTo({
-          url: '/pagesHouse/house/house?buildingId=' +
+          url: '/pages_com/building/detail?buildingId=' +
             buildingId +
             '&userId=' +
             userIdTmp,
