@@ -1559,15 +1559,15 @@
   resolved "http://172.16.1.129:4873/@dt%2fdt/-/dt-1.1.7.tgz#b847b4f335da726706de669686a1b2f318ff15cc"
   integrity sha512-j16/gUH4dGRyFhcCoh1073Dt1+eyagLQfL6Q9kW36TlAS1Ump9BAF6VK72wcHp8pU7pqMwOhbdsaCjc7l3PfXw==
 
-"@dt/loader@2.0.9":
-  version "2.0.9"
-  resolved "http://172.16.1.129:4873/@dt%2floader/-/loader-2.0.9.tgz#c63e75d444cfd3a9d4a8e89f85092c5f536c4244"
-  integrity sha512-F+G4S0YN4Df+jYfWZtSKrK0JScCbViEXMH5ebeW7J7t/GFe9UM3twe/3dxUMUQaVFX9P9cyM9S9oabcTR7QCyQ==
+"@dt/loader@2.1.1":
+  version "2.1.1"
+  resolved "http://172.16.1.129:4873/@dt%2floader/-/loader-2.1.1.tgz#00ec95d27b6e668c527420f91e362f31a0133a41"
+  integrity sha512-TlzzHDZxHWNVblS8UdqW2m+6tqdjEFDv96XJvdHIX/r4yPFts+N3Q7Td3EANsczFyk5Rn9SkTSHKoW+Hz7PcLA==
 
-"@dt/page@2.5.7":
-  version "2.5.7"
-  resolved "http://172.16.1.129:4873/@dt%2fpage/-/page-2.5.7.tgz#333b7be3f0f3d827f79cd3ac013e7e34ba43358e"
-  integrity sha512-8fkMtkjdTmleIddvYKUrcwfCrr1AqLF0QqhbOEjWa8YIQ5MfZ9SO660RxFjoa2WaerhF6VQOx+qo73lReLW/hw==
+"@dt/page@2.5.8":
+  version "2.5.8"
+  resolved "http://172.16.1.129:4873/@dt%2fpage/-/page-2.5.8.tgz#a44e2b76756b129c9e6eed0b58ca46740765159b"
+  integrity sha512-wuwQX13XIB96mhYZn14iZZOmB7z6Ml1X8iZREg4dg7Mn2WfES4WwSWy4Wo89nO2XxZrDXoZPLO757Duy5yQ5Ew==
 
 "@dt/server@2.2.4":
   version "2.2.4"
