@@ -274,7 +274,7 @@
     "list": [{
       "name": "report",
       "path": "pagesReport/reportDetail/index",
-      "query": "reportId=56919"
+      "query": "reportId=133822"
     }, {
       "name": "card",
       "path": "pagesHouse/adviserCard/index",
