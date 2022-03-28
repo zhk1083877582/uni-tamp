@@ -25,7 +25,8 @@
           :class="!building.vrPicture&&!building.mp4Picture?'flag-item-active':''">图片</text>
       </view>
     </view>
-    <building-info :info='building'/>
+    <building-info :info='building' :userId="userId" isCard />
+    
   </view>
 </template>
 
@@ -50,10 +51,7 @@
       //跳转楼盘详情
       goBuilding() {
         uni.navigateTo({
-          url: '/pagesHouse/house/house?buildingId=' +
-            this.building.housesId +
-            '&userId=' +
-            this.userId,
+          url: '/pages_com/building/detail?buildingId=' + this.building.housesId + '&userId=' + this.userId,
         })
       }
     },
