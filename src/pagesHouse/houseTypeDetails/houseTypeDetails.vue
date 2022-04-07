@@ -250,7 +250,7 @@ export default {
     },
     buildingClick() {
       uni.navigateTo({
-        url: '/pagesHouse/house/house?buildingId=' + this.buildingId,
+        url: '/pages_com/building/detail?buildingId=' + this.buildingId,
       })
     },
     goHouseTypeDetails(val) {

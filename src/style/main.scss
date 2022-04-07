@@ -2,12 +2,7 @@
 @import "uview-ui/theme.scss";
 @import 'uview-ui/index.scss';
 
-.tab-class {
-	font-size: 28upx;
-	color: #999;
-}
-
-.tab-class-active {
-	font-size: 32upx;
-	color: #333;
+.preview-line-tab-active-class {
+  color: #fff;
+  font-weight: 500;
 }
