@@ -88,7 +88,8 @@
     }, {
       "path": "dynamic/list",
       "style": {
-        "navigationBarTitleText": "楼盘动态"
+        "navigationBarTitleText": "楼盘动态",
+        "enablePullDownRefresh": true
       }
     }, {
       "path": "dynamic/detail",
