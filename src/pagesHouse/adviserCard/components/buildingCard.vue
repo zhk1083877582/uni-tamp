@@ -1,5 +1,5 @@
 <template>
-  <view class="building-card" @click.stop="goBuilding">
+  <view class="building-card">
     <view class="building_title_name">
       <view class="build_name">
         {{building.housesName}}
@@ -47,14 +47,7 @@
         imgList: [],
       }
     },
-    methods: {
-      //跳转楼盘详情
-      goBuilding() {
-        uni.navigateTo({
-          url: '/pages_com/building/detail?buildingId=' + this.building.housesId + '&userId=' + this.userId,
-        })
-      }
-    },
+    methods: {},
   }
 </script>
 
