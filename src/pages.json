@@ -17,24 +17,73 @@
     }
   }],
   "subPackages": [{
-    "root": "pages_com",
-    "pages": [
-    {
-      "path": "loan/index",
+    "root": "pages_com/loan",
+    "pages": [{
+      "path": "index",
       "style": {
         "navigationBarTitleText": "贷款计算器"
       }
-    },
-    {
-      "path": "loan/result",
+    }, {
+      "path": "result",
       "style": {
         "navigationBarTitleText": "贷款计算结果"
       }
-    },
-    {
-      "path": "integral/index",
+    }]
+  },
+  {
+    "root": "pages_com/integral",
+    "pages": [{
+      "path": "index",
       "style": {
         "navigationBarTitleText": "上海买房积分计算器"
+      }
+    }]
+  },
+  {
+    "root": "pages_com/report",
+    "pages": [{
+      "path": "detail",
+      "style": {
+        "navigationBarTitleText": "专属置业计划书"
+      }
+    }]
+  },
+  {
+    "root": "pages_com/building",
+    "pages": [{
+      "path": "detail",
+      "style": {
+        "navigationBarTitleText": "楼盘详情"
+      }
+    }, {
+      "path": "info",
+      "style": {
+        "navigationBarTitleText": "楼盘信息"
+      }
+    }, {
+      "path": "images/list",
+      "style": {
+        "navigationBarTitleText": "楼盘相册"
+      }
+    }, {
+      "path": "images/preview",
+      "style": {
+        "navigationBarTitleText": "楼盘相册"
+      }
+    }, {
+      "path": "layout/list",
+      "style": {
+        "navigationBarTitleText": "户型列表"
+      }
+    }, {
+      "path": "layout/detail",
+      "style": {
+        "navigationBarTitleText": "户型详情"
+      }
+    }, {
+      "path": "webView/webView",
+      "style": {
+        "navigationBarTitleText": "位置及周边"
       }
     }]
   },
@@ -225,20 +274,25 @@
     "list": [{
       "name": "report",
       "path": "pagesReport/reportDetail/index",
-      "query": "reportId=17"
+      "query": "reportId=133822"
     }, {
-      "name": "loan",
-      "path": "pages_com/loan/index",
-      "query": "userId=12702&buildingId=80724"
+      "name": "card",
+      "path": "pagesHouse/adviserCard/index",
+      "query": "userId=21570&buildingId=18531"
     },
     {
       "name": "integral",
       "path": "pages_com/integral/index",
-      "query": "userId=12702&buildingId=80724"
+      "query": "userId=12702&buildingId=18531"
     },
     {
       "name": "book",
       "path": "pagesReport/book/index",
+      "query": "reportId=133854"
+    },
+    {
+      "name": "building",
+      "path": "pages_com/building/detail",
       "query": "reportId=89465"
     }]
   }

@@ -6,12 +6,12 @@
     <view class="main">
       <view class="building_warp">
         <view class="building_name"
-          :style="showAuthorize?'line-height:80rpx':'line-height:110rpx'"
-          v-if="adviserInfo.buildingInfos[0]">
-          {{adviserInfo.buildingInfos[0]?adviserInfo.buildingInfos[0].buildingAlias:'--'}}
+          :style="showAuthorize?'line-height:80rpx':'line-height:110rpx'" v-if="building">
+          {{building?building.housesName:'--'}}
         </view>
         <view class="introduce" v-if="showAuthorize">
-          {{adviserInfo.buildingInfos[0].buildingBrightSpot||'--'}}</view>
+          {{building.housesLightSpot||'--'}}
+        </view>
       </view>
       <view class="building_bg"></view>
 
@@ -53,29 +53,27 @@
         </view>
         <view class="user_warp" v-else>
           <view class="top">
-            <u-avatar class="avatarTou" :src="adviserInfo.avatarUrl" size='160' mode="circle">
-            </u-avatar>
+            <image class="avatarTou" :src="user.avatarUrl" mode="aspectFill">
+            </image>
             <view class="user_msg">
               <view class="name">
-                {{adviserInfo.userName||''}}
+                {{user.userName||''}}
               </view>
               <view class="phone_chat">
                 <view>
-                  <i
-                    class='iconfont iconicon_phone_gray'></i><text>{{adviserInfo.phone}}</text>
+                  <i class='iconfont iconicon_phone_gray'></i><text>{{user.phone}}</text>
                 </view>
                 <button class="user_msg_btn" type="default" hover-class='none'
-                  @click="tellPhone(adviserInfo.phone)">
+                  @click="tellPhone(user.phone)">
                   拨打
                 </button>
               </view>
               <view class="phone_chat">
                 <view>
-                  <i
-                    class='iconfont iconicon_wechat_gray'></i><text>{{adviserInfo.wechat}}</text>
+                  <i class='iconfont iconicon_wechat_gray'></i><text>{{user.wechat}}</text>
                 </view>
                 <button class="user_msg_btn" type="default" hover-class='none'
-                  @click="copyNumber(adviserInfo.wechat)">
+                  @click="copyNumber(user.wechat)">
                   加微信
                 </button>
               </view>
@@ -84,7 +82,7 @@
           <view class="bottom_item">
             <view class="item_warp">
               <view class="num">
-                {{adviserInfo.servedPeopleNum||'-'}}<text class="unit">人</text>
+                {{user.servedPeopleNum||'-'}}<text class="unit">人</text>
               </view>
               <view class="item_title">
                 服务客户
@@ -100,7 +98,7 @@
             </view>
             <view class="item_warp" style="border-right: 0;">
               <view class="num">
-                {{adviserInfo.workExperienceDesc||'--'}}
+                {{user.workExperienceDesc||'--'}}
               </view>
               <view class="item_title">
                 从业年限
@@ -133,7 +131,9 @@
 <script>
   import { getData } from '@/request/api.js'
   import rCanvas from '@/components/r-canvas/r-canvas.vue'
-  import myCanvas from '@/components/my-canvas/index.js'
+  import myCanvas from './my-canvas/index.js'
+  import consultantMgr from '__com/consultant/index.js'
+  import buildingMgr from '__com/building/index.js'
   export default {
     components: { rCanvas },
     mixins: [myCanvas],
@@ -144,9 +144,10 @@
         modalContent: `
 				您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
 			`,
-        adviserInfo: {},
+        user: {},
         userId: '',
         buildingId: '', //app扫码进来，带过来buildingId时
+        building: {},
         wxcodeCard: '',
         canvasImg: '',
         flagDownloadImg: true, //控制下载按钮
@@ -156,17 +157,18 @@
       onGetPhoneNumber(e) {
         let res = e.detail
         if (res.errMsg.indexOf(':ok') >= 0) {
-          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId).then(res => {
-            this.$cache.setCache('isPhoneLogin', true)
-            this.$cache.setCache('Login-Data', res.login)
-            this.$cache.setCache('loginFlag', true)
-            this.$cache.setCache('loginFlag1', true)
-            this.showAuthorize = true
-            let { phone } = res || {}
-            if (phone) {
-              this.doAddCustorm(phone)
-            }
-          })
+          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
+            .then(res => {
+              this.$cache.setCache('isPhoneLogin', true)
+              this.$cache.setCache('Login-Data', res.login)
+              this.$cache.setCache('loginFlag', true)
+              this.$cache.setCache('loginFlag1', true)
+              this.showAuthorize = true
+              let { phone } = res || {}
+              if (phone) {
+                this.doAddCustorm(phone)
+              }
+            })
         } else {
           console.warn(res.errMsg)
         }
@@ -185,23 +187,14 @@
       },
       //获取微信二维码
       getwxCodeUserCard() {
-        let self = this
-        let params = {
-          uId: this.userId,
-          bId: this.buildingId,
-          type: 1,
-          pageType: 1,
-        }
-        getData('/dt-user/noToken/wx/getwxCodeUserCard', params)
-          .then((res) => {
-            this.wxcodeCard = res
-            setTimeout(() => {
-              self.createImg()
-            }, 600)
-          })
-          .catch((err) => {
-            console.log('获取小程序二维码', err)
-          })
+        consultantMgr.code(this.userId, this.buildingId).then(res => {
+          this.wxcodeCard = res
+          setTimeout(() => {
+            this.createImg()
+          }, 600)
+        }).catch((err) => {
+          console.log('获取小程序二维码', err)
+        })
       },
       //复制微信号
       copyNumber(value) {
@@ -231,35 +224,23 @@
       },
       //获取顾问信息
       initUserInfo() {
-        let params = {
-          userId: this.userId,
-          buildingId: this.buildingId,
-        }
-        let self = this
-        getData('/dt-user/v1/aggs/user/noToken/get', params)
-          .then(async (res) => {
-            console.log('管家信息', res)
-            let { expertiseFields = [], buildingInfos = [] } = res
-            res.expertiseFields = expertiseFields
-            if (res.servedPeopleNum != null || res.servedPeopleNum != '') {
-              res.servedPeopleNum = parseInt(res.servedPeopleNum)
-            } else {
-              res.servedPeopleNum = ''
-            }
-            self.adviserInfo = res
-            this.titleName = `将由顾问【${self.adviserInfo.userName}】为您服务`
-            let buildingIds = buildingInfos.map((item1) => {
-              return item1.buildingId
-            })
-            await self.getwxCodeUserCard() //获取小程序二维码
-          })
-          .catch((err) => {
-            console.log('管家信息', err)
-          })
+        buildingMgr.info(this.buildingId).then(res => {
+          this.building = res
+        })
+        consultantMgr.detail(this.userId).then(res => {
+          console.log('管家信息', res)
+          res.expertiseFields = res.expertiseFields || []
+          res.servedPeopleNum = parseInt(res.servedPeopleNum) || ''
+          this.user = res
+          this.titleName = `将由顾问【${this.user.userName}】为您服务`
+          this.getwxCodeUserCard() //获取小程序二维码
+        }).catch((err) => {
+          console.log('管家信息', err)
+        })
       },
       // 把当前手机号推进客户池
       doAddCustorm(phone) {
-		  console.log('进入推进客户池', phone,this.buildingId,this.userId)
+        console.log('进入推进客户池', phone, this.buildingId, this.userId)
         let params = {
           customerPhone: phone,
           buildingId: this.buildingId,
@@ -269,8 +250,8 @@
         let api = '/dt-customer/checkIn/noToken/customerCheckIn'
         getData(api, params)
           .then((res) => {
-			  console.log('推进客户池成功', res)
-		  })
+            console.log('推进客户池成功', res)
+          })
           .catch((err) => {
             console.log('创建客户报错', err)
           })
@@ -296,10 +277,10 @@
       if (!this.$cache.getCache('isPhoneLogin')) {
         this.showAuthorize = false
       } else {
-		  console.log('userId&&&buildingId', this.userId,this.buildingId)
+        console.log('userId&&&buildingId', this.userId, this.buildingId)
         if (this.buildingId) {
           let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
-		  console.log('手机号是否存在', phone)
+          console.log('手机号是否存在', phone)
           if (phone) {
             this.doAddCustorm(phone)
           }
@@ -465,6 +446,9 @@
 
           .avatarTou {
             margin-right: 32rpx;
+            width: 160rpx;
+            height: 160rpx;
+            border-radius: 80rpx;
           }
 
           .user_msg {

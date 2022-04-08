@@ -19,7 +19,7 @@
           <image class="avatarTou" :src="userInfo.avatarUrl" mode="widthFix"></image>
           <view class="name_phone">
             <view class="name" v-show="authorize">
-              {{userInfo.nickName || '--'}}
+              {{userInfo.nickName || ''}}
             </view>
             <view class="phone" :class="{'authorize_Y':authorize!=true}">
               {{phoneFormat}}
@@ -44,22 +44,22 @@
                     @click="toDetail(item.reportBuildingIntro.buildingId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
                     <view class="img_warp">
                       <image class="tospur-image"
-                        :src="item.reportBuildingIntro.albumCoverPicture ? item.reportBuildingIntro.albumCoverPicture : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
+                        :src="item.reportBuildingIntro.housesCover ? item.reportBuildingIntro.housesCover : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
                         mode="">
                       </image>
                     </view>
                     <view class="item_details">
                       <view class="details_title">
                         <view class="details_title_text">
-                          {{item.reportBuildingIntro.buildingAlias}}
+                          {{item.reportBuildingIntro.housesName}}
                         </view>
                         <view class="label cl_B">
-                          {{item.reportBuildingIntro.salesStatus == 1?'待售':item.reportBuildingIntro.salesStatus == 2?'在售':item.reportBuildingIntro.salesStatus == 3?'售罄':item.reportBuildingIntro.salesStatus == 4?'在租':''}}
+                          {{item.reportBuildingIntro.salesStatus == 'forSale'?'待售':item.reportBuildingIntro.salesStatus == 'onSales'?'在售':item.reportBuildingIntro.salesStatus == 'sellOut'?'售罄':''}}
                         </view>
-                        <view class="label cl_Y"
+                        <!-- <view class="label cl_Y"
                           v-if="!!item.reportBuildingIntro.propertyType">
                           {{handlePropertyType(item.reportBuildingIntro.propertyType.length>0&&item.reportBuildingIntro.propertyType!=null?item.reportBuildingIntro.propertyType[0]:'')}}
-                        </view>
+                        </view> -->
                       </view>
                       <view class="price_details">
                         {{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}
@@ -373,7 +373,7 @@
           userId
 
         uni.navigateTo({
-          url: '/pagesHouse/house/house?buildingId=' +
+          url: '/pages_com/building/detail?buildingId=' +
             buildingId +
             '&userId=' +
             userIdTmp,
@@ -448,12 +448,12 @@
       },
       toReportDetail(e, reportId) {
         uni.navigateTo({
-          url: '../../pagesReport/reportDetail/index?reportId=' + e.currentTarget.id,
+          url: '/pages_com/report/detail?reportId=' + e.currentTarget.id,
         })
       },
       toIdealHome(data) {
         uni.navigateTo({
-          url: '../../pagesReport/idealHome/index?resData=' + JSON.stringify(
+          url: '/pagesReport/idealHome/index?resData=' + JSON.stringify(
             data), //+ this.buildingId
         })
       },
@@ -463,7 +463,7 @@
           unionid,
           customerId,
         }
-        getData('/dt-user/v1/user/report/noToken/cAppHome', params)
+        getData('/dt-marketing/v1/report/noToken/cAppHome', params)
           .then((res) => {
             if (JSON.stringify(res) == '[]') {
               this.ishowbuilding = false
