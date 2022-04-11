@@ -46,6 +46,11 @@
       "style": {
         "navigationBarTitleText": "专属置业计划书"
       }
+    }, {
+      "path": "preview",
+      "style": {
+        "navigationBarTitleText": "置业计划书预览"
+      }
     }]
   },
   {
@@ -81,9 +86,29 @@
         "navigationBarTitleText": "户型详情"
       }
     }, {
+      "path": "dynamic/list",
+      "style": {
+        "navigationBarTitleText": "楼盘动态",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "dynamic/detail",
+      "style": {
+        "navigationBarTitleText": "楼盘动态"
+      }
+    }, {
       "path": "webView/webView",
       "style": {
         "navigationBarTitleText": "位置及周边"
+      }
+    }]
+  },
+  {
+    "root": "pages_com/article",
+    "pages": [{
+      "path": "detail",
+      "style": {
+        "navigationBarTitleText": "文章详情"
       }
     }]
   },
