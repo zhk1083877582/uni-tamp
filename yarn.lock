@@ -1564,10 +1564,10 @@
   resolved "http://172.16.1.129:4873/@dt%2floader/-/loader-2.1.1.tgz#00ec95d27b6e668c527420f91e362f31a0133a41"
   integrity sha512-TlzzHDZxHWNVblS8UdqW2m+6tqdjEFDv96XJvdHIX/r4yPFts+N3Q7Td3EANsczFyk5Rn9SkTSHKoW+Hz7PcLA==
 
-"@dt/page@2.8.0":
-  version "2.8.0"
-  resolved "http://172.16.1.129:4873/@dt%2fpage/-/page-2.8.0.tgz#d5459e9a2648e83d662089506ac5781e4efa799f"
-  integrity sha512-v4Hjk2xnldHCS0vpQ9AIXRjx9KG1ehjSIAfYiGVGGcHqqQY4dJzto9tpaiUoKEDRqtDSdXO7J1HvkqHzF++TDQ==
+"@dt/page@2.8.1":
+  version "2.8.1"
+  resolved "http://172.16.1.129:4873/@dt%2fpage/-/page-2.8.1.tgz#3e6ce53897c4ba3fe53e8ac182d331706b8033a8"
+  integrity sha512-S0GLzIR322Mg1gx+ly8lRavuQj0bWllzH8ux9mgSihxx0vpazHPmcCU40cAI7x0kjt8UhEwRncURM0k4DHpXlw==
 
 "@dt/server@2.2.4":
   version "2.2.4"
