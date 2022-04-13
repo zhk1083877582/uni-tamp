@@ -32,11 +32,11 @@ function info() {
   return {
     ...dictInfo,
     __value: (dictKey, key) => {
-      let find = dictInfo[dictKey].find(item => item.key == String(key))
+      let find = dictInfo && dictInfo[dictKey] ? dictInfo[dictKey].find(item => item.key == String(key)) : null
       return find ? find.value : ''
     },
     __key: (dictKey, value) => {
-      let find = dictInfo[dictKey].find(item => item.value == String(value))
+      let find = dictInfo && dictInfo[dictKey] ? dictInfo[dictKey].find(item => item.value == String(value)) : null
       return find ? find.key : ''
     }
   }
