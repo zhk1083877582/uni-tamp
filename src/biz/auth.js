@@ -5,7 +5,6 @@ import dictMgr from './dict.js';
 const api = {
   phone: server.api().post("/dt-user/noToken/wx/wxLogin"),
   login: server.api().post("/dt-user/noToken/wx/wxAuth"),
-  clue: server.api().post("/dt-user/noToken/wx/addCustomerCl"), // 线索
   authPhone: server.api().get(
   "/dt-customer/customer/xcxClue/noToken/findByUserIdAndCustomerPhone"), // 顾问是否授权手机号
 }
