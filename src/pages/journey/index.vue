@@ -41,7 +41,7 @@
               <view class="swiper_item_H" :class="'swiper_item_warp'+index">
                 <view class="list_item">
                   <view class="list_item_warp"
-                    @click="toDetail(item.reportBuildingIntro.buildingId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
+                    @click="toDetail(item.reportBuildingIntro.housesId,item.reportBuildingIntro.userId,item.reportData,item.ishowPlanStatus)">
                     <view class="img_warp">
                       <image class="tospur-image"
                         :src="item.reportBuildingIntro.housesCover ? item.reportBuildingIntro.housesCover : 'https://images.tospurfang.com/5F157797D0474B05A91C098DDE0BCFF0-6-2.jpg'"
