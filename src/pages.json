@@ -108,7 +108,7 @@
     "pages": [{
       "path": "detail",
       "style": {
-        "navigationBarTitleText": "文章详情"
+        "navigationStyle": "custom"
       }
     }]
   },
