@@ -135,8 +135,8 @@
           const key = item.split('=')[0]
           obj[key] = item.split('=')[1]
         })
-        this.userId = obj.uId || ''
-        this.buildingId = obj.bId || ''
+        this.userId = obj.u || obj.uId
+        this.buildingId = obj.b || obj.bId
         this.articleId = obj.a
         this.CustomerTrack.operateCanal = obj.type || 1
         this.share.path =

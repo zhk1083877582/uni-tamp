@@ -318,7 +318,12 @@
     {
       "name": "building",
       "path": "pages_com/building/detail",
-      "query": "reportId=89465"
+      "query": "buildingId=18531"
+    },
+    {
+      "name": "article",
+      "path": "pages_com/article/detail",
+      "query": "articleId=27"
     }]
   }
 }
