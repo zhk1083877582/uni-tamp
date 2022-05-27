@@ -73,7 +73,9 @@
     }, {
       "path": "images/preview",
       "style": {
-        "navigationBarTitleText": "楼盘相册"
+        "navigationBarTitleText": "楼盘相册",
+          "navigationBarTextStyle": "white",
+          "navigationBarBackgroundColor": "#000000"
       }
     }, {
       "path": "layout/list",
