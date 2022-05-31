@@ -6,15 +6,17 @@ const api = {
   shortArticle: server.api().post('/dt-marketing/noToken/shortArticle/scanPicture')
 }
 
-function add(clueChannelId, userId, buildingId, operationType = 1, startTime, endTime) {
+function add(params) {
   return dt.biz.auth.getInfo().then(info => {
     return api.add.fetch({
-      userId,
-      buildingId,
-      clueChannelId,
-      operationType, // 1: 授权  2: 线上售楼处浏览
-      startTime: startTime || null,
-      endTime: endTime || null,
+      userId: params.userId,
+      buildingId: params.buildingId,
+      clueChannelId: params.clueChannelId,
+      operationType: params.operationType || 1, // 1: 授权  2: 线上售楼处浏览
+      startTime: params.startTime || null,
+      endTime: params.endTime || null,
+      reportId: params.reportId,   // 置业报告ID
+      articleId: params.articleId, // 霸屏神器文章ID
       customerPhone: info.phone,
       wxUUID: info.openid,
       wxUserInfo: info.userInfo
