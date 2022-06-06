@@ -10,6 +10,7 @@ function add(params) {
   return dt.biz.auth.getInfo().then(info => {
     return api.add.fetch({
       userId: params.userId,
+      recommenderId: params.recommenderId || null,
       buildingId: params.buildingId,
       clueChannelId: params.clueChannelId,
       operationType: params.operationType || 1, // 1: 授权  2: 线上售楼处浏览
