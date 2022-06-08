@@ -73,7 +73,9 @@
     }, {
       "path": "images/preview",
       "style": {
-        "navigationBarTitleText": "楼盘相册"
+        "navigationBarTitleText": "楼盘相册",
+          "navigationBarTextStyle": "white",
+          "navigationBarBackgroundColor": "#000000"
       }
     }, {
       "path": "layout/list",
@@ -318,7 +320,12 @@
     {
       "name": "building",
       "path": "pages_com/building/detail",
-      "query": "reportId=89465"
+      "query": "buildingId=18531"
+    },
+    {
+      "name": "article",
+      "path": "pages_com/article/detail",
+      "query": "articleId=27"
     }]
   }
 }

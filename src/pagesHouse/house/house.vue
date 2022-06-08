@@ -7,26 +7,16 @@
 <script>
   export default {
     onLoad(opt) {
-      let buildingId = '',
-          userId = '',
-          articleId = ''
+      let params = ''
       if (opt.scene) {
-        const scene = decodeURIComponent(opt.scene)
-        let obj = {}
-        scene.split('&').forEach((item) => {
-          const key = item.split('=')[0]
-          obj[key] = item.split('=')[1]
-        })
-        userId = obj.uId || ''
-        buildingId = obj.bId || ''
-        articleId = obj.a
+        params = `scene=${opt.scene}`
       } else {
-        userId = opt.userId || ''
-        buildingId = opt.buildingId || ''
-        articleId = opt.articleId || ''
+        for (let key in opt) {
+          params = params ? `${params}&${key}=${opt[key]}` : `${key}=${opt[key]}`
+        }
       }
       uni.redirectTo({
-        url: `/pages_com/building/detail?buildingId=${buildingId}&userId=${userId}&articleId=${articleId}`
+        url: `/pages_com/building/detail?${params}`
       })
     }
   }

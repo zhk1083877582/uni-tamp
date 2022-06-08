@@ -267,8 +267,8 @@
           const key = item.split('=')[0]
           obj[key] = item.split('=')[1]
         })
-        this.userId = obj.uId
-        this.buildingId = obj.bId
+        this.userId = obj.u || obj.uId
+        this.buildingId = obj.b || obj.bId
       } else {
         this.userId = option.userId
         this.buildingId = option.buildingId
