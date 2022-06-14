@@ -299,10 +299,6 @@
   "condition": {
     "current": 0,
     "list": [{
-      "name": "report",
-      "path": "pagesReport/reportDetail/index",
-      "query": "reportId=133822"
-    }, {
       "name": "card",
       "path": "pagesHouse/adviserCard/index",
       "query": "userId=21570&buildingId=18531"
@@ -313,9 +309,9 @@
       "query": "userId=12702&buildingId=18531"
     },
     {
-      "name": "book",
-      "path": "pagesReport/book/index",
-      "query": "reportId=133854"
+      "name": "report",
+      "path": "pages_com/report/detail",
+      "query": "reportId=234468"
     },
     {
       "name": "building",
