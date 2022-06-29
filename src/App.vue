@@ -4,7 +4,9 @@ export default {
   onLaunch: function () {
     console.log('进入App Launch')
   },
-  onShow: function () {},
+  onShow: function (opt) {
+    this.$dt.launch.update(opt)
+  },
   onHide: function () {},
 }
 </script>
