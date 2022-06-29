@@ -22,12 +22,7 @@
 
       <view class="qundai">
         <view class="HDJ">
-          <u-button type="default" hover-class='none' class="btn" v-if="showAuthorize"
-            @click="toreport">
-            尊享开启
-          </u-button>
-          <u-button type="default" hover-class='none' class="btn" v-else
-            @click="onGetUserInfo">
+          <u-button type="default" hover-class='none' class="btn" @click="onOpen">
             尊享开启
           </u-button>
           <view class="bottom_text">
@@ -51,20 +46,16 @@
         userName: '',
         windowTitle: '', //客户姓名
         reportId: '',
-        showAuthorize: false,
       }
     },
     computed: {},
     watch: {},
     methods: {
-      onGetUserInfo(e) {
+      onOpen(e) {
         this.$dt.biz.auth.update().then(res => {
-          this.toreport()
-        })
-      },
-      toreport() {
-        uni.reLaunch({
-          url: '../reportDetail/index?reportId=' + this.reportId,
+          uni.reLaunch({
+            url: '../reportDetail/index?reportId=' + this.reportId,
+          })
         })
       },
       //获取顾问userId
@@ -116,11 +107,6 @@
 
       // this.getPhone()
       this.getReportData(option.reportId)
-      if (this.$cache.getCache('dt_wx_auth')) {
-        this.showAuthorize = true
-      } else {
-        this.showAuthorize = false
-      }
     },
     created() {},
     mounted() {},

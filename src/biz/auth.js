@@ -73,7 +73,7 @@ function update() {
     return login().then(res => {
       return update()
     })
-  } else {
+  } else if (!info.userInfo) {
     return new Promise((resolve, reject) => {
       uni.getUserProfile({
         desc: '用于个性化展示',
@@ -84,6 +84,8 @@ function update() {
         },
       })
     })
+  } else {
+    return Promise.resolve(info)
   }
 }
 
