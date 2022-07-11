@@ -16,8 +16,9 @@ function add(params) {
       operationType: params.operationType || 1, // 1: 授权  2: 线上售楼处浏览
       startTime: params.startTime || null,
       endTime: params.endTime || null,
-      reportId: params.reportId,   // 置业报告ID
-      articleId: params.articleId, // 霸屏神器文章ID
+      reportId: params.reportId,     // 置业报告ID
+      articleId: params.articleId,   // 霸屏神器、文章ID
+      businessId: params.businessId, // 海报ID
       customerPhone: info.phone,
       wxUUID: info.openid,
       wxUserInfo: info.userInfo
