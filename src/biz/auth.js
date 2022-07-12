@@ -1,6 +1,5 @@
 import dt from '@dt/dt';
 import server from '@dt/server/dt';
-import dictMgr from './dict.js';
 
 const api = {
   phone: server.api().post("/dt-user/noToken/wx/wxLogin"),
@@ -50,7 +49,6 @@ function login() {
               info = res
             }
             dt.storage.set(infoKey, info) //openid session_key
-            dictMgr.update()
             resolve(info)
           }).catch(err => {
             uni.showToast({
@@ -73,7 +71,7 @@ function update() {
     return login().then(res => {
       return update()
     })
-  } else {
+  } else if (!info.userInfo) {
     return new Promise((resolve, reject) => {
       uni.getUserProfile({
         desc: '用于个性化展示',
@@ -84,6 +82,8 @@ function update() {
         },
       })
     })
+  } else {
+    return Promise.resolve(info)
   }
 }
 

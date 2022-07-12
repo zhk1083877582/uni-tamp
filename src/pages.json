@@ -99,7 +99,7 @@
         "navigationBarTitleText": "楼盘动态"
       }
     }, {
-      "path": "webView/webView",
+      "path": "map",
       "style": {
         "navigationBarTitleText": "位置及周边"
       }
