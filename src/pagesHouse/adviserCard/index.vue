@@ -70,7 +70,7 @@
     <view class="adviser-buildingInfo">
       <view class="adviser-building">
         <view class="building-item uni-bg-red">
-          <buildingCard :building="building" :userId="userId"/>
+          <buildingCard :building="building" :userId="userId" :sn='sn' />
         </view>
       </view>
     </view>
@@ -82,18 +82,18 @@
         <i class='iconfont iconicon_phone'></i>联系顾问
       </button>
     </view>
-    <auth-phone scene='card' :userId='userId' :buildingId='buildingId'></auth-phone>
+    
+    <auth-phone scene="card" :buildingId='buildingId' :userId='userId' :sn="sn" ref='auth'></auth-phone>
   </view>
 </template>
 
 <script>
-  import { getBuildingBaseInfo } from '@/request/api'
-  import { getData } from '@/request/api'
   import buildingCard from '@/pagesHouse/adviserCard/components/buildingCard.vue'
   import rCanvas from '@/components/r-canvas/r-canvas.vue'
   import authPhone from '__com/auth/phone.vue'
   import buildMgr from '__com/building/index.js'
   import consultantMgr from '__com/consultant/index.js'
+  import clueMgr from '__com/clue/index.js'
 
   export default {
     components: {
@@ -103,66 +103,52 @@
     },
     data() {
       return {
-        buildingId: '', //app扫码进来，带过来buildingId时
+        buildingId: '',
         userId: '',
-        articleId: null,
+        sn: '',
+        
         consultant: {},
-        //滑动信息
-        swiperInfo: {
-          itemHeight: '1050rpx',
-          swiperMargin: '17rpx',
-          current: '1',
-          indicatorDots: false,
-          autoplay: false,
-        },
         building: {},
-        beginTime: '',
-        // showModal: false,
-        modalContent: `
-					您可前往微信“通许录”，在搜索框中粘贴微信号，以搜索或添加顾问微信
-				`,
         canvasImg: '',
-        cardData: {},
+        beginTime: '', // 进入页面时间戳
+        endTime: '', // 离开页面时间戳
       }
     },
-    onLoad(option) {
-      console.log('-------进入管家名片', option)
-      if (option.scene) {
-        const scene = decodeURIComponent(option.scene)
-        console.log('-------scene数据', scene)
+    onLoad(opt) {
+      if (opt.scene) {
+        const scene = decodeURIComponent(opt.scene)
         let obj = {}
         scene.split('&').forEach((item) => {
           const key = item.split('=')[0]
           obj[key] = item.split('=')[1]
         })
-        this.userId = obj.u || obj.uId
-        this.buildingId = obj.b || obj.bId
-        this.articleId = obj.a
-        this.CustomerTrack.operateCanal = obj.type || 1
-        this.share.path =
-          '/pagesHouse/adviserCard/index?userId=' +
-          this.userId +
-          '&buildingId=' +
-          this.buildingId +
-          '&operateCanal=3'
+        console.log(obj, '扫码的名片参数')
+        this.sn = obj.s
+        this.getParams().then(res => {
+          this.init()
+        })
       } else {
-        this.userId = option.userId || ''
-        this.buildingId = option.buildingId || ''
-        this.share.path =
-          '/pagesHouse/adviserCard/index?userId=' +
-          this.userId +
-          '&buildingId=' +
-          this.buildingId +
-          '&operateCanal=3'
-      }
-      Promise.all([this.getUserInfo(), this.getBuildingInfo()]).then(ress => {
-        if (this.articleId) {
-          this.$dt.biz.clue.shortArticle(this.articleId, this.consultant.userName, this.building.buildingAlias)
+        console.log(opt, '传过来的名片参数')
+        if (opt.sn) {
+          this.sn = opt.sn
+          this.getParams().then(res => {
+            this.init()
+          })
+        } else {
+          this.buildingId = opt.buildingId
+          this.userId = opt.userId
+          this.init()
         }
-      })
+      }
     },
-    onHide() {},
-    onUnload() {},
+    onShow() {
+      // #ifdef MP-WEIXIN
+      this.beginTime = new Date().getTime()
+      // #endif
+    },
+    onHide() {
+      this.log()
+    },
     onReady() {
       //设置页面导航条颜色
       uni.setNavigationBarColor({
@@ -171,6 +157,11 @@
       })
     },
     methods: {
+      init() {
+        this.getUserInfo()
+        this.getBuildingInfo()
+        this.share.path = `/pagesHouse/adviserCard/index?sn=${this.sn}`
+      },
       //获取顾问信息
       getUserInfo() {
         return consultantMgr.detail(this.userId).then(res => {
@@ -205,6 +196,14 @@
           return res
         })
       },
+      // 根据sn码查询参数
+      getParams() {
+        return clueMgr.params(this.sn).then(res => {
+          console.log(res, '根据SN码查询到的参数')
+          this.buildingId = res.buildingId
+          this.userId = res.userId
+        })
+      },
       //保存顾问名片
       downloadUserImg(url) {
         this.$refs.rCanvas.saveImage(this.canvasImg)
@@ -229,15 +228,26 @@
         }
 
         uni.makePhoneCall({
-          // 手机号
           phoneNumber: value,
-          // 成功回调
           success: (res) => {},
-          // 失败回调
           fail: (res) => {
             console.log('调用失败!')
           },
         })
+      },
+      log() {
+        // #ifdef MP-WEIXIN
+        let userInfo = this.$dt.biz.auth.getInfoSync()
+        if (userInfo.phone) {
+          this.endTime = new Date().getTime()
+          this.$dt.biz.clue.add({
+            action: 1,
+            promoteSn: this.sn,
+            pageType: 10003,
+            browsingTime: this.endTime - this.beginTime
+          })
+        }
+        // #endif
       },
     },
   }

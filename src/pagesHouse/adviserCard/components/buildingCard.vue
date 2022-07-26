@@ -25,8 +25,7 @@
           :class="!building.vrPicture&&!building.mp4Picture?'flag-item-active':''">图片</text>
       </view>
     </view>
-    <building-info :info='building' :userId="userId" isCard />
-    
+    <building-info :info='building' :userId="userId" :sn="sn" isCard />
   </view>
 </template>
 
@@ -41,11 +40,10 @@
     props: {
       building: Object,
       userId: String,
+      sn: String
     },
     data() {
-      return {
-        imgList: [],
-      }
+      return {}
     },
     methods: {},
   }
