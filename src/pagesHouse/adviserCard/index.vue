@@ -236,15 +236,15 @@
         })
       },
       log() {
-        // #ifdef MP-WEIXIN
-        this.endTime = new Date().getTime()
-        this.$dt.biz.clue.add({
-          action: 1,
-          promoteSn: this.sn,
-          pageType: 10003,
-          browsingTime: this.endTime - this.beginTime
-        })
-        // #endif
+        if (this.sn) {
+          this.endTime = new Date().getTime()
+          this.$dt.biz.clue.add({
+            action: 1,
+            promoteSn: this.sn,
+            pageType: 10003,
+            browsingTime: this.endTime - this.beginTime
+          })
+        }
       },
     },
   }
