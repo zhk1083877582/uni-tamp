@@ -237,16 +237,13 @@
       },
       log() {
         // #ifdef MP-WEIXIN
-        let userInfo = this.$dt.biz.auth.getInfoSync()
-        if (userInfo.phone) {
-          this.endTime = new Date().getTime()
-          this.$dt.biz.clue.add({
-            action: 1,
-            promoteSn: this.sn,
-            pageType: 10003,
-            browsingTime: this.endTime - this.beginTime
-          })
-        }
+        this.endTime = new Date().getTime()
+        this.$dt.biz.clue.add({
+          action: 1,
+          promoteSn: this.sn,
+          pageType: 10003,
+          browsingTime: this.endTime - this.beginTime
+        })
         // #endif
       },
     },

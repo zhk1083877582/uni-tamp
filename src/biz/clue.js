@@ -14,7 +14,7 @@ function add(params) {
       promoteSn: params.promoteSn, // 推广sn码
       pageType: params.pageType, // 页面类型（同线索渠道ID）
       userCustomerId: info.login ? info.login.customerInfo.customerId : null, // dt系统客户ID
-      customerPhone: info.phone,
+      customerPhone: info.phone || null,
       wxNum: '',
       wxOpenId: info.openid,
       wxUserInfo: info.userInfo || null,
