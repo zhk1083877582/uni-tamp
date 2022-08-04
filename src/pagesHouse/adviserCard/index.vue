@@ -238,7 +238,7 @@
       log() {
         if (this.sn) {
           this.endTime = new Date().getTime()
-          this.$dt.biz.clue.add({
+          clueMgr.add({
             action: 1,
             promoteSn: this.sn,
             pageType: 10003,
