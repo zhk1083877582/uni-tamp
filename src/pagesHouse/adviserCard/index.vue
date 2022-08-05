@@ -149,6 +149,9 @@
     onHide() {
       this.log()
     },
+    onUnload() {
+      this.log()
+    },
     onReady() {
       //设置页面导航条颜色
       uni.setNavigationBarColor({
