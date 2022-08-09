@@ -83,7 +83,9 @@
       </button>
     </view>
     
-    <auth-phone scene="card" :buildingId='buildingId' :userId='userId' :sn="sn" ref='auth'></auth-phone>
+    <template v-if="buildingId && userId && sn">
+      <auth-phone scene="card" :buildingId='buildingId' :userId='userId' :sn="sn" ref='auth'></auth-phone>
+    </template>
   </view>
 </template>
 
