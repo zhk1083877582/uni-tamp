@@ -70,7 +70,7 @@
     <view class="adviser-buildingInfo">
       <view class="adviser-building">
         <view class="building-item uni-bg-red">
-          <buildingCard :building="building" :userId="userId" :sn='sn' />
+          <buildingCard :building="building" :userId="userId" :sn='sn' @jump='jump = true' />
         </view>
       </view>
     </view>
@@ -114,6 +114,7 @@
         canvasImg: '',
         beginTime: '', // 进入页面时间戳
         endTime: '', // 离开页面时间戳
+        jump: false
       }
     },
     onLoad(opt) {
@@ -128,6 +129,7 @@
         this.sn = obj.s
         this.getParams().then(res => {
           this.init()
+          this.log(4) // 记录推广访问数
         })
       } else {
         console.log(opt, '传过来的名片参数')
@@ -135,6 +137,7 @@
           this.sn = opt.sn
           this.getParams().then(res => {
             this.init()
+            this.log(4) // 记录推广访问数
           })
         } else {
           this.buildingId = opt.buildingId
@@ -144,15 +147,20 @@
       }
     },
     onShow() {
+      this.jump = false
       // #ifdef MP-WEIXIN
       this.beginTime = new Date().getTime()
       // #endif
     },
     onHide() {
-      this.log()
+      if (this.jump) {
+        console.log('hide------------')
+        this.log(1)
+      }
     },
     onUnload() {
-      this.log()
+      console.log('unload------------')
+      this.log(1)
     },
     onReady() {
       //设置页面导航条颜色
@@ -240,14 +248,14 @@
           },
         })
       },
-      log() {
+      log(action) {
         if (this.sn) {
           this.endTime = new Date().getTime()
           clueMgr.add({
-            action: 1,
+            action,
             promoteSn: this.sn,
             pageType: 10003,
-            browsingTime: this.endTime - this.beginTime
+            browsingTime: action == 1 ? this.endTime - this.beginTime : null
           })
         }
       },

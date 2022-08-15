@@ -25,7 +25,7 @@
           :class="!building.vrPicture&&!building.mp4Picture?'flag-item-active':''">图片</text>
       </view>
     </view>
-    <building-info :info='building' :userId="userId" :sn="sn" />
+    <building-info :info='building' :userId="userId" :sn="sn" @jump='onJump' />
   </view>
 </template>
 
@@ -45,7 +45,11 @@
     data() {
       return {}
     },
-    methods: {},
+    methods: {
+      onJump() {
+        this.$emit('jump')
+      }
+    },
   }
 </script>
 
