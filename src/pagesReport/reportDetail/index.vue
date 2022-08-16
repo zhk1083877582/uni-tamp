@@ -8,7 +8,7 @@
   export default {
     onLoad(option) {
       uni.redirectTo({
-        url: '/pages_com/report/detail?reportId=' + option.reportId
+        url: '/pages_com/report/detail?sn=' + option.sn
       })
     }
   }
