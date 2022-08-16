@@ -36,53 +36,73 @@
 
 <script>
   import { getData } from '@/request/api.js'
+  import clueMgr from '__com/clue/index.js'
+  
   export default {
     components: {},
     data() {
       return {
-        jsCode: '',
-        openid: '',
-        buildingName: '',
-        userName: '',
-        windowTitle: '', //客户姓名
         reportId: '',
+        sn: '',
+        
+        buildingName: '',
+        windowTitle: '', //客户姓名
       }
     },
-    computed: {},
-    watch: {},
+    onLoad(opt) {
+      console.log(opt, '传过来的置业报告ID')
+      if (opt.scene) {
+        const scene = decodeURIComponent(opt.scene)
+        let obj = {}
+        scene.split('&').forEach((item) => {
+          const key = item.split('=')[0]
+          obj[key] = item.split('=')[1]
+        })
+        this.sn = opt.s
+        this.getParams().then(res => {
+          this.getReportData()
+        })
+      } else {
+        if (opt.sn) {
+          this.sn = opt.sn
+          this.getParams().then(res => {
+            this.getReportData()
+          })
+        } else {
+          this.reportId = opt.reportId
+          this.getReportData()
+        }
+      }
+    },
     methods: {
       onOpen(e) {
         this.$dt.biz.auth.update().then(res => {
           uni.reLaunch({
-            url: '../reportDetail/index?reportId=' + this.reportId,
+            url: '/pages_com/report/detail?sn=' + this.sn,
           })
         })
       },
-      //获取顾问userId
-      getReportData(reportId) {
+      getReportData() {
         let params = {
-          reportId,
+          reportId: this.reportId,
         }
         getData('/dt-marketing/v1/report/noToken/reportDetail', params)
           .then((res) => {
-            console.log('置业报告详情数据', res)
-            // this.getUserInfo(res.customerIntention.userId);
             let customerGender = res.customerIntention ?
               res.customerIntention.gender :
               ''
             let subscriberName = res.customerIntention ?
               res.customerIntention.customerName :
               ''
-            console.log(subscriberName, customerGender)
             this.windowTitle = `${
-            subscriberName ? subscriberName.substring(0, 1) : '-'
-          }${
-            customerGender == '男'
-              ? '先生'
-              : customerGender == '女'
-              ? '女士'
-              : '先生/女士'
-          }`
+              subscriberName ? subscriberName.substring(0, 1) : '-'
+            }${
+              customerGender == '男'
+                ? '先生'
+                : customerGender == '女'
+                ? '女士'
+                : '先生/女士'
+            }`
             console.log(this.windowTitle)
             this.buildingName = res.buildingInfo.housesName
           })
@@ -90,26 +110,14 @@
             console.log(err)
           })
       },
-    },
-    onLoad(option) {
-      console.log(option, '传过来的置业报告ID')
-      if (option.scene) {
-        const scene = decodeURIComponent(option.scene)
-        let obj = {}
-        scene.split('&').forEach((item) => {
-          const key = item.split('=')[0]
-          obj[key] = item.split('=')[1]
+      // 根据sn码查询参数
+      getParams() {
+        return clueMgr.params(this.sn).then(res => {
+          console.log(res, '根据SN码查询到的参数')
+          this.reportId = res.contentId
         })
-        this.reportId = obj.reportId
-      } else {
-        this.reportId = option.reportId
-      }
-
-      // this.getPhone()
-      this.getReportData(option.reportId)
+      },
     },
-    created() {},
-    mounted() {},
   }
 </script>
 <style lang='scss' scoped>

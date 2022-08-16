@@ -142,6 +142,7 @@ export default {
       path: this.share.path,
       imageUrl: this.share.imageUrl,
       success(res) {
+        console.log('分享成功', res)
         // uni.showToast({
         //     title:'分享成功'
         // })
