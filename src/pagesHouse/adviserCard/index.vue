@@ -112,8 +112,6 @@
         consultant: {},
         building: {},
         canvasImg: '',
-        beginTime: '', // 进入页面时间戳
-        endTime: '', // 离开页面时间戳
         jump: false
       }
     },
@@ -129,7 +127,7 @@
         this.sn = obj.s
         this.getParams().then(res => {
           this.init()
-          this.log(4) // 记录推广访问数
+          this.log() // 记录推广访问数
         })
       } else {
         console.log(opt, '传过来的名片参数')
@@ -137,7 +135,7 @@
           this.sn = opt.sn
           this.getParams().then(res => {
             this.init()
-            this.log(4) // 记录推广访问数
+            this.log() // 记录推广访问数
           })
         } else {
           this.buildingId = opt.buildingId
@@ -145,22 +143,6 @@
           this.init()
         }
       }
-    },
-    onShow() {
-      this.jump = false
-      // #ifdef MP-WEIXIN
-      this.beginTime = new Date().getTime()
-      // #endif
-    },
-    onHide() {
-      if (this.jump) {
-        console.log('hide------------')
-        this.log(1)
-      }
-    },
-    onUnload() {
-      console.log('unload------------')
-      this.log(1)
     },
     onReady() {
       //设置页面导航条颜色
@@ -248,14 +230,12 @@
           },
         })
       },
-      log(action) {
+      log() {
         if (this.sn) {
-          this.endTime = new Date().getTime()
           clueMgr.add({
-            action,
+            action: 4,
             promoteSn: this.sn,
             pageType: 10003,
-            browsingTime: action == 1 ? this.endTime - this.beginTime : null
           })
         }
       },
