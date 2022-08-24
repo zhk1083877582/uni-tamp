@@ -28,8 +28,7 @@ function phone(iv, encryData, userId, buildingId) {
       openId: info.openid,
       loginType: 0
     }).then(res => {
-      info.phone = res.customerInfo.phone
-      info.login = res
+      info.phone = res.phone
       dt.storage.set(infoKey, info)
       return info
     })
@@ -91,6 +90,10 @@ function getInfoSync() {
   return dt.storage.get(infoKey)
 }
 
+function setInfoSync(data) {
+  dt.storage.set(infoKey, data)
+}
+
 function getInfo() {
   let info = getInfoSync()
   console.log(info)
@@ -121,6 +124,7 @@ export default {
   login,
   getInfo,
   getInfoSync,
+  setInfoSync,
   update,
   authPhone
 }
