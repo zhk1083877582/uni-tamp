@@ -26,8 +26,8 @@ if (process.env.NODE_ENV == 'development') {
 let dev = {}
 
 let test = {
-  // dtUrl: 'https://dtwgwtest.tospur.com',
-  dtUrl: 'https://dtgwuat-new.tospurfang.com',
+  dtUrl: 'https://dtwgwtest.tospur.com',
+  // dtUrl: 'https://dtgwuat-new.tospurfang.com',
 }
 
 let uat = {
