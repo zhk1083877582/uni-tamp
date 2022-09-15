@@ -18,20 +18,18 @@ let config = {
 
 if (process.env.NODE_ENV == 'development') {
   // config.dtUrl = 'https://dtwgwtest.tospur.com'
-  // config.dtUrl = 'https://dtgwstag.tospurfang.com'
+  // config.dtUrl = 'https://dtgwuat-new.tospurfang.com'
   config.dtUrl = 'https://dtgw.tospurfang.com'
-  // config.dtUrl = 'http://172.16.1.126:8100'
 }
 
 let dev = {}
 
 let test = {
-  // dtUrl: 'https://dtwgwtest.tospur.com',
-  dtUrl: 'https://dtgwuat-new.tospurfang.com',
+  dtUrl: 'https://dtwgwtest.tospur.com',
 }
 
 let uat = {
-  dtUrl: 'https://dtgwstag.tospurfang.com',
+  dtUrl: 'https://dtgwuat-new.tospurfang.com',
 }
 
 let prod = {
