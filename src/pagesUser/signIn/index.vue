@@ -7,7 +7,7 @@
       <view class="building_warp">
         <view class="building_name"
           :style="showAuthorize?'line-height:80rpx':'line-height:110rpx'" v-if="building">
-          {{building?building.housesName:'--'}}
+          {{building.housesName?building.housesName:'--'}}
         </view>
         <view class="introduce" v-if="showAuthorize">
           {{building.housesLightSpot||'--'}}
@@ -147,7 +147,10 @@
         user: {},
         userId: '',
         buildingId: '', //app扫码进来，带过来buildingId时
-        building: {},
+        building: {
+          housesName: '--',
+          housesLightSpot: '--'
+        },
         wxcodeCard: '',
         canvasImg: '',
         flagDownloadImg: true, //控制下载按钮
@@ -160,7 +163,7 @@
           this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
             .then(res => {
               this.$cache.setCache('isPhoneLogin', true)
-              this.$cache.setCache('Login-Data', res.login)
+              this.$cache.setCache('Login-Data', res)
               this.$cache.setCache('loginFlag', true)
               this.$cache.setCache('loginFlag1', true)
               this.showAuthorize = true
@@ -279,7 +282,7 @@
       } else {
         console.log('userId&&&buildingId', this.userId, this.buildingId)
         if (this.buildingId) {
-          let { phone } = this.$cache.getCache('Login-Data').customerInfo || {}
+          let { phone } = this.$cache.getCache('Login-Data') || {}
           console.log('手机号是否存在', phone)
           if (phone) {
             this.doAddCustorm(phone)
