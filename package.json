@@ -6,7 +6,7 @@
 	"author": "",
 	"scripts": {
 		"package": "./node_modules/@dt/loader/mp/package.sh",
-		"build": "./node_modules/@dt/loader/mp/build.sh",
+		"build": "sh ./node_modules/@dt/loader/mp/build.sh",
 		"dev:cover": "yarn; cross-env server_env=dev com_cover=1 NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --minimize",
 		"dev": "cross-env server_env=dev NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --minimize",
 		"build:app-plus": "cross-env NODE_ENV=production UNI_PLATFORM=app-plus vue-cli-service uni-build",

@@ -569,7 +569,7 @@
         ''
       this.HasToken =
         this.$cache.getCache('dt_wx_auth') ||
-        this.$cache.getCache('Login-Data').customerInfo ?
+        this.$cache.getCache('Login-Data') ?
         true :
         false
       if ((openid && unionid) || customerId) {
