@@ -277,12 +277,14 @@
         this.buildingId = option.buildingId
       }
       this.initUserInfo() //管家信息
-      if (!this.$cache.getCache('isPhoneLogin')) {
+      let phone = this.$cache.getCache('Login-Data') ? this.$cache.getCache('Login-Data')
+        .phone : ''
+      console.log(phone, 'phone')
+      if (!this.$cache.getCache('isPhoneLogin') || !phone) {
         this.showAuthorize = false
       } else {
         console.log('userId&&&buildingId', this.userId, this.buildingId)
         if (this.buildingId) {
-          let { phone } = this.$cache.getCache('Login-Data') || {}
           console.log('手机号是否存在', phone)
           if (phone) {
             this.doAddCustorm(phone)
