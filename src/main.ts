@@ -6,7 +6,6 @@ import { createSSRApp } from "vue";
 import App from "./App.vue";
 
 import mixin from './utils/mixins/base.js'
-import './static/img/iconfont.css'
 
 export function createApp() {
   const app = createSSRApp(App)

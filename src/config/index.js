@@ -3,9 +3,10 @@ import './server'
 import '@dt/dt/uni'
 import dt from '@dt/dt'
 
-// import tool from './request/tool'
-// import switchFormatter from './utils/formatter'
-console.log(dt)
+import formatter from '@/utils/formatter'
+dt.tool = {
+  formatter
+}
 
 function init(Vue) {
   const updateManager = uni.getUpdateManager()

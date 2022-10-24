@@ -6,9 +6,7 @@
     <view class="home_banner" v-if="!HasToken">
       <u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit'
         border-radius='24' :autoplay="autoplay"></u-swiper>
-      <view class="login_btn">
-        <u-button shape="circle" @click="doGoLoginPage">开启购房旅程</u-button>
-      </view>
+      <button class="login_btn" @click="doGoLoginPage">开启购房旅程</button>
     </view>
 
     <!-- 置业旅程主体 -->
@@ -62,10 +60,10 @@
                         </view> -->
                       </view>
                       <view class="price_details">
-                        {{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}
+                        {{formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}
                       </view>
                       <view class="address_details">
-                        {{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}
+                        {{formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}
                       </view>
                       <view class="address_details">
                         <text>{{item.reportBuildingIntro.areaName}}<text
@@ -184,7 +182,7 @@
                             <text class="georama"></text>
                             <view class="list_top_title">
                               <view class="time_text">
-                                看房时间：{{itemL.createTime?$tool.DataFormatIos(itemL.createTime):'-'}}
+                                看房时间：{{itemL.createTime?.split(' ')[0] ?? '-'}}
                               </view>
                               <view class="keeper_msg" :id="itemL.userId"
                                 @click="e=>tohouseKeeper(e,itemL)">
@@ -261,6 +259,7 @@
     components: {},
     data() {
       return {
+        formatter: dt.tool.formatter,
         HasToken: false, //搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
         ishowbuilding: true,
         // ishowPlan:true,
@@ -334,7 +333,7 @@
 
       //去webview
       goWebView(routeName, routeParams, toPath) {
-        let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
+        let mWebSite = dt.env.webUrl //获取跳转域名
         let pathParams = '' //获取路由参数
         routeParams = routeParams || {}
         Object.keys(routeParams).forEach((keyStr, index) => {
@@ -347,7 +346,7 @@
           dt.storage.remove('toMWebpath')
         }
         dt.storage.set('toMWebpath', {
-          toMWebpath: toPath || `${mWebSite}${routeName}?${pathParams}`,
+          toMWebpath: toPath || `${mWebSite}/${routeName}?${pathParams}`,
         })
         uni.navigateTo({
           url: '/pagesHouse/webView/webView',
@@ -355,7 +354,7 @@
       },
       handlePropertyType(key) {
         if (key == '') return
-        return this.$formatter.switchName('propertyType', key)
+        return this.formatter.switchName('propertyType', key)
       },
       //登录
       doGoLoginPage() {
@@ -482,8 +481,7 @@
               console.log(itemR)
               itemR.recommendation &&
                 itemR.recommendation.forEach((itemY, indexY) => {
-                  itemY.tableTitle =
-                    '方案' + this.$tool.Arabia_To_SimplifiedChinese(indexY + 1)
+                  itemY.tableTitle = `方案${indexY + 1}`
                 })
 
               //判断是否有方案推荐
@@ -590,7 +588,6 @@
 </style>
 <style lang='scss' scoped>
   .journey_ownership_warp {
-    // background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
     height: 100%;
 
     .home_banner {
@@ -603,25 +600,20 @@
       transform: translate(-50%, -54%);
 
       .login_btn {
-        display: flex;
-        justify-content: center;
-        padding-top: 72rpx;
-        background: transparen;
-
-        ::v-deep .u-btn {
-          background: linear-gradient(180deg, #ffeda8, #ffce89);
-          padding: 31rpx 113rpx;
-          color: #062471;
-          font-size: 36rpx;
-          font-weight: 600;
-          height: auto;
-          line-height: 36rpx;
-        }
+        margin-top: 72rpx;
+        background: linear-gradient(180deg, #ffeda8, #ffce89);
+        /* padding: 31rpx 113rpx; */
+        color: #062471;
+        font-size: 36rpx;
+        font-weight: 600;
+        height: 100rpx;
+        line-height: 100rpx;
+        width: 450rpx;
+        border-radius: 50rpx;
       }
     }
 
     .journey_ownership {
-      // background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
 
       .user_msg {
         display: flex;

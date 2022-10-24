@@ -18,8 +18,8 @@ export default {
 		if(option.url){
 			let tmpUrl = decodeURIComponent(option.url)
 			console.log('-------option数据',tmpUrl)
-			let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
-			this.url = mWebSite + tmpUrl
+			let mWebSite = dt.env.webUrl //获取跳转域名
+			this.url = mWebSite + '/' + tmpUrl
 		}else{
 			this.url = dt.storage.get('toMWebpath').toMWebpath + '&fromAppName=xcx11';
 			if(this.url.indexOf('/housePhoto')>-1){

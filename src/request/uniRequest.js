@@ -2,7 +2,6 @@ import axios from 'axios' // 注意先安装哦
 import config from './config.js' // 倒入默认配置
 import tool from "@/request/tool.js"
 import dt from "@dt/dt"
-import encryptList from "@/request/encrypt.js"
 //import qs from "qs"
  const instance = axios.create({
       // baseURL: config.baseURL,
@@ -85,7 +84,7 @@ import encryptList from "@/request/encrypt.js"
 		 // }
 		 // 根据返回的code值来做不同的处理（和后端约定）
 		 if(data.code == 200){
-		   data = !instance.prototype.ifEncrypt?encryptList.Decrypt(data.data): data.data;
+		   data = data.data;
 		   if(data && !instance.prototype.ifEncrypt)data = data
 		   return data
 		 }else{
@@ -194,7 +193,7 @@ let apiRequest =function(instance){
   this.handleDate = function(data,ifEncrypt){
     let l = tool.extend({},data,commonParams);
     ifEncrypt?this.instance.prototype.ifEncrypt = true:this.instance.prototype.ifEncrypt = false;
-    return !ifEncrypt?encryptList.Encrypt(l):l;
+    return l;
   }
 }
 apiRequest.prototype.$post = function(url,data={},ifEncrypt){
