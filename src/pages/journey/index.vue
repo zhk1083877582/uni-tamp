@@ -255,8 +255,8 @@
 </template>
 
 <script>
-  // import {mockData} from './mock.js';
   import { getData } from '@/request/api'
+  import dt from "@dt/dt"
   export default {
     components: {},
     data() {
@@ -321,9 +321,9 @@
           content: '退出登录后将无法查看订单，重新登录即可查看',
           success(res) {
             if (res.confirm) {
-              _this.$cache.removeCache('dt_wx_auth')
-              _this.$cache.removeCache('isPhoneLogin')
-              _this.$cache.removeCache('Login-Data')
+              dt.storage.remove('dt_wx_auth')
+              dt.storage.remove('isPhoneLogin')
+              dt.storage.remove('Login-Data')
               _this.HasToken = false
             }
           },
@@ -343,10 +343,10 @@
             `&${keyStr}=${routeParams[keyStr]}` :
             `${keyStr}=${routeParams[keyStr]}`
         })
-        if (this.$cache.getCache('toMWebpath')) {
-          this.$cache.removeCache('toMWebpath')
+        if (dt.storage.get('toMWebpath')) {
+          dt.storage.remove('toMWebpath')
         }
-        this.$cache.setCache('toMWebpath', {
+        dt.storage.set('toMWebpath', {
           toMWebpath: toPath || `${mWebSite}${routeName}?${pathParams}`,
         })
         uni.navigateTo({
@@ -550,26 +550,26 @@
     created() {},
 
     onLoad(option) {
-      console.log('-----首页', this.$cache.getCache('dt_wx_auth'))
-      this.$dt.biz.auth.getInfo().then(res => {
+      console.log('-----首页', dt.storage.get('dt_wx_auth'))
+      dt.biz.auth.getInfo().then(res => {
         this.userInfo = res.userInfo
         console.log(res)
       })
-      let customerId = this.$cache.getCache('Login-Data').customerInfo ?
-        this.$cache.getCache('Login-Data').customerInfo.customerId :
+      let customerId = dt.storage.get('Login-Data').customerInfo ?
+        dt.storage.get('Login-Data').customerInfo.customerId :
         ''
-      // this.userPhone = this.$cache.getCache('Login-Data').customerInfo
-      //   ? this.$cache.getCache('Login-Data').customerInfo.phone
+      // this.userPhone = dt.storage.get('Login-Data').customerInfo
+      //   ? dt.storage.get('Login-Data').customerInfo.phone
       //   : ''
-      let openid = this.$cache.getCache('dt_wx_auth').openid ?
-        this.$cache.getCache('dt_wx_auth').openid :
+      let openid = dt.storage.get('dt_wx_auth').openid ?
+        dt.storage.get('dt_wx_auth').openid :
         ''
-      let unionid = this.$cache.getCache('dt_wx_auth').unionid ?
-        this.$cache.getCache('dt_wx_auth').unionid :
+      let unionid = dt.storage.get('dt_wx_auth').unionid ?
+        dt.storage.get('dt_wx_auth').unionid :
         ''
       this.HasToken =
-        this.$cache.getCache('dt_wx_auth') ||
-        this.$cache.getCache('Login-Data') ?
+        dt.storage.get('dt_wx_auth') ||
+        dt.storage.get('Login-Data') ?
         true :
         false
       if ((openid && unionid) || customerId) {

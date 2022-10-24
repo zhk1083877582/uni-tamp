@@ -46,6 +46,7 @@
 </template>
 
 <script>
+  import dt from "@dt/dt"
   import { getData } from '@/request/api';
   export default {
     components: {},
@@ -81,12 +82,12 @@
         let api = '/dt-user/noToken/wx/wxLogin'
         getData(api, params).then((res) => {
           console.log('---telLogin', res)
-          this.$cache.setCache('isPhoneLogin', res['token']);
-          this.$cache.setCache('Login-Data', res);
-          console.log(this.$cache.getCache('LoginTopath'), '电话登录')
-          if (this.$cache.getCache('LoginTopath')) {
+          dt.storage.set('isPhoneLogin', res['token']);
+          dt.storage.set('Login-Data', res);
+          console.log(dt.storage.get('LoginTopath'), '电话登录')
+          if (dt.storage.get('LoginTopath')) {
             uni.reLaunch({
-              url: '/' + this.$cache.getCache('LoginTopath')
+              url: '/' + dt.storage.get('LoginTopath')
             });
           } else {
             uni.navigateBack()

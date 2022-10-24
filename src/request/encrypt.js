@@ -1,10 +1,3 @@
-/* eslint-disable */
-import CryptoJS from "crypto-js";
-const aeskey = 'y2W89L6BkRAFljhN';
-const aesiv= 'dMitHORyqbeYVE0o';
-// const CryptoJS = require('crypto-js');  //引用AES源码js
-const key = CryptoJS.enc.Utf8.parse(aeskey); //十六位十六进制数作为秘钥
-const iv = CryptoJS.enc.Utf8.parse(aesiv); //十六位十六进制数作为秘钥偏移量
 
 //解密方法
 function Decrypt(word) {

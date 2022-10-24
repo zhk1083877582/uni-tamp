@@ -3,9 +3,11 @@ import './server'
 import '@dt/dt/uni'
 import dt from '@dt/dt'
 
+// import tool from './request/tool'
+// import switchFormatter from './utils/formatter'
+console.log(dt)
+
 function init(Vue) {
-  dt._mixin(Vue)
-  Vue.prototype.$dt = dt
   const updateManager = uni.getUpdateManager()
   if (updateManager) {
     updateManager.onUpdateReady(function() {

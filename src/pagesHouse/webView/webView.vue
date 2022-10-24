@@ -6,7 +6,7 @@
 </template>
 
 <script>
-
+import dt from "@dt/dt"
 export default {
 	components: {},
 	data () {
@@ -21,7 +21,7 @@ export default {
 			let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
 			this.url = mWebSite + tmpUrl
 		}else{
-			this.url = this.$cache.getCache('toMWebpath').toMWebpath + '&fromAppName=xcx11';
+			this.url = dt.storage.get('toMWebpath').toMWebpath + '&fromAppName=xcx11';
 			if(this.url.indexOf('/housePhoto')>-1){
 				uni.hideShareMenu()
 			}

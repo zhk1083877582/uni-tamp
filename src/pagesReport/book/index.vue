@@ -37,7 +37,7 @@
 <script>
   import { getData } from '@/request/api.js'
   import clueMgr from '__com/clue/index.js'
-  
+  import dt from "@dt/dt"
   export default {
     components: {},
     data() {
@@ -76,7 +76,7 @@
     },
     methods: {
       onOpen(e) {
-        this.$dt.biz.auth.update().then(res => {
+        dt.biz.auth.update().then(res => {
           uni.reLaunch({
             url: '/pages_com/report/detail?sn=' + this.sn,
           })

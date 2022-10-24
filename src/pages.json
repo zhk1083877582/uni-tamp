@@ -9,11 +9,7 @@
   {
     "path": "pages/journey/index",
     "style": {
-      "navigationBarTitleText": "购房旅程",
-      "app-plus": {
-        "titleNView": false,
-        "bounce": "none"
-      }
+      "navigationBarTitleText": "购房旅程"
     }
   }],
   "subPackages": [{
@@ -120,31 +116,19 @@
     {
       "path": "reportDetail/index",
       "style": {
-        "navigationBarTitleText": "专属置业计划书",
-        "app-plus": {
-          "titleNView": false,
-          "bounce": "none"
-        }
+        "navigationBarTitleText": "专属置业计划书"
       }
     },
     {
       "path": "book/index",
       "style": {
-        "navigationBarTitleText": "专属置业计划书",
-        "app-plus": {
-          "titleNView": false,
-          "bounce": "none"
-        }
+        "navigationBarTitleText": "专属置业计划书"
       }
     },
     {
       "path": "idealHome/index",
       "style": {
-        "navigationBarTitleText": "我的理想家",
-        "app-plus": {
-          "titleNView": false,
-          "bounce": "none"
-        }
+        "navigationBarTitleText": "我的理想家"
       }
     }]
   },
@@ -163,87 +147,15 @@
       {
         "path": "house/house",
         "style": {
-          "navigationBarTitleText": "楼盘详情",
-          "app-plus": {
-            "titleNView": false,
-            "bounce": "none"
-          }
+          "navigationBarTitleText": "楼盘详情"
         }
       },
       {
         "path": "webView/webView",
         "style": {
-          "navigationBarTitleText": "",
-          "app-plus": {
-            "titleNView": false,
-            "bounce": "none"
-          }
+          "navigationBarTitleText": ""
         }
       }
-      // ,{
-      // 	"path": "moreBuildDetail/index",
-      // 	"style": {
-      // 		"navigationBarTitleText": "楼盘详情",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // },{
-      // 	"path": "unitBuilding/index",
-      // 	"style": {
-      // 		"navigationBarTitleText": "楼栋",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // },{
-      // 	"path": "majordomoList/index",
-      // 	"style": {
-      // 		"navigationBarTitleText": "优秀管家",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // },{
-      // 	"path": "propertyDynamic/index",
-      // 	"style": {
-      // 		"navigationBarTitleText": "楼盘动态",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // },{
-      // 	"path": "VR/index",
-      // 	"style": {
-      // 		"navigationBarTitleText": "",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // },{
-      // 	"path": "houseTypeList/houseTypeList",
-      // 	"style": {
-      // 		"navigationBarTitleText": "户型列表",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // },{
-      // 	"path": "houseTypeDetails/houseTypeDetails",
-      // 	"style": {
-      // 		"navigationBarTitleText": "户型详情",
-      // 		"app-plus": {
-      // 			"titleNView": false,
-      // 			"bounce": "none"
-      // 		}
-      // 	}
-      // }
     ]
   },
   {
@@ -252,11 +164,7 @@
     {
       "path": "login/login",
       "style": {
-        "navigationBarTitleText": "登录置业笔记",
-        "app-plus": {
-          "titleNView": false,
-          "bounce": "none"
-        }
+        "navigationBarTitleText": "登录置业笔记"
       }
     },
     // {
@@ -272,21 +180,13 @@
     {
       "path": "login/agreement",
       "style": {
-        "navigationBarTitleText": "置业笔记产品使用协议",
-        "app-plus": {
-          "titleNView": false,
-          "bounce": "none"
-        }
+        "navigationBarTitleText": "置业笔记产品使用协议"
       }
     },
     {
       "path": "signIn/index",
       "style": {
-        "navigationBarTitleText": "扫码签到",
-        "app-plus": {
-          "titleNView": false,
-          "bounce": "none"
-        }
+        "navigationBarTitleText": "扫码签到"
       }
     }]
   }],

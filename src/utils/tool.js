@@ -1,5 +1,3 @@
-import store from '../store'
-
 Function.prototype.method = function (name, fn) {
   this.prototype[name] = fn;
   return this;
@@ -65,13 +63,6 @@ const TOOL = {
       }
     }
     return target;
-  },
-
-  openLoading() {
-    store.dispatch('saveIsLoading', true)
-  },
-  closeLoading() {
-    store.dispatch('saveIsLoading', false)
   },
 
   getStorage(item) {

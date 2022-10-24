@@ -1,6 +1,5 @@
 import config from './config'
 import dt from '@dt/dt';
-import cache from './cache.js'
 Function.prototype.method = function (name, fn) {
   this.prototype[name] = fn;
   return this;
@@ -67,13 +66,6 @@ const TOOL = {
     }
     return target;
   },
-
-  // openLoading() {
-  //   store.dispatch('saveIsLoading', true)
-  // },
-  // closeLoading() {
-  //   store.dispatch('saveIsLoading', false)
-  // },
 
   getStorage(item) {
     return uni.getStorageSync(item)
@@ -338,7 +330,7 @@ const TOOL = {
   },
 
   returnWebviewconfigUrl(path) {
-    let AllConfigPath = cache.getCache('ConfigPath'),
+    let AllConfigPath = dt.storage.get('ConfigPath'),
       url = '';
     Object.getOwnPropertyNames(AllConfigPath).forEach(function (key) {
       if (path == key) {

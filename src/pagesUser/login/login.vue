@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import dt from "@dt/dt"
 import { getData } from '@/request/api'
 export default {
   components: {},
@@ -54,10 +55,10 @@ export default {
       })
     },
     onGetUserInfo(e) {
-      this.$dt.biz.auth.update().then(res => {
-        if (this.$cache.getCache('LoginTopath')) {
+      dt.biz.auth.update().then(res => {
+        if (dt.storage.get('LoginTopath')) {
           uni.reLaunch({
-            url: '/' + this.$cache.getCache('LoginTopath'),
+            url: '/' + dt.storage.get('LoginTopath'),
           })
         } else {
           uni.navigateBack()
@@ -82,7 +83,7 @@ export default {
         pinStr1 = pinStr1.substring(0, pinStr1.length - 1)
       }
       this.pinWx = pinStr1 + pinStr2
-      this.$cache.setCache('LoginTopath', this.pinWx)
+      dt.storage.set('LoginTopath', this.pinWx)
       console.log('LoginTopath', this.pinWx)
     }, 400)
   },
