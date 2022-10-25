@@ -129,6 +129,7 @@
 </template>
 
 <script>
+  import dt from "@dt/dt"
   import { getData } from '@/request/api.js'
   import rCanvas from '@/components/r-canvas/r-canvas.vue'
   import myCanvas from './my-canvas/index.js'
@@ -160,12 +161,12 @@
       onGetPhoneNumber(e) {
         let res = e.detail
         if (res.errMsg.indexOf(':ok') >= 0) {
-          this.$dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
+          dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
             .then(res => {
-              this.$cache.setCache('isPhoneLogin', true)
-              this.$cache.setCache('Login-Data', res)
-              this.$cache.setCache('loginFlag', true)
-              this.$cache.setCache('loginFlag1', true)
+              dt.storage.set('isPhoneLogin', true)
+              dt.storage.set('Login-Data', res)
+              dt.storage.set('loginFlag', true)
+              dt.storage.set('loginFlag1', true)
               this.showAuthorize = true
               let { phone } = res || {}
               if (phone) {
@@ -277,10 +278,10 @@
         this.buildingId = option.buildingId
       }
       this.initUserInfo() //管家信息
-      let phone = this.$cache.getCache('Login-Data') ? this.$cache.getCache('Login-Data')
+      let phone = dt.storage.get('Login-Data') ? dt.storage.get('Login-Data')
         .phone : ''
       console.log(phone, 'phone')
-      if (!this.$cache.getCache('isPhoneLogin') || !phone) {
+      if (!dt.storage.get('isPhoneLogin') || !phone) {
         this.showAuthorize = false
       } else {
         console.log('userId&&&buildingId', this.userId, this.buildingId)

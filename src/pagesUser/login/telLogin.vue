@@ -14,16 +14,16 @@
         </view>
         <view class="log_form">
           <view class="from_warp phone_warp">
-            <!-- <u-input class='In_H phone' v-model="phoneNum" :type="type" placeholder="请输入手机号"
+            <!-- <input class='In_H phone' v-model="phoneNum" :type="type" placeholder="请输入手机号"
               :maxlength="11" :clearable='false' :placeholder-style="'color:#DEDEDE'"
               @input='validatorPhoneNum' /> -->
-            <u-button class='log_YZM' type="primary" :disabled='CodeBtndisabled' size="small"
+            <button class='log_YZM' type="primary" :disabled='CodeBtndisabled' size="small"
               @click="runTimer">
               <text :style="{'color':CodeColor}"> {{CodeText}}</text>
-            </u-button>
+            </button>
           </view>
           <view class="from_warp code_warp">
-            <!-- <u-input class='In_H' v-model="VerificationCode" :type="type" placeholder="请输入验证码"
+            <!-- <input class='In_H' v-model="VerificationCode" :type="type" placeholder="请输入验证码"
               :maxlength="6" :clearable='false' :placeholder-style="'color:#DEDEDE;'"
               @input='validatorCode' /> -->
           </view>
@@ -33,10 +33,10 @@
               置业笔记用户服务及隐私协议
             </text>
           </view>
-          <u-button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary"
+          <button class="submitBtn" :color="submitBg" :disabled='submitBtn' type="primary"
             @click='onSubmit'>
             <text :style="{'color':submitColor}">登录</text>
-          </u-button>
+          </button>
 
         </view>
       </view>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+  import dt from "@dt/dt"
   import { getData } from '@/request/api';
   export default {
     components: {},
@@ -81,12 +82,12 @@
         let api = '/dt-user/noToken/wx/wxLogin'
         getData(api, params).then((res) => {
           console.log('---telLogin', res)
-          this.$cache.setCache('isPhoneLogin', res['token']);
-          this.$cache.setCache('Login-Data', res);
-          console.log(this.$cache.getCache('LoginTopath'), '电话登录')
-          if (this.$cache.getCache('LoginTopath')) {
+          dt.storage.set('isPhoneLogin', res['token']);
+          dt.storage.set('Login-Data', res);
+          console.log(dt.storage.get('LoginTopath'), '电话登录')
+          if (dt.storage.get('LoginTopath')) {
             uni.reLaunch({
-              url: '/' + this.$cache.getCache('LoginTopath')
+              url: '/' + dt.storage.get('LoginTopath')
             });
           } else {
             uni.navigateBack()
@@ -244,13 +245,11 @@
           }
 
           .log_YZM {
-            ::v-deep .u-btn {
-              height: 100%;
-              padding: 0;
-              padding-left: 40rpx;
-              background-color: transparent !important;
-              font-size: 32rpx;
-            }
+            height: 100%;
+            padding: 0;
+            padding-left: 40rpx;
+            background-color: transparent !important;
+            font-size: 32rpx;
           }
 
           .login_agreement {
