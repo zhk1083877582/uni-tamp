@@ -22,9 +22,9 @@
 
       <view class="qundai">
         <view class="HDJ">
-          <u-button type="default" hover-class='none' class="btn" @click="onOpen">
+          <button class="btn" @click="onOpen">
             尊享开启
-          </u-button>
+          </button>
           <view class="bottom_text">
             温馨提示：授权查看您的置业计划书，获得完整服务
           </view>
@@ -128,17 +128,15 @@
     padding-top: 16%;
 
     .btn {
-      ::v-deep .u-btn {
-        background: linear-gradient(180deg, #ffeda8, #ffce89);
-        border-radius: 49rpx;
-        width: 443rpx;
-        height: 98rpx;
-        font-size: 36rpx;
-        line-height: 98rpx;
-        text-align: center;
-        font-weight: 600;
-        color: #062471;
-      }
+      background: linear-gradient(180deg, #ffeda8, #ffce89);
+      border-radius: 49rpx;
+      width: 443rpx;
+      height: 98rpx;
+      font-size: 36rpx;
+      line-height: 98rpx;
+      text-align: center;
+      font-weight: 600;
+      color: #062471;
 
       .user_name {
         font-weight: 600;

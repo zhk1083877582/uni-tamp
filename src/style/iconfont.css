@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont";
-  src: url('iconfont.ttf'), url('iconfont.svg');
+  src: url('./iconfont.ttf'), url('./iconfont.svg');
 }
 
 .iconfont {

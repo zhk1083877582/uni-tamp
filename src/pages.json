@@ -170,11 +170,7 @@
     // {
     //   "path": "login/telLogin",
     //   "style": {
-    //     "navigationBarTitleText": "登录置业笔记",
-    //     "app-plus": {
-    //       "titleNView": false,
-    //       "bounce": "none"
-    //     }
+    //     "navigationBarTitleText": "登录置业笔记"
     //   }
     // },
     {

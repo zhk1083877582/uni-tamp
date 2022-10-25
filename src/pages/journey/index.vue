@@ -4,8 +4,12 @@
 
     <!-- 搜索小程序进入 -->
     <view class="home_banner" v-if="!HasToken">
-      <u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit'
-        border-radius='24' :autoplay="autoplay"></u-swiper>
+      <swiper style="height: 813rpx;" indicator-dots :autoplay="autoplay">
+        <swiper-item v-for="(item,index) in bannerList" :key="index">
+          <image style="height: 813rpx;border-radius=24rpx;margin-left:85rpx;"
+            :src="item.image" mode="aspectFit" />
+        </swiper-item>
+      </swiper>
       <button class="login_btn" @click="doGoLoginPage">开启购房旅程</button>
     </view>
 
@@ -92,11 +96,11 @@
                       <view
                         v-if="item.recommendation!=null&&JSON.stringify(item.recommendation) != '[]'">
 
-                        <u-tabs name='tableTitle' :list="item.recommendation" :is-scroll="true"
-                          :current="currentPlan" @change="changePlanTab" active-color="#062471"
-                          inactive-color="#999999" font-size="30" bar-width='40' bar-height='6'
-                          bg-color='transparent'>
-                        </u-tabs>
+                        <dt-tab :tabs="item.recommendation" isScroll
+                          tab-class="dt-text-tab-class"
+                          tab-class-active="dt-text-tab-class dt-text-tab-active-class"
+                          v-model="currentPlan" @change="changePlanTab">
+                        </dt-tab>
 
                         <swiper :style="{'height':swiperHeightPlan}" :current='currPlan'
                           :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
@@ -254,9 +258,12 @@
 
 <script>
   import { getData } from '@/request/api'
+  import dtTab from '__com/dt/dt-tab.vue'
   import dt from "@dt/dt"
   export default {
-    components: {},
+    components: {
+      dtTab
+    },
     data() {
       return {
         formatter: dt.tool.formatter,
@@ -481,7 +488,7 @@
               console.log(itemR)
               itemR.recommendation &&
                 itemR.recommendation.forEach((itemY, indexY) => {
-                  itemY.tableTitle = `方案${indexY + 1}`
+                  itemY.title = `方案${indexY + 1}`
                 })
 
               //判断是否有方案推荐
@@ -591,13 +598,7 @@
     height: 100%;
 
     .home_banner {
-      /* height: 813rpx; */
-      width: 600rpx;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -54%);
+      margin-top: 180rpx;
 
       .login_btn {
         margin-top: 72rpx;
