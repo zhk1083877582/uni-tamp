@@ -5,9 +5,6 @@
       <view class="index_high">
         <view class="warp_border">
         </view>
-        <view class="title">
-          {{windowTitle}}：
-        </view>
         <view class="text">
           请查收您的
         </view>
@@ -46,7 +43,6 @@
         sn: '',
         
         buildingName: '',
-        windowTitle: '', //客户姓名
       }
     },
     onLoad(opt) {
@@ -94,16 +90,6 @@
             let subscriberName = res.customerIntention ?
               res.customerIntention.customerName :
               ''
-            this.windowTitle = `${
-              subscriberName ? subscriberName.substring(0, 1) : '-'
-            }${
-              customerGender == '男'
-                ? '先生'
-                : customerGender == '女'
-                ? '女士'
-                : '先生/女士'
-            }`
-            console.log(this.windowTitle)
             this.buildingName = res.buildingInfo.housesName
           })
           .catch((err) => {
@@ -172,21 +158,12 @@
         position: relative;
       }
 
-      .title {
-        font-size: 28rpx;
-        font-weight: 600;
-        text-align: left;
-        color: #062471;
-        line-height: 48rpx;
-        padding: 64rpx 0 0 64rpx;
-      }
-
       .text {
         font-size: 28rpx;
         text-align: center;
         color: #b89960;
         line-height: 28px;
-        margin-top: 95rpx;
+        padding-top: 160rpx;
       }
 
       .building_name {
