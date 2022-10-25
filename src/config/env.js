@@ -17,9 +17,9 @@ let config = {
 }
 
 if (process.env.NODE_ENV == 'development') {
-  // config.dtUrl = 'https://dtwgwtest.tospur.com'
+  config.dtUrl = 'https://dtwgwtest.tospur.com'
   // config.dtUrl = 'https://dtgwuat-new.tospurfang.com'
-  config.dtUrl = 'https://dtgw.tospurfang.com'
+  // config.dtUrl = 'https://dtgw.tospurfang.com'
 }
 
 let dev = {}
