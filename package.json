@@ -2,27 +2,15 @@
 	"name": "tc-xcx",
 	"version": "1.0.0",
 	"private": true,
-	"description": "前言：uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、H5、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。",
 	"author": "",
 	"scripts": {
 		"package": "./node_modules/@lr17/loader/src/mp/package.sh",
 		"build": "./node_modules/@lr17/loader/src/mp/build.sh",
 		"dev": "./node_modules/@lr17/loader/src/mp/serve.sh"
 	},
-	"main": "main.js",
 	"dependencies": {
 		"@dcloudio/uni-app": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-app-plus": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-components": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-h5": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-alipay": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-baidu": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-kuaishou": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-lark": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-qq": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-toutiao": "3.0.0-alpha-3050420220804004",
 		"@dcloudio/uni-mp-weixin": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3050420220804004",
 		"@dt/dt": "1.2.1",
 		"@dt/server": "2.4.0",
 		"axios": "^0.19.2",
@@ -43,17 +31,6 @@
 		"sass": "^1.42.1",
 		"typescript": "^4.7.4",
 		"vite": "^2.9.14"
-	},
-	"browserslist": [
-		"Android >= 4",
-		"ios >= 8"
-	],
-	"_id": "tc-xcx@1.0.0",
-	"license": "ISC",
-	"readme": "ERROR: No README data found!",
-	"repository": {
-		"type": "git",
-		"url": "git@172.16.1.65:TospurHouse/WXProgram.git"
 	},
 	"uni-app": {
 		"scripts": {

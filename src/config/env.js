@@ -1,14 +1,17 @@
 import dt from '@dt/dt';
 
 const env = {
-  dev: {},
+  dev: {
+    dtUrl: 'http://172.16.1.126:8100',
+    webUrl: 'https://dtweb.tospurfang.com',
+  },
   test: {
     dtUrl: 'https://dtwgwtest.tospur.com',
     webUrl: 'https://dtwebtest.tospur.com'
   },
   uat: {
     dtUrl: 'https://dtgwuat-new.tospurfang.com',
-    webUrl: 'https://dtwebstag.tospurfang.com'
+    webUrl: 'https://dtwebuat-new.tospurfang.com'
   },
   prod: {
     dtUrl: 'https://dtgw.tospurfang.com',
@@ -17,8 +20,6 @@ const env = {
 }
 
 let config = {
-  dtUrl: 'http://172.16.1.126:8100',
-  webUrl: 'https://dtweb.tospurfang.com',
   id: 36,
   name: 'DT-NOTE',
   version: import.meta.env.VITE_BUILD_VERSION,
@@ -27,10 +28,7 @@ let config = {
 }
 
 if (import.meta.env.DEV) {
-  // config.dtUrl = 'https://dtwgwtest.tospur.com'
-  // config.dtUrl = 'https://dtgwuat-new.tospurfang.com'
-  config.dtUrl = 'https://dtgw.tospurfang.com'
-  // config.dtUrl = 'http://172.16.1.126:8100'
+  Object.assign(config, env.prod)
 }
 
 Object.assign(dt.env, config, env[import.meta.env.VITE_ENV])
