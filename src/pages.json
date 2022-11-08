@@ -84,13 +84,13 @@
         "navigationBarTitleText": "户型详情"
       }
     }, {
-      "path": "dynamic/list",
+      "path": "timeline/list",
       "style": {
         "navigationBarTitleText": "楼盘动态",
         "enablePullDownRefresh": true
       }
     }, {
-      "path": "dynamic/detail",
+      "path": "timeline/detail",
       "style": {
         "navigationBarTitleText": "楼盘动态"
       }

@@ -4,30 +4,27 @@
 	"private": true,
 	"author": "",
 	"scripts": {
-		"package": "./node_modules/@lr17/loader/src/mp/package.sh",
-		"build": "./node_modules/@lr17/loader/src/mp/build.sh",
-		"dev": "./node_modules/@lr17/loader/src/mp/serve.sh"
+		"package": "./node_modules/@lr17/loader/src/wx/package.sh",
+		"build": "./node_modules/@lr17/loader/src/wx/build.sh",
+		"dev": "./node_modules/@lr17/loader/src/wx/serve.sh"
 	},
 	"dependencies": {
-		"@dcloudio/uni-app": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-mp-weixin": "3.0.0-alpha-3050420220804004",
-		"@dt/dt": "1.2.1",
-		"@dt/server": "2.4.0",
-		"axios": "^0.19.2",
-		"flyio": "^0.6.2",
-		"moment": "^2.27.0",
-		"vue": "^3.2.37",
-		"vue-i18n": "^9.1.9",
-		"vuex": "^4.0.2"
+		"@dt/page": "6.1.1",
+		"@dt/server": "2.4.1",
+    "axios": "^0.19.2",
+    "moment": "^2.27.0"
 	},
 	"devDependencies": {
+    "@dcloudio/uni-app": "3.0.0-alpha-3050420220804004",
+    "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3050420220804004",
 		"@dcloudio/types": "^3.0.7",
 		"@dcloudio/uni-automator": "3.0.0-alpha-3050420220804004",
 		"@dcloudio/uni-cli-shared": "3.0.0-alpha-3050420220804004",
 		"@dcloudio/uni-stacktracey": "3.0.0-alpha-3050420220804004",
 		"@dcloudio/vite-plugin-uni": "3.0.0-alpha-3050420220804004",
-		"@dt/page": "5.1.15",
-		"@lr17/loader": "^1.0.3",
+		"vue": "^3.2.37",
+		"vue-i18n": "^9.1.9",
+		"vuex": "^4.0.2",
 		"sass": "^1.42.1",
 		"typescript": "^4.7.4",
 		"vite": "^2.9.14"
