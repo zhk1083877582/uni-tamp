@@ -9,7 +9,7 @@
 		"dev": "./node_modules/@lr17/loader/src/wx/serve.sh"
 	},
 	"dependencies": {
-		"@dt/page": "6.1.1",
+		"@dt/page": "6.1.7",
 		"@dt/server": "2.4.1",
     "axios": "^0.19.2",
     "moment": "^2.27.0"

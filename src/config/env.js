@@ -28,7 +28,7 @@ let config = {
 }
 
 if (import.meta.env.DEV) {
-  Object.assign(config, env.prod)
+  Object.assign(dt.env, config, env.test)
+} else {
+  Object.assign(dt.env, config, env[import.meta.env.VITE_ENV])
 }
-
-Object.assign(dt.env, config, env[import.meta.env.VITE_ENV])

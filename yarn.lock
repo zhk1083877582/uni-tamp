@@ -1647,13 +1647,13 @@
   resolved "http://172.16.1.129:4873/@dt%2fdt/-/dt-2.0.0.tgz#04e3d1eef7a6f838af776770c96a43d56812ddc0"
   integrity sha512-sWzmFAL5JSUpb6HQTEEvRjaJdiSREmpsvdMLu1lb1/mUFI4eu0xv8zGGXzoisJYnss2xdA4luu3Q3jQ+aDAayg==
 
-"@dt/page@6.1.1":
-  version "6.1.1"
-  resolved "http://172.16.1.129:4873/@dt%2fpage/-/page-6.1.1.tgz#0ddb1a187d3ddcc34ca4a93bf576aea10d494b62"
-  integrity sha512-XGg8/p5lSLjAW2xv8gJo6lmuLGd4ODbkEwXUfbX2K6nPSqyEabT6C61xJ5G3XJOnADXZ9JlHDjEuo3hs4bNcHw==
+"@dt/page@6.1.7":
+  version "6.1.7"
+  resolved "http://172.16.1.129:4873/@dt%2fpage/-/page-6.1.7.tgz#9674119b6eae33b373b0587654e6b922268ce4e4"
+  integrity sha512-nGkNXfU96EQMcpSbW/5BQtVLUQ0f+VpnZ4sTXXtW9AYzdNMIRyCf4Qe5WnQHLQ38qSoD/Zx5NgPVj2PoFbzvsw==
   dependencies:
     "@dt/dt" "2.0.0"
-    "@lr17/loader" "^1.0.8"
+    "@lr17/loader" "^1.0.9"
 
 "@dt/server@2.4.1":
   version "2.4.1"
@@ -2125,10 +2125,10 @@
   resolved "http://172.16.1.129:4873/@leejim%2fwxml-parser/-/wxml-parser-0.1.1.tgz#69ed483e10c86128f2977bbb646953c11a06b8c5"
   integrity sha1-ae1IPhDIYSjyl3u7ZGlTwRoGuMU=
 
-"@lr17/loader@^1.0.8":
-  version "1.0.8"
-  resolved "http://172.16.1.129:4873/@lr17%2floader/-/loader-1.0.8.tgz#cb9459c0b5962e9797c98a841776e42774eedd0b"
-  integrity sha512-LlVMp2MG0L9+0eG93e6qW9gqjdp0x8LAxEaL7tnevVorwTTYK5NTLp2LeogWruScxW7VMn2hsREPhVDfnfAKOA==
+"@lr17/loader@^1.0.9":
+  version "1.0.9"
+  resolved "http://172.16.1.129:4873/@lr17%2floader/-/loader-1.0.9.tgz#0670bf5171819e1a99db50f6dff3aaed7ed0c348"
+  integrity sha512-BmFt3fJCWIlaDQ9rQahIEachWf5C1p+oy8vV787D9vcbPLF9MurHYGBkowmAxI2FZDO58I7TzPmvFVUfPt57FA==
   dependencies:
     miniprogram-ci "^1.8.35"
 
