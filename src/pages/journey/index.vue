@@ -6,7 +6,7 @@
     <view class="home_banner" v-if="!HasToken">
       <swiper style="height: 813rpx;" indicator-dots :autoplay="autoplay">
         <swiper-item v-for="(item,index) in bannerList" :key="index">
-          <image style="height: 813rpx;border-radius=24rpx;margin-left:85rpx;"
+          <image style="height: 813rpx;border-radius=24rpx;width: 100%;margin: auto;"
             :src="item.image" mode="aspectFit" />
         </swiper-item>
       </swiper>
