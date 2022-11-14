@@ -4,9 +4,9 @@
 	"private": true,
 	"author": "",
 	"scripts": {
-		"package": "./node_modules/@lr17/loader/src/wx/package.sh",
-		"build": "./node_modules/@lr17/loader/src/wx/build.sh",
-		"dev": "./node_modules/@lr17/loader/src/wx/serve.sh"
+		"package": "sh ./node_modules/@lr17/loader/src/wx/package.sh",
+		"build": "sh ./node_modules/@lr17/loader/src/wx/build.sh",
+		"dev": "sh ./node_modules/@lr17/loader/src/wx/serve.sh"
 	},
 	"dependencies": {
 		"@dt/page": "6.1.7",
