@@ -10,7 +10,7 @@ const api = {
 
 const infoKey = 'dt_wx_auth'
 
-function phone(iv, encryData, userId, buildingId) {
+function phone(iv, encryData) {
   let info = getInfoSync()
   console.log('phone start')
   if (!info) {
@@ -20,8 +20,6 @@ function phone(iv, encryData, userId, buildingId) {
   } else {
     console.log('发起请求 wxLogin')
     return api.phone.fetch({
-      buildingId,
-      userId,
       iv,
       encryData,
       sessionKey: info.session_key,
@@ -104,7 +102,7 @@ function getInfo() {
   }
 }
 
-function authPhone(userId, buildingId) {
+function authPhone(buildingId, userId) { // userId是顾问，其他角色不传
   return getInfo().then(res => {
     let customerPhone = res.phone
     if (customerPhone) {

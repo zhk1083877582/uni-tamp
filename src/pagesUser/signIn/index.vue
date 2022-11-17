@@ -161,18 +161,17 @@
       onGetPhoneNumber(e) {
         let res = e.detail
         if (res.errMsg.indexOf(':ok') >= 0) {
-          dt.biz.auth.phone(res.iv, res.encryptedData, this.userId, this.buildingId)
-            .then(res => {
-              dt.storage.set('isPhoneLogin', true)
-              dt.storage.set('Login-Data', res)
-              dt.storage.set('loginFlag', true)
-              dt.storage.set('loginFlag1', true)
-              this.showAuthorize = true
-              let { phone } = res || {}
-              if (phone) {
-                this.doAddCustorm(phone)
-              }
-            })
+          dt.biz.auth.phone(res.iv, res.encryptedData).then(res => {
+            dt.storage.set('isPhoneLogin', true)
+            dt.storage.set('Login-Data', res)
+            dt.storage.set('loginFlag', true)
+            dt.storage.set('loginFlag1', true)
+            this.showAuthorize = true
+            let { phone } = res || {}
+            if (phone) {
+              this.doAddCustorm(phone)
+            }
+          })
         } else {
           console.warn(res.errMsg)
         }

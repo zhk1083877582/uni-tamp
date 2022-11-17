@@ -1004,7 +1004,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.17.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
   version "7.20.1"
   resolved "http://172.30.100.196:4873/@babel%2fruntime/-/runtime-7.20.1.tgz#1148bb33ab252b165a06698fde7576092a78b4a9"
   integrity sha512-mrzLkl6U9YLF8qpqI7TB82PESyEGjm/0Ly91jG575eVxMMlb8fYfOXFZIJ8XfLrJZQbm7dlKry2bJmXBUEkdFg==
@@ -1287,13 +1287,14 @@
   resolved "http://172.30.100.196:4873/@dt%2fdt/-/dt-2.0.0.tgz#00082203b2e45706fb57ba8677d512f90bc4f0d6"
   integrity sha512-UIg346WC7GT3hV+TVA9k8xrwiHGc1chD/+wyGR/Hk3CoilfUBkwSkMXNoejnxsFDTfMLuqvBUFXZu26COvjJQA==
 
-"@dt/page@6.1.7":
-  version "6.1.7"
-  resolved "http://172.30.100.196:4873/@dt%2fpage/-/page-6.1.7.tgz#0b77bb5b3284225163b0b721114669d94e122ce0"
-  integrity sha512-ayQb2lTnSJrU6hu+TyGzhbmNcYOSFxgCV5ylsmV7Hk73irsKVUHAm6K/q6kUmheTTs7o8AVscl4T862c3QT/5A==
+"@dt/page@6.1.12":
+  version "6.1.12"
+  resolved "http://172.30.100.196:4873/@dt%2fpage/-/page-6.1.12.tgz#0e0378f16ad1a8614dbe70c676d66b7fd9685863"
+  integrity sha512-zyQS9Bu+bykH3g5IGMjFPE8uNEuyOdvgEeYaFZ/JgtHTxVTEHhUlCdQI962nuYxDPZuIYZK3JU3bSdjKxBQ/Lw==
   dependencies:
     "@dt/dt" "2.0.0"
     "@lr17/loader" "^1.0.9"
+    vconsole "^3.15.0"
 
 "@dt/server@2.4.1":
   version "2.4.1"
@@ -3204,6 +3205,11 @@ copy-anything@^2.0.1:
   dependencies:
     is-what "^3.14.1"
 
+copy-text-to-clipboard@^3.0.1:
+  version "3.0.1"
+  resolved "http://172.30.100.196:4873/copy-text-to-clipboard/-/copy-text-to-clipboard-3.0.1.tgz#8cbf8f90e0a47f12e4a24743736265d157bce69c"
+  integrity sha1-jL+PkOCkfxLkokdDc2Jl0Ve85pw=
+
 core-js-compat@^3.6.2:
   version "3.26.1"
   resolved "http://172.30.100.196:4873/core-js-compat/-/core-js-compat-3.26.1.tgz#0e710b09ebf689d719545ac36e49041850f943df"
@@ -3216,7 +3222,7 @@ core-js@^2.4.0, core-js@^2.5.0:
   resolved "http://172.30.100.196:4873/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw=
 
-core-js@^3.22.3, core-js@^3.4.1:
+core-js@^3.11.0, core-js@^3.22.3, core-js@^3.4.1:
   version "3.26.1"
   resolved "http://172.30.100.196:4873/core-js/-/core-js-3.26.1.tgz#7a9816dabd9ee846c1c0fe0e8fcad68f3709134e"
   integrity sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA==
@@ -4762,6 +4768,11 @@ ms@2.1.3, ms@^2.1.1:
   resolved "http://172.30.100.196:4873/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha1-V0yBOM4dK1hh8LRFedut1gxmFbI=
 
+mutation-observer@^1.0.3:
+  version "1.0.3"
+  resolved "http://172.30.100.196:4873/mutation-observer/-/mutation-observer-1.0.3.tgz#42e9222b101bca82e5ba9d5a7acf4a14c0f263d0"
+  integrity sha1-QukiKxAbyoLlup1aes9KFMDyY9A=
+
 nanoid@^3.3.4:
   version "3.3.4"
   resolved "http://172.30.100.196:4873/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
@@ -6144,6 +6155,16 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "http://172.30.100.196:4873/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vconsole@^3.15.0:
+  version "3.15.0"
+  resolved "http://172.30.100.196:4873/vconsole/-/vconsole-3.15.0.tgz#2383482b0a4106204090046ec128071284e04a90"
+  integrity sha512-8hq7wabPcRucSWQyN7/1tthMawP9JPvM95zgtMHpPknMMMCKj+abpoK7P7oKK4B0qw58C24Mdvo9+raUdpHyVQ==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    copy-text-to-clipboard "^3.0.1"
+    core-js "^3.11.0"
+    mutation-observer "^1.0.3"
 
 verror@1.10.0:
   version "1.10.0"
