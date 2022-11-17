@@ -106,11 +106,9 @@ function authPhone(buildingId, userId) { // userId是顾问，其他角色不传
   return getInfo().then(res => {
     let customerPhone = res.phone
     if (customerPhone) {
-      return api.authPhone.fetch({
-        userId,
-        buildingId,
-        customerPhone
-      })
+      let info = {buildingId, customerPhone}
+      if (userId) info.userId = userId
+      return api.authPhone.fetch(info)
     } else {
       return false
     }

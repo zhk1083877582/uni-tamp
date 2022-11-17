@@ -1287,10 +1287,10 @@
   resolved "http://172.30.100.196:4873/@dt%2fdt/-/dt-2.0.0.tgz#00082203b2e45706fb57ba8677d512f90bc4f0d6"
   integrity sha512-UIg346WC7GT3hV+TVA9k8xrwiHGc1chD/+wyGR/Hk3CoilfUBkwSkMXNoejnxsFDTfMLuqvBUFXZu26COvjJQA==
 
-"@dt/page@6.1.12":
-  version "6.1.12"
-  resolved "http://172.30.100.196:4873/@dt%2fpage/-/page-6.1.12.tgz#0e0378f16ad1a8614dbe70c676d66b7fd9685863"
-  integrity sha512-zyQS9Bu+bykH3g5IGMjFPE8uNEuyOdvgEeYaFZ/JgtHTxVTEHhUlCdQI962nuYxDPZuIYZK3JU3bSdjKxBQ/Lw==
+"@dt/page@6.1.18":
+  version "6.1.18"
+  resolved "http://172.30.100.196:4873/@dt%2fpage/-/page-6.1.18.tgz#1f2928262ef9e967a3cdef4a242f6fd8821ce568"
+  integrity sha512-E61NzXYG6gzv/QR3jKqN2PEIC/8nfkBiayDO2TK0sawpIqjTI0nQtSKojvXx3juNwycMsaCLH1mqb/KwimE5eA==
   dependencies:
     "@dt/dt" "2.0.0"
     "@lr17/loader" "^1.0.9"

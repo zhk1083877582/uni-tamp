@@ -1,45 +1,47 @@
 {
-	"name": "tc-xcx",
-	"version": "1.0.0",
-	"private": true,
-	"author": "",
-	"scripts": {
-		"package": "sh ./node_modules/@lr17/loader/src/wx/package.sh",
-		"build": "sh ./node_modules/@lr17/loader/src/wx/build.sh",
-		"dev": "sh ./node_modules/@lr17/loader/src/wx/serve.sh"
-	},
-	"dependencies": {
-		"@dt/page": "6.1.12",
-		"@dt/server": "2.4.1",
+  "name": "tc-xcx",
+  "version": "1.0.0",
+  "private": true,
+  "author": "",
+  "scripts": {
+    "package": "sh ./node_modules/@lr17/loader/src/wx/package.sh",
+    "dev": "sh ./node_modules/@lr17/loader/src/wx/serve.sh",
+    "build:test": "sh ./node_modules/@lr17/loader/src/wx/build.sh test",
+    "build:uat": "sh ./node_modules/@lr17/loader/src/wx/build.sh uat",
+    "build:prod": "sh ./node_modules/@lr17/loader/src/wx/build.sh prod"
+  },
+  "dependencies": {
+    "@dt/page": "6.1.18",
+    "@dt/server": "2.4.1",
     "axios": "^0.19.2",
     "moment": "^2.27.0"
-	},
-	"devDependencies": {
+  },
+  "devDependencies": {
     "@dcloudio/uni-app": "3.0.0-alpha-3050420220804004",
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/types": "^3.0.7",
-		"@dcloudio/uni-automator": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-cli-shared": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/uni-stacktracey": "3.0.0-alpha-3050420220804004",
-		"@dcloudio/vite-plugin-uni": "3.0.0-alpha-3050420220804004",
-		"vue": "^3.2.37",
-		"vue-i18n": "^9.1.9",
-		"vuex": "^4.0.2",
-		"sass": "^1.42.1",
-		"typescript": "^4.7.4",
-		"vite": "^2.9.14"
-	},
-	"uni-app": {
-		"scripts": {
-			"mp-weixin-prod": {
-				"title": "微信小程序-生产",
-				"env": {
-					"UNI_PLATFORM": "mp-weixin"
-				},
-				"define": {
-					"PROD": true
-				}
-			}
-		}
-	}
+    "@dcloudio/types": "^3.0.7",
+    "@dcloudio/uni-automator": "3.0.0-alpha-3050420220804004",
+    "@dcloudio/uni-cli-shared": "3.0.0-alpha-3050420220804004",
+    "@dcloudio/uni-stacktracey": "3.0.0-alpha-3050420220804004",
+    "@dcloudio/vite-plugin-uni": "3.0.0-alpha-3050420220804004",
+    "vue": "^3.2.37",
+    "vue-i18n": "^9.1.9",
+    "vuex": "^4.0.2",
+    "sass": "^1.42.1",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.14"
+  },
+  "uni-app": {
+    "scripts": {
+      "mp-weixin-prod": {
+        "title": "微信小程序-生产",
+        "env": {
+          "UNI_PLATFORM": "mp-weixin"
+        },
+        "define": {
+          "PROD": true
+        }
+      }
+    }
+  }
 }
