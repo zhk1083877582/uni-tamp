@@ -13,7 +13,6 @@
   "dependencies": {
     "@dt/page": "6.1.18",
     "@dt/server": "2.4.1",
-    "axios": "^0.19.2",
     "moment": "^2.27.0"
   },
   "devDependencies": {

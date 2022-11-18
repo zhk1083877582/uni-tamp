@@ -3,19 +3,15 @@ import dt from '@dt/dt';
 const env = {
   dev: {
     dtUrl: 'http://172.16.1.126:8100',
-    webUrl: 'https://dtweb.tospurfang.com',
   },
   test: {
     dtUrl: 'https://dtwgwtest.tospur.com',
-    webUrl: 'https://dtwebtest.tospur.com'
   },
   uat: {
     dtUrl: 'https://dtgwuat-new.tospurfang.com',
-    webUrl: 'https://dtwebuat-new.tospurfang.com'
   },
   prod: {
     dtUrl: 'https://dtgw.tospurfang.com',
-    webUrl: 'https://dtweb.tospurfang.com'
   }
 }
 

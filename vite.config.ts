@@ -1,5 +1,5 @@
 const pageLoader = require('./node_modules/@lr17/loader/src/load/page.js')
-const paths: string[] = ['pages_com', 'pagesReport', 'pagesHouse', 'pagesUser', 'pages']
+const paths: string[] = []
 pageLoader.load({
   component: {
     from: './node_modules/@dt/page/dist/components',
@@ -7,7 +7,7 @@ pageLoader.load({
   },
   page: {
     from: './node_modules/@dt/page/dist/pages_com',
-    paths: ['building', 'report', 'loan', 'integral', 'article']
+    paths: []
   }
 })
 
