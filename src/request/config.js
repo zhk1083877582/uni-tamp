@@ -1,4 +1,3 @@
-import 'config'
 import dt from '@dt/dt';
 
 export default {

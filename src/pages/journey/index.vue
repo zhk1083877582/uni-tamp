@@ -4,11 +4,13 @@
 
     <!-- 搜索小程序进入 -->
     <view class="home_banner" v-if="!HasToken">
-      <u-swiper :list="bannerList" height="813" mode="dot" img-mode='aspectFit'
-        border-radius='24' :autoplay="autoplay"></u-swiper>
-      <view class="login_btn">
-        <u-button shape="circle" @click="doGoLoginPage">开启购房旅程</u-button>
-      </view>
+      <swiper style="height: 813rpx;" indicator-dots :autoplay="autoplay">
+        <swiper-item v-for="(item,index) in bannerList" :key="index">
+          <image style="height: 813rpx;border-radius=24rpx;width: 100%;margin: auto;"
+            :src="item.image" mode="aspectFit" />
+        </swiper-item>
+      </swiper>
+      <button class="login_btn" @click="doGoLoginPage">开启购房旅程</button>
     </view>
 
     <!-- 置业旅程主体 -->
@@ -62,10 +64,10 @@
                         </view> -->
                       </view>
                       <view class="price_details">
-                        {{$formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}
+                        {{formatter.AveragePrice(item.reportBuildingIntro.referenceAveragePriceType,item.reportBuildingIntro.referenceAveragePrice,item.reportBuildingIntro.referenceAveragePriceMax)}}
                       </view>
                       <view class="address_details">
-                        {{$formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}
+                        {{formatter.formatArea(item.reportBuildingIntro.referenceBuildAreaMin, item.reportBuildingIntro.referenceBuildAreaMax)}}
                       </view>
                       <view class="address_details">
                         <text>{{item.reportBuildingIntro.areaName}}<text
@@ -94,11 +96,11 @@
                       <view
                         v-if="item.recommendation!=null&&JSON.stringify(item.recommendation) != '[]'">
 
-                        <u-tabs name='tableTitle' :list="item.recommendation" :is-scroll="true"
-                          :current="currentPlan" @change="changePlanTab" active-color="#062471"
-                          inactive-color="#999999" font-size="30" bar-width='40' bar-height='6'
-                          bg-color='transparent'>
-                        </u-tabs>
+                        <dt-tab :tabs="item.recommendation" isScroll
+                          tab-class="dt-text-tab-class"
+                          tab-class-active="dt-text-tab-class dt-text-tab-active-class"
+                          v-model="currentPlan" @change="changePlanTab">
+                        </dt-tab>
 
                         <swiper :style="{'height':swiperHeightPlan}" :current='currPlan'
                           :autoplay="autoplay" :circular='autoplay' @change="changeSwipePlan">
@@ -184,7 +186,7 @@
                             <text class="georama"></text>
                             <view class="list_top_title">
                               <view class="time_text">
-                                看房时间：{{itemL.createTime?$tool.DataFormatIos(itemL.createTime):'-'}}
+                                看房时间：{{itemL.createTime?.split(' ')[0] ?? '-'}}
                               </view>
                               <view class="keeper_msg" :id="itemL.userId"
                                 @click="e=>tohouseKeeper(e,itemL)">
@@ -255,12 +257,16 @@
 </template>
 
 <script>
-  // import {mockData} from './mock.js';
   import { getData } from '@/request/api'
+  import dtTab from '__com/dt/dt-tab.vue'
+  import dt from "@dt/dt"
   export default {
-    components: {},
+    components: {
+      dtTab
+    },
     data() {
       return {
+        formatter: dt.tool.formatter,
         HasToken: false, //搜索小程序进入主页判断是否登录，登录展示置业报告首页，未登录展示banner图
         ishowbuilding: true,
         // ishowPlan:true,
@@ -321,9 +327,9 @@
           content: '退出登录后将无法查看订单，重新登录即可查看',
           success(res) {
             if (res.confirm) {
-              _this.$cache.removeCache('dt_wx_auth')
-              _this.$cache.removeCache('isPhoneLogin')
-              _this.$cache.removeCache('Login-Data')
+              dt.storage.remove('dt_wx_auth')
+              dt.storage.remove('isPhoneLogin')
+              dt.storage.remove('Login-Data')
               _this.HasToken = false
             }
           },
@@ -334,7 +340,7 @@
 
       //去webview
       goWebView(routeName, routeParams, toPath) {
-        let mWebSite = this.$tool.getOtherWebSite() //获取跳转域名
+        let mWebSite = dt.env.webUrl //获取跳转域名
         let pathParams = '' //获取路由参数
         routeParams = routeParams || {}
         Object.keys(routeParams).forEach((keyStr, index) => {
@@ -343,11 +349,11 @@
             `&${keyStr}=${routeParams[keyStr]}` :
             `${keyStr}=${routeParams[keyStr]}`
         })
-        if (this.$cache.getCache('toMWebpath')) {
-          this.$cache.removeCache('toMWebpath')
+        if (dt.storage.get('toMWebpath')) {
+          dt.storage.remove('toMWebpath')
         }
-        this.$cache.setCache('toMWebpath', {
-          toMWebpath: toPath || `${mWebSite}${routeName}?${pathParams}`,
+        dt.storage.set('toMWebpath', {
+          toMWebpath: toPath || `${mWebSite}/${routeName}?${pathParams}`,
         })
         uni.navigateTo({
           url: '/pagesHouse/webView/webView',
@@ -355,7 +361,7 @@
       },
       handlePropertyType(key) {
         if (key == '') return
-        return this.$formatter.switchName('propertyType', key)
+        return this.formatter.switchName('propertyType', key)
       },
       //登录
       doGoLoginPage() {
@@ -482,8 +488,7 @@
               console.log(itemR)
               itemR.recommendation &&
                 itemR.recommendation.forEach((itemY, indexY) => {
-                  itemY.tableTitle =
-                    '方案' + this.$tool.Arabia_To_SimplifiedChinese(indexY + 1)
+                  itemY.title = `方案${indexY + 1}`
                 })
 
               //判断是否有方案推荐
@@ -550,26 +555,26 @@
     created() {},
 
     onLoad(option) {
-      console.log('-----首页', this.$cache.getCache('dt_wx_auth'))
-      this.$dt.biz.auth.getInfo().then(res => {
+      console.log('-----首页', dt.storage.get('dt_wx_auth'))
+      dt.biz.auth.getInfo().then(res => {
         this.userInfo = res.userInfo
         console.log(res)
       })
-      let customerId = this.$cache.getCache('Login-Data').customerInfo ?
-        this.$cache.getCache('Login-Data').customerInfo.customerId :
+      let customerId = dt.storage.get('Login-Data').customerInfo ?
+        dt.storage.get('Login-Data').customerInfo.customerId :
         ''
-      // this.userPhone = this.$cache.getCache('Login-Data').customerInfo
-      //   ? this.$cache.getCache('Login-Data').customerInfo.phone
+      // this.userPhone = dt.storage.get('Login-Data').customerInfo
+      //   ? dt.storage.get('Login-Data').customerInfo.phone
       //   : ''
-      let openid = this.$cache.getCache('dt_wx_auth').openid ?
-        this.$cache.getCache('dt_wx_auth').openid :
+      let openid = dt.storage.get('dt_wx_auth').openid ?
+        dt.storage.get('dt_wx_auth').openid :
         ''
-      let unionid = this.$cache.getCache('dt_wx_auth').unionid ?
-        this.$cache.getCache('dt_wx_auth').unionid :
+      let unionid = dt.storage.get('dt_wx_auth').unionid ?
+        dt.storage.get('dt_wx_auth').unionid :
         ''
       this.HasToken =
-        this.$cache.getCache('dt_wx_auth') ||
-        this.$cache.getCache('Login-Data') ?
+        dt.storage.get('dt_wx_auth') ||
+        dt.storage.get('Login-Data') ?
         true :
         false
       if ((openid && unionid) || customerId) {
@@ -590,38 +595,26 @@
 </style>
 <style lang='scss' scoped>
   .journey_ownership_warp {
-    // background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
     height: 100%;
 
     .home_banner {
-      /* height: 813rpx; */
-      width: 600rpx;
-      margin: 0 auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -54%);
+      margin-top: 180rpx;
 
       .login_btn {
-        display: flex;
-        justify-content: center;
-        padding-top: 72rpx;
-        background: transparen;
-
-        ::v-deep .u-btn {
-          background: linear-gradient(180deg, #ffeda8, #ffce89);
-          padding: 31rpx 113rpx;
-          color: #062471;
-          font-size: 36rpx;
-          font-weight: 600;
-          height: auto;
-          line-height: 36rpx;
-        }
+        margin-top: 72rpx;
+        background: linear-gradient(180deg, #ffeda8, #ffce89);
+        /* padding: 31rpx 113rpx; */
+        color: #062471;
+        font-size: 36rpx;
+        font-weight: 600;
+        height: 100rpx;
+        line-height: 100rpx;
+        width: 450rpx;
+        border-radius: 50rpx;
       }
     }
 
     .journey_ownership {
-      // background: linear-gradient(181deg, #0a2056, #0d255f, #062471 99%);
 
       .user_msg {
         display: flex;

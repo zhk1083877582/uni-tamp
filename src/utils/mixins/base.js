@@ -1,6 +1,7 @@
 import {
   getData
 } from '@/request/api';
+import dt from "@dt/dt"
 export default {
   data() {
     return {
@@ -111,7 +112,7 @@ export default {
 
     //客户足迹
     if (this.CustomerTrack.operateType == '1') {
-      let userInfo = this.$dt.biz.auth.getInfoSync()
+      let userInfo = dt.biz.auth.getInfoSync()
       let { avatarUrl, nickName } = userInfo.userInfo || {}
       CustomerTrackShareType = '1'
       this.addCustomerTrack({

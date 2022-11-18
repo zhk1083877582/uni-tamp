@@ -1,9 +1,7 @@
-import Vue from 'vue'
 import axios from 'axios' // 注意先安装哦
 import config from './config.js' // 倒入默认配置
 import tool from "@/request/tool.js"
-import cache from "@/request/cache.js"
-import encryptList from "@/request/encrypt.js"
+import dt from "@dt/dt"
 //import qs from "qs"
  const instance = axios.create({
       // baseURL: config.baseURL,
@@ -86,7 +84,7 @@ import encryptList from "@/request/encrypt.js"
 		 // }
 		 // 根据返回的code值来做不同的处理（和后端约定）
 		 if(data.code == 200){
-		   data = !instance.prototype.ifEncrypt?encryptList.Decrypt(data.data): data.data;
+		   data = data.data;
 		   if(data && !instance.prototype.ifEncrypt)data = data
 		   return data
 		 }else{
@@ -124,8 +122,8 @@ import encryptList from "@/request/encrypt.js"
 							// 	url: '/pages/journey/index'
 							// });
 							// showToast("未授权，请登录");
-				cache.removeCache('isPhoneLogin');
-				cache.removeCache('Login-Data');
+				dt.storage.remove('isPhoneLogin');
+				dt.storage.remove('Login-Data');
 				return Promise.reject(err.response) // 返回接口返回的错误信息
               err.message = false;
               break
@@ -195,7 +193,7 @@ let apiRequest =function(instance){
   this.handleDate = function(data,ifEncrypt){
     let l = tool.extend({},data,commonParams);
     ifEncrypt?this.instance.prototype.ifEncrypt = true:this.instance.prototype.ifEncrypt = false;
-    return !ifEncrypt?encryptList.Encrypt(l):l;
+    return l;
   }
 }
 apiRequest.prototype.$post = function(url,data={},ifEncrypt){
@@ -218,25 +216,6 @@ apiRequest.prototype.$get = function(url,data={}){
   return this.instance.get(url,data)
 }
 export const apiRequestList = new apiRequest(instance);
-
-Vue.use({
-  install(vue, apiRequestList) {
-    Vue.prototype.$post = function (url,requireData, isUpdate) {
-      return apiRequestList.$post(url,requireData) 
-    };
-    Vue.prototype.$get = function (requireData, isUpdate) {
-      return apiRequestList.$get(url,requireData) 
-    };
-    Vue.prototype.$upload = function (requireData) {
-      return _axios(tool.extend({
-        cancelToken: new axios.CancelToken(requireData.unloadCancelBack)
-      }, requireData))
-    };
-		
-		
-		
-  }
-},apiRequestList);
 
 function showToast(data) {
 	uni.showToast({

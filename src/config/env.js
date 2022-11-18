@@ -1,41 +1,34 @@
-/*
- * @Descripttion: Do not Edit
- * @version: 
- * @Author: mmzhang
- * @Date: 2021-09-03 10:21:17
- * @LastEditTime: 2021-09-06 09:27:26
- */
 import dt from '@dt/dt';
 
+const env = {
+  dev: {
+    dtUrl: 'http://172.16.1.126:8100',
+    webUrl: 'https://dtweb.tospurfang.com',
+  },
+  test: {
+    dtUrl: 'https://dtwgwtest.tospur.com',
+    webUrl: 'https://dtwebtest.tospur.com'
+  },
+  uat: {
+    dtUrl: 'https://dtgwuat-new.tospurfang.com',
+    webUrl: 'https://dtwebuat-new.tospurfang.com'
+  },
+  prod: {
+    dtUrl: 'https://dtgw.tospurfang.com',
+    webUrl: 'https://dtweb.tospurfang.com'
+  }
+}
+
 let config = {
-  dtUrl: 'http://172.16.1.126:8100',
   id: 36,
-  name: 'DT-XCX',
-  version: '__version__',
-  buildTime: '__build_time__',
-  env: '__env__'
+  name: 'DT-NOTE',
+  version: import.meta.env.VITE_BUILD_VERSION,
+  buildTime: import.meta.env.VITE_BUILD_DATE,
+  env: import.meta.env.VITE_ENV
 }
 
-if (process.env.NODE_ENV == 'development') {
-  config.dtUrl = 'https://dtwgwtest.tospur.com'
-  // config.dtUrl = 'https://dtgwuat-new.tospurfang.com'
-  // config.dtUrl = 'https://dtgw.tospurfang.com'
+if (import.meta.env.DEV) {
+  Object.assign(dt.env, config, env.uat)
+} else {
+  Object.assign(dt.env, config, env[import.meta.env.VITE_ENV])
 }
-
-let dev = {}
-
-let test = {
-  dtUrl: 'https://dtwgwtest.tospur.com',
-}
-
-let uat = {
-  dtUrl: 'https://dtgwuat-new.tospurfang.com',
-}
-
-let prod = {
-  dtUrl: 'https://dtgw.tospurfang.com',
-}
-
-Object.assign(config, __env__)
-Object.assign(dt.env, config)
-console.log(dt)
