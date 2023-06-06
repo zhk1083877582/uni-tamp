@@ -1,4 +1,4 @@
-import server from '@dt/server/dt';
+import server from '@zhaohuakui/server/index'
 import DtDelegate from './DtDelegate.js'
 import dt from '@dt/dt'
 import Fly from 'flyio/dist/npm/wx'

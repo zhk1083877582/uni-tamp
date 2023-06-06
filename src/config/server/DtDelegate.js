@@ -1,7 +1,6 @@
-import Delegate from '@dt/server/base/Delegate';
+import Delegate from '@zhaohuakui/server/base/Delegate'
 
 class DtDelegate extends Delegate {
-
   auth() {
     return Promise.reject(new Error('暂未登录'))
   }

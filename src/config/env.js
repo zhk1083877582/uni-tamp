@@ -1,17 +1,17 @@
-import dt from '@dt/dt';
+import dt from '@dt/dt'
 
 const env = {
   dev: {
-    dtUrl: 'http://172.16.1.126:8100',
+    dtUrl: 'http://172.16.1.126:8100'
   },
   test: {
-    dtUrl: 'https://dtwgwtest.tospur.com',
+    dtUrl: 'https://dtwgwtest.tospur.com'
   },
   uat: {
-    dtUrl: 'https://dtgwuat-new.tospurfang.com',
+    dtUrl: 'https://dtgwuat-new.tospurfang.com'
   },
   prod: {
-    dtUrl: 'https://dtgw.tospurfang.com',
+    dtUrl: 'https://dtgw.tospurfang.com'
   }
 }
 
@@ -28,3 +28,4 @@ if (import.meta.env.DEV) {
 } else {
   Object.assign(dt.env, config, env[import.meta.env.VITE_ENV])
 }
+console.log(dt)

@@ -1,12 +1,5 @@
-/*
- * @Descripttion: Do not Edit
- * @version: 
- * @Author: mmzhang
- * @Date: 2021-09-02 16:03:15
- * @LastEditTime: 2021-09-03 10:21:48
- */
-import Auth from '@dt/server/base/Auth.js';
-import dt from '@dt/dt';
+import Auth from '@zhaohuakui/server/base/Auth.js'
+import dt from '@dt/dt'
 
 class DtAuth extends Auth {
   constructor(delegate) {
