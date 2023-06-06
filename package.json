@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@dt/page": "6.1.18",
-    "@dt/server": "2.4.1",
+    "@zhaohuakui/server": "1.0.5",
     "moment": "^2.27.0"
   },
   "devDependencies": {
